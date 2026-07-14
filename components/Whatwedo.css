@@ -1,0 +1,292 @@
+/* Mega menu for the "What We Do" nav item. Scoped with a wcf-megamenu prefix
+   so it can't collide with the vendor Elementor/WCF classes loaded globally. */
+
+.wcf-megamenu {
+  position: relative;
+}
+
+.wcf-megamenu__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.wcf-megamenu__chevron {
+  font-size: 0.7em;
+  transition: transform 220ms ease;
+}
+
+.wcf-megamenu__chevron.is-open {
+  transform: rotate(180deg);
+}
+
+/* ---------- Desktop panel ----------
+   Portaled to document.body so it can never be clipped/mispositioned by the
+   off-canvas mobile nav container or any transformed ancestor (e.g. GSAP
+   ScrollSmoother's #smooth-content). Position is computed in JS from the
+   trigger's bounding rect and applied as inline top/left. */
+
+.wcf-megamenu__panel-position {
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+@media (min-width: 1025px) {
+  .wcf-megamenu__panel-position.is-open {
+    pointer-events: auto;
+  }
+}
+
+.wcf-megamenu__panel {
+  width: min(1100px, 92vw);
+  max-height: 80vh;
+  overflow-y: auto;
+  display: none;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px -20px rgba(15, 23, 42, 0.35), 0 4px 16px rgba(15, 23, 42, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 250ms ease, transform 250ms ease, visibility 0s linear 250ms;
+}
+
+@media (min-width: 1025px) {
+  .wcf-megamenu__panel {
+    display: flex;
+    margin-top: 18px;
+  }
+
+  .wcf-megamenu__panel.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 250ms ease, transform 250ms ease, visibility 0s linear 0s;
+  }
+}
+
+.wcf-megamenu__sidebar {
+  flex: 0 0 300px;
+  border-right: 1px solid #eef0f4;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wcf-megamenu__sidebar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #1f2937;
+  transition: background-color 200ms ease;
+}
+
+.wcf-megamenu__sidebar-item.is-active,
+.wcf-megamenu__sidebar-item:hover,
+.wcf-megamenu__sidebar-item:focus-visible {
+  background-color: #f2f6fd;
+  outline: none;
+}
+
+.wcf-megamenu__sidebar-icon {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #eaf1ff;
+  color: #1d4ed8;
+  font-size: 1rem;
+}
+
+.wcf-megamenu__sidebar-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+}
+
+.wcf-megamenu__sidebar-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.wcf-megamenu__sidebar-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  line-height: 1.35;
+}
+
+.wcf-megamenu__sidebar-arrow {
+  align-self: center;
+  color: #1d4ed8;
+  flex: 0 0 auto;
+}
+
+.wcf-megamenu__content {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+  padding: 28px 32px;
+  animation: wcfMegamenuContentFade 220ms ease;
+}
+
+@keyframes wcfMegamenuContentFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.wcf-megamenu__column-heading {
+  margin: 0 0 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1d4ed8;
+}
+
+.wcf-megamenu__column-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wcf-megamenu__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+  transition: background-color 200ms ease;
+}
+
+.wcf-megamenu__item:hover,
+.wcf-megamenu__item:focus-visible {
+  background-color: #f5f7fb;
+  outline: none;
+}
+
+.wcf-megamenu__item-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.wcf-megamenu__item-desc {
+  font-size: 0.78rem;
+  color: #6b7280;
+  line-height: 1.35;
+}
+
+.wcf-megamenu__sublinks {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0 0 0 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.wcf-megamenu__sublinks a {
+  font-size: 0.8rem;
+  color: #374151;
+  text-decoration: none;
+}
+
+.wcf-megamenu__sublinks a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* ---------- Mobile accordion ---------- */
+
+.wcf-megamenu__mobile {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .wcf-megamenu__mobile {
+    display: block;
+  }
+
+  .wcf-megamenu__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .wcf-megamenu__accordion-panel-inner--top {
+    gap: 0;
+    padding: 0;
+  }
+
+  .wcf-megamenu__accordion-item {
+    border-bottom: 1px solid #eef0f4;
+  }
+
+  .wcf-megamenu__accordion-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 4px;
+    background: none;
+    border: none;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    color: #111827;
+  }
+
+  .wcf-megamenu__accordion-trigger .wcf-megamenu__sidebar-title {
+    flex: 1 1 auto;
+  }
+
+  .wcf-megamenu__accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 250ms ease;
+  }
+
+  .wcf-megamenu__accordion-panel.is-open {
+    grid-template-rows: 1fr;
+  }
+
+  .wcf-megamenu__accordion-panel-inner {
+    overflow: hidden;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 4px 16px 50px;
+  }
+
+  .wcf-megamenu__mobile .wcf-megamenu__item-desc {
+    display: none;
+  }
+}

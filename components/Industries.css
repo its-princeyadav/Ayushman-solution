@@ -1,0 +1,226 @@
+/* Mega menu for the "Industries" nav item. Scoped with a wcf-industries prefix
+   so it can't collide with the vendor Elementor/WCF classes loaded globally. */
+
+.wcf-industries {
+  position: relative;
+}
+
+.wcf-industries__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.wcf-industries__chevron {
+  font-size: 0.7em;
+  transition: transform 220ms ease;
+}
+
+.wcf-industries__chevron.is-open {
+  transform: rotate(180deg);
+}
+
+/* ---------- Desktop panel ----------
+   Portaled to document.body (same rationale as the "What We Do" mega menu)
+   so it is never clipped or mispositioned by the off-canvas mobile nav
+   container or the ScrollSmoother wrapper. Position is computed in JS from
+   the trigger's bounding rect and applied as inline top/left. */
+
+.wcf-industries__panel-position {
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+@media (min-width: 1025px) {
+  .wcf-industries__panel-position.is-open {
+    pointer-events: auto;
+  }
+}
+
+.wcf-industries__panel {
+  width: min(1140px, 92vw);
+  max-height: 80vh;
+  overflow-y: auto;
+  display: none;
+  background: linear-gradient(180deg, #fdf6f4 0%, #fbf1ee 100%);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px -20px rgba(15, 23, 42, 0.35), 0 4px 16px rgba(15, 23, 42, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 250ms ease, transform 250ms ease, visibility 0s linear 250ms;
+}
+
+@media (min-width: 1025px) {
+  .wcf-industries__panel {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 28px;
+    margin-top: 18px;
+  }
+
+  .wcf-industries__panel.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 250ms ease, transform 250ms ease, visibility 0s linear 0s;
+  }
+}
+
+.wcf-industries__intro {
+  flex: 0 0 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 24px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.18);
+  transition: box-shadow 200ms ease, transform 200ms ease;
+  position: relative;
+}
+
+.wcf-industries__intro:hover,
+.wcf-industries__intro:focus-visible {
+  box-shadow: 0 16px 36px -12px rgba(15, 23, 42, 0.26);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.wcf-industries__intro-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #e6f4ea;
+  color: #2f9e58;
+  font-size: 1.1rem;
+}
+
+.wcf-industries__intro-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #14304f;
+}
+
+.wcf-industries__intro-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #5b6472;
+}
+
+.wcf-industries__intro-arrow {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: #1d4ed8;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.wcf-industries__intro:hover .wcf-industries__intro-arrow,
+.wcf-industries__intro:focus-visible .wcf-industries__intro-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.wcf-industries__grid {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 32px;
+  padding: 8px 12px;
+  animation: wcfIndustriesGridFade 220ms ease;
+}
+
+@keyframes wcfIndustriesGridFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.wcf-industries__column {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wcf-industries__item {
+  display: block;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #14304f;
+  border-radius: 8px;
+  padding: 9px 10px;
+  margin: 0 -10px;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.wcf-industries__item:hover,
+.wcf-industries__item:focus-visible {
+  background-color: rgba(29, 78, 216, 0.08);
+  color: #1d4ed8;
+  outline: none;
+}
+
+/* ---------- Mobile accordion ---------- */
+
+.wcf-industries__mobile {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .wcf-industries__mobile {
+    display: block;
+  }
+
+  .wcf-industries__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .wcf-industries__accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 250ms ease;
+  }
+
+  .wcf-industries__accordion-panel.is-open {
+    grid-template-rows: 1fr;
+  }
+
+  .wcf-industries__accordion-panel-inner {
+    overflow: hidden;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 4px 16px 12px;
+  }
+
+  .wcf-industries__mobile .wcf-industries__item {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+}

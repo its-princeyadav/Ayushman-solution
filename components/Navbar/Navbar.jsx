@@ -1,4 +1,7 @@
 import { FaAngleDown, FaArrowLeft, FaBars, FaTimes, FaWindowClose, FaSearch, FaPhone } from "react-icons/fa";
+import Whatwedo from "../Whatwedo";
+import Industries from "../Industries";
+import OurWork from "../Our-work/Our-work";
 export default function Navbar() {
   return (
     <div className="elementor-element elementor-element-e072e0e e-con-full e-flex wcf-starter-animations-none e-con e-parent" data-id="e072e0e" data-element_type="container" data-e-type="container" data-settings="{&quot;wcf_enable_cursor_hover_effect_text&quot;:&quot;View&quot;,&quot;wcf-animation&quot;:&quot;none&quot;,&quot;wcf_enable_pin_area&quot;:&quot;no&quot;,&quot;aae_enable_header_sticky_area&quot;:&quot;no&quot;,&quot;wcf_enable_horizontal_scroll&quot;:&quot;no&quot;}">
@@ -26,15 +29,9 @@ export default function Navbar() {
               </button>
               <div className="wcf-nav-menu-container">
                 <ul id="menu-mega-menu" className="wcf-nav-menu-nav menu-layout-horizontal">
-                  <li id="menu-item-8637" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-8637">
-                    <a href="#" className="wcf-nav-item">What We Do</a>
-                  </li>
-                  <li id="menu-item-8697" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-8697">
-                    <a href="#" className="wcf-nav-item">Industries</a>
-                  </li>
-                  <li id="menu-item-8707" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-8707">
-                    <a href="#" className="wcf-nav-item">Our Work</a>
-                  </li>
+                  <Whatwedo />
+                  <Industries />
+                  <OurWork />
                   <li id="menu-item-8727" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-8727">
                     <a href="#" className="wcf-nav-item">Who We Are</a>
                   </li>
