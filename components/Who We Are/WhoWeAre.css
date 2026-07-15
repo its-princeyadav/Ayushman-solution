@@ -1,0 +1,670 @@
+/* Styles for the "Who We Are" page (components/Who We Are/WhoWeAre.jsx).
+   Pure CSS, no framework. Animation timings kept in the 250-400ms range
+   per the design spec, using simple ease transitions. */
+
+.wwa-section-head {
+  max-width: 640px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.wwa-section-head h2 {
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  color: #14304f;
+  margin: 0 0 12px;
+}
+
+.wwa-section-head p {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ==================== Section 1: Hero ==================== */
+
+.wwa-hero {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+}
+
+.wwa-hero__image {
+  width: 100%;
+  height: clamp(280px, 40vw, 560px);
+  object-fit: cover;
+  display: block;
+  animation: wwaFadeIn 500ms ease;
+}
+
+.wwa-hero__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.15) 0%, rgba(15, 23, 42, 0.45) 100%);
+  animation: wwaFadeIn 500ms ease;
+}
+
+.wwa-hero__eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.wwa-hero__heading {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.wwa-hero__subheading {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 640px;
+  margin: 0;
+}
+
+/* ==================== Section 2: Intro ==================== */
+
+.wwa-intro {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, #eef8f1 0%, #ffffff 60%);
+}
+
+.wwa-intro__inner {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  animation: wwaSlideUp 400ms ease;
+}
+
+.wwa-intro__heading {
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  color: #14304f;
+  margin: 0 0 28px;
+}
+
+.wwa-intro__paragraph {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #4b5563;
+  margin: 0 0 20px;
+}
+
+.wwa-intro__paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* ==================== Section 3: Leadership ==================== */
+
+.wwa-leadership {
+  padding: 80px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.wwa-leadership__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.wwa-leader {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 10px 30px -16px rgba(15, 23, 42, 0.35);
+  animation: wwaFadeIn 400ms ease;
+}
+
+.wwa-leader__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 400ms ease;
+}
+
+.wwa-leader:hover .wwa-leader__photo {
+  transform: scale(1.05);
+}
+
+.wwa-leader__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(20, 48, 79, 0) 45%, rgba(20, 48, 79, 0.88) 100%);
+  transition: background 350ms ease, justify-content 350ms ease;
+}
+
+.wwa-leader__overlay.is-active {
+  background: rgba(20, 48, 79, 0.93);
+  justify-content: flex-start;
+}
+
+.wwa-leader__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wwa-leader__name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+
+.wwa-leader__title {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.wwa-leader__bio {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.85rem;
+  line-height: 1.65;
+  margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(8px);
+  transition: max-height 400ms ease, opacity 300ms ease, transform 350ms ease;
+}
+
+.wwa-leader__overlay.is-active .wwa-leader__bio {
+  max-height: 420px;
+  opacity: 1;
+  transform: none;
+  transition: max-height 400ms ease, opacity 350ms ease 80ms, transform 400ms ease 80ms;
+}
+
+.wwa-leader__linkedin {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #0a66c2;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: transform 250ms ease;
+}
+
+.wwa-leader__linkedin:hover,
+.wwa-leader__linkedin:focus-visible {
+  transform: scale(1.1);
+  outline: none;
+}
+
+/* ==================== Section 4: Business Impact Statistics + Client Logos ==================== */
+
+.wwa-impact {
+  --wwa-ring: #fde3da;
+  --wwa-blue: #1d4ed8;
+  --wwa-navy: #14304f;
+  --wwa-orange: #e15a3e;
+  --wwa-node-bg: #eaf1ff;
+  --wwa-muted: #4b5563;
+  padding: 80px 24px;
+  background: #ffffff;
+}
+
+.wwa-impact__grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(320px, 560px) 1fr;
+  align-items: center;
+  gap: clamp(32px, 6vw, 72px);
+}
+
+/* ---- Left: circular infographic ---- */
+
+.wwa-impact__graphic {
+  position: relative;
+  width: min(560px, 100%);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
+.wwa-impact__connectors {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.wwa-impact__connectors path {
+  fill: none;
+  stroke: #c9d3e0;
+  stroke-width: 0.6;
+  stroke-dasharray: 2.2 2.2;
+  opacity: 0;
+  transition: opacity 500ms ease 300ms;
+}
+
+.wwa-impact__grid.is-visible .wwa-impact__connectors path {
+  opacity: 1;
+}
+
+.wwa-impact__circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  width: 68%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 18px solid var(--wwa-ring);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 10%;
+  background: #ffffff;
+  box-shadow: 0 20px 50px -24px rgba(15, 23, 42, 0.3);
+  opacity: 0;
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.wwa-impact__grid.is-visible .wwa-impact__circle {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.wwa-impact__circle-title {
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  color: var(--wwa-navy);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.wwa-impact__badge {
+  display: inline-block;
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: var(--wwa-blue);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.wwa-impact__metric {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: var(--wwa-orange);
+  line-height: 1;
+}
+
+.wwa-impact__metric-label {
+  font-size: 0.9rem;
+  color: var(--wwa-muted);
+  max-width: 200px;
+}
+
+.wwa-impact__node {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 96px;
+  opacity: 0;
+  transition: opacity 450ms ease, transform 450ms ease;
+}
+
+.wwa-impact__node--erp {
+  top: 20%;
+  left: -2%;
+  transform: translate(-10%, -30%);
+}
+
+.wwa-impact__node--cloud {
+  bottom: 6%;
+  left: -2%;
+  transform: translate(-10%, 30%);
+}
+
+.wwa-impact__node--crm {
+  top: 20%;
+  right: -2%;
+  transform: translate(10%, -30%);
+}
+
+.wwa-impact__node--analytics {
+  bottom: 6%;
+  right: -2%;
+  transform: translate(10%, 30%);
+}
+
+.wwa-impact__grid.is-visible .wwa-impact__node {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.wwa-impact__node-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  background: var(--wwa-node-bg);
+  color: var(--wwa-blue);
+  box-shadow: 0 8px 20px -10px rgba(29, 78, 216, 0.4);
+  animation: wwaFloat 3.6s ease-in-out infinite;
+}
+
+.wwa-impact__node-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--wwa-navy);
+}
+
+/* ---- Right: client logo wall ---- */
+
+.wwa-impact__logos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.wwa-impact__logo-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 84px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #eef0f4;
+  opacity: 0;
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+}
+
+.wwa-impact__grid.is-visible .wwa-impact__logo-card {
+  animation: wwaCardIn 450ms ease forwards;
+}
+
+.wwa-impact__logo-card:hover,
+.wwa-impact__logo-card:focus-visible {
+  transform: scale(1.06) translateY(-4px);
+  box-shadow: 0 18px 34px -18px rgba(15, 23, 42, 0.3);
+  border-color: #dbe4f5;
+  outline: none;
+}
+
+.wwa-impact__logo-card img {
+  max-width: 100%;
+  max-height: 44px;
+  object-fit: contain;
+}
+
+.wwa-impact__logo-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--wwa-navy);
+  text-align: center;
+}
+
+/* ==================== Section 6: Technology Partners ==================== */
+
+.wwa-partners {
+  padding: 96px 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.wwa-partners__head h2 {
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: #0f2743;
+  line-height: 1.1;
+}
+
+.wwa-partners__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  justify-content: center;
+}
+
+.wwa-partners__card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+  min-height: 400px;
+  margin: 0 auto;
+  border-radius: 0;
+  background: linear-gradient(180deg, #eef4ff 0%, #f8fbff 100%);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.wwa-partners__card:hover,
+.wwa-partners__card:focus-visible {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 28px 56px -22px rgba(15, 23, 42, 0.35);
+  outline: none;
+}
+
+.wwa-partners__logo-zone {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 32px 28px;
+}
+
+.wwa-partners__logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  width: 100%;
+}
+
+.wwa-partners__logos img {
+  max-width: 260px;
+  max-height: 84px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.wwa-partners__logo-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #14304f;
+}
+
+.wwa-partners__note {
+  font-size: 0.82rem;
+  color: #6b7280;
+  line-height: 1.55;
+  text-align: center;
+  max-width: 280px;
+  margin: 0;
+}
+
+.wwa-partners__teaser {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1d4ed8;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 280px;
+  margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(6px);
+  transition: max-height 350ms ease, opacity 300ms ease, transform 350ms ease, margin 350ms ease;
+}
+
+.wwa-partners__card:hover .wwa-partners__teaser,
+.wwa-partners__card:focus-visible .wwa-partners__teaser {
+  max-height: 120px;
+  opacity: 1;
+  transform: none;
+  margin-top: 4px;
+}
+
+.wwa-partners__label {
+  flex: 0 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1d4ed8;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: background-color 300ms ease;
+}
+
+.wwa-partners__card:hover .wwa-partners__label,
+.wwa-partners__card:focus-visible .wwa-partners__label {
+  background: #163ec2;
+}
+
+/* ==================== Shared animations ==================== */
+
+@keyframes wwaFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes wwaSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes wwaFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes wwaCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==================== Responsive ==================== */
+
+@media (max-width: 1024px) {
+  .wwa-impact__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wwa-impact__graphic {
+    margin: 0 auto 24px;
+  }
+
+  .wwa-partners__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .wwa-leadership,
+  .wwa-impact,
+  .wwa-partners,
+  .wwa-intro {
+    padding: 56px 20px;
+  }
+
+  .wwa-leadership__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wwa-impact__graphic {
+    width: min(420px, 100%);
+  }
+
+  .wwa-impact__node {
+    width: 72px;
+  }
+
+  .wwa-impact__node-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.1rem;
+  }
+
+  .wwa-impact__node-label {
+    font-size: 0.68rem;
+  }
+
+  .wwa-impact__logos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .wwa-partners__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wwa-partners__card {
+    min-height: 340px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .wwa-impact__logos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

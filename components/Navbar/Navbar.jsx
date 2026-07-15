@@ -33,7 +33,7 @@ export default function Navbar() {
                   <Industries />
                   <OurWork />
                   <li id="menu-item-8727" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-8727">
-                    <a href="#" className="wcf-nav-item">Who We Are</a>
+                    <a href="/who-we-are" className="wcf-nav-item">Who We Are</a>
                   </li>
                   <li id="menu-item-8763" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-8763">
                     <a href="#" className="wcf-nav-item">Careers</a>
