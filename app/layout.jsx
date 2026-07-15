@@ -39,8 +39,6 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" id="widget-accordion-css" href="/assets/css/custom-widget-accordion.min.css" media="all" />
         <link rel="stylesheet" id="wcf--posts-css" href="/assets/css/posts.min.css" media="all" />
         <link rel="stylesheet" id="elementor-post-6-css" href="/assets/css/post-6.css" media="all" />
-        <link rel="stylesheet" id="elementor-gf-roboto-css" href="/assets/css/fonts8.css" media="all" />
-        <link rel="stylesheet" id="elementor-gf-robotoslab-css" href="/assets/css/fonts7.css" media="all" />
         <link rel="stylesheet" id="elementor-gf-teko-css" href="/assets/css/font10.css" media="all" />
         <link rel="stylesheet" id="elementor-gf-kanit-css" href="/assets/css/fonts6.css" media="all" />
       </head>
@@ -59,18 +57,7 @@ export default function RootLayout({ children }) {
         </Script>
         <Preloader />
 
-        {/* GSAP ScrollSmoother normally sets overflow:hidden (and position) on this wrapper
-            itself via ScrollSmoother.create() (its own documented required setup, not a
-            page-specific hack). That call was made by wcf-addons.min.js, a vendor script that
-            only ever existed on the original WordPress demo host and was never migrated, so
-            it never runs and this never gets applied. overflowX:hidden restores that clip, containing several
-            intentional (designer-authored, breakpoint-tuned) negative-space offsets in the page
-            CSS that were always meant to be clipped here. position:relative additionally makes
-            this the containing block for absolutely-positioned descendants (e.g. the nav's
-            mega-menu panels) that otherwise have no positioned ancestor at all and fall back to
-            the document root — overflow:hidden alone clips their paint, but doesn't stop them
-            contributing to the root's scrollable width, since that follows the containing-block
-            chain rather than the DOM/paint tree. */}
+       
         <div id="smooth-wrapper" style={{ overflowX: "hidden", position: "relative" }}>
           <div id="smooth-content">
             <div id="page" className="hfeed site">
