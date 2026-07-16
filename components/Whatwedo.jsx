@@ -170,6 +170,8 @@ const CATEGORIES = [
   },
 ];
 
+const MENU_ID = "whatwedo";
+
 export default function Whatwedo() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -190,6 +192,20 @@ export default function Whatwedo() {
     mq.addEventListener("change", handleChange);
     return () => mq.removeEventListener("change", handleChange);
   }, []);
+
+  // Mobile-only: collapse this accordion when a sibling nav submenu opens,
+  // or when the off-canvas drawer itself closes (core.js dispatches this).
+  // Desktop hover/click behaviour never touches this event, so it can't
+  // affect desktop timing.
+  useEffect(() => {
+    function handleCloseRequest(e) {
+      if (isDesktop || e.detail?.except === MENU_ID) return;
+      setIsOpen(false);
+      setMobileOpenIndex(null);
+    }
+    document.addEventListener("wcf:submenu-close-request", handleCloseRequest);
+    return () => document.removeEventListener("wcf:submenu-close-request", handleCloseRequest);
+  }, [isDesktop]);
 
   function clearCloseTimer() {
     if (closeTimerRef.current) {
@@ -336,7 +352,13 @@ export default function Whatwedo() {
         aria-expanded={isOpen}
         onClick={(e) => {
           e.preventDefault();
-          setIsOpen((open) => !open);
+          const next = !isOpen;
+          if (!isDesktop && next) {
+            document.dispatchEvent(
+              new CustomEvent("wcf:submenu-close-request", { detail: { except: MENU_ID } }),
+            );
+          }
+          setIsOpen(next);
         }}
       >
         What We Do
@@ -351,54 +373,54 @@ export default function Whatwedo() {
           there is only ever one visible "What We Do" control. */}
       <div className="wcf-megamenu__mobile">
         <div className={`wcf-megamenu__accordion-panel ${isOpen ? "is-open" : ""}`}>
-          <div className="wcf-megamenu__accordion-panel-inner wcf-megamenu__accordion-panel-inner--top">
-            {CATEGORIES.map((category, index) => {
-              const Icon = category.icon;
-              const isExpanded = mobileOpenIndex === index;
-              return (
-                <div className="wcf-megamenu__accordion-item" key={category.id}>
-                  <button
-                    type="button"
-                    className="wcf-megamenu__accordion-trigger"
-                    aria-expanded={isExpanded}
-                    onClick={() => setMobileOpenIndex(isExpanded ? null : index)}
-                  >
-                    <span className="wcf-megamenu__sidebar-icon">
-                      <Icon aria-hidden="true" />
-                    </span>
-                    <span className="wcf-megamenu__sidebar-title">{category.title}</span>
-                    <FaAngleDown aria-hidden="true" className={`wcf-megamenu__chevron ${isExpanded ? "is-open" : ""}`} />
-                  </button>
-                  <div className={`wcf-megamenu__accordion-panel ${isExpanded ? "is-open" : ""}`}>
-                    <div className="wcf-megamenu__accordion-panel-inner">
-                      {category.columns.map((column, columnIndex) => (
-                        <div className="wcf-megamenu__column" key={`${category.id}-mobile-${columnIndex}`}>
-                          {column.heading && <h4 className="wcf-megamenu__column-heading">{column.heading}</h4>}
-                          <ul className="wcf-megamenu__column-list">
-                            {column.items.map((item) => (
-                              <li key={item.title}>
-                                <a href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
-                                  <span className="wcf-megamenu__item-title">{item.title}</span>
-                                </a>
-                                {item.links && (
-                                  <ul className="wcf-megamenu__sublinks">
-                                    {item.links.map((link) => (
-                                      <li key={link.title}>
-                                        <a href={link.href} onClick={closeMenu}>{link.title}</a>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                )}
-                              </li>
-                            ))}
-                          </ul>
+          <div className="wcf-megamenu__accordion-panel-inner">
+            <div className="wcf-megamenu__accordion-panel-content wcf-megamenu__accordion-panel-content--top">
+              {CATEGORIES.map((category, index) => {
+                const isExpanded = mobileOpenIndex === index;
+                return (
+                  <div className="wcf-megamenu__accordion-item" key={category.id}>
+                    <button
+                      type="button"
+                      className="wcf-megamenu__accordion-trigger"
+                      aria-expanded={isExpanded}
+                      onClick={() => setMobileOpenIndex(isExpanded ? null : index)}
+                    >
+                      <span className="wcf-megamenu__sidebar-title">{category.title}</span>
+                      <FaAngleDown aria-hidden="true" className={`wcf-megamenu__chevron ${isExpanded ? "is-open" : ""}`} />
+                    </button>
+                    <div className={`wcf-megamenu__accordion-panel ${isExpanded ? "is-open" : ""}`}>
+                      <div className="wcf-megamenu__accordion-panel-inner">
+                        <div className="wcf-megamenu__accordion-panel-content">
+                          {category.columns.map((column, columnIndex) => (
+                            <div className="wcf-megamenu__column" key={`${category.id}-mobile-${columnIndex}`}>
+                              {column.heading && <h4 className="wcf-megamenu__column-heading">{column.heading}</h4>}
+                              <ul className="wcf-megamenu__column-list">
+                                {column.items.map((item) => (
+                                  <li key={item.title}>
+                                    <a href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
+                                      <span className="wcf-megamenu__item-title">{item.title}</span>
+                                    </a>
+                                    {item.links && (
+                                      <ul className="wcf-megamenu__sublinks">
+                                        {item.links.map((link) => (
+                                          <li key={link.title}>
+                                            <a href={link.href} onClick={closeMenu}>{link.title}</a>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    )}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

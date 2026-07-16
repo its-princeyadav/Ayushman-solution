@@ -224,9 +224,15 @@
     grid-template-rows: 1fr;
   }
 
+  /* The 0fr->1fr grid-row trick only zeroes this item's content box; its own
+     padding would still render as a sliver even at 0 height, so padding/gap
+     live on the nested -content child instead, fully inside overflow:hidden. */
   .wcf-ourwork__accordion-panel-inner {
     overflow: hidden;
     min-height: 0;
+  }
+
+  .wcf-ourwork__accordion-panel-content {
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -234,8 +240,11 @@
   }
 
   .wcf-ourwork__mobile .wcf-ourwork__item {
-    padding: 8px 10px;
+    padding: 12px 10px;
     margin: 0;
+    min-height: 44px;
+    box-sizing: border-box;
+    justify-content: center;
   }
 
   .wcf-ourwork__mobile .wcf-ourwork__item-desc {
