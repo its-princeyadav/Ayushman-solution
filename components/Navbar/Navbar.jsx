@@ -10,7 +10,7 @@ export default function Navbar() {
           <div className="elementor-widget-container">
             <div className="elementor-image">
               <a href="#" aria-label="Site Logo">
-                <img width={143} height={34} src="/assets/images/Latets-Logo.png" className="attachment-full size-full wp-image-7351" alt="" />
+                <img width={190} height={45} src="/assets/images/Latets-Logo.png" className="attachment-full size-full wp-image-7351" alt="" />
               </a>
             </div>
           </div>

@@ -1,1 +1,10 @@
-/* All page styling comes from the original stylesheets, linked directly in app/layout.jsx <head> to preserve exact cascade order. Nothing added here. */
+/* All page styling comes from the original stylesheets, linked directly in app/layout.jsx <head> to preserve exact cascade order. Nothing added here except this Navbar logo override, which needs to win over the auto-generated Elementor CSS. */
+
+/* Navbar logo: widened for stronger visual presence. width:100%/max-width caps
+   it so it never overflows the logo container at any breakpoint; height:auto
+   preserves the source image's real aspect ratio. */
+.elementor-widget-wcf--site-logo .elementor-image img {
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+}

@@ -29,12 +29,21 @@ const runOnWindowLoad = (fn) =>
     const preloaderEl = document.querySelector(".wcf-preloader");
     if (!preloaderEl) return;
 
-    runOnDomReady(() => {
-      setTimeout(() => {
-        document.body.classList.remove("wcf-preloader-active");
+    let hasCompleted = false;
+    const completePreloader = () => {
+      if (hasCompleted) return;
+      hasCompleted = true;
+
+      preloaderEl.style.transition = "opacity 220ms ease";
+      preloaderEl.style.opacity = "0";
+      document.body.classList.remove("wcf-preloader-active");
+
+      window.setTimeout(() => {
         preloaderEl.remove();
-      }, 500);
-    });
+      }, 220);
+    };
+
+    window.setTimeout(completePreloader, 2000);
   };
 
   aae_pro_preloader();
@@ -108,6 +117,30 @@ runOnDomReady(() => {
     div.hidden = true;
     smootherWrapper.appendChild(div);
   }
+});
+
+/* ================================
+   Reset open mobile mega-menu accordions (Whatwedo/Industries/OurWork)
+   whenever the off-canvas nav drawer itself closes (X button, outside tap,
+   or a plain nav link), so the next time it opens nothing is stale.
+   nav-menu.min.js toggles "wcf-nav-is-toggled" imperatively, outside
+   React's knowledge, so this observes that class instead of duplicating
+   its close conditions.
+   ================================ */
+runOnDomReady(() => {
+  const navMenu = document.querySelector(".wcf__nav-menu");
+  if (!navMenu) return;
+
+  let wasToggled = navMenu.classList.contains("wcf-nav-is-toggled");
+  new MutationObserver(() => {
+    const isToggled = navMenu.classList.contains("wcf-nav-is-toggled");
+    if (wasToggled && !isToggled) {
+      document.dispatchEvent(
+        new CustomEvent("wcf:submenu-close-request", { detail: { except: null } }),
+      );
+    }
+    wasToggled = isToggled;
+  }).observe(navMenu, { attributes: true, attributeFilter: ["class"] });
 });
 
 /* ================================

@@ -13,6 +13,8 @@ const COLUMNS = [
   INDUSTRIES.slice(COLUMN_SIZE * 2),
 ];
 
+const MENU_ID = "industries";
+
 export default function Industries() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -31,6 +33,19 @@ export default function Industries() {
     mq.addEventListener("change", handleChange);
     return () => mq.removeEventListener("change", handleChange);
   }, []);
+
+  // Mobile-only: collapse this accordion when a sibling nav submenu opens,
+  // or when the off-canvas drawer itself closes (core.js dispatches this).
+  // Desktop hover/click behaviour never touches this event, so it can't
+  // affect desktop timing.
+  useEffect(() => {
+    function handleCloseRequest(e) {
+      if (isDesktop || e.detail?.except === MENU_ID) return;
+      setIsOpen(false);
+    }
+    document.addEventListener("wcf:submenu-close-request", handleCloseRequest);
+    return () => document.removeEventListener("wcf:submenu-close-request", handleCloseRequest);
+  }, [isDesktop]);
 
   function clearCloseTimer() {
     if (closeTimerRef.current) {
@@ -148,7 +163,13 @@ export default function Industries() {
         aria-expanded={isOpen}
         onClick={(e) => {
           e.preventDefault();
-          setIsOpen((open) => !open);
+          const next = !isOpen;
+          if (!isDesktop && next) {
+            document.dispatchEvent(
+              new CustomEvent("wcf:submenu-close-request", { detail: { except: MENU_ID } }),
+            );
+          }
+          setIsOpen(next);
         }}
       >
         Industries
@@ -162,16 +183,18 @@ export default function Industries() {
       <div className="wcf-industries__mobile">
         <div className={`wcf-industries__accordion-panel ${isOpen ? "is-open" : ""}`}>
           <div className="wcf-industries__accordion-panel-inner">
-            {INDUSTRIES.map((industry) => (
-              <a
-                key={industry.slug}
-                href={`/industries/${industry.slug}`}
-                className="wcf-industries__item"
-                onClick={closeMenu}
-              >
-                {industry.shortTitle || industry.title}
-              </a>
-            ))}
+            <div className="wcf-industries__accordion-panel-content">
+              {INDUSTRIES.map((industry) => (
+                <a
+                  key={industry.slug}
+                  href={`/industries/${industry.slug}`}
+                  className="wcf-industries__item"
+                  onClick={closeMenu}
+                >
+                  {industry.shortTitle || industry.title}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -8,6 +8,8 @@ import "./Our-work.css";
 
 const COLUMNS = [OUR_WORK.slice(0, 3), OUR_WORK.slice(3, 6), OUR_WORK.slice(6, 8)];
 
+const MENU_ID = "ourwork";
+
 export default function OurWork() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -26,6 +28,19 @@ export default function OurWork() {
     mq.addEventListener("change", handleChange);
     return () => mq.removeEventListener("change", handleChange);
   }, []);
+
+  // Mobile-only: collapse this accordion when a sibling nav submenu opens,
+  // or when the off-canvas drawer itself closes (core.js dispatches this).
+  // Desktop hover/click behaviour never touches this event, so it can't
+  // affect desktop timing.
+  useEffect(() => {
+    function handleCloseRequest(e) {
+      if (isDesktop || e.detail?.except === MENU_ID) return;
+      setIsOpen(false);
+    }
+    document.addEventListener("wcf:submenu-close-request", handleCloseRequest);
+    return () => document.removeEventListener("wcf:submenu-close-request", handleCloseRequest);
+  }, [isDesktop]);
 
   function clearCloseTimer() {
     if (closeTimerRef.current) {
@@ -147,7 +162,13 @@ export default function OurWork() {
         aria-expanded={isOpen}
         onClick={(e) => {
           e.preventDefault();
-          setIsOpen((open) => !open);
+          const next = !isOpen;
+          if (!isDesktop && next) {
+            document.dispatchEvent(
+              new CustomEvent("wcf:submenu-close-request", { detail: { except: MENU_ID } }),
+            );
+          }
+          setIsOpen(next);
         }}
       >
         Our Work
@@ -161,16 +182,18 @@ export default function OurWork() {
       <div className="wcf-ourwork__mobile">
         <div className={`wcf-ourwork__accordion-panel ${isOpen ? "is-open" : ""}`}>
           <div className="wcf-ourwork__accordion-panel-inner">
-            {OUR_WORK.map((item) => (
-              <a
-                key={item.slug}
-                href={`/our-work/${item.slug}`}
-                className="wcf-ourwork__item"
-                onClick={closeMenu}
-              >
-                <span className="wcf-ourwork__item-title">{item.title}</span>
-              </a>
-            ))}
+            <div className="wcf-ourwork__accordion-panel-content">
+              {OUR_WORK.map((item) => (
+                <a
+                  key={item.slug}
+                  href={`/our-work/${item.slug}`}
+                  className="wcf-ourwork__item"
+                  onClick={closeMenu}
+                >
+                  <span className="wcf-ourwork__item-title">{item.title}</span>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
