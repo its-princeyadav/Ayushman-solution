@@ -1,0 +1,32 @@
+.tabs {
+  display: inline-flex;
+}
+
+.tab {
+  padding: 15px 40px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sap-navy);
+  background: var(--sap-white);
+  border: 1px solid var(--sap-border);
+  cursor: pointer;
+  transition: background-color var(--sap-transition), color var(--sap-transition);
+}
+
+.tab:not(:first-child) {
+  border-left: none;
+}
+
+.active {
+  background: var(--sap-blue);
+  border-color: var(--sap-blue);
+  color: var(--sap-white);
+}
+
+@media (max-width: 500px) {
+  .tab {
+    padding: 13px 22px;
+  }
+}

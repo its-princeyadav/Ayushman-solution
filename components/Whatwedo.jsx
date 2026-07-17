@@ -16,7 +16,7 @@ const CATEGORIES = [
       {
         heading: "SAP",
         items: [
-          { title: "SAP Solutions", description: "Thrive with SAP Business One and SAP S/4HANA Cloud", href: "#" },
+          { title: "SAP Solutions", description: "Thrive with SAP Business One and SAP S/4HANA Cloud", href: "/sap/solutions" },
           { title: "SAP Services", description: "SAP application services and industry-specific deployment", href: "#" },
           { title: "SAP Support", description: "Enabling IT modernization with SAP managed solutions", href: "#" },
           { title: "SAP Practices", description: "RISE with SAP and GROW with SAP solutions.", href: "#" },

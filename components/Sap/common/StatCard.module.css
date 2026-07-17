@@ -1,0 +1,30 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.iconCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--sap-navy);
+  color: #9fc4f2;
+  font-size: 1.9rem;
+}
+
+.value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--sap-navy);
+}
+
+.label {
+  font-size: 0.95rem;
+  color: var(--sap-text);
+}
