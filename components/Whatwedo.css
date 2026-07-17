@@ -249,7 +249,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 14px 4px;
+    padding: 0.5rem 1rem;
     background: none;
     border: none;
     font: inherit;
@@ -312,11 +312,28 @@
     gap: 0;
   }
 
+  .wcf-megamenu__mobile .wcf-megamenu__item-title {
+    color: #14304f;
+  }
+  .wcf-megamenu__sidebar-title{
+    color: #14304f !important;
+  }
+
+  .wcf-megamenu__mobile .wcf-megamenu__item:hover .wcf-megamenu__item-title,
+  .wcf-megamenu__mobile .wcf-megamenu__item:focus-visible .wcf-megamenu__item-title {
+    color: #1d4ed8;
+  }
+
   .wcf-megamenu__mobile .wcf-megamenu__sublinks a {
     display: block;
     padding: 8px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #14304f;
+  }
+
+  .wcf-megamenu__mobile .wcf-megamenu__sublinks a:hover {
+    color: #1d4ed8;
   }
 }
