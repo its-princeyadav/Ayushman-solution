@@ -46,7 +46,7 @@ export default function Testimonials() {
                           <div className="slide elementor-repeater-item-6af42b7">
                             <div className="content">
                               <div className="logo">
-                                <img decoding="async" src="/assets/images/rating.png" alt="Quote" />
+                                <img decoding="async" src="/assets/images/rating.png" alt="Quote" width={104} height={51} />
                               </div>
                               <div className="top_text">Default Text</div>
                               <div className="feedback">
@@ -54,12 +54,12 @@ export default function Testimonials() {
                                 build’s fascinating users experiences...
                               </div>
                               <div className="quote">
-                                <img decoding="async" src="/assets/images/quote-style-1.svg" alt="Quote" />
+                                <img decoding="async" src="/assets/images/quote-style-1.svg" alt="Quote" width={40} height={30} />
                               </div>
                             </div>
                             <div className="wrap">
                               <div className="image">
-                                <img decoding="async" src="/assets/images/test-img-3.webp" alt="Image" />
+                                <img decoding="async" src="/assets/images/test-img-3.webp" alt="Image" width={50} height={50} />
                               </div>
                               <div className="info">
                                 <div className="name">Ceyhan Özçivit</div>
@@ -74,7 +74,7 @@ export default function Testimonials() {
                           <div className="slide elementor-repeater-item-f22b06c">
                             <div className="content">
                               <div className="logo">
-                                <img decoding="async" src="/assets/images/rating.png" alt="Quote" />
+                                <img decoding="async" src="/assets/images/rating.png" alt="Quote" width={104} height={51} />
                               </div>
                               <div className="top_text">Default Text</div>
                               <div className="feedback">
@@ -82,12 +82,12 @@ export default function Testimonials() {
                                 build’s fascinating users experiences...
                               </div>
                               <div className="quote">
-                                <img decoding="async" src="/assets/images/quote-style-1.svg" alt="Quote" />
+                                <img decoding="async" src="/assets/images/quote-style-1.svg" alt="Quote" width={40} height={30} />
                               </div>
                             </div>
                             <div className="wrap">
                               <div className="image">
-                                <img decoding="async" src="/assets/images/test-img-3.webp" alt="Image" />
+                                <img decoding="async" src="/assets/images/test-img-3.webp" alt="Image" width={50} height={50} />
                               </div>
                               <div className="info">
                                 <div className="name">Ceyhan Özçivit</div>

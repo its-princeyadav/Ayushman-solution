@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaMagnet, FaInfinity, FaClipboardList, FaHandshake } from "react-icons/fa";
 export default function Process() {
   return (
@@ -95,7 +96,7 @@ export default function Process() {
                       </div>
                       <div id="tab-content-7241" className="tab-content" data-tab={1} role="tabpanel" aria-labelledby="tab-title-7241" tabIndex={0}>
                         <p>
-                          <img loading="lazy" decoding="async" className="alignnone wp-image-993 size-full" src="/assets/images/graph-with-img.png" alt="" width={740} height={510} sizes="(max-width: 740px) 100vw, 740px" />
+                          <Image className="alignnone wp-image-993 size-full" src="/assets/images/graph-with-img.png" alt="" width={740} height={510} sizes="(max-width: 740px) 100vw, 740px" />
                         </p>
                       </div>
                     </div>

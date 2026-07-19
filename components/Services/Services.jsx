@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaPlus } from "react-icons/fa";
 export default function Services() {
   return (
@@ -10,7 +11,7 @@ export default function Services() {
                 <div className="elementor-widget-container">
                   <div className="wcf--floating-elements">
                     <div className="floating-element wcf-live-anim- elementor-repeater-item-b3a5ab4 elementor-hidden-mobile">
-                      <img decoding="async" src="/assets/images/ok-img.webp" alt="ok-img" />
+                      <Image width={93} height={98} src="/assets/images/ok-img.webp" alt="ok-img" />
                     </div>
                   </div>
                 </div>
@@ -95,7 +96,7 @@ export default function Services() {
                 <div className="elementor-element elementor-element-bd0d350 wcf-starter-animations-none elementor-widget elementor-widget-wcf--image" data-id="bd0d350" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf-image-animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--image.default">
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img loading="lazy" decoding="async" width={45} height={45} src="/assets/images/s-1.webp" className="attachment-full size-full wp-image-31" alt="" />
+                      <Image width={45} height={45} src="/assets/images/s-1.webp" className="attachment-full size-full wp-image-31" alt="" />
                     </div>
                   </div>
                 </div>
@@ -162,7 +163,7 @@ export default function Services() {
                 <div className="elementor-element elementor-element-bef343c wcf-starter-animations-none elementor-widget elementor-widget-wcf--image" data-id="bef343c" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf-image-animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--image.default">
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img loading="lazy" decoding="async" width={45} height={45} src="/assets/images/s-2.webp" className="attachment-full size-full wp-image-32" alt="" />
+                      <Image width={45} height={45} src="/assets/images/s-2.webp" className="attachment-full size-full wp-image-32" alt="" />
                     </div>
                   </div>
                 </div>
@@ -229,7 +230,7 @@ export default function Services() {
                 <div className="elementor-element elementor-element-71d1833 wcf-starter-animations-none elementor-widget elementor-widget-wcf--image" data-id="71d1833" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf-image-animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--image.default">
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img loading="lazy" decoding="async" width={45} height={45} src="/assets/images/s-3.webp" className="attachment-full size-full wp-image-33" alt="" />
+                      <Image width={45} height={45} src="/assets/images/s-3.webp" className="attachment-full size-full wp-image-33" alt="" />
                     </div>
                   </div>
                 </div>
@@ -296,7 +297,7 @@ export default function Services() {
                 <div className="elementor-element elementor-element-f972c3f wcf-starter-animations-none elementor-widget elementor-widget-wcf--image" data-id="f972c3f" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf-image-animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--image.default">
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img loading="lazy" decoding="async" width={45} height={45} src="/assets/images/s-4.webp" className="attachment-full size-full wp-image-34" alt="" />
+                      <Image width={45} height={45} src="/assets/images/s-4.webp" className="attachment-full size-full wp-image-34" alt="" />
                     </div>
                   </div>
                 </div>

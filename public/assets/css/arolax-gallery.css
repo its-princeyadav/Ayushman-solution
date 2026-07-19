@@ -13,7 +13,7 @@
     position: absolute;
     width: 420px;
     height: 420px;
-    background-color: #C8F31D;
+    background-color: var(--color-primary);
     border-radius: 100%;
     left: 50%;
     top: 50%;
@@ -127,7 +127,7 @@
 .g-slider--title .progress-circle {
     --fg: #b0d02e;
     --bg: transparent;
-    --bg-color: #C8F31D;
+    --bg-color: var(--color-primary);
     --pgPercentage: var(--value);
     animation: growProgressBar 3s 1 forwards;
     width: calc(100% - 60px);

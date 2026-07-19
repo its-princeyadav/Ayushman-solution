@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Link from "next/link";
 import { FaBuilding, FaArrowRight, FaAngleDown } from "react-icons/fa";
 import { INDUSTRIES } from "../data/industries";
 import "./Industries.css";
@@ -116,7 +117,7 @@ export default function Industries() {
       onMouseLeave={scheduleClose}
     >
       <div className={`wcf-industries__panel ${isOpen ? "is-open" : ""}`} role="menu">
-        <a href="/industries" className="wcf-industries__intro" onClick={closeMenu}>
+        <Link href="/industries" className="wcf-industries__intro" onClick={closeMenu}>
           <span className="wcf-industries__intro-icon">
             <FaBuilding aria-hidden="true" />
           </span>
@@ -128,16 +129,16 @@ export default function Industries() {
           <span className="wcf-industries__intro-arrow">
             <FaArrowRight aria-hidden="true" />
           </span>
-        </a>
+        </Link>
 
         <div className="wcf-industries__grid">
           {COLUMNS.map((column, columnIndex) => (
             <ul className="wcf-industries__column" key={`industries-col-${columnIndex}`}>
               {column.map((industry) => (
                 <li key={industry.slug}>
-                  <a href={`/industries/${industry.slug}`} className="wcf-industries__item" onClick={closeMenu}>
+                  <Link href={`/industries/${industry.slug}`} className="wcf-industries__item" onClick={closeMenu}>
                     {industry.shortTitle || industry.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -185,14 +186,14 @@ export default function Industries() {
           <div className="wcf-industries__accordion-panel-inner">
             <div className="wcf-industries__accordion-panel-content">
               {INDUSTRIES.map((industry) => (
-                <a
+                <Link
                   key={industry.slug}
                   href={`/industries/${industry.slug}`}
                   className="wcf-industries__item"
                   onClick={closeMenu}
                 >
                   {industry.shortTitle || industry.title}
-                </a>
+                </Link>
               ))}
             </div>
           </div>

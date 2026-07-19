@@ -56,6 +56,8 @@ export default function Brands() {
                         className="swiper-slide-image"
                         src="/assets/images/logo-1.webp"
                         alt="logo-1.webp"
+                        width={120}
+                        height={50}
                       />
                     </div>
                     <div className="swiper-slide">
@@ -64,6 +66,8 @@ export default function Brands() {
                         className="swiper-slide-image"
                         src="/assets/images/logo-2.webp"
                         alt="logo-2.webp"
+                        width={106}
+                        height={50}
                       />
                     </div>
                     <div className="swiper-slide">
@@ -72,6 +76,8 @@ export default function Brands() {
                         className="swiper-slide-image"
                         src="/assets/images/logo-3.webp"
                         alt="logo-3.webp"
+                        width={123}
+                        height={50}
                       />
                     </div>
                     <div className="swiper-slide">
@@ -80,6 +86,8 @@ export default function Brands() {
                         className="swiper-slide-image"
                         src="/assets/images/logo-4.webp"
                         alt="logo-4.webp"
+                        width={115}
+                        height={50}
                       />
                     </div>
                     <div className="swiper-slide">
@@ -88,6 +96,8 @@ export default function Brands() {
                         className="swiper-slide-image"
                         src="/assets/images/logo-5.webp"
                         alt="logo-5.webp"
+                        width={111}
+                        height={50}
                       />
                     </div>
                     <div className="swiper-slide">
@@ -96,6 +106,8 @@ export default function Brands() {
                         className="swiper-slide-image"
                         src="/assets/images/logo-6.webp"
                         alt="logo-6.webp"
+                        width={123}
+                        height={50}
                       />
                     </div>
                   </div>

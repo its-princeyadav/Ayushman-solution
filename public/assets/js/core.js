@@ -43,7 +43,11 @@ const runOnWindowLoad = (fn) =>
       }, 220);
     };
 
-    window.setTimeout(completePreloader, 2000);
+    // ponytail: was a flat 2000ms timer regardless of real readiness (the
+    // actual perf complaint). Gate on window "load" (fires after images/
+    // fonts/scripts finish) instead, so the preloader clears as soon as the
+    // page is genuinely ready rather than after an arbitrary fixed wait.
+    runOnWindowLoad(() => window.setTimeout(completePreloader, 150));
   };
 
   aae_pro_preloader();
@@ -58,30 +62,6 @@ const runOnWindowLoad = (fn) =>
     const cursor = document.querySelector(".wcf-scroll-to-top");
     if (!cursor) return;
 
-    // Circular progress animation
-    if (cursor.classList.contains("scroll-to-circle")) {
-      const progressPath = cursor.querySelector(".progress-circle path");
-      if (!progressPath) return;
-
-      const pathLength = progressPath.getTotalLength();
-      progressPath.style.transition = "none";
-      progressPath.style.strokeDasharray = `${pathLength} ${pathLength}`;
-      progressPath.style.strokeDashoffset = pathLength;
-      progressPath.getBoundingClientRect(); // Trigger layout
-      progressPath.style.transition = "stroke-dashoffset 10ms linear";
-
-      const updateProgress = () => {
-        const scroll = window.scrollY;
-        const height =
-          document.documentElement.scrollHeight - window.innerHeight;
-        const progress = pathLength - (scroll * pathLength) / height;
-        progressPath.style.strokeDashoffset = progress;
-      };
-
-      updateProgress();
-      window.addEventListener("scroll", updateProgress);
-    }
-
     // Toggle visibility on scroll
     const toggleVisibility = () => {
       if (window.scrollY > 100) {
@@ -91,7 +71,35 @@ const runOnWindowLoad = (fn) =>
       }
     };
 
-    window.addEventListener("scroll", toggleVisibility);
+    // Circular progress animation - merged into the same scroll listener
+    // as toggleVisibility instead of a second one, since both just read
+    // window.scrollY on every scroll tick.
+    let updateProgress = null;
+    if (cursor.classList.contains("scroll-to-circle")) {
+      const progressPath = cursor.querySelector(".progress-circle path");
+      if (progressPath) {
+        const pathLength = progressPath.getTotalLength();
+        progressPath.style.transition = "none";
+        progressPath.style.strokeDasharray = `${pathLength} ${pathLength}`;
+        progressPath.style.strokeDashoffset = pathLength;
+        progressPath.getBoundingClientRect(); // Trigger layout
+        progressPath.style.transition = "stroke-dashoffset 10ms linear";
+
+        updateProgress = () => {
+          const scroll = window.scrollY;
+          const height =
+            document.documentElement.scrollHeight - window.innerHeight;
+          const progress = pathLength - (scroll * pathLength) / height;
+          progressPath.style.strokeDashoffset = progress;
+        };
+        updateProgress();
+      }
+    }
+
+    window.addEventListener("scroll", () => {
+      toggleVisibility();
+      if (updateProgress) updateProgress();
+    });
 
     // Scroll to top on click
     cursor.addEventListener("click", () => {
@@ -171,3 +179,34 @@ const lazyloadRunObserver = () => {
 };
 runOnDomReady(lazyloadRunObserver);
 document.addEventListener("elementor/lazyload/observe", lazyloadRunObserver);
+
+/* ================================
+   Keep focus out of aria-hidden content
+   Some text-reveal animation widgets clone their heading's content into
+   an aria-hidden wrapper for the visual effect. When that content
+   includes a real link (e.g. Footer's mailto), keyboard users could tab
+   into an element assistive tech is told doesn't exist. This doesn't
+   touch the animation - it just keeps tab order in sync with what's
+   actually exposed to screen readers, wherever that pattern shows up.
+   ================================ */
+function fixAriaHiddenFocusable() {
+  document
+    .querySelectorAll(
+      '[aria-hidden="true"] a[href], [aria-hidden="true"] button, [aria-hidden="true"] input, [aria-hidden="true"] select, [aria-hidden="true"] textarea, [aria-hidden="true"] [tabindex]',
+    )
+    .forEach((el) => {
+      if (el.getAttribute("tabindex") !== "-1") el.setAttribute("tabindex", "-1");
+    });
+}
+runOnDomReady(fixAriaHiddenFocusable);
+
+let ariaHiddenFixTimer = null;
+new MutationObserver(() => {
+  clearTimeout(ariaHiddenFixTimer);
+  ariaHiddenFixTimer = setTimeout(fixAriaHiddenFocusable, 200);
+}).observe(document.body, {
+  childList: true,
+  subtree: true,
+  attributes: true,
+  attributeFilter: ["aria-hidden"],
+});

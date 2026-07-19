@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { FaCheckCircle, FaCogs, FaChartLine, FaUsers, FaCloud, FaMicrochip, FaArrowRight, FaLongArrowAltLeft } from "react-icons/fa";
 import { INDUSTRIES, getIndustryBySlug } from "../../../data/industries";
 import "../industries.css";
@@ -35,9 +36,9 @@ export default async function IndustryDetailPage({ params }) {
   return (
     <div className="industries-page">
       <nav className="industries-breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <Link href="/">Home</Link>
         <span>/</span>
-        <a href="/industries">Industries</a>
+        <Link href="/industries">Industries</Link>
         <span>/</span>
         <span aria-current="page">{displayTitle}</span>
       </nav>
@@ -85,9 +86,9 @@ export default async function IndustryDetailPage({ params }) {
         </a>
       </div>
 
-      <a href="/industries" className="industries-back-link" style={{ marginTop: 32 }}>
+      <Link href="/industries" className="industries-back-link" style={{ marginTop: 32 }}>
         <FaLongArrowAltLeft aria-hidden="true" /> Back to all industries
-      </a>
+      </Link>
     </div>
   );
 }

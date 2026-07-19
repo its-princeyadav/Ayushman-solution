@@ -347,7 +347,7 @@ img.emoji {
               .wcf-search-form__submit {
               color: #121212;
               fill: #121212;
-              background-color: #c8f31d;
+              background-color: var(--color-primary)!important;
             }
             .elementor-47
               .elementor-element.elementor-element-b50f876
@@ -665,8 +665,8 @@ img.emoji {
                       	display: flex;
                       	padding: 0.5em 1em;
                       	transition: 0.4s;
-                      	color: #1c1d20;
-                      	fill: #1c1d20;
+                      	color: var(--color-neutral);
+                      	fill: var(--color-neutral);
                       }
                       .wcf__nav-menu.desktop-menu-active .menu-item a:after {
                       	content: "";

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { OUR_WORK } from "../../data/ourWork";
 import "./our-work.css";
 
@@ -11,7 +12,7 @@ export default function OurWorkPage() {
   return (
     <div className="our-work-page">
       <nav className="our-work-breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <Link href="/">Home</Link>
         <span>/</span>
         <span aria-current="page">Our Work</span>
       </nav>
@@ -27,10 +28,10 @@ export default function OurWorkPage() {
 
       <div className="our-work-grid">
         {OUR_WORK.map((item) => (
-          <a key={item.slug} href={`/our-work/${item.slug}`} className="our-work-grid__card">
+          <Link key={item.slug} href={`/our-work/${item.slug}`} className="our-work-grid__card">
             <span className="our-work-grid__card-title">{item.title}</span>
             <span className="our-work-grid__card-tagline">{item.tagline}</span>
-          </a>
+          </Link>
         ))}
       </div>
     </div>

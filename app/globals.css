@@ -1,4 +1,37 @@
-/* All page styling comes from the original stylesheets, linked directly in app/layout.jsx <head> to preserve exact cascade order. Nothing added here except this Navbar logo override, which needs to win over the auto-generated Elementor CSS. */
+:root {
+  --color-primary-lightest: #f7fddd;
+  --color-primary-lighter: #e9faa5;
+  --color-primary-light: #d9f761;
+  --color-primary: red !important;
+  --color-primary-dark: #9dc20a;
+  --color-primary-darker: #698107;
+  --color-primary-darkest: #344103;
+
+  --color-secondary-lightest: #f0f0f0;
+  --color-secondary-lighter: #d6d6d6;
+  --color-secondary-light: #b8b8b8;
+  --color-secondary: #999999;
+  --color-secondary-dark: #737373;
+  --color-secondary-darker: #4d4d4d;
+  --color-secondary-darkest: #262626;
+
+  --color-neutral-lightest: #dbdce0;
+  --color-neutral-lighter: #9fa2ab;
+  --color-neutral-light: #5b5e68;
+  --color-neutral: #1c1d20;
+  --color-neutral-dark: #151618;
+  --color-neutral-darker: #0e0e10;
+  --color-neutral-darkest: #070708;
+
+  --color-white: #ffffff;
+  --color-off-white: #f5f5f5;
+  --color-background: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-border: #e5e5e5;
+  --color-success: #5cb85c;
+  --color-warning: #f0ad4e;
+  --color-error: #d9534f;
+}
 
 /* Navbar logo: widened for stronger visual presence. width:100%/max-width caps
    it so it never overflows the logo container at any breakpoint; height:auto

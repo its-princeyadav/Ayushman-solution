@@ -1,3 +1,4 @@
+import Image from "next/image";
 export default function TechStack() {
   return (
     <div className="elementor-element elementor-element-d3c07c3 e-con-full e-flex wcf-starter-animations-none e-con e-parent" data-id="d3c07c3" data-element_type="container" data-e-type="container" data-settings="{&quot;wcf_enable_cursor_hover_effect_text&quot;:&quot;View&quot;,&quot;wcf-animation&quot;:&quot;none&quot;,&quot;wcf_enable_pin_area&quot;:&quot;no&quot;,&quot;aae_enable_header_sticky_area&quot;:&quot;no&quot;,&quot;wcf_enable_horizontal_scroll&quot;:&quot;no&quot;}">
@@ -18,7 +19,7 @@ export default function TechStack() {
                 <div className="elementor-element elementor-element-9d412d6 wcf-starter-animations-none elementor-widget elementor-widget-wcf--image" data-id="9d412d6" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf-image-animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--image.default">
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img loading="lazy" decoding="async" width={100} height={100} src="/assets/images/wordpress.webp" className="attachment-full size-full wp-image-45" alt="" />
+                      <Image width={100} height={100} src="/assets/images/wordpress.webp" className="attachment-full size-full wp-image-45" alt="" />
                     </div>
                   </div>
                 </div>
@@ -34,7 +35,7 @@ export default function TechStack() {
                 <div className="elementor-element elementor-element-a7325ca wcf-starter-animations-none elementor-widget elementor-widget-wcf--image" data-id="a7325ca" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf-image-animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--image.default">
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img loading="lazy" decoding="async" width={116} height={120} src="/assets/images/react.webp" className="attachment-full size-full wp-image-28" alt="" />
+                      <Image width={116} height={120} src="/assets/images/react.webp" className="attachment-full size-full wp-image-28" alt="" />
                     </div>
                   </div>
                 </div>
@@ -50,7 +51,7 @@ export default function TechStack() {
                 <div className="elementor-element elementor-element-685f703 wcf-starter-animations-none elementor-widget elementor-widget-wcf--image" data-id="685f703" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf-image-animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--image.default">
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img loading="lazy" decoding="async" width={88} height={100} src="/assets/images/node.webp" className="attachment-full size-full wp-image-20" alt="" />
+                      <Image width={88} height={100} src="/assets/images/node.webp" className="attachment-full size-full wp-image-20" alt="" />
                     </div>
                   </div>
                 </div>
@@ -66,7 +67,7 @@ export default function TechStack() {
                 <div className="elementor-element elementor-element-8ef6240 wcf-starter-animations-none elementor-widget elementor-widget-wcf--image" data-id="8ef6240" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf-image-animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--image.default">
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img loading="lazy" decoding="async" width={80} height={100} src="/assets/images/flutter.webp" className="attachment-full size-full wp-image-14" alt="" />
+                      <Image width={80} height={100} src="/assets/images/flutter.webp" className="attachment-full size-full wp-image-14" alt="" />
                     </div>
                   </div>
                 </div>
@@ -82,7 +83,7 @@ export default function TechStack() {
                 <div className="elementor-element elementor-element-26620eb wcf-starter-animations-none elementor-widget elementor-widget-wcf--image" data-id="26620eb" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf-image-animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--image.default">
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img loading="lazy" decoding="async" width={106} height={100} src="/assets/images/redux.webp" className="attachment-full size-full wp-image-30" alt="" />
+                      <Image width={106} height={100} src="/assets/images/redux.webp" className="attachment-full size-full wp-image-30" alt="" />
                     </div>
                   </div>
                 </div>

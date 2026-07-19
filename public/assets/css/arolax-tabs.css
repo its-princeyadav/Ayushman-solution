@@ -17,7 +17,7 @@
 
 .arolax--tabs .tab-title.active .icon,
 .arolax--tabs .tab-title:hover .icon {
-    background: #C8F31D;
+    background: var(--color-primary);
 }
 
 
