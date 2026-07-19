@@ -144,7 +144,7 @@
 }
 .elementor-6 .elementor-element.elementor-element-24178fa {
   --divider-border-style: solid;
-  --divider-color: #c8f31d;
+  --divider-color: var(--color-primary);
   --divider-border-width: 1px;
 }
 .elementor-6
@@ -158,7 +158,7 @@
 }
 .elementor-6 .elementor-element.elementor-element-cd9cff7 {
   --divider-border-style: solid;
-  --divider-color: #c8f31d;
+  --divider-color: var(--color-primary);
   --divider-border-width: 1px;
 }
 .elementor-6
@@ -658,7 +658,7 @@
 }
 .elementor-6 .elementor-element.elementor-element-22e300c .wcf-popup-btn:hover,
 .elementor-6 .elementor-element.elementor-element-22e300c .wcf-popup-btn:focus {
-  color: #c8f31d;
+  color: var(--color-primary);
 }
 .elementor-6
   .elementor-element.elementor-element-22e300c
@@ -668,7 +668,7 @@
   .elementor-element.elementor-element-22e300c
   .wcf-popup-btn:focus
   svg {
-  fill: #c8f31d;
+  fill: var(--color-primary);
 }
 .elementor-6 .elementor-element.elementor-element-6ab6305 {
   --wcf-duration: 1000ms;
@@ -746,7 +746,7 @@
   padding: 0px 0px 0px 0px;
 }
 .elementor-6 .elementor-element.elementor-element-5e04214 .wcf--title {
-  color: #999999;
+  color: var(--color-secondary);
   font-family: "Kanit", Sans-serif;
   font-size: 18px;
   font-weight: 400;
@@ -1240,7 +1240,7 @@
   .wcf__btn
   .btn-hover-bgchange
   span {
-  background-color: #c8f31d;
+  background-color: var(--color-primary);
 }
 .elementor-6 .elementor-element.elementor-element-44b7336.elementor-element {
   --align-self: flex-start;
@@ -1457,7 +1457,7 @@
   .elementor-element.elementor-element-d0c9d71:not(
     .elementor-motion-effects-element-type-background
   ) {
-  background-color: #c8f31d;
+  background-color: var(--color-primary);
 }
 .elementor-6 .elementor-element.elementor-element-ef6d495 {
   --display: flex;
@@ -1968,7 +1968,7 @@
 }
 .elementor-6 .elementor-element.elementor-element-451d2d9 .tab-title.active,
 .elementor-6 .elementor-element.elementor-element-451d2d9 .tab-title:hover {
-  border-color: #c8f31d;
+  border-color: var(--color-primary);
 }
 .elementor-6 .elementor-element.elementor-element-d3c07c3 {
   --display: flex;
@@ -2560,7 +2560,7 @@
   .elementor-element.elementor-element-2041531
   .wcf--title
   .highlight {
-  color: #999999;
+  color: var(--color-secondary);
 }
 .elementor-6 .elementor-element.elementor-element-91d8e8a {
   --display: flex;
@@ -3738,7 +3738,7 @@
   .elementor-element.elementor-element-cf686d2
   .wcf--title
   .highlight {
-  color: #999999;
+  color: var(--color-secondary);
 }
 .elementor-6 .elementor-element.elementor-element-fa9ab0b {
   --wcf-duration: 1000ms;
@@ -3784,7 +3784,7 @@
   .wcf__btn
   .btn-hover-bgchange
   span {
-  background-color: #c8f31d;
+  background-color: var(--color-primary);
 }
 .elementor-6 .elementor-element.elementor-element-519d6f2.elementor-element {
   --align-self: flex-start;
@@ -3888,7 +3888,7 @@
   line-height: 1.41em;
 }
 .elementor-6 .elementor-element.elementor-element-e060fd7 .designation {
-  color: #999999;
+  color: var(--color-secondary);
   font-family: "Kanit", Sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -4014,7 +4014,7 @@
   .elementor-element.elementor-element-0b69af0
   .wcf--title
   .highlight {
-  color: #999999;
+  color: var(--color-secondary);
 }
 .elementor-6 .elementor-element.elementor-element-20c1746 {
   --display: flex;
@@ -4042,7 +4042,7 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 1.41em;
-  color: #999999;
+  color: var(--color-secondary);
 }
 .elementor-6
   .elementor-element.elementor-element-919a4d7
@@ -4123,7 +4123,7 @@
   .elementor-element.elementor-element-f226b8d
   .wcf--team
   .designation {
-  color: #999999;
+  color: var(--color-secondary);
   font-family: "Kanit", Sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -4160,7 +4160,7 @@
   .elementor-element.elementor-element-f308db8
   .wcf--team
   .designation {
-  color: #999999;
+  color: var(--color-secondary);
   font-family: "Kanit", Sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -4191,7 +4191,7 @@
   .elementor-element.elementor-element-563650a
   .wcf--team
   .designation {
-  color: #999999;
+  color: var(--color-secondary);
   font-family: "Kanit", Sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -4228,7 +4228,7 @@
   .elementor-element.elementor-element-41e319c
   .wcf--team
   .designation {
-  color: #999999;
+  color: var(--color-secondary);
   font-family: "Kanit", Sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -4317,7 +4317,7 @@
   .elementor-element.elementor-element-ef4b26e
   .wcf--title
   .highlight {
-  color: #999999;
+  color: var(--color-secondary);
 }
 .elementor-6 .elementor-element.elementor-element-8b8c468 {
   --wcf-duration: 1000ms;
@@ -4859,7 +4859,7 @@
 }
 .elementor-6 .elementor-element.elementor-element-74fb5e6 .desc,
 .elementor-6 .elementor-element.elementor-element-74fb5e6 .desc p {
-  color: #999999;
+  color: var(--color-secondary);
   font-family: "Kanit", Sans-serif;
   font-size: 18px;
   font-weight: 400;
@@ -7255,7 +7255,7 @@
 }
 
 .elementor-6 .elementor-element.elementor-element-04207ae .highlight-2 {
-  color: #999999;
+  color: var(--color-secondary);
 } /* End custom CSS */
 /* Start custom CSS for arolax--tabs, class: .elementor-element-451d2d9 */
 .elementor-6 .elementor-element.elementor-element-451d2d9 .tab-item {
@@ -7292,7 +7292,7 @@
 }
 
 .wcf--team:hover .name a {
-  color: #c8f31d;
+  color: var(--color-primary);
 } /* End custom CSS */
 /* Start custom CSS for container, class: .elementor-element-6d773a1 */
 .elementor-accordion-item {

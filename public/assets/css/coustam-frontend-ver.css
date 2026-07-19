@@ -2221,11 +2221,11 @@ body.rtl .e-con {
 }
 
 .elementor-error .elementor-field {
-    border-color: #d9534f
+    border-color: var(--color-error)
 }
 
 .elementor-error .help-inline {
-    color: #d9534f;
+    color: var(--color-error);
     font-size: .9em
 }
 
@@ -2245,7 +2245,7 @@ body.rtl .e-con {
 }
 
 .elementor-message.elementor-message-danger {
-    color: #d9534f
+    color: var(--color-error)
 }
 
 .elementor-message.elementor-message-danger:before {
@@ -2253,7 +2253,7 @@ body.rtl .e-con {
 }
 
 .elementor-message.form-message-success {
-    color: #5cb85c
+    color: var(--color-success)
 }
 
 .elementor-form .elementor-button {
@@ -2372,15 +2372,15 @@ body.rtl .e-con {
 }
 
 .elementor-element.elementor-button-success .elementor-button {
-    background-color: #5cb85c
+    background-color: var(--color-success)
 }
 
 .elementor-element.elementor-button-warning .elementor-button {
-    background-color: #f0ad4e
+    background-color: var(--color-warning)
 }
 
 .elementor-element.elementor-button-danger .elementor-button {
-    background-color: #d9534f
+    background-color: var(--color-error)
 }
 
 .elementor-widget-button .elementor-button .elementor-button-info {
@@ -2388,15 +2388,15 @@ body.rtl .e-con {
 }
 
 .elementor-widget-button .elementor-button .elementor-button-success {
-    background-color: #5cb85c
+    background-color: var(--color-success)
 }
 
 .elementor-widget-button .elementor-button .elementor-button-warning {
-    background-color: #f0ad4e
+    background-color: var(--color-warning)
 }
 
 .elementor-widget-button .elementor-button .elementor-button-danger {
-    background-color: #d9534f
+    background-color: var(--color-error)
 }
 
 .elementor-view-stacked .elementor-icon {
