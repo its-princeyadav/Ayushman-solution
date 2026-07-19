@@ -1,0 +1,70 @@
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--sap-radius-md);
+  box-shadow: var(--sap-shadow-card);
+  text-decoration: none;
+  transition: box-shadow var(--sap-transition);
+}
+
+.card:hover {
+  box-shadow: var(--sap-shadow-hover);
+}
+
+.image {
+  object-fit: cover;
+  filter: grayscale(1) brightness(0.7);
+  transition: filter 400ms ease, transform 400ms ease;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 14, 30, 0.45);
+  transition: background-color var(--sap-transition);
+}
+
+.card:hover .image {
+  filter: grayscale(0) brightness(0.85);
+  transform: scale(1.06);
+}
+
+.card:hover .overlay {
+  background: rgba(6, 14, 30, 0.28);
+}
+
+.textWrap {
+  position: relative;
+  z-index: 1;
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.label {
+  color: var(--sap-white);
+  font-size: 1.15rem;
+  font-weight: 700;
+  transition: transform 400ms ease;
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.card:hover .description {
+  opacity: 1;
+  transform: translateY(0);
+}

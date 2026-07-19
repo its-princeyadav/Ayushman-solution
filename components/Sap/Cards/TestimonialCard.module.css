@@ -1,0 +1,184 @@
+.videoCard {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--sap-radius-md);
+  background: var(--sap-navy);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.thumbnail {
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.videoCard:hover .thumbnail {
+  transform: scale(1.04);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 14, 30, 0.05) 40%, rgba(6, 14, 30, 0.78) 100%);
+}
+
+.badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: auto;
+  height: 26px;
+  object-fit: contain;
+}
+
+.topRow {
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  right: 22px;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  color: var(--sap-white);
+}
+
+.brandMark {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.partnerLogo {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--sap-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.headlineBlock {
+  position: absolute;
+  top: 62px;
+  left: 22px;
+  right: 90px;
+  z-index: 1;
+  color: var(--sap-white);
+}
+
+.headlineQuoteIcon {
+  position: absolute;
+  top: -8px;
+  right: -18px;
+  font-size: 2.6rem;
+  opacity: 0.16;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.headline {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: var(--sap-white);
+  color: var(--sap-blue);
+  font-size: 1.1rem;
+  padding-left: 4px;
+  transition: transform var(--sap-transition);
+}
+
+.videoCard:hover .playButton {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.caption {
+  position: absolute;
+  left: 24px;
+  bottom: 20px;
+  right: 24px;
+  color: var(--sap-white);
+}
+
+.name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.designation {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 2px;
+}
+
+/* text variant */
+
+.textCard {
+  height: 100%;
+  padding: 36px;
+  background: var(--sap-white);
+  border-radius: var(--sap-radius-md);
+  box-shadow: var(--sap-shadow-card);
+}
+
+.quoteIcon {
+  color: var(--sap-bg-tint);
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+.quote {
+  margin: 0 0 24px;
+  color: var(--sap-text);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.textCard .person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.textCard .personImage {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.textCard .name {
+  color: var(--sap-navy);
+}
+
+.textCard .designation {
+  color: var(--sap-text-light);
+}

@@ -1,0 +1,43 @@
+.wrap {
+  margin: 0 0 28px;
+}
+
+.title {
+  margin: 0 0 16px;
+  color: var(--sap-navy);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.title.light {
+  color: var(--sap-white);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--sap-text);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.list.light .item {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--sap-blue);
+  font-size: 1.05rem;
+}

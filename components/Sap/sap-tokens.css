@@ -1,0 +1,29 @@
+/* Design tokens shared by every SAP page (Solutions, Services, Support, Practices, ...).
+   Plain :root custom properties so CSS Modules across the Sap component tree can
+   reference one source of truth without duplicating values. Imported once by the
+   page-level composer (components/Sap-pages/*.jsx). */
+
+:root {
+  --sap-navy: #14304f;
+  --sap-navy-soft: #1c3a5e;
+  --sap-blue: #1e73e8;
+  --sap-blue-dark: #0f5cd1;
+  --sap-text: #4b5563;
+  --sap-text-light: #6b7280;
+  --sap-border: #d9e2ef;
+  --sap-border-strong: #14304f;
+  --sap-bg-tint: #eaf6ff;
+  --sap-bg-tint-soft: #f3f9ff;
+  --sap-white: #ffffff;
+
+  --sap-radius-sm: 6px;
+  --sap-radius-md: 12px;
+  --sap-radius-pill: 999px;
+
+  --sap-shadow-card: 0 16px 36px -18px rgba(15, 23, 42, 0.22);
+  --sap-shadow-hover: 0 22px 44px -16px rgba(15, 23, 42, 0.3);
+
+  --sap-max-width: 1200px;
+  --sap-section-gap: clamp(56px, 8vw, 96px);
+  --sap-transition: 220ms ease;
+}

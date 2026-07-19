@@ -1,0 +1,185 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(520px, 72vh, 720px);
+  overflow: hidden;
+  color: var(--sap-white);
+}
+
+.imageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 650ms ease;
+  will-change: transform;
+}
+
+.hero:hover .image {
+  transform: scale(1.05);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    100deg,
+    rgba(8, 16, 32, 0.72) 0%,
+    rgba(8, 16, 32, 0.42) 38%,
+    rgba(8, 16, 32, 0.08) 70%
+  );
+}
+
+.alignRight .scrim {
+  background: linear-gradient(
+    260deg,
+    rgba(8, 16, 32, 0.82) 0%,
+    rgba(8, 16, 32, 0.55) 42%,
+    rgba(8, 16, 32, 0.1) 72%
+  );
+}
+
+.dark.alignRight .scrim {
+  background: linear-gradient(
+    260deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0) 75%
+  );
+}
+
+.dark .title {
+  color: var(--sap-navy);
+}
+
+.dark .description {
+  color: var(--sap-text);
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-block: 64px 120px;
+}
+
+.alignRight .container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content {
+  max-width: 560px;
+}
+
+.title {
+  margin: 0 0 20px;
+  font-size: clamp(2.1rem, 5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.description {
+  margin: 0 0 32px;
+  max-width: 480px;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.button {
+  border-radius: 0;
+}
+
+.overlayHeading {
+  margin: 56px 0 0;
+  max-width: 620px;
+  font-size: clamp(1.5rem, 3.2vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.steps {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 36px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 640px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  list-style: none;
+}
+
+.steps::before {
+  content: "";
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  top: 50%;
+  border-top: 2px dashed rgba(255, 255, 255, 0.4);
+  z-index: -1;
+}
+
+.stepDot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--sap-white);
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: background-color var(--sap-transition), border-color var(--sap-transition);
+}
+
+.stepActive .stepDot {
+  background: var(--sap-blue);
+  border-color: var(--sap-blue);
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding-block: 48px 96px;
+  }
+
+  .overlayHeading {
+    margin-top: 36px;
+  }
+
+  .steps {
+    max-width: 100%;
+  }
+
+}
+
+@media (max-width: 1024px) {
+  /* On narrower viewports the subject can span the full width, leaving no
+     clear patch of sky behind the text — give the dark-theme content its
+     own backdrop so it stays legible regardless of what's behind it. */
+  .dark .content {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(6px);
+    padding: 20px;
+    border-radius: var(--sap-radius-md);
+  }
+}

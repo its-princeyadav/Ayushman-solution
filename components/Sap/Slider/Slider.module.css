@@ -1,0 +1,116 @@
+.slider {
+  --spv: var(--sap-slider-spv-base);
+}
+
+@media (min-width: 640px) {
+  .slider {
+    --spv: var(--sap-slider-spv-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  .slider {
+    --spv: var(--sap-slider-spv-lg);
+  }
+}
+
+.track {
+  display: flex;
+  gap: var(--sap-slider-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  cursor: grab;
+  touch-action: pan-y;
+  outline: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--sap-blue);
+}
+
+.track.dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  user-select: none;
+}
+
+.slide {
+  flex: 0 0 calc((100% - (var(--spv) - 1) * var(--sap-slider-gap)) / var(--spv));
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--sap-border);
+  background: var(--sap-white);
+  color: var(--sap-navy);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color var(--sap-transition), color var(--sap-transition),
+    border-color var(--sap-transition);
+}
+
+.arrow:hover:not(:disabled),
+.arrow:focus-visible:not(:disabled) {
+  background: var(--sap-blue);
+  border-color: var(--sap-blue);
+  color: var(--sap-white);
+}
+
+.arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--sap-bg-tint);
+  cursor: pointer;
+  transition: background-color var(--sap-transition), transform var(--sap-transition);
+}
+
+.dot:hover,
+.dot:focus-visible {
+  background: var(--sap-blue-dark);
+}
+
+.dotActive {
+  background: var(--sap-navy);
+  transform: scale(1.3);
+}

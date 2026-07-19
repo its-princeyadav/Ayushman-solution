@@ -1,0 +1,64 @@
+.tabs {
+  display: inline-flex;
+}
+
+.stretch {
+  display: flex;
+  width: 100%;
+}
+
+.stretch .tab {
+  flex: 1;
+}
+
+.tab {
+  padding: 15px 40px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sap-navy);
+  background: var(--sap-white);
+  border: 1px solid var(--sap-border);
+  cursor: pointer;
+  transition: background-color var(--sap-transition), color var(--sap-transition);
+}
+
+.tab:not(:first-child) {
+  border-left: none;
+}
+
+.active {
+  background: var(--sap-blue);
+  border-color: var(--sap-blue);
+  color: var(--sap-white);
+}
+
+@media (max-width: 900px) {
+  /* flex:1 can't shrink tabs below their text width, so a stretched bar
+     with several tabs just overflows the viewport uncut on mobile — scroll
+     it horizontally instead, like a slider, so every tab stays reachable. */
+  .stretch {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .stretch::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stretch .tab {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 500px) {
+  .tab {
+    padding: 13px 22px;
+  }
+}

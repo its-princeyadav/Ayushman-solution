@@ -1,0 +1,54 @@
+.card {
+  height: 100%;
+  min-height: 260px;
+  padding: 40px 36px;
+  background: var(--sap-white);
+  border: 6px solid var(--sap-border-strong);
+  text-align: center;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: var(--sap-bg-tint);
+  color: var(--sap-blue);
+  font-size: 1.4rem;
+}
+
+.title {
+  margin: 0 0 16px;
+  color: var(--sap-navy);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.description {
+  margin: 0;
+  color: var(--sap-text);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.action {
+  margin-top: 24px;
+  border-radius: 0;
+}
+
+.compact {
+  min-height: 0;
+  padding: 20px 24px;
+  background: var(--sap-bg-tint);
+  border: none;
+  text-align: left;
+}
+
+.compact .title {
+  margin: 0;
+  font-size: 1.05rem;
+}

@@ -1,0 +1,54 @@
+.section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(380px, 46vw, 520px);
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.content {
+  max-width: 420px;
+}
+
+.title {
+  margin: 0 0 16px;
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.description {
+  margin: 0 0 28px;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.light .description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dark .description {
+  color: var(--sap-text);
+}
+
+.button {
+  border-radius: 0;
+}
+
+.dark .title {
+  color: var(--sap-navy);
+}
+
+.light .title {
+  color: var(--sap-white);
+}

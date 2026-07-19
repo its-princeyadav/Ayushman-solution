@@ -1,0 +1,14 @@
+.section {
+  padding-block: var(--sap-section-gap);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.button {
+  border-radius: 0;
+}

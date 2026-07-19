@@ -1,0 +1,55 @@
+.item {
+  border: 1px solid var(--sap-border);
+  border-radius: var(--sap-radius-sm);
+  background: var(--sap-white);
+  transition: border-color var(--sap-transition);
+}
+
+.item.open {
+  border-color: var(--sap-blue);
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 20px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--sap-text);
+  transition: color var(--sap-transition);
+}
+
+.open > .trigger {
+  color: var(--sap-blue);
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--sap-navy);
+  transition: transform var(--sap-transition);
+}
+
+.open .chevron {
+  transform: rotate(180deg);
+  color: var(--sap-blue);
+}
+
+.panel {
+  overflow: hidden;
+  transition: max-height 300ms ease;
+}
+
+.answer {
+  margin: 0;
+  padding: 0 24px 22px;
+  color: var(--sap-text);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
