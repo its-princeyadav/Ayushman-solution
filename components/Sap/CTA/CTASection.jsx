@@ -1,4 +1,4 @@
-gimport Image from "next/image";
+import Image from "next/image";
 import Container from "../common/Container";
 import Button from "../common/Button";
 import styles from "./CTASection.module.css";
