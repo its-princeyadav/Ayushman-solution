@@ -19,7 +19,7 @@ export const sapSolutions = {
     title: "SAP S/4HANA Cloud\nKey to Intelligent Enterprise",
     description: [
       "Building and maintaining a thriving enterprise requires agility, insights, and ability to act. When the digital world is changing so dynamically, your business needs intelligent solutions to provide value-driven services and greater standards of customer experience.",
-      "SAP S/4HANA Cloud is a new-age ERP solution driven by AI and analytics that makes it easier to run mission-critical operations. Its ability to dynamically adapt to real-time changes and render intelligent automation empowers you to build an intelligent enterprise. As a SAP solutions company, Uneecops helps you unlock higher levels of business performance, develop innovative solutions that transform industries, and gain total transparency across all operations.",
+      "SAP S/4HANA Cloud is a new-age ERP solution driven by AI and analytics that makes it easier to run mission-critical operations. Its ability to dynamically adapt to real-time changes and render intelligent automation empowers you to build an intelligent enterprise. As a SAP solutions company, Ayushman Solution helps you unlock higher levels of business performance, develop innovative solutions that transform industries, and gain total transparency across all operations.",
     ],
     image: "/assets/image2/drone-flyer-actual.png",
     imageAlt: "Person flying a drone on a mountain ridge",
@@ -88,7 +88,7 @@ export const sapSolutions = {
   empowering: {
     title: "Empowering Businesses\nto Take Giant Strides",
     description:
-      "Whether it's enterprise transformation or running business-critical operations, SAP solutions company Uneecops has the capabilities to provide value-driven solutions. With a collaborative approach combined with a passion for digital engineering, we enable businesses to drive revenue generation, achieve greater efficiency, and deliver intuitive customer experiences with SAP software solutions.",
+      "Whether it's enterprise transformation or running business-critical operations, SAP solutions company Ayushman Solution has the capabilities to provide value-driven solutions. With a collaborative approach combined with a passion for digital engineering, we enable businesses to drive revenue generation, achieve greater efficiency, and deliver intuitive customer experiences with SAP software solutions.",
     stats: [
       { icon: "handshake", value: "#1 SAP", label: "Platinum Partner" },
       { icon: "certificate", value: "600+", label: "Certified Consultants" },
@@ -124,7 +124,7 @@ export const sapSolutions = {
   enhancedAdoption: {
     title: "Enhanced User Adoption: Our Promise",
     description:
-      "Partnering with a SAP solutions company does not just mean having an implementation team. It means a team that goes the extra mile to help your business adopt the SAP solution completely. Uneecops prioritizes user experience in our SAP solutions. This boosts user acceptance and drives adoption across your organization. At Uneecops, we excel in guiding companies through seamless SAP user adoption strategies. Our technical expertise ensures that your organization harnesses the full potential of SAP solutions. We specialize in creating intuitive interfaces, providing comprehensive training, and implementing best practices, all designed to maximize user acceptance and amplify the benefits of your SAP investment. With our tailored approach, your team will not only embrace SAP cloud solutions with confidence but also unlock its capabilities to achieve optimal business outcomes.",
+      "Partnering with a SAP solutions company does not just mean having an implementation team. It means a team that goes the extra mile to help your business adopt the SAP solution completely. Ayushman Solution prioritizes user experience in our SAP solutions. This boosts user acceptance and drives adoption across your organization. At Ayushman Solution, we excel in guiding companies through seamless SAP user adoption strategies. Our technical expertise ensures that your organization harnesses the full potential of SAP solutions. We specialize in creating intuitive interfaces, providing comprehensive training, and implementing best practices, all designed to maximize user acceptance and amplify the benefits of your SAP investment. With our tailored approach, your team will not only embrace SAP cloud solutions with confidence but also unlock its capabilities to achieve optimal business outcomes.",
     buttons: [
       { label: "Let's Talk", href: "#", variant: "primary" },
       { label: "Explore SAP Services", href: "#", variant: "outline" },
@@ -180,7 +180,7 @@ export const sapSolutions = {
 
   benefits: {
     title:
-      "Many Vendors. Uneecops' SAP Software Solutions Give Your Business The Upper Hand",
+      "Many Vendors. Ayushman Solution's SAP Software Solutions Give Your Business The Upper Hand",
     features: [
       {
         title: "Significantly Reduced Transaction Processing Time",
@@ -222,7 +222,7 @@ export const sapSolutions = {
       {
         name: "Customer Success Story",
         designation: "How Coldex Built Their",
-        company: "L.I.V.E. Enterprise with Uneecops",
+        company: "L.I.V.E. Enterprise with Ayushman Solution",
         background: "linear-gradient(135deg,#0f2f5f 0%,#1e73e8 100%)",
         videoUrl: "#",
       },
@@ -244,7 +244,7 @@ export const sapSolutions = {
     texts: [
       {
         quote:
-          "Uneecops helped us modernize our SAP landscape without disrupting day-to-day operations — the transition was smooth from day one.",
+          "Ayushman Solution helped us modernize our SAP landscape without disrupting day-to-day operations — the transition was smooth from day one.",
         name: "Pramod Gokhale",
         designation: "General Manager",
         company: "Mankind Pharma",
@@ -258,7 +258,7 @@ export const sapSolutions = {
       },
       {
         quote:
-          "From planning to go-live, Uneecops felt like an extension of our own team.",
+          "From planning to go-live, Ayushman Solution felt like an extension of our own team.",
         name: "A.K Mishra",
         designation: "GM (PSPM)",
         company: "UMSL",
@@ -267,7 +267,7 @@ export const sapSolutions = {
   },
 
   cta: {
-    title: "Rise with Uneecops",
+    title: "Rise with Ayushman Solution",
     button: { label: "Connect With Us", href: "#" },
     backgroundImage: "/assets/image2/green-mountains.png",
     textTheme: "dark",
@@ -281,7 +281,7 @@ export const sapSolutions = {
       {
         date: "24 May 2024",
         title:
-          "Uneecops Presents Cutting-edge SAP S/4HANA Cloud Solutions Portfolio at SAP NOW India 2024",
+          "Ayushman Solution Presents Cutting-edge SAP S/4HANA Cloud Solutions Portfolio at SAP NOW India 2024",
         source: "BUSINESS INSIDER",
         background: "#0a0a0a",
         href: "#",
@@ -289,7 +289,7 @@ export const sapSolutions = {
       {
         date: "24 May 2024",
         title:
-          "Uneecops Embarks on SAP NOW 2024's Mission: Showcases Indian Businesses the SAP S/4HANA Cloud Pathway to Global...",
+          "Ayushman Solution Embarks on SAP NOW 2024's Mission: Showcases Indian Businesses the SAP S/4HANA Cloud Pathway to Global...",
         source: "Deccan Herald",
         background: "#127877",
         href: "#",
@@ -297,14 +297,14 @@ export const sapSolutions = {
       {
         date: "24 May 2024",
         title:
-          "Uneecops Presents Broad SAP S/4HANA Cloud Solutions Portfolio at SAP NOW India 2024",
+          "Ayushman Solution Presents Broad SAP S/4HANA Cloud Solutions Portfolio at SAP NOW India 2024",
         source: "newsX",
         background: "#e0242c",
         href: "#",
       },
       {
         date: "20 Mar 2024",
-        title: "Uneecops Scoops Two Top Awards at SAP Partner Summit 2024, Singapore",
+        title: "Ayushman Solution Scoops Two Top Awards at SAP Partner Summit 2024, Singapore",
         image: "/assets/image2/awards.webp",
         href: "#",
       },
@@ -336,7 +336,7 @@ export const sapSolutions = {
         title: "S/4HANA Cloud 2025: UX Enhancements That Are Taking...",
         description:
           "Cloud technology has seen massive technological advancements enabling even the most complex enterprise workflows.",
-        image: "/assets/image2/svg-360-main.webp",
+        image: "/assets/image2/SAP-Services-2.png",
         href: "#",
       },
       {
@@ -357,7 +357,7 @@ export const sapSolutions = {
     items: [
       {
         bannerColor: "linear-gradient(135deg,#1c3a5e 0%,#2e6fc4 100%)",
-        headline: "Sharika Life Science Transformation And Automation Journey With Uneecops",
+        headline: "Sharika Life Science Transformation And Automation Journey With Ayushman Solution",
         personName: "Anil Bali",
         personRole: "Founder & CEO At Sharika Life Science Ltd.",
         title: "Unveiling Innovation in Pharma: Sharika Life Science Limited's SAP Success Story",
@@ -369,7 +369,7 @@ export const sapSolutions = {
       },
       {
         bannerColor: "linear-gradient(135deg,#0f2f5f 0%,#1e73e8 100%)",
-        headline: "Fixderma Transformation And Automation Journey With Uneecops",
+        headline: "Fixderma Transformation And Automation Journey With Ayushman Solution",
         personName: "Shaily Mehrotra",
         personRole: "CEO & Founder, Fix Derma",
         title: "Fixing Fix Derma's Digital Transformation Challenges | A Customer Success Story",
@@ -381,10 +381,10 @@ export const sapSolutions = {
       },
       {
         bannerColor: "linear-gradient(135deg,#123a63 0%,#3f7fd1 100%)",
-        headline: "Inshorts Transformation And Automation Journey With Uneecops",
+        headline: "Inshorts Transformation And Automation Journey With Ayushman Solution",
         personName: "Abhishek Bakshi",
         personRole: "GM - Finance/Inshorts",
-        title: "Inshorts Goes Live with SAP ERP x Uneecops I A Customer Success Story",
+        title: "Inshorts Goes Live with SAP ERP x Ayushman Solution I A Customer Success Story",
         industry: "News & Publishing",
         revenue: "180 Cr+",
         employees: "700+",
@@ -393,11 +393,11 @@ export const sapSolutions = {
       },
       {
         bannerColor: "linear-gradient(135deg,#0e5a3a 0%,#2f9e63 100%)",
-        headline: "Lahori Zeera adds 'Tech Tang' to its Zingy Beverage Brand with Uneecops",
+        headline: "Lahori Zeera adds 'Tech Tang' to its Zingy Beverage Brand with Ayushman Solution",
         personName: "",
         personRole: "",
         title:
-          "Lahori Zeera adds 'Tech Tang' to its Zingy Beverage Brand with Uneecops x SAP Platinum Partner",
+          "Lahori Zeera adds 'Tech Tang' to its Zingy Beverage Brand with Ayushman Solution x SAP Platinum Partner",
         industry: "Beverage",
         revenue: "INR 250 CR",
         employees: "4000+",
@@ -418,9 +418,9 @@ export const sapSolutions = {
       },
       {
         question:
-          "How Uneecops helps in SAP S/4 Hana transformation and why it is the preferred SAP Software Solution partner?",
+          "How Ayushman Solution helps in SAP S/4 Hana transformation and why it is the preferred SAP Software Solution partner?",
         answer:
-          "As an SAP Platinum Partner through United VARs, Uneecops brings deep implementation, migration, and managed-services experience to every SAP S/4HANA transformation, backed by industry-specific accelerators and a dedicated support team.",
+          "As an SAP Platinum Partner through United VARs, Ayushman Solution brings deep implementation, migration, and managed-services experience to every SAP S/4HANA transformation, backed by industry-specific accelerators and a dedicated support team.",
       },
       {
         question: "What functionalities does SAP Business One offer?",

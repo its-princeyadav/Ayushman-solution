@@ -33,6 +33,73 @@
   object-fit: contain;
 }
 
+.topRow {
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  right: 22px;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  color: var(--sap-white);
+}
+
+.brandMark {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.partnerLogo {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--sap-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.headlineBlock {
+  position: absolute;
+  top: 62px;
+  left: 22px;
+  right: 90px;
+  z-index: 1;
+  color: var(--sap-white);
+}
+
+.headlineQuoteIcon {
+  position: absolute;
+  top: -8px;
+  right: -18px;
+  font-size: 2.6rem;
+  opacity: 0.16;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.headline {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .playButton {
   position: absolute;
   top: 50%;

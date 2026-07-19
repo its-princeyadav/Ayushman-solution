@@ -4,7 +4,7 @@ import "./partners.css";
 export const metadata = {
   title: "Technology Partners | Ayushman Solutions",
   description:
-    "Uneecops' technology partnerships across ERP (SAP), Analytics (Power BI, Alteryx, Tableau), CRM (Salesforce), and Cloud (Microsoft Azure).",
+    "Ayushman Solution's technology partnerships across ERP (SAP), Analytics (Power BI, Alteryx, Tableau), CRM (Salesforce), and Cloud (Microsoft Azure).",
 };
 
 export default function PartnersPage() {

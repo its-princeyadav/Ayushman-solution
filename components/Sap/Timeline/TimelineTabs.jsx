@@ -6,7 +6,7 @@ import { FaAward } from "react-icons/fa";
 import Container from "../common/Container";
 import styles from "./TimelineTabs.module.css";
 
-export default function TimelineTabs({ title, image, imageAlt = "", years, awardsByYear, background }) {
+export default function TimelineTabs({ title, description, image, imageAlt = "", years, awardsByYear, background }) {
   const [activeYear, setActiveYear] = useState(years[0]);
   const awards = awardsByYear[activeYear] || [];
 
@@ -20,6 +20,7 @@ export default function TimelineTabs({ title, image, imageAlt = "", years, award
 
           <div className={styles.content}>
             <h2 className={styles.title}>{title}</h2>
+            {description && <p className={styles.description}>{description}</p>}
 
             <div className={styles.years} role="tablist">
               {years.map((year) => (

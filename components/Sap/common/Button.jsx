@@ -3,6 +3,7 @@ import styles from "./Button.module.css";
 const VARIANTS = {
   primary: styles.primary,
   outline: styles.outline,
+  outlineLight: styles.outlineLight,
   text: styles.text,
 };
 

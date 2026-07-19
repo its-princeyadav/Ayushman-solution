@@ -21,6 +21,28 @@
   transform: scale(1.05);
 }
 
+.thumbMark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: auto;
+  height: 22px;
+  object-fit: contain;
+}
+
+.sourceMark {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--sap-white);
+}
+
 .body {
   display: flex;
   flex-direction: column;

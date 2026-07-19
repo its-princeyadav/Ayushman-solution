@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Container from "./Container";
 import Button from "./Button";
+import RichContent from "./RichContent";
 import styles from "./ImageTextSection.module.css";
 
 /**
@@ -15,17 +16,33 @@ export default function ImageTextSection({
   titleAccent,
   description,
   bullets,
+  numberedBullets = false,
+  checklistTitle,
+  checklist,
+  stats,
+  advantagesTitle,
+  advantages,
   button,
+  buttons,
   image,
   imageAlt = "",
   background,
+  theme = "dark",
+  verticalAlign = "center",
 }) {
-  const paragraphs = Array.isArray(description) ? description : [description].filter(Boolean);
+  const buttonList = buttons && buttons.length > 0 ? buttons : button ? [button] : [];
 
   return (
-    <section className={styles.section} style={background ? { background } : undefined}>
+    <section
+      className={`${styles.section} ${theme === "light" ? styles.light : ""}`}
+      style={background ? { background } : undefined}
+    >
       <Container>
-        <div className={`${styles.grid} ${imagePosition === "right" ? styles.imageRight : ""}`}>
+        <div
+          className={`${styles.grid} ${imagePosition === "right" ? styles.imageRight : ""} ${
+            verticalAlign === "start" ? styles.alignStart : ""
+          }`}
+        >
           <div className={`${styles.imageWrap} ${styles[imageStyle]}`}>
             <Image src={image} alt={imageAlt} fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.image} />
           </div>
@@ -33,22 +50,27 @@ export default function ImageTextSection({
           <div className={styles.content}>
             {title && <h2 className={styles.title}>{title}</h2>}
             {titleAccent && <p className={styles.titleAccent}>{titleAccent}</p>}
-            {paragraphs.map((paragraph) => (
-              <p className={styles.description} key={paragraph}>
-                {paragraph}
-              </p>
-            ))}
-            {bullets && bullets.length > 0 && (
-              <ul className={styles.bullets}>
-                {bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
+
+            <RichContent
+              description={description}
+              bullets={bullets}
+              numberedBullets={numberedBullets}
+              checklistTitle={checklistTitle}
+              checklist={checklist}
+              stats={stats}
+              advantagesTitle={advantagesTitle}
+              advantages={advantages}
+              theme={theme}
+            />
+
+            {buttonList.length > 0 && (
+              <div className={styles.buttons}>
+                {buttonList.map((btn) => (
+                  <Button key={btn.label} href={btn.href} variant={btn.variant || "primary"} className={styles.button}>
+                    {btn.label}
+                  </Button>
                 ))}
-              </ul>
-            )}
-            {button && (
-              <Button href={button.href} variant={button.variant || "primary"} className={styles.button}>
-                {button.label}
-              </Button>
+              </div>
             )}
           </div>
         </div>

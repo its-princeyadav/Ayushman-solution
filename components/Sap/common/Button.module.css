@@ -46,6 +46,20 @@
   color: var(--sap-white);
 }
 
+.outlineLight {
+  padding: 14px 26px;
+  background: transparent;
+  color: var(--sap-white);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.outlineLight:hover,
+.outlineLight:focus-visible {
+  border-color: var(--sap-white);
+  background: var(--sap-white);
+  color: var(--sap-navy);
+}
+
 .text {
   padding: 0;
   background: none;

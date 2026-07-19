@@ -17,9 +17,9 @@ const CATEGORIES = [
         heading: "SAP",
         items: [
           { title: "SAP Solutions", description: "Thrive with SAP Business One and SAP S/4HANA Cloud", href: "/sap/solutions" },
-          { title: "SAP Services", description: "SAP application services and industry-specific deployment", href: "#" },
-          { title: "SAP Support", description: "Enabling IT modernization with SAP managed solutions", href: "#" },
-          { title: "SAP Practices", description: "RISE with SAP and GROW with SAP solutions.", href: "#" },
+          { title: "SAP Services", description: "SAP application services and industry-specific deployment", href: "/sap/services" },
+          { title: "SAP Support", description: "Enabling IT modernization with SAP managed solutions", href: "/sap/support" },
+          { title: "SAP Practices", description: "RISE with SAP and GROW with SAP solutions.", href: "/sap/practices" },
           {
             title: "SAP Near You",
             href: "#",
@@ -37,9 +37,10 @@ const CATEGORIES = [
       {
         heading: "SAP Business One",
         items: [
-          { title: "Implementation", description: "Cutting-edge deployment with maximized agility.", href: "#" },
+          { title: "Overview", description: "A scalable ERP solution for SMEs.", href: "/sap/business-one" },
+          { title: "Implementation", description: "Cutting-edge deployment with maximized agility.", href: "/sap/business-one/implementation" },
           { title: "Integrations", description: "Connect SAP with your apps and systems.", href: "#" },
-          { title: "Customization", description: "Personalize SAP B1 as per your business processes.", href: "#" },
+          { title: "Customization", description: "Personalize SAP B1 as per your business processes.", href: "/sap/business-one/customization" },
           { title: "Managed Services", description: "Reliable user adoption to maintenance support.", href: "#" },
           { title: "Migrations", description: "Transition data and apps to B1 seamlessly.", href: "#" },
           { title: "SAP License", description: "Understanding best-fit SAP B1 user types.", href: "#" },

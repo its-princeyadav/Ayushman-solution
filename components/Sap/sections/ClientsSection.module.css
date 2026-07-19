@@ -1,0 +1,146 @@
+.section {
+  padding-block: var(--sap-section-gap);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+  align-items: start;
+  gap: clamp(32px, 5vw, 72px);
+}
+
+.hubWrap {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+}
+
+.hub {
+  position: absolute;
+  inset: 8%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  border-radius: 50%;
+  border: 18px solid var(--sap-bg-tint);
+  padding: 24px;
+  background: var(--sap-white);
+}
+
+.heading {
+  margin: 0;
+  max-width: 260px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--sap-navy);
+  line-height: 1.4;
+}
+
+.ribbon {
+  padding: 6px 20px;
+  background: var(--sap-blue);
+  color: var(--sap-white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stat {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: #e8623a;
+  line-height: 1;
+}
+
+.statLabel {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--sap-text);
+}
+
+.badge {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sap-navy);
+}
+
+.badgeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--sap-bg-tint);
+  color: var(--sap-blue);
+  font-size: 1.2rem;
+}
+
+.topLeft {
+  top: 6%;
+  left: 6%;
+}
+
+.topRight {
+  top: 6%;
+  right: 6%;
+}
+
+.bottomLeft {
+  bottom: 6%;
+  left: 6%;
+}
+
+.bottomRight {
+  bottom: 6%;
+  right: 6%;
+}
+
+.logos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 10px 14px;
+  border: 1px solid var(--sap-border);
+  border-radius: var(--sap-radius-sm);
+  color: var(--sap-navy);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .logos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .logos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

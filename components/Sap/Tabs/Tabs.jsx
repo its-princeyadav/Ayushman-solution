@@ -2,9 +2,9 @@
 
 import styles from "./Tabs.module.css";
 
-export default function Tabs({ tabs, activeId, onChange }) {
+export default function Tabs({ tabs, activeId, onChange, stretch = false }) {
   return (
-    <div className={styles.tabs} role="tablist">
+    <div className={`${styles.tabs} ${stretch ? styles.stretch : ""}`} role="tablist">
       {tabs.map((tab) => (
         <button
           key={tab.id}

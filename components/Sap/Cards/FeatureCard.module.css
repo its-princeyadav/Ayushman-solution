@@ -3,14 +3,8 @@
   min-height: 260px;
   padding: 40px 36px;
   background: var(--sap-white);
-  border: 3px solid var(--sap-border-strong);
+  border: 6px solid var(--sap-border-strong);
   text-align: center;
-  transition: box-shadow var(--sap-transition), transform var(--sap-transition);
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--sap-shadow-hover);
 }
 
 .icon {
@@ -39,4 +33,22 @@
   color: var(--sap-text);
   font-size: 0.95rem;
   line-height: 1.7;
+}
+
+.action {
+  margin-top: 24px;
+  border-radius: 0;
+}
+
+.compact {
+  min-height: 0;
+  padding: 20px 24px;
+  background: var(--sap-bg-tint);
+  border: none;
+  text-align: left;
+}
+
+.compact .title {
+  margin: 0;
+  font-size: 1.05rem;
 }

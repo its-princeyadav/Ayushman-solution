@@ -1,9 +1,12 @@
 import Image from "next/image";
+import Button from "../common/Button";
 import styles from "./StoryCard.module.css";
 
 export default function StoryCard({
+  image,
+  imageAlt = "",
   bannerColor,
-  brandMark = "UNEECOPS",
+  brandMark = "AYUSHMAN SOLUTION",
   partnerLogo,
   eyebrow = "Customer Success Story",
   headline,
@@ -16,31 +19,38 @@ export default function StoryCard({
   employees,
   location,
   href,
+  download,
 }) {
   return (
     <article className={styles.card}>
-      <div className={styles.banner} style={{ background: bannerColor }}>
-        <div className={styles.topRow}>
-          <span className={styles.brandMark}>{brandMark}</span>
-          {partnerLogo && (
-            <span className={styles.partnerLogo}>
-              <Image src={partnerLogo} alt="" width={22} height={22} />
+      {image ? (
+        <div className={styles.banner}>
+          <Image src={image} alt={imageAlt} fill sizes="(max-width: 700px) 100vw, 33vw" className={styles.bannerImage} />
+        </div>
+      ) : (
+        <div className={styles.banner} style={{ background: bannerColor }}>
+          <div className={styles.topRow}>
+            <span className={styles.brandMark}>{brandMark}</span>
+            {partnerLogo && (
+              <span className={styles.partnerLogo}>
+                <Image src={partnerLogo} alt="" width={22} height={22} />
+              </span>
+            )}
+          </div>
+
+          <span className={styles.eyebrow}>{eyebrow}</span>
+          <h3 className={styles.headline}>{headline}</h3>
+
+          <span className={styles.personName}>{personName}</span>
+          <span className={styles.personRole}>{personRole}</span>
+
+          {personImage && (
+            <span className={styles.personImageWrap}>
+              <Image src={personImage} alt={personName} fill sizes="110px" className={styles.personImage} />
             </span>
           )}
         </div>
-
-        <span className={styles.eyebrow}>{eyebrow}</span>
-        <h3 className={styles.headline}>{headline}</h3>
-
-        <span className={styles.personName}>{personName}</span>
-        <span className={styles.personRole}>{personRole}</span>
-
-        {personImage && (
-          <span className={styles.personImageWrap}>
-            <Image src={personImage} alt={personName} fill sizes="110px" className={styles.personImage} />
-          </span>
-        )}
-      </div>
+      )}
 
       <div className={styles.body}>
         <h4 className={styles.title}>
@@ -66,9 +76,16 @@ export default function StoryCard({
           </div>
         </div>
 
-        <a href={href} className={styles.readMore}>
-          Read More
-        </a>
+        <div className={styles.actions}>
+          {download && (
+            <Button href={download.href} variant={download.variant || "outline"} className={styles.download}>
+              Download
+            </Button>
+          )}
+          <a href={href} className={styles.readMore}>
+            Read More
+          </a>
+        </div>
       </div>
     </article>
   );

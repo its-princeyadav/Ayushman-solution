@@ -15,7 +15,7 @@ export const INTRO = {
   heading: "Building L.I.V.E. Enterprises",
   paragraphs: [
     "Our communities are anticipating a better tomorrow - a tomorrow where technology and human ingenuity are the foundations of a brighter future. When we say, “We Build LIVE Enterprises,” we try to answer some of the most fundamental questions. Are we creating a sustainable future; are we making conscious decisions, are we building a better tomorrow?",
-    "At Uneecops, the answer has always been Yes. For us, shaping modern enterprises goes beyond achieving business goals. Instead, we act as the missing piece in the beautiful mosaic, the final thread in the tapestry that builds LIVE enterprises.",
+    "At Ayushman Solution, the answer has always been Yes. For us, shaping modern enterprises goes beyond achieving business goals. Instead, we act as the missing piece in the beautiful mosaic, the final thread in the tapestry that builds LIVE enterprises.",
   ],
 };
 
@@ -37,7 +37,7 @@ export const LEADERS = [
     title: "Executive Director",
     photo: "/assets/images/who-we-are/ketan-jain.jpg",
     linkedin: "#",
-    bio: "Ketan Jain, the Executive Director of Uneecops, stands as a pivotal force propelling the company's sustainable growth. He invests significant effort in nurturing world-class talent capable of simplifying even the most intricate business challenges. With an MBA in Economics from the University of Manchester and a Bachelor of Arts in Economics with Honors from Shri Ram College of Commerce (SRCC).",
+    bio: "Ketan Jain, the Executive Director of Ayushman Solution, stands as a pivotal force propelling the company's sustainable growth. He invests significant effort in nurturing world-class talent capable of simplifying even the most intricate business challenges. With an MBA in Economics from the University of Manchester and a Bachelor of Arts in Economics with Honors from Shri Ram College of Commerce (SRCC).",
   },
   {
     slug: "karan-jain",
@@ -45,7 +45,7 @@ export const LEADERS = [
     title: "Executive Director",
     photo: "/assets/images/who-we-are/karan-jain.jpg",
     linkedin: "#",
-    bio: "Karan Jain is the Executive Director of Uneecops, responsible for strategic decisions regarding the overall direction of Uneecops and its new initiatives. Having completed his Masters in Marketing from the University of Boston, he is overseeing the operations of HR-One, a subsidiary of Uneecops.",
+    bio: "Karan Jain is the Executive Director of Ayushman Solution, responsible for strategic decisions regarding the overall direction of Ayushman Solution and its new initiatives. Having completed his Masters in Marketing from the University of Boston, he is overseeing the operations of HR-One, a subsidiary of Ayushman Solution.",
   },
 ];
 
@@ -97,7 +97,7 @@ export const PARTNERS = [
     slug: "sap",
     category: "ERP Partners",
     logos: [{ name: "SAP" }],
-    note: "Uneecops Business Solutions is a member of United VARs, which is an SAP Platinum Partner.",
+    note: "Ayushman Solution Business Solutions is a member of United VARs, which is an SAP Platinum Partner.",
     teaser: "SAP Business One & S/4HANA Cloud implementation, support, and managed services.",
     description:
       "Run smarter with an integrated, advanced ERP. As an SAP Platinum Partner through United VARs, we help businesses implement, customize, migrate, and support SAP Business One and SAP S/4HANA Cloud — from first rollout to ongoing managed services.",

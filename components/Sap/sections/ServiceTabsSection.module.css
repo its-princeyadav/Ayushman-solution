@@ -1,0 +1,111 @@
+.section {
+  position: relative;
+}
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(560px, 62vw, 780px);
+  background: var(--sap-navy);
+  color: var(--sap-white);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(8, 16, 32, 0.86) 0%,
+    rgba(8, 16, 32, 0.6) 42%,
+    rgba(8, 16, 32, 0.22) 75%
+  );
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  padding-block: 56px 64px;
+}
+
+.content {
+  max-width: 620px;
+}
+
+.title {
+  margin: 0 0 4px;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.titleAccent {
+  margin: 0 0 20px;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.description {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.method {
+  margin-top: 28px;
+}
+
+.methodTitle {
+  margin: 0 0 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.steps {
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.step {
+  display: flex;
+  gap: 10px;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.stepNumber {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--sap-white);
+}
+
+.stepLabel {
+  color: var(--sap-white);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.button {
+  border-radius: 0;
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding-block: 40px 48px;
+  }
+}

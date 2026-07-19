@@ -2,6 +2,14 @@
   padding-block: var(--sap-section-gap);
 }
 
+.compact {
+  padding-block: clamp(28px, 4vw, 44px);
+}
+
+.compact .buttons {
+  margin-top: 24px;
+}
+
 .copy {
   max-width: 780px;
   margin: 0 auto;
@@ -24,6 +32,14 @@
   line-height: 1.75;
 }
 
+.subtitle {
+  margin: 32px 0 0;
+  color: var(--sap-navy);
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+}
+
 .buttons {
   display: flex;
   align-items: center;
@@ -35,4 +51,13 @@
 
 .button {
   border-radius: 0;
+}
+
+.light .title,
+.light .subtitle {
+  color: var(--sap-white);
+}
+
+.light .description {
+  color: rgba(255, 255, 255, 0.9);
 }

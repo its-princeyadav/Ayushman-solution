@@ -18,6 +18,10 @@ export default function TestimonialCard({
   quote,
   badge,
   background,
+  brandMark,
+  partnerLogo,
+  eyebrow,
+  headline,
 }) {
   if (variant === "text") {
     return (
@@ -38,7 +42,8 @@ export default function TestimonialCard({
             <div className={styles.name}>{name}</div>
             <div className={styles.designation}>
               {designation}
-              {company ? `, ${company}` : ""}
+              {designation && company ? ", " : ""}
+              {company}
             </div>
           </div>
         </div>
@@ -60,6 +65,26 @@ export default function TestimonialCard({
       {badge && (
         <Image src={badge} alt="" width={110} height={28} className={styles.badge} />
       )}
+
+      {(brandMark || partnerLogo) && (
+        <div className={styles.topRow}>
+          {brandMark && <span className={styles.brandMark}>{brandMark}</span>}
+          {partnerLogo && (
+            <span className={styles.partnerLogo}>
+              <Image src={partnerLogo} alt="" width={22} height={22} />
+            </span>
+          )}
+        </div>
+      )}
+
+      {headline && (
+        <div className={styles.headlineBlock}>
+          <FaQuoteLeft className={styles.headlineQuoteIcon} aria-hidden="true" />
+          {eyebrow && <span className={styles.eyebrow}>{eyebrow}</span>}
+          <p className={styles.headline}>{headline}</p>
+        </div>
+      )}
+
       <span className={styles.playButton} aria-hidden="true">
         <FaPlay />
       </span>

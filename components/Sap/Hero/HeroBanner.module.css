@@ -7,9 +7,22 @@
   color: var(--sap-white);
 }
 
+.imageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
 .image {
   object-fit: cover;
-  z-index: 0;
+  transform: scale(1);
+  transition: transform 650ms ease;
+  will-change: transform;
+}
+
+.hero:hover .image {
+  transform: scale(1.05);
 }
 
 .scrim {
@@ -31,6 +44,23 @@
     rgba(8, 16, 32, 0.55) 42%,
     rgba(8, 16, 32, 0.1) 72%
   );
+}
+
+.dark.alignRight .scrim {
+  background: linear-gradient(
+    260deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0) 75%
+  );
+}
+
+.dark .title {
+  color: var(--sap-navy);
+}
+
+.dark .description {
+  color: var(--sap-text);
 }
 
 .container {
@@ -62,6 +92,13 @@
   font-size: 1.05rem;
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.92);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .button {
@@ -131,5 +168,18 @@
 
   .steps {
     max-width: 100%;
+  }
+
+}
+
+@media (max-width: 1024px) {
+  /* On narrower viewports the subject can span the full width, leaving no
+     clear patch of sky behind the text — give the dark-theme content its
+     own backdrop so it stays legible regardless of what's behind it. */
+  .dark .content {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(6px);
+    padding: 20px;
+    border-radius: var(--sap-radius-md);
   }
 }

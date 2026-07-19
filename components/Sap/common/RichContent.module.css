@@ -1,0 +1,106 @@
+.description {
+  margin: 0 0 20px;
+  color: var(--sap-text);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.description:last-of-type {
+  margin-bottom: 24px;
+}
+
+.descriptionLight {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.descriptionBold {
+  color: var(--sap-navy);
+  font-weight: 700;
+}
+
+.descriptionBoldLight {
+  color: var(--sap-white);
+}
+
+.bullets {
+  margin: 0 0 28px;
+  padding-left: 20px;
+  color: var(--sap-text);
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.bullets li {
+  padding-left: 4px;
+}
+
+.bulletsLight {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.bulletLabel {
+  color: var(--sap-navy);
+}
+
+.bulletLabelLight {
+  color: var(--sap-white);
+}
+
+.numberedBullets {
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.numberedBullet {
+  display: flex;
+  gap: 10px;
+  color: var(--sap-text);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.numberedBulletLight {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.numberedBulletIndex {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--sap-navy);
+}
+
+.numberedBulletIndexLight {
+  color: var(--sap-white);
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0 0 28px;
+}
+
+.stats > * {
+  flex: 1 1 200px;
+  min-height: 0;
+  padding: 24px;
+}
+
+.advantages {
+  margin: 0 0 28px;
+}
+
+.advantagesTitle {
+  margin: 0 0 24px;
+  color: var(--sap-navy);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.advantagesTitleLight {
+  color: var(--sap-white);
+}

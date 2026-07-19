@@ -7,6 +7,7 @@ import {
   FaChartLine,
   FaCloud,
   FaBriefcase,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 import styles from "./StatCard.module.css";
 
@@ -22,6 +23,7 @@ const ICONS = {
   chart: FaChartLine,
   cloud: FaCloud,
   briefcase: FaBriefcase,
+  location: FaMapMarkerAlt,
 };
 
 export default function StatCard({ icon, value, label }) {

@@ -7,14 +7,28 @@ import styles from "./CenteredSection.module.css";
  * Needs It", "Enhanced User Adoption") and as the wrapper around a stats
  * grid or icon row ("Empowering Businesses", "Digital Transformation").
  */
-export default function CenteredSection({ title, description, buttons, children, background }) {
+export default function CenteredSection({
+  title,
+  description,
+  subtitle,
+  buttons,
+  children,
+  background,
+  theme = "dark",
+  compact = false,
+}) {
   return (
-    <section className={styles.section} style={background ? { background } : undefined}>
+    <section
+      className={`${styles.section} ${theme === "light" ? styles.light : ""} ${compact ? styles.compact : ""}`}
+      style={background ? { background } : undefined}
+    >
       <Container>
         <div className={styles.copy}>
           <h2 className={styles.title}>{title}</h2>
           {description && <p className={styles.description}>{description}</p>}
         </div>
+
+        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
 
         {children}
 
