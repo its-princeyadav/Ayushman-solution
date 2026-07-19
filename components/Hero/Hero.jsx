@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaPlay, FaLongArrowAltRight } from "react-icons/fa";
 export default function Hero() {
   return (
@@ -157,8 +158,8 @@ export default function Hero() {
                   >
                     <div className="elementor-widget-container">
                       <div className="wcf--image">
-                        <img
-                          decoding="async"
+                        <Image
+                          loading="eager"
                           width={50}
                           height={80}
                           src="/assets/images/Scroll.png"
@@ -238,8 +239,10 @@ export default function Hero() {
                 <div className="elementor-widget-container">
                   <div className="wcf--floating-elements">
                     <div className="floating-element wcf-live-anim- elementor-repeater-item-01dbe21 elementor-hidden-tablet_extra elementor-hidden-tablet elementor-hidden-mobile_extra elementor-hidden-mobile">
-                      <img
-                        decoding="async"
+                      <Image
+                        loading="eager"
+                        width={100}
+                        height={60}
                         src="/assets/images/intro-shape-1.png"
                         alt="intro-shape-1"
                       />
@@ -264,9 +267,8 @@ export default function Hero() {
                   data-widget_type="image.default"
                 >
                   <div className="elementor-widget-container">
-                    <img
-                      fetchPriority="high"
-                      decoding="async"
+                    <Image
+                      priority
                       width={210}
                       height={420}
                       src="/assets/images/Group-1000003642.png"
@@ -286,9 +288,7 @@ export default function Hero() {
                   data-widget_type="image.default"
                 >
                   <div className="elementor-widget-container">
-                    <img
-                      loading="lazy"
-                      decoding="async"
+                    <Image
                       width={251}
                       height={500}
                       src="/assets/images/1-1.jpg"
@@ -377,9 +377,7 @@ export default function Hero() {
                 >
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img
-                        loading="lazy"
-                        decoding="async"
+                      <Image
                         width={80}
                         height={50}
                         src="/assets/images/arrow-down.png"
@@ -399,9 +397,7 @@ export default function Hero() {
                 >
                   <div className="elementor-widget-container">
                     <div className="wcf--image">
-                      <img
-                        loading="lazy"
-                        decoding="async"
+                      <Image
                         width={160}
                         height={55}
                         src="/assets/images/thumb.webp"
@@ -442,8 +438,10 @@ export default function Hero() {
         <div className="elementor-widget-container">
           <div className="wcf--floating-elements">
             <div className="floating-element wcf-live-anim- elementor-repeater-item-b34ecdc elementor-hidden-mobile_extra elementor-hidden-mobile">
-              <img
-                decoding="async"
+              <Image
+                loading="eager"
+                width={409}
+                height={410}
                 src="/assets/images/intro-shape.webp"
                 alt="intro-shape"
               />

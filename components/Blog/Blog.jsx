@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaLongArrowAltRight } from "react-icons/fa";
 export default function Blog() {
   return (
@@ -44,7 +45,7 @@ export default function Blog() {
                       <article className="wcf-post post-1714 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
                         <div className="thumb">
                           <a href="#" aria-label="Ayushman Solutions development tech agency we talent meet opportunity">
-                            <img loading="lazy" decoding="async" width={360} height={455} src="/assets/images/about-2.webp" className="attachment-full size-full wp-image-10" alt="" sizes="(max-width: 360px) 100vw, 360px" />
+                            <Image width={360} height={455} src="/assets/images/about-2.webp" className="attachment-full size-full wp-image-10" alt="" sizes="(max-width: 360px) 100vw, 360px" />
                           </a>
                         </div>
                         <div className="content">

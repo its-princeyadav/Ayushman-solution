@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Link from "next/link";
 import { FaBriefcase, FaArrowRight, FaAngleDown } from "react-icons/fa";
 import { OUR_WORK } from "../../data/ourWork";
 import "./Our-work.css";
@@ -111,7 +112,7 @@ export default function OurWork() {
       onMouseLeave={scheduleClose}
     >
       <div className={`wcf-ourwork__panel ${isOpen ? "is-open" : ""}`} role="menu">
-        <a href="/our-work" className="wcf-ourwork__intro" onClick={closeMenu}>
+        <Link href="/our-work" className="wcf-ourwork__intro" onClick={closeMenu}>
           <span className="wcf-ourwork__intro-icon">
             <FaBriefcase aria-hidden="true" />
           </span>
@@ -123,13 +124,13 @@ export default function OurWork() {
           <span className="wcf-ourwork__intro-arrow">
             <FaArrowRight aria-hidden="true" />
           </span>
-        </a>
+        </Link>
 
         <div className="wcf-ourwork__grid">
           {COLUMNS.map((column, columnIndex) => (
             <div className="wcf-ourwork__column" key={`ourwork-col-${columnIndex}`}>
               {column.map((item) => (
-                <a
+                <Link
                   key={item.slug}
                   href={`/our-work/${item.slug}`}
                   className="wcf-ourwork__item"
@@ -137,7 +138,7 @@ export default function OurWork() {
                 >
                   <span className="wcf-ourwork__item-title">{item.title}</span>
                   <span className="wcf-ourwork__item-desc">{item.tagline}</span>
-                </a>
+                </Link>
               ))}
             </div>
           ))}
@@ -184,14 +185,14 @@ export default function OurWork() {
           <div className="wcf-ourwork__accordion-panel-inner">
             <div className="wcf-ourwork__accordion-panel-content">
               {OUR_WORK.map((item) => (
-                <a
+                <Link
                   key={item.slug}
                   href={`/our-work/${item.slug}`}
                   className="wcf-ourwork__item"
                   onClick={closeMenu}
                 >
                   <span className="wcf-ourwork__item-title">{item.title}</span>
-                </a>
+                </Link>
               ))}
             </div>
           </div>

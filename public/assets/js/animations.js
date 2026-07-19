@@ -3,30 +3,40 @@
    Load order: core.js -> animations.js -> main.js
    ================================ */
 
+const gsapReady = typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined";
+if (gsapReady) {
+  // Registered once here instead of separately in every function below
+  // (registerPlugin is idempotent, but there's no reason to call it twice).
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 /* ================================
    Refresh GSAP ScrollTrigger after lazy images load
    ================================ */
 
 function aaerefreshOnImageLoad() {
-  if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger);
-  }
+  if (!gsapReady) return;
+
+  // Debounced: below-the-fold pages can have dozens of lazy images, and
+  // ScrollTrigger.refresh() recalculates every trigger's position on the
+  // page. Without this, each image landing during a scroll fires its own
+  // full refresh; coalescing bursts into one call after they settle avoids
+  // repeated layout recalculation for the same scroll gesture.
+  let refreshTimer = null;
+  const scheduleRefresh = () => {
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 150);
+  };
+
   document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
     if (img.complete) return;
-
-    img.addEventListener("load", () => {
-      if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-        ScrollTrigger.refresh();
-      }
-    });
+    img.addEventListener("load", scheduleRefresh);
   });
 }
 
 runOnDomReady(aaerefreshOnImageLoad);
 runOnWindowLoad(() => {
-  if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-    ScrollTrigger.refresh();
-  }
+  if (gsapReady) ScrollTrigger.refresh();
 });
 
 /* ================================
@@ -43,10 +53,7 @@ runOnWindowLoad(() => {
    ================================ */
 
 function aaeInitDataSpeedParallax() {
-  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
-    return;
-  }
-  gsap.registerPlugin(ScrollTrigger);
+  if (!gsapReady) return;
 
   document.querySelectorAll("[data-speed]").forEach((el) => {
     const speed = parseFloat(el.getAttribute("data-speed"));
@@ -70,7 +77,7 @@ function aaeInitDataSpeedParallax() {
    ================================ */
 
 const ArolaxGallery = function ($scope, $) {
-  if ("object" === typeof gsap) {
+  if (gsapReady) {
     let gsap_mm = gsap.matchMedia();
 
     gsap_mm.add(`(min-width: 768px)`, () => {
@@ -115,10 +122,6 @@ const ArolaxGallery = function ($scope, $) {
           pin: false,
           scrub: 1,
         },
-      });
-
-      $(window).scroll(() => {
-        console.log($(document).height(), $(window).height());
       });
     });
   }

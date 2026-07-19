@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Script from "next/script";
 import { FaAngleDown, FaArrowLeft, FaBars, FaTimes, FaWindowClose, FaSearch, FaPhone } from "react-icons/fa";
 import Whatwedo from "../Whatwedo";
 import Industries from "../Industries";
@@ -10,7 +12,7 @@ export default function Navbar() {
           <div className="elementor-widget-container">
             <div className="elementor-image">
               <a href="#" aria-label="Site Logo">
-                <img width={190} height={45} src="/assets/images/Latets-Logo.png" className="attachment-full size-full wp-image-7351" alt="" />
+                <Image width={190} height={45} src="/assets/images/Latets-Logo.png" className="attachment-full size-full wp-image-7351" alt="" priority />
               </a>
             </div>
           </div>
@@ -46,15 +48,17 @@ export default function Navbar() {
               <div className="wcf-menu-overlay" />
             </div>
 
-            {/* Runs synchronously at parse time (like the original inline <script>) so the
-                menu shows its desktop class immediately on wide viewports, instead of
-                flashing the mobile layout until nav-menu.min.js finishes initializing. */}
-            <script
-              suppressHydrationWarning
-              dangerouslySetInnerHTML={{
-                __html: `(function(){var menu=document.querySelector('[data-id="6904d66"] .wcf__nav-menu');if(menu&&window.innerWidth>1024){menu.classList.remove("mobile-menu-active");menu.classList.add("desktop-menu-active");}})();`,
-              }}
-            />
+            {/* Runs before hydration so the menu shows its desktop class
+                immediately on wide viewports, instead of flashing the mobile
+                layout until nav-menu.min.js finishes initializing. A raw
+                <script> here (the previous approach) makes React log
+                "Scripts inside React components are never executed when
+                rendering on the client" - next/script's beforeInteractive
+                is the sanctioned way to run inline script ahead of
+                hydration. */}
+            <Script id="nav-menu-desktop-class-init" strategy="beforeInteractive">
+              {`(function(){var menu=document.querySelector('[data-id="6904d66"] .wcf__nav-menu');if(menu&&window.innerWidth>1024){menu.classList.remove("mobile-menu-active");menu.classList.add("desktop-menu-active");}})();`}
+            </Script>
           </div>
         </div>
       </div>

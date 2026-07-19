@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { FaCogs, FaChartLine, FaUsers, FaCloud, FaMicrochip, FaArrowRight, FaLongArrowAltLeft } from "react-icons/fa";
 import { OUR_WORK, getOurWorkBySlug } from "../../../data/ourWork";
 import "../our-work.css";
@@ -33,9 +34,9 @@ export default async function OurWorkDetailPage({ params }) {
   return (
     <div className="our-work-page">
       <nav className="our-work-breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <Link href="/">Home</Link>
         <span>/</span>
-        <a href="/our-work">Our Work</a>
+        <Link href="/our-work">Our Work</Link>
         <span>/</span>
         <span aria-current="page">{item.title}</span>
       </nav>
@@ -80,9 +81,9 @@ export default async function OurWorkDetailPage({ params }) {
         </a>
       </div>
 
-      <a href="/our-work" className="our-work-back-link">
+      <Link href="/our-work" className="our-work-back-link">
         <FaLongArrowAltLeft aria-hidden="true" /> Back to Our Work
-      </a>
+      </Link>
     </div>
   );
 }

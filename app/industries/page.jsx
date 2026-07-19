@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { INDUSTRIES } from "../../data/industries";
 import "./industries.css";
 
@@ -11,7 +12,7 @@ export default function IndustriesPage() {
   return (
     <div className="industries-page">
       <nav className="industries-breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <Link href="/">Home</Link>
         <span>/</span>
         <span aria-current="page">Industries</span>
       </nav>
@@ -27,14 +28,14 @@ export default function IndustriesPage() {
 
       <div className="industries-grid">
         {INDUSTRIES.map((industry) => (
-          <a
+          <Link
             key={industry.slug}
             href={`/industries/${industry.slug}`}
             className="industries-grid__card"
           >
             <span className="industries-grid__card-title">{industry.shortTitle || industry.title}</span>
             <span className="industries-grid__card-tagline">{industry.tagline}</span>
-          </a>
+          </Link>
         ))}
       </div>
     </div>

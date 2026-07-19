@@ -14,7 +14,7 @@ export default function Portfolio() {
                   </div>
                   <div className="g-slider--one-wrap" dir="ltr">
                     <div className="g-slider--one">
-                      <a className="item" href="#" target="_blank" rel="nofollow">
+                      <a className="item" href="#" target="_blank" rel="nofollow" aria-label="Mastartery">
                         <div className="source">
                           <img decoding="async" src="/assets/images/project-1.webp" alt="Mastartery" />
                         </div>
@@ -30,7 +30,7 @@ export default function Portfolio() {
                           </div>
                         </div>
                       </a>
-                      <a className="item" href="#" target="_blank" rel="nofollow">
+                      <a className="item" href="#" target="_blank" rel="nofollow" aria-label="Mastartery">
                         <div className="source">
                           <img decoding="async" src="/assets/images/project-2.webp" alt="Mastartery" />
                         </div>
@@ -46,7 +46,7 @@ export default function Portfolio() {
                           </div>
                         </div>
                       </a>
-                      <a className="item" href="#" target="_blank" rel="nofollow">
+                      <a className="item" href="#" target="_blank" rel="nofollow" aria-label="Mastartery">
                         <div className="source">
                           <video muted autoPlay loop></video>
                         </div>
@@ -62,7 +62,7 @@ export default function Portfolio() {
                           </div>
                         </div>
                       </a>
-                      <a className="item" href="#" target="_blank" rel="nofollow">
+                      <a className="item" href="#" target="_blank" rel="nofollow" aria-label="Agencey">
                         <div className="source">
                           <img decoding="async" src="/assets/images/Rectangle-7031.webp" alt="Agencey " />
                         </div>
@@ -78,7 +78,7 @@ export default function Portfolio() {
                           </div>
                         </div>
                       </a>
-                      <a className="item" href="#" target="_blank" rel="nofollow">
+                      <a className="item" href="#" target="_blank" rel="nofollow" aria-label="Consultant">
                         <div className="source">
                           <img decoding="async" src="/assets/images/Rectangle-7030.webp" alt="Consultant" />
                         </div>
@@ -98,7 +98,7 @@ export default function Portfolio() {
                   </div>
                   <div className="g-slider--two-wrap" dir="rtl">
                     <div className="g-slider--two">
-                      <a className="item" href="#" target="_blank" rel="nofollow">
+                      <a className="item" href="#" target="_blank" rel="nofollow" aria-label="Mastartery">
                         <div className="source">
                           <img decoding="async" src="/assets/images/project-4.webp" alt="Mastartery" />
                         </div>
@@ -114,7 +114,7 @@ export default function Portfolio() {
                           </div>
                         </div>
                       </a>
-                      <a className="item" href="#" target="_blank" rel="nofollow">
+                      <a className="item" href="#" target="_blank" rel="nofollow" aria-label="Mastartery">
                         <div className="source">
                           <img decoding="async" src="/assets/images/project-5.webp" alt="Mastartery" />
                         </div>
@@ -130,7 +130,7 @@ export default function Portfolio() {
                           </div>
                         </div>
                       </a>
-                      <a className="item" href="#" target="_blank" rel="nofollow">
+                      <a className="item" href="#" target="_blank" rel="nofollow" aria-label="Mastartery">
                         <div className="source">
                           <img decoding="async" src="/assets/images/Rectangle-968-2.webp" alt="Mastartery" />
                         </div>
@@ -146,7 +146,7 @@ export default function Portfolio() {
                           </div>
                         </div>
                       </a>
-                      <a className="item" href="#" target="_blank" rel="nofollow">
+                      <a className="item" href="#" target="_blank" rel="nofollow" aria-label="Mastartery">
                         <div className="source">
                           <img decoding="async" src="/assets/images/Rectangle-968-1.webp" alt="Mastartery" />
                         </div>
@@ -162,7 +162,7 @@ export default function Portfolio() {
                           </div>
                         </div>
                       </a>
-                      <a className="item" href="#" target="_blank" rel="nofollow">
+                      <a className="item" href="#" target="_blank" rel="nofollow" aria-label="Mastartery">
                         <div className="source">
                           <img decoding="async" src="/assets/images/Rectangle-968.webp" alt="Mastartery" />
                         </div>

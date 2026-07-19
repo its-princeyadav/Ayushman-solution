@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaUsers, FaUserFriends } from "react-icons/fa";
 export default function WhyChooseUs() {
   return (
@@ -10,7 +11,7 @@ export default function WhyChooseUs() {
                 <div className="elementor-widget-container">
                   <div className="wcf--floating-elements">
                     <div className="floating-element wcf-live-anim-wiggle elementor-repeater-item-b3a5ab4 elementor-hidden-mobile">
-                      <img decoding="async" src="/assets/images/ok-img.webp" alt="ok-img" />
+                      <Image width={93} height={98} src="/assets/images/ok-img.webp" alt="ok-img" />
                     </div>
                   </div>
                 </div>
