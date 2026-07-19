@@ -356,9 +356,9 @@ export const sapPractices = {
 
   contactTeaser: {
     title: "Let's Start a Conversation",
-    theme: "light",
+    theme: "dark",
     compact: true,
-    background: "linear-gradient(120deg, var(--sap-blue) 0%, #4aa3e8 100%)",
-    buttons: [{ label: "Connect With Us", href: "#", variant: "outlineLight" }],
+    background: "linear-gradient(120deg, var(--sap-blue) 0%, var(--color-primary-light) 100%)",
+    buttons: [{ label: "Connect With Us", href: "#", variant: "outline" }],
   },
 };

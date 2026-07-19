@@ -22,14 +22,32 @@
 
 .primary {
   padding: 17px 34px;
-  background: var(--sap-blue);
-  color: var(--sap-white);
+  background: var(--color-primary);
+  color: var(--color-neutral);
 }
 
 .primary:hover,
 .primary:focus-visible {
-  background: var(--sap-blue-dark);
+  background: var(--color-primary-light);
+  /* color must be repeated here, not just inherited from .primary above:
+     master.min.css's global `a, a:hover { color: inherit }` (loaded on every
+     page) ties this rule's specificity and its extra element-selector point
+     wins, inheriting whatever light-on-dark color the surrounding section
+     uses - which flips this text white on hover. Redeclaring color in the
+     same selector as :hover keeps it pinned regardless. */
+  color: var(--color-neutral);
   transform: translateY(-2px);
+}
+
+.primary:focus-visible {
+  outline: 2px solid var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
+.primary:active {
+  background: var(--color-primary-dark);
+  color: var(--color-neutral);
+  transform: translateY(0);
 }
 
 .outline {
@@ -60,10 +78,27 @@
   color: var(--sap-navy);
 }
 
+.dark {
+  padding: 14px 26px;
+  background: var(--color-neutral);
+  color: var(--color-white);
+  border: 1px solid var(--color-neutral);
+}
+
+.dark:hover,
+.dark:focus-visible {
+  background: transparent;
+  color: var(--color-neutral);
+  border-color: var(--color-neutral);
+}
+
 .text {
   padding: 0;
   background: none;
-  color: var(--sap-blue);
+  /* color-primary itself (bright yellow) fails text contrast on light
+     backgrounds - a darker shade from the same scale keeps this on-brand
+     and readable. */
+  color: var(--color-primary-darker);
   font-size: 0.82rem;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -71,5 +106,5 @@
 
 .text:hover,
 .text:focus-visible {
-  color: var(--sap-blue-dark);
+  color: var(--color-neutral);
 }

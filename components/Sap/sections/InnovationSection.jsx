@@ -24,7 +24,7 @@ export default function InnovationSection({ title, columns }) {
                 ))}
               </ul>
               {column.button && (
-                <Button href={column.button.href} variant="outlineLight" className={styles.button}>
+                <Button href={column.button.href} variant={column.button.variant || "outline"} className={styles.button}>
                   {column.button.label}
                 </Button>
               )}

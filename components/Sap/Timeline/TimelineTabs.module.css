@@ -24,8 +24,11 @@
 
 .title {
   margin: 0 0 12px;
+  font-family: var(--sap-font-heading);
   font-size: clamp(1.6rem, 3vw, 2.3rem);
   font-weight: 700;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height);
 }
 
 .description {
@@ -47,8 +50,10 @@
   border: none;
   border-bottom: 3px solid transparent;
   color: rgba(255, 255, 255, 0.55);
+  font-family: var(--sap-font-heading);
   font-size: 1.3rem;
   font-weight: 700;
+  line-height: var(--sap-heading-line-height-compact);
   cursor: pointer;
   transition: color var(--sap-transition), border-color var(--sap-transition);
 }

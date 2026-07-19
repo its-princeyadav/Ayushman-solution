@@ -78,7 +78,7 @@
 .arrow:focus-visible:not(:disabled) {
   background: var(--sap-blue);
   border-color: var(--sap-blue);
-  color: var(--sap-white);
+  color: var(--color-neutral);
 }
 
 .arrow:disabled {

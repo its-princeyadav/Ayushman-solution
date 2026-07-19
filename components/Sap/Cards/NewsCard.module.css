@@ -48,18 +48,21 @@
 .date {
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--sap-blue);
+  color: var(--color-primary-darker);
 }
 
 .title {
   margin: 0;
+  font-family: var(--sap-font-heading);
   font-size: 1.05rem;
-  line-height: 1.4;
+  font-weight: var(--sap-heading-weight);
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
   flex: 1;
 }
 
 .title a {
-  color: var(--sap-navy);
+  color: var(--color-neutral);
   text-decoration: none;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -68,7 +71,7 @@
 }
 
 .title a:hover {
-  color: var(--sap-blue);
+  color: var(--color-primary-darker);
 }
 
 .readMore {
@@ -82,5 +85,5 @@
 }
 
 .readMore:hover {
-  color: var(--sap-blue);
+  color: var(--color-primary-darker);
 }

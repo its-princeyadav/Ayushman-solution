@@ -16,16 +16,18 @@
   margin-bottom: 20px;
   border-radius: 50%;
   background: var(--sap-bg-tint);
-  color: var(--sap-blue);
+  color: var(--color-primary-darker);
   font-size: 1.4rem;
 }
 
 .title {
   margin: 0 0 16px;
-  color: var(--sap-navy);
+  color: var(--color-neutral);
+  font-family: var(--sap-font-heading);
   font-size: 1.2rem;
   font-weight: 700;
-  line-height: 1.35;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
 }
 
 .description {

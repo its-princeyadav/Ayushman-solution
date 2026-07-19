@@ -37,16 +37,20 @@
 
 .title {
   margin: 0 0 4px;
+  font-family: var(--sap-font-heading);
   font-size: clamp(1.5rem, 2.8vw, 2rem);
   font-weight: 600;
-  line-height: 1.35;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height);
 }
 
 .titleAccent {
   margin: 0 0 20px;
+  font-family: var(--sap-font-heading);
   font-size: clamp(1.5rem, 2.8vw, 2rem);
   font-weight: 800;
-  line-height: 1.35;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height);
 }
 
 .description {
@@ -62,8 +66,11 @@
 
 .methodTitle {
   margin: 0 0 20px;
+  font-family: var(--sap-font-heading);
   font-size: 1.1rem;
   font-weight: 700;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
 }
 
 .steps {

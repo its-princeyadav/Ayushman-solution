@@ -1,8 +1,8 @@
 :root {
   --color-primary-lightest: #f7fddd;
   --color-primary-lighter: #e9faa5;
-  --color-primary-light: #d9f761;
---color-primary: #fbf022;
+  --color-primary-light: #fdf457;
+  --color-primary: #fbf022;
   --color-primary-dark: #9dc20a;
   --color-primary-darker: #698107;
   --color-primary-darkest: #344103;
@@ -33,11 +33,22 @@
   --color-error: #d9534f;
 }
 
-/* Navbar logo: widened for stronger visual presence. width:100%/max-width caps
-   it so it never overflows the logo container at any breakpoint; height:auto
-   preserves the source image's real aspect ratio. */
 .elementor-widget-wcf--site-logo .elementor-image img {
   width: 100%;
   max-width: 190px;
   height: auto;
 }
+
+/* clip, not hidden: overflow-x:hidden on html/body computes overflow-y to
+   "auto" (spec: a non-"visible" axis forces the other out of "visible"
+   too), and ANY ancestor with a non-visible overflow - even html/body,
+   confirmed empirically, not just an intermediate div - becomes the
+   containing block for position:sticky descendants instead of the real
+   viewport, which breaks the sticky navbar site-wide. overflow:clip
+   suppresses the same horizontal overflow without establishing a
+   scroll container, so it doesn't have that side effect. */
+html,
+body {
+  overflow-x: clip;
+}
+

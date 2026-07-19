@@ -53,19 +53,23 @@
 
 .title {
   margin: 0 0 8px;
-  color: var(--sap-navy);
+  color: var(--color-neutral);
+  font-family: var(--sap-font-heading);
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 700;
-  line-height: 1.3;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height);
   white-space: pre-line;
 }
 
 .titleAccent {
   margin: 0 0 20px;
-  color: var(--sap-navy);
+  color: var(--color-neutral);
+  font-family: var(--sap-font-heading);
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 800;
-  line-height: 1.3;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height);
 }
 
 .buttons {

@@ -89,9 +89,12 @@
 }
 
 .satelliteLabel {
+  font-family: var(--sap-font-heading);
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--sap-navy);
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
+  color: var(--color-neutral);
   text-align: center;
 }
 
