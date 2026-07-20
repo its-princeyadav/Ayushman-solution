@@ -6,7 +6,7 @@ import { OUR_WORK } from "../data/ourWork";
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export default function sitemap() {
-  const staticRoutes = ["", "/industries", "/our-work"].map((path) => ({
+  const staticRoutes = ["", "/industries", "/our-work", "/careers"].map((path) => ({
     url: `${BASE_URL}${path}`,
     lastModified: new Date(),
   }));
