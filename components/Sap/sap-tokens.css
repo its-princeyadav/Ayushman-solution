@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* Design tokens shared by every SAP page (Solutions, Services, Support, Practices,
    Business One, Managed Services, ...). Plain :root custom properties so CSS
    Modules across the Sap component tree can reference one source of truth
@@ -27,22 +26,6 @@
   --sap-border-strong: var(--color-neutral);
   --sap-bg-tint: var(--color-primary-lightest);
   --sap-bg-tint-soft: color-mix(in srgb, var(--color-primary-lightest) 45%, white);
-=======
-:root {
-  --sap-navy: #14304f;
-  --sap-navy-soft: #1c3a5e;
-  /* Aliased to global.css so the SAP module's primary/CTA accent and every
-     control derived from it (buttons, tabs, icons, active states) stay in
-     lockstep with the site-wide theme - change the color in one place. */
-  --sap-blue: var(--color-primary);
-  --sap-blue-dark: var(--color-primary-dark);
-  --sap-text: #4b5563;
-  --sap-text-light: #6b7280;
-  --sap-border: #d9e2ef;
-  --sap-border-strong: #14304f;
-  --sap-bg-tint: #eaf6ff;
-  --sap-bg-tint-soft: #f3f9ff;
->>>>>>> develop
   --sap-white: var(--color-white);
 
   --sap-radius-sm: 6px;

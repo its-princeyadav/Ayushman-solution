@@ -28,10 +28,7 @@
 
 .primary:hover,
 .primary:focus-visible {
-<<<<<<< HEAD
   background: var(--color-primary-dark);
-=======
-  background: var(--color-primary-light);
   /* color must be repeated here, not just inherited from .primary above:
      master.min.css's global `a, a:hover { color: inherit }` (loaded on every
      page) ties this rule's specificity and its extra element-selector point
@@ -39,7 +36,6 @@
      uses - which flips this text white on hover. Redeclaring color in the
      same selector as :hover keeps it pinned regardless. */
   color: var(--color-neutral);
->>>>>>> develop
   transform: translateY(-2px);
 }
 
