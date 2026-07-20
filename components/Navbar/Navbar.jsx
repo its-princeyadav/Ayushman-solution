@@ -74,7 +74,7 @@ export default function Navbar() {
                     <a href="/who-we-are" className="wcf-nav-item">Who We Are</a>
                   </li>
                   <li id="menu-item-8763" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-8763">
-                    <a href="#" className="wcf-nav-item">Careers</a>
+                    <a href="/careers" className="wcf-nav-item">Careers</a>
                   </li>
                 </ul>
                 <button className="wcf-menu-close" type="button">
@@ -84,14 +84,7 @@ export default function Navbar() {
               <div className="wcf-menu-overlay" />
             </div>
 
-            {/* Runs before hydration so the menu shows its desktop class
-                immediately on wide viewports, instead of flashing the mobile
-                layout until nav-menu.min.js finishes initializing. A raw
-                <script> here (the previous approach) makes React log
-                "Scripts inside React components are never executed when
-                rendering on the client" - next/script's beforeInteractive
-                is the sanctioned way to run inline script ahead of
-                hydration. */}
+     
             <Script id="nav-menu-desktop-class-init" strategy="beforeInteractive">
               {`(function(){var menu=document.querySelector('[data-id="6904d66"] .wcf__nav-menu');if(menu&&window.innerWidth>1024){menu.classList.remove("mobile-menu-active");menu.classList.add("desktop-menu-active");}})();`}
             </Script>
