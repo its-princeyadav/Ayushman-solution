@@ -129,7 +129,7 @@ export const sapBusinessOneImplementation = {
       "Ensuring a smooth integration of SAP Business One into your existing systems. Benefit from enhanced visibility, streamlined processes, and real-time insights to drive business growth. Trust Ayushman Solution as your trustworthy partner for SAP implementation in India to unlock the full potential of SAP Business One.",
     buttons: [
       { label: "Get SAP Solution", href: "/sap/business-one", variant: "outline" },
-      { label: "Get a Quote", href: "#", variant: "primary" },
+      { label: "Get a Quote", href: "#", variant: "dark" },
       { label: "Call Us Now", href: "tel:+911204100500", variant: "outline" },
     ],
     image: "/assets/image2/solution-products-img-2.webp",
@@ -339,9 +339,14 @@ export const sapBusinessOneImplementation = {
 
   contactTeaser: {
     title: "Let's Start a Conversation",
-    theme: "light",
+    theme: "dark",
     compact: true,
+<<<<<<< HEAD
     background: "linear-gradient(120deg, var(--sap-blue) 0%, var(--color-primary-dark) 100%)",
     buttons: [{ label: "Connect With Us", href: "#", variant: "outlineLight" }],
+=======
+    background: "linear-gradient(120deg, var(--sap-blue) 0%, var(--color-primary-light) 100%)",
+    buttons: [{ label: "Connect With Us", href: "#", variant: "outline" }],
+>>>>>>> develop
   },
 };

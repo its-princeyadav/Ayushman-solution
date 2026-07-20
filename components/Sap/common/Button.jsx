@@ -4,6 +4,7 @@ const VARIANTS = {
   primary: styles.primary,
   outline: styles.outline,
   outlineLight: styles.outlineLight,
+  dark: styles.dark,
   text: styles.text,
 };
 

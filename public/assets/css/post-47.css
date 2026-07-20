@@ -311,3 +311,173 @@
 }
 
 /* End custom CSS */
+
+/* ==========================================================================
+   Top Utility Bar (Book Slot / Contact Us) + main-row sticky behavior.
+
+   The two buttons used to live inside elementor-element-7660472 alongside
+   the search widget, which is why that column needed 71-72% width at
+   768-1024px viewports below - squeezing elementor-element-36aa0a2 (the nav
+   menu) down to 6-7%. Moving them into their own bar above frees that
+   column back down to just the search icon, so the width overrides below
+   hand that reclaimed space to the menu instead.
+   ========================================================================== */
+
+.navbar-utility-bar {
+    width: 100%;
+    /* Darker than the main --color-neutral used elsewhere in the header,
+       for a more premium/recessed feel on this slim strip specifically. */
+    background: var(--color-neutral-dark);
+}
+
+.navbar-utility-bar__inner {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    min-height: 44px;
+    padding: 8px 50px;
+}
+
+.navbar-utility-bar__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 6px;
+    font-size: 0.92rem;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Book Slot: solid primary CTA - the emphasized action of the pair. */
+.navbar-utility-bar__btn--solid {
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-neutral);
+}
+
+.navbar-utility-bar__btn--solid:hover,
+.navbar-utility-bar__btn--solid:focus-visible {
+    background: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* Contact Us: outline secondary - sits directly on the dark bar, so its
+   resting text/icon color is white rather than var(--color-primary) (which
+   would fail contrast used as body text here); the primary border still
+   ties it to the same theme color as its solid sibling. Hover swaps the
+   two buttons' language for a consistent "invert" feel across both. */
+.navbar-utility-bar__btn--outline {
+    border: 1px solid var(--color-primary);
+    background: transparent;
+    color: var(--color-white);
+}
+
+.navbar-utility-bar__btn--outline:hover,
+.navbar-utility-bar__btn--outline:focus-visible {
+    background: var(--color-primary);
+    color: var(--color-neutral);
+    border-color: var(--color-primary);
+}
+
+@media (max-width: 1366px) {
+    .navbar-utility-bar__inner {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .navbar-utility-bar__inner {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Stays visible on mobile per spec (unlike the old navbar-actions__btn
+       buttons, which button.min.css hides at this breakpoint) - just
+       tighter, touch-friendly spacing instead of the desktop padding. */
+    .navbar-utility-bar__inner {
+        gap: 10px;
+        padding: 8px 15px;
+    }
+
+    .navbar-utility-bar__btn {
+        height: 36px;
+        padding: 0 14px;
+        font-size: 0.8rem;
+        gap: 6px;
+    }
+}
+
+/* The sticky element is `.elementor-47` itself (the wrapper layout.jsx
+   renders around <Navbar/>), NOT elementor-element-e072e0e (the row
+   inside it). position:sticky's "stuck" range is bounded by its own
+   containing block - e072e0e's containing block used to be .elementor-47,
+   which (before NavbarUtilityBar became layout.jsx's sibling instead of
+   e072e0e's sibling) was only ever as tall as the header itself, giving
+   sticky nowhere to go: scroll past that ~150px and it just scrolled away
+   like a normal element. .elementor-47's own containing block is #page,
+   which spans the entire document, so making .elementor-47 itself sticky
+   is what actually gives it room to stay pinned for the full scroll.
+   An explicit background is required: this row has none of its own today
+   and relies on the page's white background showing through, which stops
+   working once it's sticky and other content scrolls underneath it.
+   z-index:999 sits just below the mobile off-canvas menu (1000/1001 in
+   index2.css) so that still opens on top of the sticky bar correctly. */
+.elementor-47 {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: var(--color-white);
+}
+
+/* Freed-up width now that elementor-element-7660472 only holds the search
+   icon (33x33px) - reallocated to elementor-element-36aa0a2 (nav menu).
+   Totals match each breakpoint's original combined percentage so nothing
+   else shifts. */
+@media (max-width: 1366px) and (min-width: 768px) {
+    .elementor-47 .elementor-element.elementor-element-36aa0a2 {
+        --width: 72%;
+    }
+
+    .elementor-47 .elementor-element.elementor-element-7660472 {
+        --width: 8%;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+    .elementor-47 .elementor-element.elementor-element-36aa0a2 {
+        --width: 70%;
+    }
+
+    .elementor-47 .elementor-element.elementor-element-7660472 {
+        --width: 8%;
+    }
+}
+
+@media (max-width: 880px) and (min-width: 768px) {
+    .elementor-47 .elementor-element.elementor-element-36aa0a2 {
+        --width: 69%;
+    }
+
+    .elementor-47 .elementor-element.elementor-element-7660472 {
+        --width: 9%;
+    }
+}
+
+/* More breathing room between top-level menu items. Overrides
+   master.min.css's `.desktop-menu-active .menu-item a { padding:10px
+   15px }` - this selector has more classes so it wins regardless of load
+   order, without needing !important. */
+.elementor-47 .elementor-element.elementor-element-6904d66 .desktop-menu-active .menu-item a {
+    padding: 10px 24px;
+}
+/* End custom CSS */

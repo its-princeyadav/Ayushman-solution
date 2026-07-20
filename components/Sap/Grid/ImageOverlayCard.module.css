@@ -64,8 +64,11 @@
 
 .label {
   color: var(--sap-white);
+  font-family: var(--sap-font-heading);
   font-size: 1.15rem;
   font-weight: 700;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
   transition: transform 400ms ease;
 }
 

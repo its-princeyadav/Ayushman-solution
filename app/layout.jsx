@@ -1,7 +1,7 @@
 import Script from "next/script";
 import Preloader from "../components/Common/Preloader";
 import Popups from "../components/Common/Popups";
-import Navbar from "../components/Navbar/Navbar";
+import Navbar, { NavbarUtilityBar } from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import "./globals.css";
 
@@ -117,9 +117,18 @@ export default function RootLayout({ children }) {
         <Script id="jquery-core-js" src="/assets/js/jquery.min.js" strategy="afterInteractive" async={false} />
         <Script id="jquery-migrate-js" src="/assets/js/jquery-migrate.min.js" strategy="afterInteractive" async={false} />
 
-        <div id="smooth-wrapper" style={{ overflowX: "hidden", position: "relative" }}>
+        {/* overflow-x lives on html/body (globals.css) instead of here now:
+            overflow-x:hidden on this div with overflow-y left "visible"
+            computes overflow-y to "auto" per spec, which makes THIS div (not
+            the real viewport) the containing block for any position:sticky
+            descendant - since it never scrolls internally, nothing sticks.
+            html/body don't have that problem (the root scroller IS the
+            viewport), so the same horizontal-scroll guard works there
+            without breaking the sticky navbar. */}
+        <div id="smooth-wrapper" style={{ position: "relative" }}>
           <div id="smooth-content">
             <div id="page" className="hfeed site">
+              <NavbarUtilityBar />
               <div data-elementor-type="wp-post" data-elementor-id="47" className="elementor elementor-47">
                 <Navbar />
               </div>

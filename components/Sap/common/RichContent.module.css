@@ -96,9 +96,12 @@
 
 .advantagesTitle {
   margin: 0 0 24px;
-  color: var(--sap-navy);
+  color: var(--color-neutral);
+  font-family: var(--sap-font-heading);
   font-size: 1.2rem;
   font-weight: 700;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
 }
 
 .advantagesTitleLight {

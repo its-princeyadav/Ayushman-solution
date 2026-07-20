@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Design tokens shared by every SAP page (Solutions, Services, Support, Practices,
    Business One, Managed Services, ...). Plain :root custom properties so CSS
    Modules across the Sap component tree can reference one source of truth
@@ -26,6 +27,22 @@
   --sap-border-strong: var(--color-neutral);
   --sap-bg-tint: var(--color-primary-lightest);
   --sap-bg-tint-soft: color-mix(in srgb, var(--color-primary-lightest) 45%, white);
+=======
+:root {
+  --sap-navy: #14304f;
+  --sap-navy-soft: #1c3a5e;
+  /* Aliased to global.css so the SAP module's primary/CTA accent and every
+     control derived from it (buttons, tabs, icons, active states) stay in
+     lockstep with the site-wide theme - change the color in one place. */
+  --sap-blue: var(--color-primary);
+  --sap-blue-dark: var(--color-primary-dark);
+  --sap-text: #4b5563;
+  --sap-text-light: #6b7280;
+  --sap-border: #d9e2ef;
+  --sap-border-strong: #14304f;
+  --sap-bg-tint: #eaf6ff;
+  --sap-bg-tint-soft: #f3f9ff;
+>>>>>>> develop
   --sap-white: var(--color-white);
 
   --sap-radius-sm: 6px;
@@ -38,6 +55,39 @@
   --sap-max-width: 1200px;
   --sap-section-gap: clamp(56px, 8vw, 96px);
   --sap-transition: 220ms ease;
+
+  /* Matches the homepage's actual heading typography (see public/assets/css/
+     post-6.css .wcf--title / .elementor-heading-title rules - "Teko" bold
+     uppercase is used 44 times there, "PT Serif" 0 times despite being the
+     sitewide h1-h6 default in master.min.css). Centralized here so every
+     heading in this module points at one definition instead of repeating it. */
+  --sap-font-heading: "Teko", sans-serif;
+  --sap-heading-weight: 700;
+  --sap-heading-transform: uppercase;
+  /* Large hero/section titles (H1/H2 scale) match the homepage's tightest
+     big-headline ratio; smaller card/feature titles use a looser ratio so
+     wrapped 2-3 line titles don't collide - the homepage itself scales this
+     the same way (0.76-0.95em on giant text vs 1.14-1.25em on small labels). */
+  --sap-heading-line-height: 0.95;
+  --sap-heading-line-height-compact: 1.1;
+}
+
+/* Scoped to the SAP module by construction: this file is only imported by
+   components/Sap-pages/*.jsx, so this selector never reaches non-SAP routes.
+   Safety-net only - public/assets/css/master.min.css's own bare `h1..h6`
+   rule sets font-family too and wins that specific property on cascade
+   order despite equal specificity, so every heading class below repeats
+   these declarations at class-level specificity to actually win. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--sap-font-heading);
+  font-weight: var(--sap-heading-weight);
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height);
 }
 
 /* Mandatory SAP-module typography: Teko for every heading, Kanit for body

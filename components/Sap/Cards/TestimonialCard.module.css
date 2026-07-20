@@ -112,7 +112,7 @@
   height: 62px;
   border-radius: 50%;
   background: var(--sap-white);
-  color: var(--sap-blue);
+  color: var(--color-primary-darker);
   font-size: 1.1rem;
   padding-left: 4px;
   transition: transform var(--sap-transition);

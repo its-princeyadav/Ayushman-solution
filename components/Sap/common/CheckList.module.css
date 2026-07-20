@@ -4,9 +4,12 @@
 
 .title {
   margin: 0 0 16px;
-  color: var(--sap-navy);
+  color: var(--color-neutral);
+  font-family: var(--sap-font-heading);
   font-size: 1.2rem;
   font-weight: 700;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
 }
 
 .title.light {
@@ -38,6 +41,6 @@
 .icon {
   flex-shrink: 0;
   margin-top: 3px;
-  color: var(--sap-blue);
+  color: var(--color-primary-dark);
   font-size: 1.05rem;
 }

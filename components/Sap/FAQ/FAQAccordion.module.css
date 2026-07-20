@@ -20,14 +20,17 @@
   border: none;
   cursor: pointer;
   text-align: left;
+  font-family: var(--sap-font-heading);
   font-size: 0.98rem;
   font-weight: 600;
-  color: var(--sap-text);
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
+  color: var(--color-neutral);
   transition: color var(--sap-transition);
 }
 
 .open > .trigger {
-  color: var(--sap-blue);
+  color: var(--color-primary-darker);
 }
 
 .chevron {
@@ -38,7 +41,7 @@
 
 .open .chevron {
   transform: rotate(180deg);
-  color: var(--sap-blue);
+  color: var(--color-primary-darker);
 }
 
 .panel {

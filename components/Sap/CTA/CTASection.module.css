@@ -22,9 +22,11 @@
 
 .title {
   margin: 0 0 16px;
+  font-family: var(--sap-font-heading);
   font-size: clamp(1.7rem, 3.4vw, 2.4rem);
   font-weight: 700;
-  line-height: 1.25;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height);
 }
 
 .description {
@@ -46,7 +48,7 @@
 }
 
 .dark .title {
-  color: var(--sap-navy);
+  color: var(--color-neutral);
 }
 
 .light .title {

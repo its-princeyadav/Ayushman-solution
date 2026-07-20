@@ -1,9 +1,45 @@
 import Image from "next/image";
+import Link from "next/link";
 import Script from "next/script";
-import { FaAngleDown, FaArrowLeft, FaBars, FaTimes, FaWindowClose, FaSearch, FaPhone } from "react-icons/fa";
+import { FaAngleDown, FaArrowLeft, FaBars, FaTimes, FaWindowClose, FaSearch, FaPhone, FaRegCalendarAlt } from "react-icons/fa";
 import Whatwedo from "../Whatwedo";
 import Industries from "../Industries";
 import OurWork from "../Our-work/Our-work";
+/* Top Utility Bar: houses the two secondary action buttons that used to
+   live inside the main nav row (element 7660472 below). Splitting them out
+   here is what actually fixes the crowding on small desktop/laptop widths -
+   the main row no longer has to reserve ~70% of its width for these two
+   buttons, so the nav menu column can reclaim that space (see the
+   elementor-element-36aa0a2/7660472 width overrides in post-47.css). Stays
+   visible (including mobile) per spec, so it deliberately does NOT reuse
+   the navbar-actions__btn class - button.min.css hides that class at
+   <=767px, which is the opposite of what's wanted here.
+
+   Rendered by layout.jsx as a SIBLING before the `.elementor-47` wrapper,
+   not nested inside it: position:sticky on `.elementor-47` needs its own
+   containing block (`#page`) to span the full page for the "stuck" range
+   to have any room to work in. If this bar were a child of `.elementor-47`
+   instead, that wrapper's height would shrink back down to just the header
+   area, sticky would run out of room within the first ~150px and the
+   navbar would just scroll away like a normal element - which is exactly
+   what happened before this bar was pulled out to a sibling. */
+export function NavbarUtilityBar() {
+  return (
+    <div className="navbar-utility-bar">
+      <div className="navbar-utility-bar__inner">
+        <a href="#" className="navbar-utility-bar__btn navbar-utility-bar__btn--solid">
+          <FaRegCalendarAlt aria-hidden="true" />
+          Book Slot
+        </a>
+        <a href="#" className="navbar-utility-bar__btn navbar-utility-bar__btn--outline">
+          <FaPhone aria-hidden="true" />
+          Contact Us
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function Navbar() {
   return (
     <div className="elementor-element elementor-element-e072e0e e-con-full e-flex wcf-starter-animations-none e-con e-parent" data-id="e072e0e" data-element_type="container" data-e-type="container" data-settings="{&quot;wcf_enable_cursor_hover_effect_text&quot;:&quot;View&quot;,&quot;wcf-animation&quot;:&quot;none&quot;,&quot;wcf_enable_pin_area&quot;:&quot;no&quot;,&quot;aae_enable_header_sticky_area&quot;:&quot;no&quot;,&quot;wcf_enable_horizontal_scroll&quot;:&quot;no&quot;}">
@@ -11,9 +47,9 @@ export default function Navbar() {
         <div className="elementor-element elementor-element-55cb238 elementor-widget elementor-widget-wcf--site-logo" data-id="55cb238" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--site-logo.default">
           <div className="elementor-widget-container">
             <div className="elementor-image">
-              <a href="#" aria-label="Site Logo">
+              <Link href="/" aria-label="Go to Home Page">
                 <Image width={190} height={45} src="/assets/images/Latets-Logo.png" className="attachment-full size-full wp-image-7351" alt="" priority />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -93,15 +129,6 @@ export default function Navbar() {
                 <div className="aae--live-search-results" />
               </div>
             </div>
-          </div>
-          <div className="wcf__btn navbar-actions__btn">
-            <a href="#" className="wcf-btn-solid wcf-btn-solid--outline">Book Slot</a>
-          </div>
-          <div className="wcf__btn navbar-actions__btn">
-            <a href="#" className="wcf-btn-solid wcf-btn-solid--filled">
-              Contact Us
-              <FaPhone aria-hidden="true" />
-            </a>
           </div>
         </div>
       </div>

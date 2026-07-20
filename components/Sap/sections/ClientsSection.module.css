@@ -35,16 +35,18 @@
 .heading {
   margin: 0;
   max-width: 260px;
+  font-family: var(--sap-font-heading);
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--sap-navy);
-  line-height: 1.4;
+  color: var(--color-neutral);
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
 }
 
 .ribbon {
   padding: 6px 20px;
   background: var(--sap-blue);
-  color: var(--sap-white);
+  color: var(--color-neutral);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -85,7 +87,7 @@
   height: 46px;
   border-radius: 50%;
   background: var(--sap-bg-tint);
-  color: var(--sap-blue);
+  color: var(--color-primary-darker);
   font-size: 1.2rem;
 }
 

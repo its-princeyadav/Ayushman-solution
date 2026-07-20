@@ -61,9 +61,11 @@
 
 .headline {
   margin: 10px 130px 0 0;
+  font-family: var(--sap-font-heading);
   font-size: 1.15rem;
   font-weight: 700;
-  line-height: 1.35;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -110,12 +112,15 @@
 
 .title {
   margin: 0;
+  font-family: var(--sap-font-heading);
   font-size: 1.05rem;
-  line-height: 1.4;
+  font-weight: var(--sap-heading-weight);
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
 }
 
 .title a {
-  color: var(--sap-navy);
+  color: var(--color-neutral);
   text-decoration: none;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -124,7 +129,7 @@
 }
 
 .title a:hover {
-  color: var(--sap-blue);
+  color: var(--color-primary-darker);
 }
 
 .metaGrid {
@@ -169,5 +174,5 @@
 }
 
 .readMore:hover {
-  color: var(--sap-blue);
+  color: var(--color-primary-darker);
 }

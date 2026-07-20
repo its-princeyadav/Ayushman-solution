@@ -240,9 +240,7 @@ export const sapBusinessOneCustomization = {
     ],
   },
 
-  // TODO: Mankind Pharma / Standard-to-Stellar reused from sapSolutions.js's
-  // existing asset set; Lahori Zeera reuses the exact banner-style entry
-  // already established in sapSolutions.js stories data.
+
   caseStudies: {
     title: "Case Studies",
     action: { label: "Find Out More", href: "#" },
@@ -295,9 +293,14 @@ export const sapBusinessOneCustomization = {
 
   contactTeaser: {
     title: "Let's Start a Conversation",
-    theme: "light",
+    theme: "dark",
     compact: true,
+<<<<<<< HEAD
     background: "linear-gradient(120deg, var(--sap-blue) 0%, var(--color-primary-dark) 100%)",
     buttons: [{ label: "Connect With Us", href: "#", variant: "outlineLight" }],
+=======
+    background: "linear-gradient(120deg, var(--sap-blue) 0%, var(--color-primary-light) 100%)",
+    buttons: [{ label: "Connect With Us", href: "#", variant: "outline" }],
+>>>>>>> develop
   },
 };

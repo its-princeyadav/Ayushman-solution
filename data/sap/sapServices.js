@@ -464,12 +464,12 @@ export const sapServices = {
       {
         heading: "SAP Business One Licensing and Costs",
         bullets: ["Implementation", "Training", "Support Pricing"],
-        button: { label: "Get a Quote", href: "#" },
+        button: { label: "Get a Quote", href: "#", variant: "dark" },
       },
       {
         heading: "SAP S/4HANA Cloud Pricing & Trial",
         bullets: ["Free 14-day trial", "Free 30-day trial"],
-        button: { label: "Get a Quote", href: "#" },
+        button: { label: "Get a Quote", href: "#", variant: "dark" },
       },
     ],
   },
