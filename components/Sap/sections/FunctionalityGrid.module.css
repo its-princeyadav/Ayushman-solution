@@ -28,3 +28,27 @@
     flex-basis: 100%;
   }
 }
+
+.compactGrid {
+  gap: 20px;
+}
+
+.compactGrid > * {
+  flex: 0 0 calc(33.333% - 14px);
+}
+
+@media (max-width: 800px) {
+  .compactGrid {
+    gap: 16px;
+  }
+
+  .compactGrid > * {
+    flex-basis: calc(50% - 8px);
+  }
+}
+
+@media (max-width: 520px) {
+  .compactGrid > * {
+    flex-basis: 100%;
+  }
+}

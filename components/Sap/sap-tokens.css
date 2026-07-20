@@ -1,20 +1,32 @@
-/* Design tokens shared by every SAP page (Solutions, Services, Support, Practices, ...).
-   Plain :root custom properties so CSS Modules across the Sap component tree can
-   reference one source of truth without duplicating values. Imported once by the
-   page-level composer (components/Sap-pages/*.jsx). */
+/* Design tokens shared by every SAP page (Solutions, Services, Support, Practices,
+   Business One, Managed Services, ...). Plain :root custom properties so CSS
+   Modules across the Sap component tree can reference one source of truth
+   without duplicating values. Imported once by the page-level composer
+   (components/Sap-pages/*.jsx).
+
+   Values are aliases onto the global brand palette defined in app/globals.css
+   (the --color-primary, --color-neutral and --color-secondary scales) rather
+   than their own hex literals, so the whole SAP module stays in lockstep with that single
+   source of truth. --sap-blue/--sap-blue-dark are kept as the "accent" names
+   for backward compatibility with every existing component that already
+   references them, but now resolve to the dark end of the primary (yellow-
+   green) scale: the darker steps read as readable text/border/icon accents on
+   white, whereas the bright --color-primary itself is reserved for button
+   fills (see Button.module.css), where contrast against its own text is
+   handled explicitly rather than through this shared accent token. */
 
 :root {
-  --sap-navy: #14304f;
-  --sap-navy-soft: #1c3a5e;
-  --sap-blue: #1e73e8;
-  --sap-blue-dark: #0f5cd1;
-  --sap-text: #4b5563;
-  --sap-text-light: #6b7280;
-  --sap-border: #d9e2ef;
-  --sap-border-strong: #14304f;
-  --sap-bg-tint: #eaf6ff;
-  --sap-bg-tint-soft: #f3f9ff;
-  --sap-white: #ffffff;
+  --sap-navy: var(--color-neutral);
+  --sap-navy-soft: var(--color-neutral-light);
+  --sap-blue: var(--color-primary-darker);
+  --sap-blue-dark: var(--color-primary-darkest);
+  --sap-text: var(--color-secondary);
+  --sap-text-light: var(--color-secondary-light);
+  --sap-border: var(--color-secondary-lightest);
+  --sap-border-strong: var(--color-neutral);
+  --sap-bg-tint: var(--color-primary-lightest);
+  --sap-bg-tint-soft: color-mix(in srgb, var(--color-primary-lightest) 45%, white);
+  --sap-white: var(--color-white);
 
   --sap-radius-sm: 6px;
   --sap-radius-md: 12px;
@@ -26,4 +38,24 @@
   --sap-max-width: 1200px;
   --sap-section-gap: clamp(56px, 8vw, 96px);
   --sap-transition: 220ms ease;
+}
+
+/* Mandatory SAP-module typography: Teko for every heading, Kanit for body
+   copy. Scoped to `main` (every SAP page renders inside the root layout's
+   <main>, while Navbar/Footer sit outside it) so this never leaks into
+   Navbar/Footer, which already carry their own explicit font-family rules
+   anyway. Both families are already loaded site-wide as @font-face via
+   font10.css/fonts6.css in app/layout.jsx - no component here needs its own
+   font import. */
+main h1,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6 {
+  font-family: "Teko", sans-serif;
+}
+
+main p {
+  font-family: "Kanit", sans-serif;
 }

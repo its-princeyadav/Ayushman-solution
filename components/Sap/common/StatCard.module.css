@@ -14,7 +14,7 @@
   height: 84px;
   border-radius: 50%;
   background: var(--sap-navy);
-  color: #9fc4f2;
+  color: var(--color-primary-light);
   font-size: 1.9rem;
 }
 
@@ -27,4 +27,17 @@
 .label {
   font-size: 0.95rem;
   color: var(--sap-text);
+}
+
+.light .iconCircle {
+  background: var(--sap-white);
+  color: var(--sap-navy);
+}
+
+.light .value {
+  color: var(--sap-white);
+}
+
+.light .label {
+  color: rgba(255, 255, 255, 0.85);
 }

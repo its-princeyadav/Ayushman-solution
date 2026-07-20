@@ -11,6 +11,20 @@
   transition: box-shadow var(--sap-transition);
 }
 
+/* Slightly shorter tile for grids of many small tiles (e.g. a 9-card
+   solutions grid) so the section doesn't sprawl with oversized cards. */
+.card.compact {
+  aspect-ratio: 16 / 10;
+}
+
+.compact .label {
+  font-size: 1.05rem;
+}
+
+.compact .description {
+  font-size: 0.85rem;
+}
+
 .card:hover {
   box-shadow: var(--sap-shadow-hover);
 }

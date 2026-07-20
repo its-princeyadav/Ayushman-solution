@@ -104,7 +104,7 @@ export const sapServices = {
         ],
         buttons: [
           { label: "Let's Talk", href: "#", variant: "primary" },
-          { label: "Managed Services", href: "#", variant: "outlineLight" },
+          { label: "Managed Services", href: "/sap/business-one/managed-services", variant: "outlineLight" },
         ],
       },
       migration: {

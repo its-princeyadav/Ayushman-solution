@@ -1,6 +1,6 @@
 .section {
   padding-block: var(--sap-section-gap);
-  background: linear-gradient(120deg, #fdf1ea 0%, #ffffff 30%);
+  background: linear-gradient(120deg, var(--color-primary-lightest) 0%, #ffffff 30%);
 }
 
 .stage {
@@ -39,8 +39,8 @@
   width: clamp(160px, 22vw, 220px);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #1d4f8f, #0a1e3c 75%);
-  box-shadow: 0 0 0 8px rgba(30, 115, 232, 0.12);
+  background: radial-gradient(circle at 35% 30%, var(--color-neutral-light), var(--color-neutral-darkest) 75%);
+  box-shadow: 0 0 0 8px rgba(251, 240, 34, 0.18);
   color: var(--sap-white);
   text-align: center;
   padding: 16px;

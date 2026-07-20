@@ -22,13 +22,13 @@
 
 .primary {
   padding: 17px 34px;
-  background: var(--sap-blue);
-  color: var(--sap-white);
+  background: var(--color-primary);
+  color: var(--color-neutral);
 }
 
 .primary:hover,
 .primary:focus-visible {
-  background: var(--sap-blue-dark);
+  background: var(--color-primary-dark);
   transform: translateY(-2px);
 }
 

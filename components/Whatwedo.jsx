@@ -39,9 +39,9 @@ const CATEGORIES = [
         items: [
           { title: "Overview", description: "A scalable ERP solution for SMEs.", href: "/sap/business-one" },
           { title: "Implementation", description: "Cutting-edge deployment with maximized agility.", href: "/sap/business-one/implementation" },
-          { title: "Integrations", description: "Connect SAP with your apps and systems.", href: "#" },
+          { title: "Integrations", description: "Connect SAP with your apps and systems.", href: "/sap/business-one/integration" },
           { title: "Customization", description: "Personalize SAP B1 as per your business processes.", href: "/sap/business-one/customization" },
-          { title: "Managed Services", description: "Reliable user adoption to maintenance support.", href: "#" },
+          { title: "Managed Services", description: "Reliable user adoption to maintenance support.", href: "/sap/business-one/managed-services" },
           { title: "Migrations", description: "Transition data and apps to B1 seamlessly.", href: "#" },
           { title: "SAP License", description: "Understanding best-fit SAP B1 user types.", href: "#" },
           { title: "Consulting", description: "Carve your SAP vision with dependable guidance.", href: "#" },

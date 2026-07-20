@@ -341,7 +341,7 @@ export const sapBusinessOneImplementation = {
     title: "Let's Start a Conversation",
     theme: "light",
     compact: true,
-    background: "linear-gradient(120deg, var(--sap-blue) 0%, #4aa3e8 100%)",
+    background: "linear-gradient(120deg, var(--sap-blue) 0%, var(--color-primary-dark) 100%)",
     buttons: [{ label: "Connect With Us", href: "#", variant: "outlineLight" }],
   },
 };
