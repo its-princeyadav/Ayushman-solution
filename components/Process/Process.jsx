@@ -10,7 +10,7 @@ export default function Process() {
               <div className="elementor-element elementor-element-147489e wcf-t-animation-text_reveal wcf-starter-animations-none elementor-widget elementor-widget-heading" data-id="147489e" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_text_animation&quot;:&quot;text_reveal&quot;,&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;aae_text_trigger&quot;:&quot;on_scroll&quot;,&quot;text_delay&quot;:0.15,&quot;text_duration&quot;:1,&quot;text_stagger&quot;:0.02,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="heading.default">
                 <div className="elementor-widget-container">
                   <h2 className="elementor-heading-title elementor-size-default">
-                    Empowering skills to help you!
+                  Why Businesses Choose Us
                   </h2>
                 </div>
               </div>
@@ -36,10 +36,10 @@ export default function Process() {
                         <FaMagnet />
                       </div>
                       <div className="content">
-                        <div className="title">Creativity</div>
+                        <div className="title">Business-Centric Solutions</div>
                         <p className="desc">
-                          Add the best talent on the market, an agile
-                          skilled management &amp; seamless involvement
+                         Every implementation is aligned with your operational
+                         &amp; goals and growth strategy
                         </p>
                       </div>
                     </div>
@@ -48,10 +48,9 @@ export default function Process() {
                         <FaInfinity />
                       </div>
                       <div className="content">
-                        <div className="title">Relationships</div>
+                        <div className="title">Certified SAP Experts</div>
                         <p className="desc">
-                          Add the best talent on the market, an agile
-                          skilled management &amp; seamless involvement
+                          Experienced consultants with deep expertise across SAP Business One, SAP  &amp; S/4HANA, SAP BTP, and SAP Analytics.
                         </p>
                       </div>
                     </div>
@@ -60,10 +59,9 @@ export default function Process() {
                         <FaClipboardList />
                       </div>
                       <div className="content">
-                        <div className="title">Responsibility</div>
+                        <div className="title">Industry Experience</div>
                         <p className="desc">
-                          Add the best talent on the market, an agile
-                          skilled management &amp; seamless involvement
+                        Proven success across Manufacturing, Pharmaceuticals, Retail, Distribution,  &amp; Engineering, FMCG, Healthcare, and Services.
                         </p>
                       </div>
                     </div>
@@ -72,10 +70,9 @@ export default function Process() {
                         <FaHandshake />
                       </div>
                       <div className="content">
-                        <div className="title">Cost effective</div>
+                        <div className="title">Cost-Effective Delivery</div>
                         <p className="desc">
-                          Add the best talent on the market, an agile
-                          skilled management &amp; seamless involvement
+                          Enterprise-grade solutions optimized for maximum  &amp; ROI and long-term value.
                         </p>
                       </div>
                     </div>

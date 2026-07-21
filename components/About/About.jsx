@@ -9,10 +9,9 @@ export default function About() {
             <div className="elementor-element elementor-element-5ea34fa highlight wcf-t-animation-word wcf-starter-animations-none elementor-widget elementor-widget-wcf--title" data-id="5ea34fa" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_text_animation&quot;:&quot;word&quot;,&quot;text_duration&quot;:1.4,&quot;text_stagger&quot;:0.04,&quot;text_translate_x&quot;:-50,&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;aae_text_trigger&quot;:&quot;on_scroll&quot;,&quot;text_delay&quot;:0.15,&quot;text_translate_y&quot;:0,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--title.default">
               <div className="elementor-widget-container">
                 <h2 className="wcf--title">
-                  <span className="highlight">01 who we are</span> Have a
-                  brilliant idea boost the
-                  <span className="highlight-2"> Growth development</span>
-                  Agency your branding!
+                  <span className="highlight">01 who we are</span>Driving Business 
+                  <span className="highlight-2">Excellence Through SAP </span>
+                  & Digital Innovation
                 </h2>
               </div>
             </div>
@@ -42,14 +41,14 @@ export default function About() {
                   <div className="elementor-element elementor-element-bf7c0aa e-transform e-transform wcf-starter-animations-none wcf-t-animation-none elementor-widget elementor-widget-heading" data-id="bf7c0aa" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_transform_rotateZ_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:-90,&quot;sizes&quot;:[]},&quot;_transform_translateX_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:-12,&quot;sizes&quot;:[]},&quot;_transform_translateY_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:17,&quot;sizes&quot;:[]},&quot;_transform_rotateZ_effect_mobile&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;_transform_translateX_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;_transform_translateY_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf_text_animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;,&quot;_transform_rotateZ_effect_widescreen&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_rotateZ_effect_laptop&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_rotateZ_effect_tablet_extra&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_rotateZ_effect_tablet&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_rotateZ_effect_mobile_extra&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_translateX_effect_widescreen&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_translateX_effect_laptop&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_translateX_effect_tablet_extra&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_translateX_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_translateX_effect_mobile_extra&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_translateY_effect_widescreen&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_translateY_effect_laptop&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_translateY_effect_tablet_extra&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_translateY_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;_transform_translateY_effect_mobile_extra&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]}}" data-widget_type="heading.default">
                     <div className="elementor-widget-container">
                       <h2 className="elementor-heading-title elementor-size-default">
-                        32k+
+                        500+
                       </h2>
                     </div>
                   </div>
                   <div className="elementor-element elementor-element-42d5a84 wcf-starter-animations-none wcf-t-animation-none elementor-widget elementor-widget-heading" data-id="42d5a84" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf_text_animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="heading.default">
                     <div className="elementor-widget-container">
                       <h2 className="elementor-heading-title elementor-size-default">
-                        happy clients of our Services
+                       Successful Projects Delivered
                       </h2>
                     </div>
                   </div>
@@ -71,10 +70,9 @@ export default function About() {
               <div className="elementor-element elementor-element-626b4a7 wcf-t-animation-text_move wcf-starter-animations-none elementor-widget elementor-widget-text-editor" data-id="626b4a7" data-element_type="widget" data-e-type="widget" data-settings="{&quot;text_transform_origin&quot;:&quot;top center -50&quot;,&quot;wcf_text_animation&quot;:&quot;text_move&quot;,&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;aae_text_trigger&quot;:&quot;on_scroll&quot;,&quot;text_delay&quot;:0.15,&quot;text_duration&quot;:1,&quot;text_stagger&quot;:0.02,&quot;text_rotation_di&quot;:&quot;x&quot;,&quot;text_rotation&quot;:&quot;-80&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="text-editor.default">
                 <div className="elementor-widget-container">
                   <p>
-                    Consumers today rely heavily on digital means to
-                    research products. We research a brand of bldend
-                    engaging with it, according to the meanwhile, 51% of
-                    consumers.
+                    At Ayushman Solution, we are a leading IT Services and IT Consulting company specializing in SAP ERP, Digital Transformation, Cloud Technologies, Enterprise Applications, and Business Automation. <br/>
+                    We partner with organizations to simplify complex business processes, improve operational efficiency, and enable data-driven decision-making through intelligent enterprise solutions.<br/>
+                    Our experienced SAP consultants, solution architects, and technology experts work closely with clients to deliver scalable, secure, and future-ready digital solutions. 
                   </p>
                 </div>
               </div>
