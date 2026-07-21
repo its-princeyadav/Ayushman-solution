@@ -79,9 +79,37 @@
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 400ms ease, transform 400ms ease;
+  /* Lets a description string carry embedded "\n" line breaks (e.g. a
+     bulleted list) without affecting plain single-line descriptions. */
+  white-space: pre-line;
 }
 
 .card:hover .description {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Additive: permanently-visible copy for non-photo cards (see forceVisible
+   prop). These have no image to crop, and always show title + description +
+   a button, so they need to grow with their content instead of being locked
+   to (and clipped by) the fixed 3:2 photo aspect ratio. */
+.forceVisible {
+  aspect-ratio: auto;
+  min-height: 280px;
+  overflow: visible;
+  padding: 32px 24px;
+  transition: transform var(--sap-transition), box-shadow var(--sap-transition);
+}
+
+.forceVisible:hover {
+  transform: translateY(-6px);
+}
+
+.forceVisible .description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.button {
+  margin-top: 8px;
 }

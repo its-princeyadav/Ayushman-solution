@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaSync, FaUsers, FaCloud, FaChartLine } from "react-icons/fa";
 import Container from "../common/Container";
 import styles from "./ClientsSection.module.css";
@@ -44,11 +45,21 @@ export default function ClientsSection({ badges, stat, statLabel, ribbon, headin
           </div>
 
           <div className={styles.logos}>
-            {clients.map((client) => (
-              <span key={client} className={styles.logo}>
-                {client}
-              </span>
-            ))}
+            {clients.map((client) => {
+              const isObject = typeof client === "object" && client !== null;
+              const name = isObject ? client.name : client;
+              const logo = isObject ? client.logo : undefined;
+
+              return (
+                <span key={name} className={styles.logo}>
+                  {logo ? (
+                    <Image src={logo} alt={name} width={96} height={40} className={styles.logoImage} />
+                  ) : (
+                    name
+                  )}
+                </span>
+              );
+            })}
           </div>
         </div>
       </Container>
