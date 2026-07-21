@@ -19,8 +19,7 @@ export default function Services() {
               <div className="elementor-element elementor-element-2041531 wcf-t-animation-word wcf-starter-animations-none elementor-widget elementor-widget-wcf--title" data-id={2041531} data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_text_animation&quot;:&quot;word&quot;,&quot;text_stagger&quot;:0.03,&quot;text_translate_x&quot;:50,&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;aae_text_trigger&quot;:&quot;on_scroll&quot;,&quot;text_delay&quot;:0.15,&quot;text_duration&quot;:1,&quot;text_translate_y&quot;:0,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="wcf--title.default">
                 <div className="elementor-widget-container">
                   <h2 className="wcf--title">
-                    we <span className="highlight">provide </span> premium
-                    Ayushman Solutions service
+                    Our Solution 
                   </h2>
                 </div>
               </div>
@@ -50,8 +49,8 @@ export default function Services() {
               <div className="elementor-element elementor-element-3bb7a4a wcf-starter-animations-none wcf-t-animation-none elementor-widget elementor-widget-heading" data-id="3bb7a4a" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf_text_animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="heading.default">
                 <div className="elementor-widget-container">
                   <h2 className="elementor-heading-title elementor-size-default">
-                    <a href="#">Project <br />
-                      Management</a>
+                    <a href="#">SAP ERP  <br />
+                       Implementation</a>
                   </h2>
                 </div>
               </div>
@@ -60,9 +59,8 @@ export default function Services() {
               <div className="elementor-element elementor-element-9650e77 wcf-starter-animations-none wcf-t-animation-none elementor-widget elementor-widget-text-editor" data-id="9650e77" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf_text_animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="text-editor.default">
                 <div className="elementor-widget-container">
                   <p>
-                    Creative Design team on demand that can design,
-                    build, ship and scale your real has development
-                    agency.
+                  Implement intelligent ERP solutions that unify finance, 
+                  procurement, inventory, manufacturing, CRM, and business operations.
                   </p>
                 </div>
               </div>
@@ -73,19 +71,25 @@ export default function Services() {
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">Mobile &amp; Web Design</span>
+                      <span className="elementor-icon-list-text">SAP Business &amp; One</span>
                     </li>
                     <li className="elementor-icon-list-item">
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">Interation Design</span>
+                      <span className="elementor-icon-list-text">SAP S/4HANA</span>
                     </li>
                     <li className="elementor-icon-list-item">
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">UX Research &amp; Plan</span>
+                      <span className="elementor-icon-list-text">Business Process  &amp; Mapping</span>
+                    </li>
+                                        <li className="elementor-icon-list-item">
+                      <span className="elementor-icon-list-icon">
+                        <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
+                      </span>
+                      <span className="elementor-icon-list-text">Data &amp; Migration</span>
                     </li>
                   </ul>
                 </div>
@@ -117,8 +121,8 @@ export default function Services() {
               <div className="elementor-element elementor-element-45fc7c7 wcf-starter-animations-none wcf-t-animation-none elementor-widget elementor-widget-heading" data-id="45fc7c7" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf_text_animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="heading.default">
                 <div className="elementor-widget-container">
                   <h2 className="elementor-heading-title elementor-size-default">
-                    <a href="#">Product <br />
-                      Management</a>
+                    <a href="#">SAP Consulting  <br />
+                      & Advisory</a>
                   </h2>
                 </div>
               </div>
@@ -127,9 +131,7 @@ export default function Services() {
               <div className="elementor-element elementor-element-b53a265 wcf-starter-animations-none wcf-t-animation-none elementor-widget elementor-widget-text-editor" data-id="b53a265" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf_text_animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="text-editor.default">
                 <div className="elementor-widget-container">
                   <p>
-                    Creative Design team on demand that can design,
-                    build, ship and scale your real has development
-                    agency.
+                 Helping organizations select, implement, optimize, and scale SAP solutions aligned with business objectives.
                   </p>
                 </div>
               </div>
@@ -140,19 +142,25 @@ export default function Services() {
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">Mobile &amp; Web Design</span>
+                      <span className="elementor-icon-list-text">Business &amp; Consulting</span>
                     </li>
                     <li className="elementor-icon-list-item">
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">Interation Design</span>
+                      <span className="elementor-icon-list-text">ERP Strategy</span>
                     </li>
                     <li className="elementor-icon-list-item">
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">UX Research &amp; Plan</span>
+                      <span className="elementor-icon-list-text">Process &amp; Optimization</span>
+                    </li>
+                         <li className="elementor-icon-list-item">
+                      <span className="elementor-icon-list-icon">
+                        <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
+                      </span>
+                      <span className="elementor-icon-list-text">Digital  &amp; Roadmap</span>
                     </li>
                   </ul>
                 </div>
@@ -184,8 +192,8 @@ export default function Services() {
               <div className="elementor-element elementor-element-b4ebd2a wcf-starter-animations-none wcf-t-animation-none elementor-widget elementor-widget-heading" data-id="b4ebd2a" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf_text_animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="heading.default">
                 <div className="elementor-widget-container">
                   <h2 className="elementor-heading-title elementor-size-default">
-                    <a href="#">Web <br />
-                      Design</a>
+                    <a href="#">Cloud & <br />
+                       Managed Services</a>
                   </h2>
                 </div>
               </div>
@@ -194,9 +202,7 @@ export default function Services() {
               <div className="elementor-element elementor-element-50b2fdd wcf-starter-animations-none wcf-t-animation-none elementor-widget elementor-widget-text-editor" data-id="50b2fdd" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf_text_animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="text-editor.default">
                 <div className="elementor-widget-container">
                   <p>
-                    Creative Design team on demand that can design,
-                    build, ship and scale your real has development
-                    agency.
+                   Modernize your IT infrastructure with secure, scalable cloud environments and proactive support
                   </p>
                 </div>
               </div>
@@ -207,19 +213,25 @@ export default function Services() {
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">Mobile &amp; Web Design</span>
+                      <span className="elementor-icon-list-text">Cloud  &amp; Migration</span>
                     </li>
                     <li className="elementor-icon-list-item">
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">Interation Design</span>
+                      <span className="elementor-icon-list-text">SAP Hosting</span>
                     </li>
                     <li className="elementor-icon-list-item">
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">UX Research &amp; Plan</span>
+                      <span className="elementor-icon-list-text">Disaster  &amp; Recovery</span>
+                    </li>
+                      <li className="elementor-icon-list-item">
+                      <span className="elementor-icon-list-icon">
+                        <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
+                      </span>
+                      <span className="elementor-icon-list-text">Infrastructure &amp; Monitoring</span>
                     </li>
                   </ul>
                 </div>
@@ -251,8 +263,8 @@ export default function Services() {
               <div className="elementor-element elementor-element-8a631cc wcf-starter-animations-none wcf-t-animation-none elementor-widget elementor-widget-heading" data-id="8a631cc" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf_text_animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="heading.default">
                 <div className="elementor-widget-container">
                   <h2 className="elementor-heading-title elementor-size-default">
-                    <a href="#">Backend <br />
-                      Development</a>
+                    <a href="#">SAP Support <br />
+                       & Managed Services</a>
                   </h2>
                 </div>
               </div>
@@ -261,9 +273,7 @@ export default function Services() {
               <div className="elementor-element elementor-element-36867f0 wcf-starter-animations-none wcf-t-animation-none elementor-widget elementor-widget-text-editor" data-id="36867f0" data-element_type="widget" data-e-type="widget" data-settings="{&quot;wcf_starter_animations&quot;:&quot;none&quot;,&quot;wcf_anim_duration&quot;:1000,&quot;wcf_anim_delay&quot;:0,&quot;wcf_anim_ease&quot;:&quot;ease&quot;,&quot;wcf_text_animation&quot;:&quot;none&quot;,&quot;wcf-animation&quot;:&quot;none&quot;}" data-widget_type="text-editor.default">
                 <div className="elementor-widget-container">
                   <p>
-                    Creative Design team on demand that can design,
-                    build, ship and scale your real has development
-                    agency.
+                    Keep your SAP environment running efficiently with proactive monitoring, enhancements, and technical support.
                   </p>
                 </div>
               </div>
@@ -274,19 +284,25 @@ export default function Services() {
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">Mobile &amp; Web Design</span>
+                      <span className="elementor-icon-list-text">AMC  &amp; Support</span>
                     </li>
                     <li className="elementor-icon-list-item">
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">Interation Design</span>
+                      <span className="elementor-icon-list-text">Performance Optimization </span>
                     </li>
                     <li className="elementor-icon-list-item">
                       <span className="elementor-icon-list-icon">
                         <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
                       </span>
-                      <span className="elementor-icon-list-text">UX Research &amp; Plan</span>
+                      <span className="elementor-icon-list-text">User  &amp; Training</span>
+                    </li>
+                             <li className="elementor-icon-list-item">
+                      <span className="elementor-icon-list-icon">
+                        <FaPlus aria-hidden="true" className="arolax-theme arolax-wcf-icon icon-wcf-wcf-plus" />
+                      </span>
+                      <span className="elementor-icon-list-text">System   &amp; Upgrades </span>
                     </li>
                   </ul>
                 </div>

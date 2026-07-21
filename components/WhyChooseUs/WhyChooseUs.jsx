@@ -62,7 +62,7 @@ export default function WhyChooseUs() {
               >
                 <div className="elementor-widget-container">
                   <h2 className="elementor-heading-title elementor-size-default">
-                    take charge steering your product
+                    Why Ayushman Solution
                   </h2>
                 </div>
               </div>
@@ -83,8 +83,7 @@ export default function WhyChooseUs() {
                 >
                   <div className="elementor-widget-container">
                     <p>
-                      Our ability to combine expertise and systems thinking is
-                      what fuels us as a team.
+                     Our ability to combine deep SAP expertise, industry knowledge, and innovative technologies enables businesses to operate smarter, faster, and more efficiently.
                     </p>
                   </div>
                 </div>
@@ -119,13 +118,12 @@ export default function WhyChooseUs() {
                       <FaUsers />
                     </div>
                     <h3 className="title">
-                      Dedicated <br />
-                      Team
+                      Managed IT  <br />
+                      Services
                     </h3>
                     <div className="desc">
                       <p>
-                        Find the best fit engineers led by senior, seasoned, and
-                        skilled our tech- lead.
+                        End-to-end infrastructure management, cloud monitoring, security, and ongoing technical support for business continuity.
                       </p>
                     </div>
                   </div>
@@ -153,13 +151,11 @@ export default function WhyChooseUs() {
                       <FaUsers />
                     </div>
                     <h3 className="title">
-                      Product <br />
-                      Team
+                      SAP Consulting <br /> Team
                     </h3>
                     <div className="desc">
                       <p>
-                        Get top-notch service from an experienced Product
-                        Designer Manager team.
+                       Certified SAP professionals delivering implementation, migration, customization, upgrades, and support.
                       </p>
                     </div>
                   </div>
@@ -187,13 +183,12 @@ export default function WhyChooseUs() {
                       <FaUserFriends />
                     </div>
                     <h3 className="title">
-                      End-to-End <br />
-                      Team
+                     Digital Transformation <br /> Team
+      
                     </h3>
                     <div className="desc">
                       <p>
-                        Hire an elite squad of leading have professionals to
-                        turn idea into an ready-to-market product
+                        Experts in business process optimization, automation, cloud adoption, and enterprise modernization.
                       </p>
                     </div>
                   </div>
