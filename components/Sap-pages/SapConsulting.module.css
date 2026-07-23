@@ -1,0 +1,44 @@
+/*
+ * Page-scoped rebrand for /sap/consulting only.
+ *
+ * Same technique as the Migration/License pages: these are the same CSS
+ * custom-property names every SAP component already consumes (see
+ * components/Sap/sap-tokens.css). Wrapping just this page's JSX tree in
+ * `.scope` re-values them only for the component instances rendered inside
+ * that wrapper - custom properties inherit through the DOM, so no other page
+ * is affected, and neither sap-tokens.css nor app/globals.css is touched.
+ *
+ * Colors per the approved reference palette: Dark Heading #0B2A78,
+ * Paragraph #555555, Border #E5E5E5, Secondary Blue #178AE8 (buttons/accent),
+ * Primary Blue #0D2C7D (hover/darker accent).
+ */
+.scope {
+  --color-neutral: #0b2a78; /* heading color; also FeatureCard's default border (--sap-border-strong) */
+  --sap-navy: #0b2a78;
+  --sap-text: #555555;
+  --sap-text-light: #777777;
+  --sap-border: #e5e5e5;
+  --color-primary: #f7b500;
+  --color-primary-dark: #e0a300;
+}
+
+.tintWhite {
+  background: var(--sap-white);
+}
+
+.tintLight {
+  background: #eaf6ff;
+}
+
+/* CenteredSection + BenefitsSection each carry their own top/bottom section
+   padding; stacked directly on top of each other (as a single "intro" block
+   on this page) that doubles into a large gap. Selecting by tag - not by the
+   other components' hashed module classes - collapses just the shared seam
+   between them without touching either component's own CSS. */
+.tightIntro > section:first-child {
+  padding-bottom: 0;
+}
+
+.tightIntro > section:last-child {
+  padding-top: 0;
+}

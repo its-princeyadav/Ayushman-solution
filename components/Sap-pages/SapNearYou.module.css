@@ -1,0 +1,68 @@
+/*
+ * Page-scoped styling for /erp/sap-near-you only.
+ *
+ * Same technique as the Migration/License/Consulting/Add-Ons pages: these
+ * are the same CSS custom-property names every SAP component already
+ * consumes (see components/Sap/sap-tokens.css). Wrapping just this page's
+ * JSX tree in `.scope` re-values them only for the component instances
+ * rendered inside that wrapper - custom properties inherit through the DOM,
+ * so no other page is affected, and neither sap-tokens.css nor
+ * app/globals.css is touched. No new colors here - navy heading / yellow
+ * accent are the same values already used on this page's sibling pages.
+ */
+.scope {
+  --color-neutral: #0b2a78;
+  --sap-navy: #0b2a78;
+  --sap-text: #555555;
+  --sap-text-light: #777777;
+  --color-primary: #f7b500;
+  --color-primary-dark: #e0a300;
+}
+
+.tintWhite {
+  background: var(--sap-white);
+}
+
+.tintLight {
+  background: #eaf6ff;
+}
+
+/* Matches the padding-block: var(--sap-section-gap) rhythm every other
+   SAP section component already uses. */
+.section {
+  padding-block: var(--sap-section-gap);
+}
+
+/* No existing shared component is a plain (non-slider) responsive grid of
+   BlogCards, so the grid itself is scoped CSS here in the page composer,
+   while every card inside it is the existing, reused BlogCard component.
+   flex-wrap + justify-content:center (the same technique already used by
+   FunctionalityGrid.module.css) centers a leftover last row automatically -
+   with 11 cities the final row of 2 sits centered instead of left-aligned,
+   with no special-casing needed. */
+.cityGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+.cityGrid > * {
+  flex: 0 0 calc(33.333% - 22px);
+}
+
+@media (max-width: 900px) {
+  .cityGrid {
+    gap: 24px;
+  }
+
+  .cityGrid > * {
+    flex-basis: calc(50% - 12px);
+  }
+}
+
+@media (max-width: 600px) {
+  .cityGrid > * {
+    flex-basis: 100%;
+  }
+}

@@ -6,6 +6,17 @@ const VARIANTS = {
   outlineLight: styles.outlineLight,
   dark: styles.dark,
   text: styles.text,
+  // Page-scoped variants for the SAP Business One Migration page only —
+  // no other page's data references these, so they can't change how any
+  // other page looks.
+  migrationPrimary: styles.migrationPrimary,
+  migrationOutline: styles.migrationOutline,
+  // Page-scoped variant for the SAP Business One License page only.
+  licensePrimary: styles.licensePrimary,
+  // Page-scoped variant for the SAP Consulting page only.
+  consultingPrimary: styles.consultingPrimary,
+  // Page-scoped variant for the SAP Business One Add-ons page only.
+  addonsPrimary: styles.addonsPrimary,
 };
 
 export default function Button({

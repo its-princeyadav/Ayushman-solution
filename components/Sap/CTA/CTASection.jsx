@@ -19,7 +19,7 @@ export default function CTASection({
           <h2 className={styles.title}>{title}</h2>
           {description && <p className={styles.description}>{description}</p>}
           {button && (
-            <Button href={button.href} variant="primary" className={styles.button}>
+            <Button href={button.href} variant={button.variant || "primary"} className={styles.button}>
               {button.label}
             </Button>
           )}

@@ -54,3 +54,18 @@
   margin: 0;
   font-size: 1.05rem;
 }
+
+/* Generic pricing-card look shared by any page's pricing/package cards —
+   additive, opt-in via variant="pricing" (used by the Migration and License
+   pages' package cards). */
+.pricing {
+  border: 1px solid var(--sap-border);
+  border-radius: var(--sap-radius-md);
+  box-shadow: var(--sap-shadow-card);
+  transition: transform var(--sap-transition), box-shadow var(--sap-transition);
+}
+
+.pricing:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sap-shadow-hover);
+}

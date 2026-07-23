@@ -26,10 +26,11 @@ const ICONS = {
   location: FaMapMarkerAlt,
 };
 
-export default function StatCard({ icon, value, label }) {
+export default function StatCard({ icon, value, label, theme = "dark" }) {
   const Icon = ICONS[icon];
+  const light = theme === "light";
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${light ? styles.light : ""}`}>
       {Icon && (
         <span className={styles.iconCircle}>
           <Icon aria-hidden="true" />

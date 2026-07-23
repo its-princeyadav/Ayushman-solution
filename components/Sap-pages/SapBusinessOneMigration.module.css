@@ -1,0 +1,45 @@
+/*
+ * Page-scoped rebrand for /sap/business-one/migration only.
+ *
+ * These are the same CSS custom-property names every SAP component already
+ * consumes (see components/Sap/sap-tokens.css). Wrapping just this page's
+ * JSX tree in `.scope` re-values them only for the component instances
+ * rendered inside that wrapper - custom properties inherit through the DOM,
+ * so no other page (whose components live outside this wrapper) is affected,
+ * and neither sap-tokens.css nor app/globals.css is touched.
+ */
+.scope {
+  --color-neutral: #0b2a72; /* heading color used across most components */
+  --sap-navy: #0b2a72; /* accent/category labels, kept consistent with headings */
+  --sap-text: #4b5563; /* body copy */
+  --sap-text-light: #6b7280; /* small text */
+  --sap-radius-md: 20px; /* card radius (News/Blog/ImageOverlayCard/ImageTextSection) */
+  --color-primary: #f7b500; /* yellow accent, e.g. TimelineTabs active-year underline */
+  --color-primary-dark: #e0a300;
+  --color-primary-light: #ffd873;
+  --sap-section-gap: 120px;
+}
+
+@media (max-width: 1024px) {
+  .scope {
+    --sap-section-gap: 90px;
+  }
+}
+
+@media (max-width: 600px) {
+  .scope {
+    --sap-section-gap: 70px;
+  }
+}
+
+.tintWhite {
+  background: var(--sap-white);
+}
+
+.tintLight {
+  background: #f8fbff;
+}
+
+.tintGradient {
+  background: linear-gradient(180deg, #f8fbff 0%, #eaf3ff 100%);
+}

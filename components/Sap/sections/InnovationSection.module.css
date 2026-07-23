@@ -1,7 +1,7 @@
 .section {
   padding-block: var(--sap-section-gap);
-  background: linear-gradient(120deg, var(--sap-blue) 0%, var(--color-primary-light) 100%);
-  color: var(--color-neutral);
+  background: linear-gradient(120deg, var(--color-primary-darker) 0%, var(--color-primary-dark) 100%);
+  color: var(--sap-white);
 }
 
 .title {

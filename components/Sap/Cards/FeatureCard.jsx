@@ -29,10 +29,10 @@ const ICONS = {
   headset: FaHeadset,
 };
 
-export default function FeatureCard({ icon, title, description, action, compact = false }) {
+export default function FeatureCard({ icon, title, description, action, compact = false, variant }) {
   const Icon = ICONS[icon];
   return (
-    <div className={`${styles.card} ${compact ? styles.compact : ""}`}>
+    <div className={`${styles.card} ${compact ? styles.compact : ""} ${variant === "pricing" ? styles.pricing : ""}`}>
       {Icon && (
         <span className={styles.icon}>
           <Icon aria-hidden="true" />

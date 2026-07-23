@@ -1,6 +1,6 @@
 .section {
   padding-block: var(--sap-section-gap);
-  background: linear-gradient(135deg, #0a1e3c 0%, #163f73 100%);
+  background: linear-gradient(135deg, var(--color-neutral-darker) 0%, var(--color-neutral) 100%);
   color: var(--sap-white);
   overflow: hidden;
 }
@@ -65,7 +65,7 @@
 
 .yearActive {
   color: var(--sap-white);
-  border-color: var(--sap-blue);
+  border-color: var(--color-primary);
   font-size: 1.5rem;
 }
 
@@ -83,7 +83,7 @@
 
 .awardIcon {
   font-size: 1.6rem;
-  color: #9fc4f2;
+  color: var(--color-primary-light);
   margin-bottom: 14px;
 }
 
