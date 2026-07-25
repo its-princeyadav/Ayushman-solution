@@ -1,12 +1,10 @@
 // Content for /sap/business-one/license ("SAP Business One License").
 // Reuses the exact same section components as sapBusinessOne.js /
 // sapBusinessOneImplementation.js / sapBusinessOneMigration.js — only this
-// sibling data file differs. Button variant "licensePrimary" is an additive,
-// page-scoped brand variant that only this page references — see
-// components/Sap-pages/SapBusinessOneLicense.module.css for the page-scoped
-// color/spacing token overrides that pair with it. FeatureCard's
-// variant: "pricing" is the generic, shared pricing-card look also used by
-// the Migration page.
+// sibling data file differs. Buttons use the shared "primary" variant (no
+// page-scoped brand color) so this page renders with the same brand yellow
+// as the rest of the site. FeatureCard's variant: "pricing" is the generic,
+// shared pricing-card look also used by the Migration page.
 
 export const sapBusinessOneLicense = {
   // TODO: no dedicated "hikers reading a map" photo exists in the project
@@ -17,7 +15,7 @@ export const sapBusinessOneLicense = {
     align: "right",
     textTheme: "dark",
     title: "SAP Business One Software Price: Tailored Pricing Structure for Your Business Needs",
-    button: { label: "Request A Demo", href: "#", variant: "licensePrimary" },
+    button: { label: "Request A Demo", href: "#", variant: "primary" },
   },
 
   intro: {
@@ -28,7 +26,7 @@ export const sapBusinessOneLicense = {
       "Experience the difference with Ayushman Solution – where one size never fits all!",
     ],
     buttons: [
-      { label: "Let's Talk", href: "#", variant: "licensePrimary" },
+      { label: "Let's Talk", href: "#", variant: "primary" },
       { label: "SAP Solutions", href: "/sap/solutions", variant: "outline" },
     ],
   },
@@ -46,7 +44,7 @@ export const sapBusinessOneLicense = {
         title: "Basic Pack",
         description:
           "Subscription per month/year. A basic SAP license cost in India comes with efficient SAP pricing to gain greater control over the most critical business processes. Includes: Finance, CRM, Sales, Purchasing, Inventory, Bill of Materials, Mobile.",
-        action: { label: "Contact Us For Pricing", href: "#", variant: "licensePrimary" },
+        action: { label: "Contact Us For Pricing", href: "#", variant: "primary" },
         variant: "pricing",
       },
       {
@@ -54,7 +52,7 @@ export const sapBusinessOneLicense = {
         title: "Professional Pack",
         description:
           "Subscription per month/year. Get access to all modules, features along with software development kit and friendly SAP software license cost. Includes: Administration, Financials, CRM, Sales, Purchasing, Banking, Inventory, Production, MRP, Service, HR, Mobile.",
-        action: { label: "Contact Us For Pricing", href: "#", variant: "licensePrimary" },
+        action: { label: "Contact Us For Pricing", href: "#", variant: "primary" },
         variant: "pricing",
       },
       {
@@ -62,7 +60,7 @@ export const sapBusinessOneLicense = {
         title: "Financial User Pack",
         description:
           "Subscription per month/year. Seamlessly manage payroll, financials, sales aspects, and more with tailored SAP business one license and affordable SAP software price. Includes: Financials, Sales Aspects, Purchasing Aspects, Banking, Inventory Aspects, Production Aspects, Mobile.",
-        action: { label: "Contact Us For Pricing", href: "#", variant: "licensePrimary" },
+        action: { label: "Contact Us For Pricing", href: "#", variant: "primary" },
         variant: "pricing",
       },
     ],
@@ -87,7 +85,7 @@ export const sapBusinessOneLicense = {
       },
     ],
     buttons: [
-      { label: "Explore SAP Business One", href: "/sap/business-one", variant: "licensePrimary" },
+      { label: "Explore SAP Business One", href: "/sap/business-one", variant: "primary" },
       { label: "Explore ERP", href: "#", variant: "outline" },
     ],
     // Wide landscape photo, reused from the Migration page's business-intro
@@ -117,7 +115,7 @@ export const sapBusinessOneLicense = {
       2020: [{ prefix: "SAP Business One", bold: "Top Partner, North & East India", year: "2020" }],
       2019: [{ prefix: "SAP", bold: "Partner Excellence Award", year: "2019" }],
     },
-    background: "#0a1e3c",
+    background: "var(--color-neutral-darker)",
   },
 
   // TODO: real client logo image assets aren't available for every client
@@ -169,7 +167,7 @@ export const sapBusinessOneLicense = {
         description:
           "Unlock the full spectrum of SAP Business One's capabilities with Professional SAP Business One licenses, granting access to all modules and features. Choose between flexible subscription or perpetual license options to suit your business needs seamlessly by providing the most affordable SAP Business One cost.",
         forceVisible: true,
-        button: { label: "Get Quote", href: "#", variant: "licensePrimary" },
+        button: { label: "Get Quote", href: "#", variant: "primary" },
       },
       {
         image: "/assets/image2/sap-migration-01.webp",
@@ -177,7 +175,7 @@ export const sapBusinessOneLicense = {
         description:
           "Dive into the tailored offerings of SAP Business One Limited licenses, which provide focused solutions across three key areas: CRM, Financials, and Logistics. Each option offers a unique blend of modules and features to address specific business needs. Explore these customizable options and discover the ideal fit with minimal SAP Software Price for your requirements.",
         forceVisible: true,
-        button: { label: "Get Quote", href: "#", variant: "licensePrimary" },
+        button: { label: "Get Quote", href: "#", variant: "primary" },
       },
       {
         image: "/assets/image2/city-06.webp",
@@ -185,7 +183,7 @@ export const sapBusinessOneLicense = {
         description:
           "Explore additional SAP Business One Licenses tailored to accommodate your budget constraints and business size, such as mobile app-only licenses or starter packages designed for teams with 1-5 users.",
         forceVisible: true,
-        button: { label: "Get Quote", href: "#", variant: "licensePrimary" },
+        button: { label: "Get Quote", href: "#", variant: "primary" },
       },
     ],
   },
@@ -224,7 +222,7 @@ export const sapBusinessOneLicense = {
     title: "Unlock Exceptional Value: Explore SAP Business One Pricing Options",
     description:
       "Discover SAP License Cost in India and secure the best SAP Software price available. Take advantage of a free Initial Assessment conducted by our team of experts.",
-    button: { label: "Request Demo", href: "#", variant: "licensePrimary" },
+    button: { label: "Request Demo", href: "#", variant: "primary" },
     backgroundImage: "/assets/image2/service-water.webp",
     textTheme: "light",
   },
@@ -264,7 +262,7 @@ export const sapBusinessOneLicense = {
     title: "Let's Start a Conversation",
     theme: "light",
     compact: true,
-    background: "linear-gradient(120deg, #1e88e5 0%, #145da0 100%)",
+    background: "linear-gradient(120deg, var(--color-neutral-darker) 0%, var(--color-neutral) 100%)",
     buttons: [{ label: "Connect With Us", href: "#", variant: "outlineLight" }],
   },
 };

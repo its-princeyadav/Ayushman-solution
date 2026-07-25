@@ -3,11 +3,39 @@
   display: flex;
   align-items: center;
   min-height: clamp(380px, 46vw, 520px);
+  padding-block: var(--sap-section-gap);
   overflow: hidden;
 }
 
 .image {
   object-fit: cover;
+}
+
+/* Default (light text theme, e.g. white headline over a photo): darken the
+   image so light text stays legible - same --sap-overlay-rgb navy used by
+   HeroBanner/ServiceTabsSection. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(var(--sap-overlay-rgb), 0.65) 0%,
+    rgba(var(--sap-overlay-rgb), 0.32) 45%,
+    rgba(var(--sap-overlay-rgb), 0.05) 75%
+  );
+}
+
+/* Dark text theme (dark/neutral headline over a photo): lighten instead of
+   darken, so the dark text stays legible - mirrors HeroBanner's
+   .dark.alignRight .scrim treatment. */
+.dark .scrim {
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.28) 45%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
 }
 
 .container {
@@ -41,10 +69,6 @@
 
 .dark .description {
   color: var(--sap-text);
-}
-
-.button {
-  border-radius: 0;
 }
 
 .dark .title {

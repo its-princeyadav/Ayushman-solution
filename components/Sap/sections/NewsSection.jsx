@@ -5,7 +5,7 @@ import styles from "./NewsSection.module.css";
 
 export default function NewsSection({ eyebrowTitle, sectionTitle, action, items }) {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       <Container>
         {eyebrowTitle && (
           <SectionHeading title={eyebrowTitle} align="center" />

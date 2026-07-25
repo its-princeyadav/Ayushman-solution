@@ -10,7 +10,7 @@ import styles from "./InnovationSection.module.css";
  */
 export default function InnovationSection({ title, columns }) {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       <Container>
         <h2 className={styles.title}>{title}</h2>
 

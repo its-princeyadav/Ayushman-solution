@@ -12,7 +12,7 @@ import styles from "./IndustryOrbit.module.css";
  */
 export default function IndustryOrbit({ title, center, items, buttons }) {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       <Container>
         <SectionHeading title={title} />
 

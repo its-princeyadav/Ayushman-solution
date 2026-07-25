@@ -17,7 +17,7 @@ export const sapBusinessOne = {
     title: "What is SAP Business One?",
     description:
       "SAP Business One is an integrated Enterprise Resource Planning solution offering efficient processes and numerous advantages connected to operations and activity optimization. Built specifically for small to midsize businesses and fast-growing companies, SAP Business One helps SMEs connect and automate core business functions—finance, sales, inventory, production, and everything else you need to run your business efficiently and effortlessly.\n\nThis solution, now run by over 70,000 companies worldwide and available in over 170 countries, helps businesses run better every day.",
-    background: "linear-gradient(120deg, #fdf1ea 0%, #eaf5ee 60%, #ffffff 100%)",
+    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-bg-tint-soft) 60%, var(--sap-white) 100%)",
   },
 
   // Full-bleed HeroBanner-style sections (image background + overlay +
@@ -173,7 +173,7 @@ export const sapBusinessOne = {
 
   deployment: {
     title: "SAP Business One Deployment",
-    background: "linear-gradient(120deg, #fdf1ea 0%, #ffffff 60%)",
+    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 60%)",
     checklist: [
       "On-Premise to have full control over hardware, data, and customizations",
       "Cloud for anytime, anywhere access and lower infrastructure costs",
@@ -198,7 +198,7 @@ export const sapBusinessOne = {
         name: "Dharmesh Garg",
         designation: "AVP IT",
         company: "Okaya Power Solutions Pvt. Ltd.",
-        background: "linear-gradient(135deg,#0e7a3e 0%,#3fbf72 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral) 0%, var(--color-neutral-light) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         eyebrow: "Customer Success Story",
         headline: "Okaya Digital Transformation And Automation Journey With Ayushman Solution",
@@ -208,7 +208,7 @@ export const sapBusinessOne = {
         name: "Anubha Gupta",
         designation: "Director",
         company: "Gopal Corps Ltd",
-        background: "linear-gradient(135deg,#0f2f5f 0%,#1e73e8 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-darkest) 0%, var(--color-neutral-dark) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         eyebrow: "Customer Success Story",
         headline: "How Gcl Built Their L.I.V.E. Enterprise With Ayushman Solution",
@@ -218,7 +218,7 @@ export const sapBusinessOne = {
         name: "Gaurav Jain",
         designation: "Managing Director",
         company: "ColdEX Group",
-        background: "linear-gradient(135deg,#0b5fd8 0%,#3f9dfa 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-dark) 0%, var(--color-neutral-light) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         partnerLogo: "/assets/image2/coldex-logo-1.png",
         eyebrow: "Customer Success Story",
@@ -257,14 +257,14 @@ export const sapBusinessOne = {
         date: "24 May 2024",
         title: "Ayushman Solution Embarks on SAP NOW 2024's Mission: Showcases Indian Businesses the SAP S/4HANA Cloud Pathway to Global...",
         source: "Deccan Herald",
-        background: "#127877",
+        background: "var(--color-neutral-darker)",
         href: "#",
       },
       {
         date: "24 May 2024",
         title: "Ayushman Solution Presents Broad SAP S/4HANA Cloud Solutions Portfolio at SAP NOW India 2024",
         source: "newsX",
-        background: "#e0242c",
+        background: "var(--color-neutral-dark)",
         href: "#",
       },
       {
@@ -319,7 +319,7 @@ export const sapBusinessOne = {
         href: "#",
       },
       {
-        bannerColor: "linear-gradient(135deg,#0e7a3e 0%,#3fbf72 100%)",
+        bannerColor: "linear-gradient(135deg, var(--color-neutral) 0%, var(--color-neutral-light) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         eyebrow: "Customer Success Story",
         headline: "ACRO Engineering Transformation And Automation Journey With Ayushman Solution",

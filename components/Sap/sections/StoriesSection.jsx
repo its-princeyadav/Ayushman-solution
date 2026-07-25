@@ -5,7 +5,7 @@ import styles from "./StoriesSection.module.css";
 
 export default function StoriesSection({ title, description, action, items }) {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       <Container>
         <SectionHeading title={title} description={description} action={action} />
         <Slider

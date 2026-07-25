@@ -98,7 +98,7 @@ export const sapBusinessOneImplementation = {
       2020: [{ prefix: "SAP Business One", bold: "Top Partner, North & East India", year: "2020" }],
       2019: [{ prefix: "SAP", bold: "Partner Excellence Award", year: "2019" }],
     },
-    background: "#0a1e3c",
+    background: "var(--color-neutral-darker)",
   },
 
   partnersIntro: {
@@ -226,14 +226,14 @@ export const sapBusinessOneImplementation = {
         name: "A.K Mishra",
         designation: "GM (PSPM)",
         company: "UMSL",
-        background: "linear-gradient(135deg,#1c5aa6 0%,#5aa9e6 100%)",
+        background: "linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-neutral) 100%)",
         videoUrl: "#",
       },
       {
         name: "J.S Gujral",
         designation: "MD",
         company: "SGS Tekniks Manufacturing Pvt. Ltd.",
-        background: "linear-gradient(135deg,#14304f 0%,#274972 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral) 0%, var(--color-neutral-light) 100%)",
         eyebrow: "Customer Success Story",
         headline: "How SGS Tekniks Transformed Their Journey With Ayushman Solution",
         videoUrl: "#",

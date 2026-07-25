@@ -19,7 +19,7 @@ export default function ServiceTabsSection({ tabs, panels }) {
   if (!panel) return null;
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       <Tabs tabs={tabs} activeId={activeId} onChange={setActiveId} stretch />
 
       <div className={styles.panel}>

@@ -5,7 +5,7 @@ import styles from "./BlogSection.module.css";
 
 export default function BlogSection({ title, action, items }) {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       <Container>
         <SectionHeading title={title} action={action} />
         <Slider

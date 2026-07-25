@@ -1,9 +1,8 @@
 // Content for /sap/consulting ("SAP Consulting Services"). Reuses the exact
 // same section components as sapBusinessOne.js / sapBusinessOneLicense.js /
-// sapBusinessOneMigration.js — only this sibling data file differs. Button
-// variant "consultingPrimary" is an additive, page-scoped brand variant that
-// only this page references — see components/Sap-pages/SapConsulting.module.css
-// for the page-scoped color/spacing token overrides that pair with it.
+// sapBusinessOneMigration.js — only this sibling data file differs. Buttons
+// use the shared "primary" variant (no page-scoped brand color) so this page
+// renders with the same brand yellow as the rest of the site.
 
 export const sapConsulting = {
   // TODO: no dedicated "hiker overlooking snowy peaks" photo exists in the
@@ -14,7 +13,7 @@ export const sapConsulting = {
     align: "right",
     textTheme: "light",
     title: "600+ Certified Experts Offering SAP Consulting Services",
-    button: { label: "Request A Demo", href: "#", variant: "consultingPrimary" },
+    button: { label: "Request A Demo", href: "#", variant: "primary" },
   },
 
   intro: {
@@ -45,7 +44,7 @@ export const sapConsulting = {
         variant: "pricing",
       },
     ],
-    buttons: [{ label: "Talk To SAP Experts", href: "#", variant: "consultingPrimary" }],
+    buttons: [{ label: "Talk To SAP Experts", href: "#", variant: "primary" }],
   },
 
   overview: {
@@ -53,7 +52,7 @@ export const sapConsulting = {
     description:
       "Only if you plan, can you build a real SAP-intelligent enterprise; otherwise, it will just be another system on the edge — requiring additional expertise and cost. Ayushman Solution's SAP consulting services ensure you carve a digital core and truly embed SAP in the heart of your business and the mindset of your people. We invest in tools and industry solutions to accelerate the business value of SAP, and all this starts with consulting. It's like the Google Map to reach the final destination. So, whether you are a small-medium business or a Fortune 500, our long-standing relationship with SAP that extends more than 30 years helps us to offer consulting that assures high-value, sustainable success.",
     subtitle: "Our Core SAP Consultancy Services",
-    background: "linear-gradient(180deg, #fff8ea 0%, #ffffff 100%)",
+    background: "linear-gradient(180deg, var(--color-primary-lightest) 0%, var(--sap-white) 100%)",
   },
 
   coreServices: [
@@ -64,7 +63,7 @@ export const sapConsulting = {
         "Consulting that fits the DNA of your business. We help you ideate, implement, and scale with speed, ensuring SAP Business One works exactly the way your operations need it to.",
       buttons: [
         { label: "Read more", href: "#", variant: "text" },
-        { label: "SAP Business One", href: "/sap/business-one", variant: "consultingPrimary" },
+        { label: "SAP Business One", href: "/sap/business-one", variant: "primary" },
         { label: "Get Expert Help", href: "#", variant: "outline" },
       ],
       image: "/assets/image2/city-05.webp",
@@ -77,7 +76,7 @@ export const sapConsulting = {
         "Improve time-to-market, lower the TCO of your SAP estate with Ayushman Solution's SAP consulting services in India. We uniquely tailor S/4HANA Cloud strategy to your industry and growth stage.",
       buttons: [
         { label: "Read more", href: "#", variant: "text" },
-        { label: "SAP S/4HANA", href: "/sap/solutions", variant: "consultingPrimary" },
+        { label: "SAP S/4HANA", href: "/sap/solutions", variant: "primary" },
         { label: "Get Expert Help", href: "#", variant: "outline" },
       ],
       image: "/assets/image2/city-06.webp",
@@ -205,7 +204,7 @@ export const sapConsulting = {
       {
         name: "Himanshu Jain",
         designation: "CEO At ACRO Engineering",
-        background: "linear-gradient(135deg,#1f7a4d 0%,#3fae7a 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-dark) 0%, var(--color-neutral-light) 100%)",
         eyebrow: "Customer Success Story",
         headline: "ACRO Engineering Transformation & Automation Journey With Ayushman Solution",
         videoUrl: "#",
@@ -213,7 +212,7 @@ export const sapConsulting = {
       {
         name: "Gaurav Jain",
         designation: "Managing Director, ColdEX Group",
-        background: "linear-gradient(135deg,#1c5aa6 0%,#5aa9e6 100%)",
+        background: "linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-neutral) 100%)",
         eyebrow: "Customer Success Story",
         headline: "How ColdEX Built Their L.I.V.E. Enterprise With Ayushman Solution",
         videoUrl: "#",
@@ -276,7 +275,7 @@ export const sapConsulting = {
     action: { label: "View All", href: "#" },
     items: [
       {
-        bannerColor: "linear-gradient(135deg,#7fae2a 0%,#4d7a17 100%)",
+        bannerColor: "linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-neutral) 100%)",
         eyebrow: "Customer Success Story",
         headline: "Weaving Raj Group's Operations Together With SAP ERP",
         personName: "Shailin Smith",
@@ -289,7 +288,7 @@ export const sapConsulting = {
         href: "#",
       },
       {
-        bannerColor: "linear-gradient(135deg,#1c8fd1 0%,#0d4f82 100%)",
+        bannerColor: "linear-gradient(135deg, var(--color-neutral) 0%, var(--color-neutral-light) 100%)",
         eyebrow: "Customer Success Story",
         headline: "How ColdEX Built Their L.I.V.E. Enterprise With Ayushman Solution",
         personName: "Gaurav Jain",
@@ -302,7 +301,7 @@ export const sapConsulting = {
         href: "#",
       },
       {
-        bannerColor: "linear-gradient(135deg,#0d2c7d 0%,#123a63 100%)",
+        bannerColor: "linear-gradient(135deg, var(--color-neutral-darkest) 0%, var(--color-neutral-dark) 100%)",
         eyebrow: "Customer Success Story",
         headline: "Fixderma Transformation and Automation Journey With Ayushman Solution",
         personName: "Shaily Mehrotra",
@@ -323,7 +322,7 @@ export const sapConsulting = {
     title: "Paint a Complete Picture In Your Mind. Before You Build the Complete Picture of Your Business with SAP.",
     description:
       "Ayushman Solution's business technology consulting and SAP consultancy services can help you make sense of it all, combining your diverse planning functions stepwise to create a wholesome picture that brings greater visibility, responsiveness and strategic value. As India's platinum partner and top SAP consulting company, we enable you to envision, plan, and implement transformative solutions.",
-    button: { label: "Begin Transforming With SAP", href: "#", variant: "consultingPrimary" },
+    button: { label: "Begin Transforming With SAP", href: "#", variant: "primary" },
     backgroundImage: "/assets/image2/city-06.webp",
     textTheme: "light",
   },
@@ -363,7 +362,7 @@ export const sapConsulting = {
     title: "Let's Start a Conversation",
     theme: "light",
     compact: true,
-    background: "linear-gradient(120deg, #0d2c7d 0%, #178ae8 100%)",
+    background: "linear-gradient(120deg, var(--color-neutral-darker) 0%, var(--color-neutral) 100%)",
     buttons: [{ label: "Connect With Us", href: "#", variant: "outlineLight" }],
   },
 };

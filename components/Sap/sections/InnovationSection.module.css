@@ -39,9 +39,6 @@
   color: var(--color-neutral-light);
 }
 
-.button {
-  border-radius: 0;
-}
 
 @media (max-width: 700px) {
   .columns {

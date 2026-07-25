@@ -51,13 +51,13 @@ export default function SapBusinessOneImplementation() {
       <ImageTextSection {...b1Partner} />
 
       <CenteredSection title={ecosystemAdoption.title} buttons={ecosystemAdoption.buttons}>
-        <div style={{ maxWidth: 780, margin: "0 auto", textAlign: "left" }}>
+        <div className="sap-prose">
           <RichContent description={ecosystemAdoption.description} bullets={ecosystemAdoption.bullets} theme="dark" />
         </div>
       </CenteredSection>
 
       <CenteredSection title={roadmap.title} description={roadmap.description} buttons={roadmap.buttons}>
-        <div style={{ maxWidth: 780, margin: "0 auto", textAlign: "left" }}>
+        <div className="sap-prose">
           <RichContent bullets={roadmap.steps} theme="dark" />
         </div>
       </CenteredSection>

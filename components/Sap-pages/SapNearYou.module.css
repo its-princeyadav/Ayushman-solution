@@ -1,22 +1,16 @@
 /*
- * Page-scoped styling for /erp/sap-near-you only.
+ * Page-local layout + background-tint utilities for /erp/sap-near-you.
  *
- * Same technique as the Migration/License/Consulting/Add-Ons pages: these
- * are the same CSS custom-property names every SAP component already
- * consumes (see components/Sap/sap-tokens.css). Wrapping just this page's
- * JSX tree in `.scope` re-values them only for the component instances
- * rendered inside that wrapper - custom properties inherit through the DOM,
- * so no other page is affected, and neither sap-tokens.css nor
- * app/globals.css is touched. No new colors here - navy heading / yellow
- * accent are the same values already used on this page's sibling pages.
+ * `.scope` no longer overrides any --color-* or --sap-* custom property: this
+ * page now inherits the real site-wide brand tokens from
+ * components/Sap/sap-tokens.css, same as every other SAP page, instead of
+ * a page-specific palette.
  */
+/* ponytail: intentionally empty — kept only so the page's wrapper div
+   (components/Sap-pages/SapNearYou.jsx) still resolves a real class from
+   this CSS module; delete both if this page ever drops the wrapper
+   entirely. */
 .scope {
-  --color-neutral: #0b2a78;
-  --sap-navy: #0b2a78;
-  --sap-text: #555555;
-  --sap-text-light: #777777;
-  --color-primary: #f7b500;
-  --color-primary-dark: #e0a300;
 }
 
 .tintWhite {
@@ -24,7 +18,7 @@
 }
 
 .tintLight {
-  background: #eaf6ff;
+  background: var(--sap-bg-tint-soft);
 }
 
 /* Matches the padding-block: var(--sap-section-gap) rhythm every other

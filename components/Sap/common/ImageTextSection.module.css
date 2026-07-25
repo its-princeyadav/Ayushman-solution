@@ -79,9 +79,6 @@
   flex-wrap: wrap;
 }
 
-.button {
-  border-radius: 0;
-}
 
 .light .title,
 .light .titleAccent {

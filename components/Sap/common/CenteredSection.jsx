@@ -21,6 +21,7 @@ export default function CenteredSection({
     <section
       className={`${styles.section} ${theme === "light" ? styles.light : ""} ${compact ? styles.compact : ""}`}
       style={background ? { background } : undefined}
+      data-sap-reveal
     >
       <Container>
         <div className={styles.copy}>

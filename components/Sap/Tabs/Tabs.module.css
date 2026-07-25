@@ -1,5 +1,8 @@
 .tabs {
   display: inline-flex;
+  border-radius: var(--sap-radius-sm);
+  overflow: hidden;
+  box-shadow: var(--sap-shadow-card);
 }
 
 .stretch {
@@ -28,6 +31,10 @@
 
 .tab:not(:first-child) {
   border-left: none;
+}
+
+.tab:hover:not(.active) {
+  background: var(--sap-bg-tint);
 }
 
 .active {

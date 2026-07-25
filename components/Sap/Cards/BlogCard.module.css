@@ -14,7 +14,7 @@
 
 .image {
   object-fit: cover;
-  transition: transform 500ms ease;
+  transition: transform var(--sap-transition-slow);
 }
 
 .thumb:hover .image {

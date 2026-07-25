@@ -25,7 +25,7 @@ export default function TestimonialsSection({
   const items = activeTab === "video" ? videos : texts;
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       {avatars.map((avatar) => (
         <span key={avatar.src} className={`${styles.avatar} ${styles[avatar.position]}`}>
           <Image src={avatar.src} alt="" width={56} height={56} />
