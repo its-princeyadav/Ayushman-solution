@@ -15,15 +15,22 @@ export const sapSolutions = {
 
   s4hanaIntro: {
     imagePosition: "right",
-    imageStyle: "bleed",
-    title: "SAP S/4HANA Cloud\nKey to Intelligent Enterprise",
+    eyebrow: "Next-Gen ERP Solution",
+    title: "SAP S/4HANA Cloud",
+    titleAccent: "Key to",
+    highlight: "Intelligent Enterprise",
     description: [
       "Building and maintaining a thriving enterprise requires agility, insights, and ability to act. When the digital world is changing so dynamically, your business needs intelligent solutions to provide value-driven services and greater standards of customer experience.",
       "SAP S/4HANA Cloud is a new-age ERP solution driven by AI and analytics that makes it easier to run mission-critical operations. Its ability to dynamically adapt to real-time changes and render intelligent automation empowers you to build an intelligent enterprise. As a SAP solutions company, Ayushman Solution helps you unlock higher levels of business performance, develop innovative solutions that transform industries, and gain total transparency across all operations.",
     ],
-    image: "/assets/image2/drone-flyer-actual.png",
+    button: { label: "Explore SAP S/4HANA Cloud", href: "#" },
+    features: [
+      { icon: "cloud", title: "Cloud Powered", description: "Run your business anytime, anywhere" },
+      { icon: "shield", title: "Secure & Compliant", description: "Enterprise-grade security and compliance" },
+      { icon: "chart", title: "Intelligent Insights", description: "AI and analytics for smarter decisions" },
+    ],
+    image: "/assets/image2/man-drone-fly.png",
     imageAlt: "Person flying a drone on a mountain ridge",
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 45%)",
   },
 
   // TODO: trophy asset reused from the awards blog thumbnail — swap for the
@@ -61,7 +68,7 @@ export const sapSolutions = {
       description: "A ready-to-run ERP to tackle top business priorities and deliver continuous innovation.",
       bullets: ["Automated and continual updates", "Proven best practices", "Secure, scalable, and compliant"],
       button: { label: "Explore SAP S4/HANA Cloud", href: "#" },
-      image: "/assets/image2/sap-public-edition.jpg",
+      image: "/assets/image2/solution-products-img-1.webp",
       imageAlt: "Group carrying surfboards to the shore",
     },
     private: {
