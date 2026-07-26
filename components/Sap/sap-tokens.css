@@ -30,14 +30,31 @@
 
   --sap-radius-sm: 6px;
   --sap-radius-md: 12px;
+  --sap-radius-lg: 28px;
   --sap-radius-pill: 999px;
 
   --sap-shadow-card: 0 16px 36px -18px rgba(15, 23, 42, 0.22);
   --sap-shadow-hover: 0 22px 44px -16px rgba(15, 23, 42, 0.3);
+  /* Softer, farther-spread shadow for large "floating card" surfaces
+     (premium image/feature cards) - distinct from --sap-shadow-card's
+     tighter spread, which stays the norm for ordinary content cards. */
+  --sap-shadow-premium: 0 20px 60px rgba(15, 23, 42, 0.08);
 
   --sap-max-width: 1200px;
   --sap-section-gap: clamp(56px, 8vw, 96px);
   --sap-transition: 220ms ease;
+  /* Shared "slow" timing for larger, more deliberate motion (thumbnail
+     zoom on hover, accordion expand) - kept distinct from --sap-transition
+     (220ms), which is for small state changes like button/border color. */
+  --sap-transition-slow: 400ms ease;
+
+  /* Canonical dark-navy overlay color, as bare R,G,B channels so callers can
+     drop it into `rgba(var(--sap-overlay-rgb), <alpha>)` at whatever opacity
+     a given scrim/gradient stop needs. Replaces three near-duplicate navy
+     literals (8,16,32 / 6,14,30 / hand-picked opacities) that had drifted
+     across HeroBanner, ServiceTabsSection, ImageOverlayCard and
+     TestimonialCard. */
+  --sap-overlay-rgb: 8, 16, 32;
 
   /* Matches the homepage's actual heading typography (see public/assets/css/
      post-6.css .wcf--title / .elementor-heading-title rules - "Teko" bold
@@ -91,4 +108,14 @@ main h6 {
 
 main p {
   font-family: "Kanit", sans-serif;
+}
+
+/* Shared "prose" width cap for left-aligned rich content nested inside an
+   otherwise centered section (CenteredSection + RichContent/CheckList) -
+   was three copies of the same inline style object across
+   SapBusinessOne.jsx / SapBusinessOneImplementation.jsx. */
+.sap-prose {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: left;
 }

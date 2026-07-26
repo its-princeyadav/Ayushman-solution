@@ -11,7 +11,7 @@ export default function TimelineTabs({ title, description, image, imageAlt = "",
   const awards = awardsByYear[activeYear] || [];
 
   return (
-    <section className={styles.section} style={background ? { background } : undefined}>
+    <section className={styles.section} style={background ? { background } : undefined} data-sap-reveal>
       <Container>
         <div className={styles.grid}>
           <div className={styles.imageWrap}>

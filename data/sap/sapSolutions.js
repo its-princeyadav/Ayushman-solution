@@ -15,15 +15,22 @@ export const sapSolutions = {
 
   s4hanaIntro: {
     imagePosition: "right",
-    imageStyle: "bleed",
-    title: "SAP S/4HANA Cloud\nKey to Intelligent Enterprise",
+    eyebrow: "Next-Gen ERP Solution",
+    title: "SAP S/4HANA Cloud",
+    titleAccent: "Key to",
+    highlight: "Intelligent Enterprise",
     description: [
       "Building and maintaining a thriving enterprise requires agility, insights, and ability to act. When the digital world is changing so dynamically, your business needs intelligent solutions to provide value-driven services and greater standards of customer experience.",
       "SAP S/4HANA Cloud is a new-age ERP solution driven by AI and analytics that makes it easier to run mission-critical operations. Its ability to dynamically adapt to real-time changes and render intelligent automation empowers you to build an intelligent enterprise. As a SAP solutions company, Ayushman Solution helps you unlock higher levels of business performance, develop innovative solutions that transform industries, and gain total transparency across all operations.",
     ],
-    image: "/assets/image2/drone-flyer-actual.png",
+    button: { label: "Explore SAP S/4HANA Cloud", href: "#" },
+    features: [
+      { icon: "cloud", title: "Cloud Powered", description: "Run your business anytime, anywhere" },
+      { icon: "shield", title: "Secure & Compliant", description: "Enterprise-grade security and compliance" },
+      { icon: "chart", title: "Intelligent Insights", description: "AI and analytics for smarter decisions" },
+    ],
+    image: "/assets/image2/man-drone-fly.png",
     imageAlt: "Person flying a drone on a mountain ridge",
-    background: "linear-gradient(120deg, #e9f5ec 0%, #ffffff 45%)",
   },
 
   // TODO: trophy asset reused from the awards blog thumbnail — swap for the
@@ -46,14 +53,14 @@ export const sapSolutions = {
       2020: [{ prefix: "SAP Business One", bold: "Top Partner, North & East India", year: "2020" }],
       2019: [{ prefix: "SAP", bold: "Partner Excellence Award", year: "2019" }],
     },
-    background: "#0a1e3c",
+    background: "var(--color-neutral-darker)",
   },
 
   // TODO: no beach/surf photography exists in the project yet — swap these
   // for the real SAP S/4HANA public/private edition images.
   cloudEditions: {
     heading: "Cloud SAP Software Solutions\nTailored For Your Business",
-    background: "linear-gradient(120deg, #fdf6ea 0%, #ffffff 40%)",
+    background: "linear-gradient(120deg, var(--color-secondary-lightest) 0%, var(--sap-white) 40%)",
     public: {
       imagePosition: "left",
       title: "SAP S/4HANA Cloud",
@@ -61,7 +68,7 @@ export const sapSolutions = {
       description: "A ready-to-run ERP to tackle top business priorities and deliver continuous innovation.",
       bullets: ["Automated and continual updates", "Proven best practices", "Secure, scalable, and compliant"],
       button: { label: "Explore SAP S4/HANA Cloud", href: "#" },
-      image: "/assets/image2/sap-public-edition.jpg",
+      image: "/assets/image2/solution-products-img-1.webp",
       imageAlt: "Group carrying surfboards to the shore",
     },
     private: {
@@ -101,7 +108,7 @@ export const sapSolutions = {
   // TODO: no butterfly/metamorphosis photography exists in the project yet —
   // swap for the real Digital Transformation image.
   digitalTransformation: {
-    background: "linear-gradient(120deg, #dff2e6 0%, #f4fbf6 60%)",
+    background: "linear-gradient(120deg, var(--sap-bg-tint-soft) 0%, var(--sap-white) 60%)",
     intro: {
       imagePosition: "right",
       imageStyle: "bleed",
@@ -216,28 +223,28 @@ export const sapSolutions = {
         name: "Pramod Gokhale",
         designation: "General Manager",
         company: "Mankind Pharma",
-        background: "linear-gradient(135deg,#0b3d91 0%,#1e73e8 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral) 0%, var(--color-neutral-light) 100%)",
         videoUrl: "#",
       },
       {
         name: "Customer Success Story",
         designation: "How Coldex Built Their",
         company: "L.I.V.E. Enterprise with Ayushman Solution",
-        background: "linear-gradient(135deg,#0f2f5f 0%,#1e73e8 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-darker) 0%, var(--color-neutral) 100%)",
         videoUrl: "#",
       },
       {
         name: "J.S Gujral",
         designation: "MD",
         company: "SGS Tekniks Manufacturing Pvt. Ltd.",
-        background: "linear-gradient(135deg,#14304f 0%,#274972 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-darkest) 0%, var(--color-neutral-dark) 100%)",
         videoUrl: "#",
       },
       {
         name: "A.K Mishra",
         designation: "GM (PSPM)",
         company: "UMSL",
-        background: "linear-gradient(135deg,#1c5aa6 0%,#5aa9e6 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-dark) 0%, var(--color-neutral-light) 100%)",
         videoUrl: "#",
       },
     ],
@@ -283,7 +290,7 @@ export const sapSolutions = {
         title:
           "Ayushman Solution Presents Cutting-edge SAP S/4HANA Cloud Solutions Portfolio at SAP NOW India 2024",
         source: "BUSINESS INSIDER",
-        background: "#0a0a0a",
+        background: "var(--color-neutral-darkest)",
         href: "#",
       },
       {
@@ -291,7 +298,7 @@ export const sapSolutions = {
         title:
           "Ayushman Solution Embarks on SAP NOW 2024's Mission: Showcases Indian Businesses the SAP S/4HANA Cloud Pathway to Global...",
         source: "Deccan Herald",
-        background: "#127877",
+        background: "var(--color-neutral-darker)",
         href: "#",
       },
       {
@@ -299,7 +306,7 @@ export const sapSolutions = {
         title:
           "Ayushman Solution Presents Broad SAP S/4HANA Cloud Solutions Portfolio at SAP NOW India 2024",
         source: "newsX",
-        background: "#e0242c",
+        background: "var(--color-neutral-dark)",
         href: "#",
       },
       {
@@ -356,7 +363,7 @@ export const sapSolutions = {
     action: { label: "Learn More", href: "#" },
     items: [
       {
-        bannerColor: "linear-gradient(135deg,#1c3a5e 0%,#2e6fc4 100%)",
+        bannerColor: "linear-gradient(135deg, var(--color-neutral) 0%, var(--color-neutral-light) 100%)",
         headline: "Sharika Life Science Transformation And Automation Journey With Ayushman Solution",
         personName: "Anil Bali",
         personRole: "Founder & CEO At Sharika Life Science Ltd.",
@@ -368,7 +375,7 @@ export const sapSolutions = {
         href: "#",
       },
       {
-        bannerColor: "linear-gradient(135deg,#0f2f5f 0%,#1e73e8 100%)",
+        bannerColor: "linear-gradient(135deg, var(--color-neutral-darker) 0%, var(--color-neutral) 100%)",
         headline: "Fixderma Transformation And Automation Journey With Ayushman Solution",
         personName: "Shaily Mehrotra",
         personRole: "CEO & Founder, Fix Derma",
@@ -380,7 +387,7 @@ export const sapSolutions = {
         href: "#",
       },
       {
-        bannerColor: "linear-gradient(135deg,#123a63 0%,#3f7fd1 100%)",
+        bannerColor: "linear-gradient(135deg, var(--color-neutral-darkest) 0%, var(--color-neutral-dark) 100%)",
         headline: "Inshorts Transformation And Automation Journey With Ayushman Solution",
         personName: "Abhishek Bakshi",
         personRole: "GM - Finance/Inshorts",
@@ -392,7 +399,7 @@ export const sapSolutions = {
         href: "#",
       },
       {
-        bannerColor: "linear-gradient(135deg,#0e5a3a 0%,#2f9e63 100%)",
+        bannerColor: "linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-neutral) 100%)",
         headline: "Lahori Zeera adds 'Tech Tang' to its Zingy Beverage Brand with Ayushman Solution",
         personName: "",
         personRole: "",

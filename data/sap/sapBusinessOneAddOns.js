@@ -1,9 +1,8 @@
 // Content for /sap/business-one/add-ons ("SAP Business One Add-ons"). Reuses
 // the exact same section components as sapBusinessOne.js / sapBusinessOneLicense.js
-// / sapBusinessOneMigration.js — only this sibling data file differs. Button
-// variant "addonsPrimary" is an additive, page-scoped brand variant that only
-// this page references — see components/Sap-pages/SapBusinessOneAddOns.module.css
-// for the page-scoped color/spacing token overrides that pair with it.
+// / sapBusinessOneMigration.js — only this sibling data file differs. Buttons
+// use the shared "primary" variant (no page-scoped brand color) so this page
+// renders with the same brand yellow as the rest of the site.
 
 export const sapBusinessOneAddOns = {
   // TODO: no dedicated "mountaineers roped together" photo exists in the
@@ -14,7 +13,7 @@ export const sapBusinessOneAddOns = {
     align: "right",
     textTheme: "dark",
     title: "Enlarge SAP Software Functionality with Personalized Add-Ons",
-    button: { label: "Find Out More", href: "#", variant: "addonsPrimary" },
+    button: { label: "Find Out More", href: "#", variant: "primary" },
   },
 
   intro: {
@@ -42,7 +41,7 @@ export const sapBusinessOneAddOns = {
         description: "Unlock deeper business insight by harnessing the power of SAP ERP.",
       },
     ],
-    buttons: [{ label: "Know More", href: "#", variant: "addonsPrimary" }],
+    buttons: [{ label: "Know More", href: "#", variant: "primary" }],
     image: "/assets/image2/modern-sap-migration.webp",
     imageAlt: "Hikers with arms raised on a snowy mountain",
   },
@@ -65,7 +64,7 @@ export const sapBusinessOneAddOns = {
       2020: [{ prefix: "SAP Business One", bold: "Top Partner, North & East India", year: "2020" }],
       2019: [{ prefix: "SAP", bold: "Partner Excellence Award", year: "2019" }],
     },
-    background: "#0a1e3c",
+    background: "var(--color-neutral-darker)",
   },
 
   addOnsIntro: {
@@ -208,7 +207,7 @@ export const sapBusinessOneAddOns = {
       {
         name: "Shrinivas S",
         designation: "GM Finance & Accounts, Select CITYWALK",
-        background: "linear-gradient(135deg,#1c5aa6 0%,#5aa9e6 100%)",
+        background: "linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-neutral) 100%)",
         eyebrow: "Customer Success Story",
         headline: "How Select CityWalk Transform Their Journey With Ayushman Solution",
         videoUrl: "#",
@@ -216,7 +215,7 @@ export const sapBusinessOneAddOns = {
       {
         name: "Gaurav Jain",
         designation: "Managing Director, ColdEX Group",
-        background: "linear-gradient(135deg,#0d2c7d 0%,#123a63 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-darkest) 0%, var(--color-neutral-dark) 100%)",
         eyebrow: "Customer Success Story",
         headline: "How ColdEX Built Their L.I.V.E. Enterprise With Ayushman Solution",
         videoUrl: "#",
@@ -322,7 +321,7 @@ export const sapBusinessOneAddOns = {
     title: "Ready to give your business a boost?",
     description:
       "Let our industry trained and SAP certified experts show you proven industry-specific solutions designed to integrate seamlessly with SAP Business One.",
-    button: { label: "Request Demo", href: "#", variant: "addonsPrimary" },
+    button: { label: "Request Demo", href: "#", variant: "primary" },
     backgroundImage: "/assets/image2/city-06.webp",
     textTheme: "light",
   },
@@ -362,7 +361,7 @@ export const sapBusinessOneAddOns = {
     title: "Let's Start a Conversation",
     theme: "light",
     compact: true,
-    background: "linear-gradient(120deg, #0d2c7d 0%, #178ae8 100%)",
+    background: "linear-gradient(120deg, var(--color-neutral-darker) 0%, var(--color-neutral) 100%)",
     buttons: [{ label: "Connect With Us", href: "#", variant: "outlineLight" }],
   },
 };

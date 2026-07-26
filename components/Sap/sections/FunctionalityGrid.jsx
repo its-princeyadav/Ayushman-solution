@@ -5,7 +5,7 @@ import styles from "./FunctionalityGrid.module.css";
 
 export default function FunctionalityGrid({ title, description, items, compact = false }) {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       <Container>
         <SectionHeading title={title} description={description} align="center" />
         <div className={`${styles.grid} ${compact ? styles.compactGrid : ""}`}>

@@ -5,7 +5,7 @@ import styles from "./FAQSection.module.css";
 
 export default function FAQSection({ title, items }) {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       <Container>
         <SectionHeading title={title} align="center" />
         <div className={styles.grid}>

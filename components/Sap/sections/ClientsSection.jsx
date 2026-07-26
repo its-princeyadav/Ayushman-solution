@@ -22,7 +22,7 @@ const ICONS = {
  */
 export default function ClientsSection({ badges, stat, statLabel, ribbon, heading, clients }) {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       <Container>
         <div className={styles.grid}>
           <div className={styles.hubWrap}>

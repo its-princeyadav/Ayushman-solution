@@ -159,9 +159,6 @@
   margin-top: auto;
 }
 
-.download {
-  border-radius: 0;
-}
 
 .readMore {
   font-size: 0.78rem;
@@ -175,4 +172,19 @@
 
 .readMore:hover {
   color: var(--color-primary-darker);
+}
+
+@media (max-width: 480px) {
+  .personImageWrap {
+    width: 76px;
+    height: 76px;
+  }
+
+  .headline {
+    margin-right: 96px;
+  }
+
+  .metaGrid {
+    grid-template-columns: 1fr;
+  }
 }

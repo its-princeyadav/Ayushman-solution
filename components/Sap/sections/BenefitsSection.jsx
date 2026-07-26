@@ -6,7 +6,7 @@ import styles from "./BenefitsSection.module.css";
 
 export default function BenefitsSection({ title, description, features, showDots = true, buttons }) {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-sap-reveal>
       <Container>
         <SectionHeading title={title} description={description} align="center" />
         <Slider

@@ -36,7 +36,7 @@ export const sapSupport = {
       { label: "Explore ERP", href: "#", variant: "primary" },
       { label: "Let's Talk", href: "#", variant: "outline" },
     ],
-    background: "linear-gradient(120deg, #eaf5ee 0%, #ffffff 45%)",
+    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 45%)",
   },
 
   timeline: {
@@ -58,7 +58,7 @@ export const sapSupport = {
       2020: [{ prefix: "SAP Business One", bold: "Top Partner, North & East India", year: "2020" }],
       2019: [{ prefix: "SAP", bold: "Partner Excellence Award", year: "2019" }],
     },
-    background: "#0a1e3c",
+    background: "var(--color-neutral-darker)",
   },
 
   challenges: {
@@ -147,7 +147,7 @@ export const sapSupport = {
         name: "Okaya",
         designation: "",
         company: "",
-        background: "linear-gradient(135deg,#0e7a3e 0%,#3fbf72 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral) 0%, var(--color-neutral-light) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         eyebrow: "Customer Success Story",
         headline: "Okaya Digital Transformation And Automation Journey With Ayushman Solution",
@@ -157,7 +157,7 @@ export const sapSupport = {
         name: "Anurag Choube",
         designation: "",
         company: "SAR",
-        background: "linear-gradient(135deg,#c2410c 0%,#f5824a 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-darker) 0%, var(--color-neutral) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         eyebrow: "Customer Success Story",
         headline: "How SAR Transformed Their Journey With Ayushman Solution",
@@ -167,7 +167,7 @@ export const sapSupport = {
         name: "Mr. Chandan Pandey",
         designation: "Co-Founder And CEO",
         company: "Quantinox",
-        background: "linear-gradient(135deg,#0f2f5f 0%,#1e73e8 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-darkest) 0%, var(--color-neutral-dark) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         eyebrow: "Customer Success Story",
         headline: "Quantinox Automation Journey With Ayushman Solution",
@@ -177,7 +177,7 @@ export const sapSupport = {
         name: "Gaurav Jain",
         designation: "Managing Director",
         company: "ColdEX Group",
-        background: "linear-gradient(135deg,#0b5fd8 0%,#3f9dfa 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-dark) 0%, var(--color-neutral-light) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         partnerLogo: "/assets/image2/coldex-logo-1.png",
         eyebrow: "Customer Success Story",
@@ -276,7 +276,7 @@ export const sapSupport = {
         download: { href: "#" },
       },
       {
-        bannerColor: "linear-gradient(135deg,#0b5fd8 0%,#3f9dfa 100%)",
+        bannerColor: "linear-gradient(135deg, var(--color-neutral-dark) 0%, var(--color-neutral-light) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         partnerLogo: "/assets/image2/coldex-logo-1.png",
         eyebrow: "Customer Success Story",

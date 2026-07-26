@@ -11,8 +11,9 @@ export default function CTASection({
   textTheme = "dark",
 }) {
   return (
-    <section className={styles.section}>
+    <section className={`${styles.section} ${textTheme === "dark" ? styles.dark : ""}`} data-sap-reveal>
       <Image src={backgroundImage} alt="" fill sizes="100vw" className={styles.image} />
+      <div className={styles.scrim} />
 
       <Container className={styles.container}>
         <div className={`${styles.content} ${textTheme === "light" ? styles.light : styles.dark}`}>

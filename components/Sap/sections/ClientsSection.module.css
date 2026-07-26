@@ -56,7 +56,7 @@
 .stat {
   font-size: clamp(2rem, 4vw, 2.6rem);
   font-weight: 800;
-  color: #e8623a;
+  color: var(--color-primary-darker);
   line-height: 1;
 }
 

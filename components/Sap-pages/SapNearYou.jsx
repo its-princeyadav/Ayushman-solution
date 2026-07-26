@@ -5,6 +5,7 @@ import SectionHeading from "../Sap/common/SectionHeading";
 import BlogCard from "../Sap/Cards/BlogCard";
 import CTASection from "../Sap/CTA/CTASection";
 import CenteredSection from "../Sap/common/CenteredSection";
+import ScrollReveal from "../Sap/common/ScrollReveal";
 import { sapNearYou } from "../../data/sapNearYouData";
 import styles from "./SapNearYou.module.css";
 
@@ -13,6 +14,7 @@ export default function SapNearYou() {
 
   return (
     <div className={styles.scope}>
+      <ScrollReveal />
       <HeroBanner {...hero} />
 
       <div className={styles.tintWhite}>

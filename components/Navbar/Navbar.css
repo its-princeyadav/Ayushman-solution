@@ -1,0 +1,628 @@
+/* Typography-only override, scoped to the navbar's two root containers
+   (the sticky utility bar + the main nav row) so it can never leak past
+   this component: every descendant - nav links, the mega-menus, search
+   input, hamburger, utility-bar buttons, brand text - normally inherits
+   its font-family from far-away legacy stylesheets (master.min.css,
+   button.min.css, ...) that this task explicitly says not to touch, so
+   the wildcard + !important here is what actually reaches all of them
+   without editing those shared files. */
+.navbar-utility-bar,
+.navbar-utility-bar *,
+.elementor-element-e072e0e,
+.elementor-element-e072e0e * {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+/* Brand mark: mini-logo icon + live "Ayushman Solutions" text, replacing
+   the old single combined-wordmark image (Latets-Logo.png). Width (not
+   height) is the driven dimension, so height is left to "auto" throughout
+   and the header's own height (driven by e072e0e's padding plus its
+   tallest child, not a fixed value in public/assets/css/post-47.css)
+   simply follows it.
+
+   Imported directly by Navbar.jsx (Next bundles it with a content-hashed
+   URL) rather than living in public/assets/css/post-47.css - that file is
+   served with a 1-day Cache-Control max-age, so edits there can get stuck
+   invisible in an already-cached browser for up to 24h. */
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* globals.css's `.elementor-widget-wcf--site-logo .elementor-image img`
+   (0,2,1 specificity, sized for the old 190x45 wordmark image) would
+   otherwise win over a plain `.navbar-brand__icon` class (0,1,0) and force
+   width:100% - stretching this icon. Scoping every size rule under that
+   same prefix (0,3,0) outranks it regardless of stylesheet load order. */
+.elementor-widget-wcf--site-logo .elementor-image .navbar-brand__icon {
+  width: 42px;
+  height: auto;
+  max-width: none;
+  flex-shrink: 0;
+  /* Explicit, not just relying on the initial value - globals.css's
+     .elementor-image img rule (see above) doesn't set a background, but
+     nothing here should ever paint one behind this PNG's transparent
+     pixels either. */
+  background: transparent;
+  object-fit: contain;
+  border: none;
+  box-shadow: none;
+  filter: none;
+}
+
+@media (max-width: 1024px) {
+  .elementor-widget-wcf--site-logo .elementor-image .navbar-brand__icon {
+    width: 36px;
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-widget-wcf--site-logo .elementor-image .navbar-brand__icon {
+    width: 30px;
+  }
+}
+
+.navbar-brand__text {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 20px;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: normal;
+}
+
+/* Top-level nav links (What We Do / Industries / Our Work / Who We Are /
+   Careers) share this one class - see Whatwedo.jsx's mega-menu trigger and
+   the plain <a> links in Navbar.jsx below. Their size otherwise comes from
+   master.min.css, which this task's font-family override already can't
+   touch - same reasoning, scoped override + !important to actually win. */
+.elementor-element-e072e0e .wcf-nav-item,
+.elementor-element-e072e0e .wcf-nav-item:hover,
+.elementor-element-e072e0e .wcf-nav-item:focus,
+.elementor-element-e072e0e .wcf-nav-item:active,
+.elementor-element-e072e0e .wcf-nav-item.active {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+/* Main nav row: brand yellow instead of white, per the reference.
+   #FBF022 is exactly --color-primary (app/globals.css), so that token is
+   reused here rather than a second hardcoded copy of the same hex. The
+   !important is needed here specifically - post-47.css sets
+   `background: var(--color-white)` on this same bare `.elementor-47`
+   selector (equal specificity), and its <link> renders later in the
+   document than this Next-bundled chunk, so on a tie it would otherwise
+   win by source order. */
+.elementor-47 {
+  background: var(--color-primary) !important;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+}
+
+/* Both words now solid black - no more contrast concern against the
+   yellow nav row, so the stroke from the previous gold/gray treatment is
+   dropped too (a black stroke on black fill did nothing anyway). */
+.navbar-brand__primary {
+  color: #000000;
+  font-weight: 800;
+}
+
+.navbar-brand__secondary {
+  color: #000000;
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .navbar-brand__text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-brand {
+    gap: 8px;
+  }
+
+  .navbar-brand__text {
+    font-size: 13px;
+  }
+}
+
+/* ---------- Main nav row ---------- */
+/* No background here - .elementor-47 (the sticky wrapper) already carries
+   the solid #FEBE0E (see above), and this row sits directly on top of it
+   with nothing between, so a second identical background here would just
+   be redundant. Only the taller padding needs overriding; !important since
+   post-47.css sets `padding: var(--padding-top) ...` on this same bare
+   selector, so a longhand without it could lose a same-specificity tie.
+   (Earlier iterations put a darker-yellow two-tone split here - this
+   reference explicitly calls for one flat color, so that's gone, not just
+   visually replaced: .navbar-logo-section below is back to plain layout,
+   no background of its own.) */
+.elementor-element-e072e0e {
+  padding-top: 12px !important;
+  padding-bottom: 14px !important;
+}
+
+.navbar-logo-section {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .elementor-element-e072e0e {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-element-e072e0e {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+}
+
+/* ---------- Scroll-adaptive logo ---------- */
+/* .navbar-brand--scrolled is toggled by Navbar.jsx's scroll listener
+   (window.scrollY > 70). Only visual state changes here - nothing about
+   .elementor-47's own position:sticky (post-47.css) is touched.
+
+   The circular badge (background/shadow/scale) is now static - always on,
+   same before and after scroll - rather than something that transitions
+   in on scroll: it's just the icon's permanent presentation now, not a
+   scroll-driven state. Only the icon's own subtle scale-up and the text's
+   slide/fade/blur still animate on scroll (see .navbar-brand--scrolled
+   rules below) - that's deliberately the ONLY thing this state class still
+   changes, so the collapse animation itself is unchanged from before.
+
+   Deliberately animates only transform/opacity/background-color/box-shadow
+   (compositor/paint-level) - never width, max-width or margin - so nothing
+   here ever triggers layout/reflow. The text's layout box stays its full
+   original size throughout (just transformed + faded to invisible); that's
+   safe here specifically because .navbar-logo-section is its own
+   percentage-width flex column (post-47.css) with no sibling content
+   inside it that would need to reflow into freed space, so there's nothing
+   to gain from also shrinking the box - transform+opacity alone already
+   reads as "the logo went compact". */
+.navbar-brand__iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px;
+  border-radius: 50%;
+  background: #000000;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.navbar-brand__icon {
+  transition: transform 350ms ease-in-out;
+}
+
+.navbar-brand--scrolled .navbar-brand__icon {
+  transform: scale(1.05);
+}
+
+.navbar-brand__text {
+  display: inline-block;
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  /* "none", not blur(0) - the build's CSS minifier collapses blur(0) down
+     to the invalid `blur()` (a filter function with no argument), which
+     browsers ignore rather than treat as "no blur", so the un-scrolled
+     state could never clear a blur applied by the scrolled state. */
+  filter: none;
+  transition: transform 350ms ease-in-out, opacity 300ms ease-in-out, filter 300ms ease-in-out;
+}
+
+.navbar-brand--scrolled .navbar-brand__text {
+  transform: translateX(-16px) scale(0.96);
+  opacity: 0;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+/* ---------- Login button (main nav row, far right) ---------- */
+/* Black on the reference, not the earlier white pill - slightly rounded
+   (8px), not fully pill-shaped. */
+.navbar-login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  height: 42px;
+  padding: 0 24px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background: #000000;
+  color: var(--color-white);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+.navbar-login-btn:hover,
+.navbar-login-btn:focus-visible {
+  transform: translateY(-2px);
+  background: #1a1a1a;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+  outline: none;
+}
+
+.navbar-login-btn svg {
+  font-size: 1.05rem;
+}
+
+/* elementor-element-7660472 (this button's own column) is sized as a
+   narrow percentage in post-47.css - it used to hold just a 33x33px search
+   icon. flex-shrink:0 + a floor width lets the pill keep its own size
+   instead of being squeezed by that old percentage. */
+.elementor-element-7660472 {
+  flex-shrink: 0;
+  min-width: fit-content;
+}
+
+/* ---------- Mobile/tablet layout fix (<=1024px) ---------- */
+/* post-47.css assigns e072e0e's three columns (logo / nav-menu / login)
+   percentage widths tuned for the DESKTOP content each used to hold - the
+   nav-menu column in particular still carries a leftover width from when
+   it also held the horizontal link list, not just the hamburger it's down
+   to at this size. Those percentages no longer add up to anything
+   sensible now that Login lives in the (formerly search-only) column, so
+   below this width every column's own width is reset to plain
+   content-sized flex. Visual order [Logo] -> [Login] -> [Hamburger] falls
+   out of this for free: 36aa0a2 (nav-menu/hamburger) already gets
+   `order:99999` from post-47.css pushing it after both other columns,
+   which are equal order and so keep their natural DOM order (logo, then
+   login) - restated directly here too since it's load-bearing for this
+   layout, not just an incidental default. `gap` groups Login + hamburger
+   with real spacing without a wrapping element - can't add one: the
+   hamburger's own JS (nav-menu.min.js) finds it via
+   `.wcf__nav-menu .wcf-menu-hamburger`, so it has to stay inside that
+   container.
+
+   Every real property below needs !important, not for defensiveness -
+   each one ties in specificity (single class, 0-1-0) against a real
+   legacy rule of its own: `gap` against coustam-frontend-ver.css's
+   `.elementor-element:where(.e-con-full,...)`, and `margin-right`
+   against `.e-con { margin-inline-end: var(--margin-inline-end) }`
+   (which post-47.css pins to 0px for this element via `--margin-right`).
+   Both stylesheets load in <head>, same as this one, so which one wins
+   an unmarked tie is undefined - `margin-right: auto` losing that tie
+   silently is exactly what was leaving the Login+hamburger group
+   stranded beside the logo instead of pushed to the right edge. */
+@media (max-width: 1024px) {
+  .elementor-element-e072e0e {
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+  }
+
+  .navbar-logo-section {
+    flex: 0 1 auto !important;
+    width: auto !important;
+    min-width: 0;
+    margin-right: auto !important;
+  }
+
+  .elementor-element-36aa0a2 {
+    order: 99999 !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+  }
+
+  .elementor-element-7660472 {
+    flex: 0 0 auto !important;
+    width: auto !important;
+  }
+}
+
+/* .wcf-menu-hamburger already carries `margin-left: auto` (index2.css),
+   but its parent .wcf__nav-menu is plain `display: block` there, so that
+   margin has always been inert - auto margins only resolve within a
+   flex/grid parent, so on a block parent the button just sits at the
+   column's left edge instead. Switching only this state (the off-canvas
+   panel itself is `position: fixed`, so it's unaffected by its parent's
+   display) to flex is what finally lets that existing margin do its job
+   and push the button flush right within the now content-sized column
+   above - real flexbox, not the absolute-positioning pin this replaces.
+
+   !important is required here specifically: index2.css declares this
+   exact selector (`.wcf__nav-menu.mobile-menu-active`, same 0-2-0
+   specificity) as `display: block`, and app/layout.jsx renders that
+   stylesheet's <link> inside <body> (after <NavbarUtilityBar/>/<Navbar/>)
+   while this Next-bundled chunk is hoisted into <head> - <head> always
+   precedes <body> in document order, so on an unmarked tie index2.css's
+   `block` always wins and this rule would silently never apply. */
+.wcf__nav-menu.mobile-menu-active {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* ---------- Custom hamburger/close icon ---------- */
+/* Button container: index2.css's own rule already declares
+   `align-items: center; justify-content: center` on this exact selector
+   (so the icon does get flex-centered once display is real flex again,
+   no need to restate them here) - the actual problem is its asymmetric
+   `padding: 4px 8px` (never square). Fixed size + !important (same
+   cross-stylesheet tie as `.wcf__nav-menu.mobile-menu-active` above -
+   index2.css loads after this chunk, so an unmarked override would lose)
+   is what makes it a stable square, in whichever state it's actually
+   shown in - .navbar-menu-icon (the icon + its open/close morph below)
+   is untouched.
+
+   `display` is deliberately NOT overridden here (unlike padding/border) -
+   index2.css uses it for two different jobs on this element: sizing
+   (inline-flex vs inline-block, both visible) under `.mobile-menu-active`,
+   and actual desktop visibility (`display: none`) under
+   `.desktop-menu-active`. A blanket `!important` on the bare
+   `.wcf-menu-hamburger` selector would win both fights at once, which is
+   exactly what silently kept this button visible on desktop too - so the
+   inline-flex fix below is scoped to `.mobile-menu-active` specifically,
+   leaving `.desktop-menu-active`'s own `display: none` completely
+   unopposed. */
+.wcf-menu-hamburger {
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  padding: 0 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 6px;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+/* Scoped re-fix of the `inline-block` from index2.css's `.mobile-menu-
+   active` state (see above) - without touching `.desktop-menu-active`,
+   where the button must stay `display: none`. */
+.wcf__nav-menu.mobile-menu-active .wcf-menu-hamburger {
+  display: inline-flex !important;
+}
+
+.wcf-menu-hamburger:hover,
+.wcf-menu-hamburger:focus-visible {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* Three lines (top/bottom equal width, middle shorter), morphing into an X
+   via pure CSS keyed off `.wcf-nav-is-toggled` - the exact class
+   nav-menu.min.js's mobileMenu() already adds to/removes from
+   .wcf__nav-menu on open/close (see the comment in Navbar.jsx). No new
+   JS/state: this only reacts to a class the existing handler already
+   toggles, so the open/close logic itself is untouched. */
+.navbar-menu-icon {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 22px;
+  height: 16px;
+}
+
+/* All three already share this one height (2px) - the "uneven thickness"
+   read came from `border-radius: 2px` (= half the line's own height)
+   fully rounding off both ends into a capsule. That taper eats a fixed
+   2px off each end regardless of the bar's length, so it consumes a much
+   bigger share of the shorter 65%-width middle bar than the full-width
+   top/bottom ones - the middle bar reads as thinner even though its
+   height never changed. A smaller, non-capsule radius keeps the corners
+   softened without that length-dependent optical effect. */
+.navbar-menu-icon__line {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: currentColor;
+  border-radius: 1px;
+  transition: transform 250ms ease-in-out, opacity 250ms ease-in-out, width 250ms ease-in-out;
+}
+
+.navbar-menu-icon__line--middle {
+  width: 65%;
+}
+
+.wcf__nav-menu.wcf-nav-is-toggled .navbar-menu-icon__line--top {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.wcf__nav-menu.wcf-nav-is-toggled .navbar-menu-icon__line--middle {
+  width: 0;
+  opacity: 0;
+}
+
+.wcf__nav-menu.wcf-nav-is-toggled .navbar-menu-icon__line--bottom {
+  width: 100%;
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---------- Top Utility Bar: premium two-level header, top row ---------- */
+/* Search widget (moved here from the main nav row) + Book Slot/Contact Us.
+   Near-black per this reference (was Deep Graphite #343A40 in the prior
+   iteration). */
+.navbar-utility-bar {
+  width: 100%;
+  background: #1c1c1c;
+}
+
+.navbar-utility-bar__inner {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 46px;
+  padding: 6px 50px;
+}
+
+.navbar-utility-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Every rule post-47.css has for this exact widget (elementor-element-
+   b50f876) is written as `.elementor-47 .elementor-element.elementor-
+   element-b50f876 ...` - an ANCESTOR requirement. Since this widget now
+   renders inside NavbarUtilityBar, a sibling BEFORE `.elementor-47` (not a
+   descendant of it), none of those selectors match anymore: not the
+   widget-container margin/padding reset, not `--align-self: center`
+   (consumed by a generic Elementor base rule elsewhere, falling back to
+   something other than center once this custom property is never set),
+   not the 33x33px toggle sizing, not the search-form/submit-button
+   styling. That's what was leaving the toggle icon pinned to the top of
+   the bar instead of centered like Book Slot/Contact Us - re-declared
+   here, scoped under .navbar-utility-bar instead, with icon colors
+   flipped to white to actually suit this dark bar (the originals were
+   #121212, meant for a light background). */
+.navbar-utility-bar .elementor-element-b50f876 {
+  align-self: center !important;
+}
+
+.navbar-utility-bar .elementor-element-b50f876 > .elementor-widget-container {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-utility-bar .elementor-element-b50f876,
+.navbar-utility-bar .elementor-element-b50f876 .elementor-widget-container,
+.navbar-utility-bar .search--wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-utility-bar .wcf-search-toggle {
+  height: 33px;
+  width: 33px;
+  background-color: transparent;
+}
+
+.navbar-utility-bar .wcf-search-form {
+  border-radius: 3px;
+}
+
+.navbar-utility-bar .wcf-search-form__submit {
+  color: var(--color-neutral);
+  fill: var(--color-neutral);
+  background-color: var(--color-primary);
+}
+
+.navbar-utility-bar .style-full-screen .toggle--close {
+  color: var(--color-white);
+  fill: var(--color-white);
+}
+
+.navbar-utility-bar__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  height: 34px;
+  padding: 0 18px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.navbar-utility-bar__btn--solid {
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-neutral);
+}
+
+.navbar-utility-bar__btn--solid:hover,
+.navbar-utility-bar__btn--solid:focus-visible {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.navbar-utility-bar__btn--outline {
+  border: 1px solid var(--color-white);
+  background: transparent;
+  color: var(--color-white);
+}
+
+/* FaPhone's default orientation reads oddly next to "Contact Us" - mirrored
+   horizontally so the handset points the other way. */
+.navbar-utility-bar__btn--outline svg {
+  transform: scaleX(-1);
+}
+
+.navbar-utility-bar__btn--outline:hover,
+.navbar-utility-bar__btn--outline:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  color: #d1d5db;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Square outline treatment on top of the 33x33px sizing re-declared above -
+   search--wrapper/wcf-search-toggle/wcf-search-form etc. keep whatever
+   expand/collapse + submit behavior search.min.js already wires up. */
+.navbar-utility-bar .wcf-search-toggle {
+  border: 1px solid var(--color-white);
+  border-radius: 4px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.navbar-utility-bar .wcf-search-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navbar-utility-bar .icon-wcf-search {
+  color: var(--color-white);
+  font-size: 1rem;
+}
+
+.navbar-utility-bar .wcf-search-toggle:hover .icon-wcf-search {
+  color: #d1d5db;
+}
+
+.navbar-utility-bar .wcf-search-form__input {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: var(--color-white);
+}
+
+.navbar-utility-bar .wcf-search-form__input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 1366px) {
+  .navbar-utility-bar__inner {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar-utility-bar__inner {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-utility-bar__inner {
+    gap: 10px;
+    padding: 6px 15px;
+  }
+
+  .navbar-utility-bar__btn {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 0.76rem;
+    gap: 6px;
+  }
+
+  .navbar-login-btn {
+    height: 38px;
+    padding: 0 16px;
+    font-size: 13px;
+  }
+}

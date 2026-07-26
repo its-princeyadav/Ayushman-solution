@@ -36,6 +36,7 @@ export default function ImageTextSection({
     <section
       className={`${styles.section} ${theme === "light" ? styles.light : ""}`}
       style={background ? { background } : undefined}
+      data-sap-reveal
     >
       <Container>
         <div

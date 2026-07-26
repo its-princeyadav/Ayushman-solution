@@ -1,25 +1,17 @@
 /*
- * Page-scoped rebrand for /sap/business-one/add-ons only.
+ * Page-local background-tint utilities for /sap/business-one/add-ons.
  *
- * Same technique as the Migration/License/Consulting pages: these are the
- * same CSS custom-property names every SAP component already consumes (see
- * components/Sap/sap-tokens.css). Wrapping just this page's JSX tree in
- * `.scope` re-values them only for the component instances rendered inside
- * that wrapper - custom properties inherit through the DOM, so no other page
- * is affected, and neither sap-tokens.css nor app/globals.css is touched.
- *
- * Colors per the approved reference palette: Dark Heading #0B2A78,
- * Paragraph #555555, Border #E5E5E5, Secondary Blue #178AE8 (buttons/accent),
- * Primary Blue #0D2C7D (hover/darker accent).
+ * `.scope` no longer overrides any --color-* or --sap-* custom property: this
+ * page now inherits the real site-wide brand tokens from
+ * components/Sap/sap-tokens.css, same as every other SAP page, instead of
+ * a page-specific palette. Kept as the JSX wrapper class so tint utilities
+ * below stay scoped to this page's markup.
  */
+/* ponytail: intentionally empty — kept only so the page's wrapper div
+   (components/Sap-pages/SapBusinessOneAddOns.jsx) still resolves a real
+   class from this CSS module; delete both if this page ever drops the
+   wrapper entirely. */
 .scope {
-  --color-neutral: #0b2a78;
-  --sap-navy: #0b2a78;
-  --sap-text: #555555;
-  --sap-text-light: #777777;
-  --sap-border: #e5e5e5;
-  --color-primary: #f7b500;
-  --color-primary-dark: #e0a300;
 }
 
 .tintWhite {
@@ -27,5 +19,5 @@
 }
 
 .tintLight {
-  background: #eaf6ff;
+  background: var(--sap-bg-tint-soft);
 }

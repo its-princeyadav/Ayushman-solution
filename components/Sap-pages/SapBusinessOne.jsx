@@ -36,7 +36,7 @@ export default function SapBusinessOne() {
       <FunctionalityGrid title={industryChallenges.title} items={industryChallenges.items} />
 
       <CenteredSection title={deployment.title} background={deployment.background}>
-        <div style={{ maxWidth: 780, margin: "0 auto", textAlign: "left" }}>
+        <div className="sap-prose">
           <CheckList items={deployment.checklist} />
           <p style={{ margin: 0, color: "var(--sap-text)", fontSize: "1.02rem", lineHeight: 1.75 }}>
             {deployment.description}

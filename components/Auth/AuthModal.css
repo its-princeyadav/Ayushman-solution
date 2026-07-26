@@ -1,0 +1,363 @@
+.authModal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(14, 14, 16, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.authModal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-white);
+  border-radius: 22px;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.35);
+  /* Every other rule in this file uses font-family:inherit (or sets none at
+     all), so this single declaration on the modal root is what the Login
+     tab, Register tab, headings, labels, inputs, buttons and error text all
+     inherit from - scoped to just this component, not a global change. */
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ---------- Header ---------- */
+.authModal__header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 14px;
+  padding: 20px 24px;
+  background: var(--color-primary);
+}
+
+.authModal__logo {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.authModal__title {
+  flex: 1;
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-neutral);
+}
+
+.authModal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-neutral);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.authModal__close:hover,
+.authModal__close:focus-visible {
+  background: rgba(0, 0, 0, 0.08);
+  outline: none;
+}
+
+/* ---------- Body ---------- */
+.authModal__body {
+  padding: 28px 28px 32px;
+  overflow-y: auto;
+}
+
+/* ---------- Segmented tabs ---------- */
+.authModal__tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 5px;
+  margin-bottom: 20px;
+  background: var(--color-off-white);
+  border-radius: 999px;
+}
+
+.authModal__tabIndicator {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: calc(50% - 7px);
+  height: calc(100% - 10px);
+  background: var(--color-white);
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+}
+
+.authModal__tab {
+  position: relative;
+  z-index: 1;
+  padding: 11px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-neutral-light);
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: color 250ms ease;
+}
+
+.authModal__tab--active {
+  color: var(--color-neutral);
+  font-weight: 700;
+}
+
+/* ---------- Google button ---------- */
+.authModal__google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-white);
+  color: var(--color-neutral);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+.authModal__google:hover,
+.authModal__google:focus-visible {
+  border-color: var(--color-neutral-lighter);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.authModal__google svg {
+  font-size: 1.2rem;
+}
+
+/* ---------- Divider ---------- */
+.authModal__divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  color: var(--color-neutral-light);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.authModal__divider::before,
+.authModal__divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ---------- Form ---------- */
+.authModal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.authModal__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.authModal__field label {
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-neutral);
+}
+
+.authModal__labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.authModal__labelRow label {
+  margin-bottom: 8px;
+}
+
+.authModal__forgot {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-neutral-light);
+  text-decoration: none;
+}
+
+.authModal__forgot:hover {
+  text-decoration: underline;
+}
+
+.authModal__inputWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 13px;
+  background: var(--color-off-white);
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.authModal__inputWrap:focus-within {
+  border-color: var(--color-primary-dark);
+  background: var(--color-white);
+  box-shadow: 0 0 0 4px rgba(251, 240, 34, 0.25);
+}
+
+.authModal__inputWrap--error {
+  border-color: var(--color-error);
+}
+
+.authModal__inputWrap svg {
+  flex-shrink: 0;
+  color: var(--color-neutral-lighter);
+  font-size: 1.1rem;
+}
+
+.authModal__inputWrap input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--color-neutral);
+}
+
+.authModal__error {
+  display: block;
+  overflow: hidden;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-error);
+}
+
+.authModal__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 15px;
+  border: none;
+  border-radius: 13px;
+  background: var(--color-primary);
+  color: var(--color-neutral);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+}
+
+.authModal__submit:hover:not(:disabled),
+.authModal__submit:focus-visible:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.16);
+  outline: none;
+}
+
+.authModal__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.authModal__switch {
+  margin: 4px 0 0;
+  font-size: 0.88rem;
+  color: var(--color-neutral-light);
+  text-align: center;
+}
+
+.authModal__switch button {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  color: var(--color-neutral);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ---------- Responsive: dedicated full-screen auth page, <=768px ----------
+   Below this width the modal stops looking like a modal - no backdrop, no
+   floating card, no shadow. Same DOM/JSX as desktop (just a CSS re-skin at
+   this breakpoint) so there's exactly one markup tree for both layouts.
+   Header stays flex-shrink:0 and .authModal__body stays flex:1 + overflow-y
+   auto (both already true above, unchanged here) - that alone keeps the
+   header fixed while the form scrolls, no position:sticky/JS needed. The
+   submit button also deliberately stays in normal flow (not fixed/sticky):
+   that's what guarantees it can never overlap a focused input, and lets the
+   browser's native "scroll focused element into view" handle the on-screen
+   keyboard case for free. */
+@media (max-width: 768px) {
+  .authModal__backdrop {
+    padding: 0;
+    background: var(--color-white);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .authModal {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .authModal__header {
+    padding: 16px max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left));
+    padding-top: max(16px, env(safe-area-inset-top));
+  }
+
+  .authModal__title {
+    font-size: 1.4rem;
+  }
+
+  .authModal__body {
+    padding: 20px max(20px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom))
+      max(20px, env(safe-area-inset-left));
+  }
+
+  .authModal__inputWrap {
+    min-height: 52px;
+  }
+
+  .authModal__submit {
+    min-height: 52px;
+  }
+}

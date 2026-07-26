@@ -1,9 +1,8 @@
 // Content for /erp/sap-near-you ("SAP Near You"). Reuses the exact same
 // section components as the data/sap/*.js pages — only the shape differs
 // slightly since this page is a directory of city links rather than a
-// single service page. Button variant "migrationPrimary" (already used on
-// the Migration/License/Consulting/Add-Ons pages) is reused as-is, per this
-// page's own brief: no new colors, only what's already used across the site.
+// single service page. Buttons use the shared "primary" variant, same as
+// every other SAP page — no page-scoped brand color.
 
 export const sapNearYou = {
   // TODO: no dedicated "team on a rooftop terrace" photo exists in the
@@ -15,7 +14,7 @@ export const sapNearYou = {
     textTheme: "light",
     title: "Simplify Your Business With Our ERP Services Nearby",
     description: "Find a local Ayushman Solution SAP Business One team in your city, backed by an SAP Platinum Partner.",
-    button: { label: "Get Started", href: "#", variant: "migrationPrimary" },
+    button: { label: "Get Started", href: "#", variant: "primary" },
   },
 
   cityListing: {
@@ -125,7 +124,7 @@ export const sapNearYou = {
   ctaBanner: {
     title: "Don't See Your City Listed?",
     description: "Our SAP Business One teams support businesses across India and beyond — reach out and we'll connect you with the nearest available team.",
-    button: { label: "Contact Us", href: "#", variant: "migrationPrimary" },
+    button: { label: "Contact Us", href: "#", variant: "primary" },
     backgroundImage: "/assets/image2/service-water.webp",
     textTheme: "light",
   },
@@ -134,7 +133,7 @@ export const sapNearYou = {
     title: "Let's Start a Conversation",
     theme: "light",
     compact: true,
-    background: "linear-gradient(120deg, #0d2c7d 0%, #178ae8 100%)",
+    background: "linear-gradient(120deg, var(--color-neutral-darker) 0%, var(--color-neutral) 100%)",
     buttons: [{ label: "Connect With Us", href: "#", variant: "outlineLight" }],
   },
 };

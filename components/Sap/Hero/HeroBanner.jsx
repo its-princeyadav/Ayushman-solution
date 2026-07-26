@@ -40,6 +40,7 @@ export default function HeroBanner({
       className={`${styles.hero} ${align === "right" ? styles.alignRight : ""} ${
         textTheme === "dark" ? styles.dark : ""
       }`}
+      data-sap-reveal
     >
       <div className={styles.imageWrap}>
         <Image

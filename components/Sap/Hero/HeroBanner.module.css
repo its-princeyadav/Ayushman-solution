@@ -31,18 +31,18 @@
   z-index: 1;
   background: linear-gradient(
     100deg,
-    rgba(8, 16, 32, 0.72) 0%,
-    rgba(8, 16, 32, 0.42) 38%,
-    rgba(8, 16, 32, 0.08) 70%
+    rgba(var(--sap-overlay-rgb), 0.72) 0%,
+    rgba(var(--sap-overlay-rgb), 0.42) 38%,
+    rgba(var(--sap-overlay-rgb), 0.08) 70%
   );
 }
 
 .alignRight .scrim {
   background: linear-gradient(
     260deg,
-    rgba(8, 16, 32, 0.82) 0%,
-    rgba(8, 16, 32, 0.55) 42%,
-    rgba(8, 16, 32, 0.1) 72%
+    rgba(var(--sap-overlay-rgb), 0.82) 0%,
+    rgba(var(--sap-overlay-rgb), 0.55) 42%,
+    rgba(var(--sap-overlay-rgb), 0.1) 72%
   );
 }
 
@@ -103,9 +103,6 @@
   flex-wrap: wrap;
 }
 
-.button {
-  border-radius: 0;
-}
 
 .overlayHeading {
   margin: 56px 0 0;

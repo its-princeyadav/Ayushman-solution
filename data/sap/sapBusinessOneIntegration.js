@@ -31,7 +31,7 @@ export const sapBusinessOneIntegration = {
       { label: "Request Demo", href: "#", variant: "primary" },
       { label: "SAP Solutions", href: "/sap/solutions", variant: "outlineLight" },
     ],
-    background: "linear-gradient(120deg, #0a1e3c 0%, #123a63 100%)",
+    background: "linear-gradient(120deg, var(--color-neutral-darker) 0%, var(--color-neutral) 100%)",
   },
 
   // TODO: no dedicated photography exists for these three rows yet — reusing
@@ -157,7 +157,7 @@ export const sapBusinessOneIntegration = {
         name: "Gaurav Jain",
         designation: "Managing Director",
         company: "ColdEX Group",
-        background: "linear-gradient(135deg,#0b5fd8 0%,#3f9dfa 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-dark) 0%, var(--color-neutral-light) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         partnerLogo: "/assets/image2/coldex-logo-1.png",
         eyebrow: "Customer Success Story",
@@ -168,7 +168,7 @@ export const sapBusinessOneIntegration = {
         name: "Shrinivas S",
         designation: "GM Finance & Accounts",
         company: "Select CityWalk",
-        background: "linear-gradient(135deg,#0f2f5f 0%,#1e73e8 100%)",
+        background: "linear-gradient(135deg, var(--color-neutral-darkest) 0%, var(--color-neutral-dark) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         eyebrow: "Customer Success Story",
         headline: "How Select CityWalk Transformed Their Integration Journey With Ayushman Solution",

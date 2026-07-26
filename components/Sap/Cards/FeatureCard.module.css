@@ -3,8 +3,16 @@
   min-height: 260px;
   padding: 40px 36px;
   background: var(--sap-white);
-  border: 6px solid var(--sap-border-strong);
+  border: 1px solid var(--sap-border);
+  border-radius: var(--sap-radius-md);
+  box-shadow: var(--sap-shadow-card);
   text-align: center;
+  transition: transform var(--sap-transition), box-shadow var(--sap-transition);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sap-shadow-hover);
 }
 
 .icon {
@@ -39,7 +47,6 @@
 
 .action {
   margin-top: 24px;
-  border-radius: 0;
 }
 
 .compact {
@@ -47,7 +54,20 @@
   padding: 20px 24px;
   background: var(--sap-bg-tint);
   border: none;
+  border-radius: var(--sap-radius-sm);
+  box-shadow: none;
   text-align: left;
+}
+
+.compact:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 28px 24px;
+  }
 }
 
 .compact .title {
@@ -55,17 +75,10 @@
   font-size: 1.05rem;
 }
 
-/* Generic pricing-card look shared by any page's pricing/package cards —
-   additive, opt-in via variant="pricing" (used by the Migration and License
-   pages' package cards). */
+/* ponytail: intentionally empty — the default .card rule above now already
+   gives every FeatureCard the radius/shadow/hover-lift treatment this
+   variant used to add on top, so pricing/package cards (Migration, License
+   pages) need no extra rule. Kept only so variant="pricing" still resolves
+   a real (no-op) class. */
 .pricing {
-  border: 1px solid var(--sap-border);
-  border-radius: var(--sap-radius-md);
-  box-shadow: var(--sap-shadow-card);
-  transition: transform var(--sap-transition), box-shadow var(--sap-transition);
-}
-
-.pricing:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--sap-shadow-hover);
 }

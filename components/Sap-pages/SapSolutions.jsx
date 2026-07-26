@@ -1,6 +1,7 @@
 import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import ImageTextSection from "../Sap/common/ImageTextSection";
+import PremiumSplitSection from "../Sap/common/PremiumSplitSection";
 import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import SectionHeading from "../Sap/common/SectionHeading";
 import Container from "../Sap/common/Container";
@@ -39,7 +40,7 @@ export default function SapSolutions() {
   return (
     <>
       <HeroBanner {...sapSolutions.hero} />
-      <ImageTextSection {...sapSolutions.s4hanaIntro} />
+      <PremiumSplitSection {...sapSolutions.s4hanaIntro} />
       <TimelineTabs {...sapSolutions.timeline} />
 
       <section style={{ background }}>

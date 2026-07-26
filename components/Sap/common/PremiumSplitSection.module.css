@@ -1,0 +1,400 @@
+.section {
+  position: relative;
+  padding-block: var(--sap-section-gap);
+  background: var(--sap-white);
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Decorative dot grid, top-right of the section - purely visual. */
+.dotGrid {
+  position: absolute;
+  top: 48px;
+  right: 48px;
+  width: 160px;
+  height: 160px;
+  background-image: radial-gradient(var(--sap-border) 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Yellow accent block, sat behind the image card and pushed toward the
+   viewport's right edge - a section-level layer (not nested inside
+   .imageSide) so it can reach past the max-width container without being
+   clipped by it; .section's own overflow:hidden stops it from ever causing
+   horizontal scroll. z-index 0 keeps it under .container (z-index 1), so it
+   only shows in the gutter the container doesn't cover - never over content. */
+.accentBlock {
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  bottom: 10%;
+  width: min(22vw, 320px);
+  height: 42%;
+  background: var(--color-primary);
+  border-radius: var(--sap-radius-lg) 0 0 var(--sap-radius-lg);
+  pointer-events: none;
+}
+
+.grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(40px, 6vw, 96px);
+}
+
+.imageLeft {
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+}
+
+.imageLeft .content {
+  order: 2;
+}
+
+.imageLeft .imageSide {
+  order: 1;
+}
+
+.content {
+  position: relative;
+  max-width: 560px;
+}
+
+.eyebrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.eyebrowLine {
+  width: 32px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-primary);
+}
+
+.eyebrowText {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral);
+}
+
+.title {
+  position: relative;
+  margin: 0 0 20px;
+  font-family: var(--sap-font-heading);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  text-transform: var(--sap-heading-transform);
+  line-height: 0.98;
+  color: var(--color-neutral);
+}
+
+.highlight {
+  color: var(--color-primary);
+}
+
+.accentDots {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  margin: 0 0 28px;
+}
+
+.accentDots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sap-border);
+}
+
+.accentDots span:nth-child(-n + 3) {
+  background: var(--color-primary);
+}
+
+.body {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.button {
+  position: relative;
+}
+
+.imageSide {
+  position: relative;
+  z-index: 1;
+}
+
+/* Desktop-monitor mockup wrapping the image "screen" - dark bezel, top
+   camera dot, minimal stand/base. Scales/lifts slightly on hover (same
+   trigger as the feature panel below, since both live under .imageSide). */
+.monitor {
+  position: relative;
+  z-index: 1;
+  padding: 14px 14px 22px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #3a3b3e 0%, #1c1d20 100%);
+  box-shadow: var(--sap-shadow-premium);
+  transition: transform var(--sap-transition-slow) cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow var(--sap-transition-slow) ease, filter var(--sap-transition-slow) ease;
+}
+
+.imageSide:hover .monitor {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--sap-shadow-hover);
+  filter: brightness(1.03);
+}
+
+.monitorCamera {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #050505;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.06);
+}
+
+.monitorStand {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: -16px;
+  transform: translateX(-50%);
+  width: 84px;
+  height: 18px;
+  background: linear-gradient(180deg, #3a3b3e, #1c1d20);
+  border-radius: 0 0 8px 8px;
+}
+
+.monitorBase {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: -22px;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 8px;
+  background: #1c1d20;
+  border-radius: 6px;
+}
+
+.imageCard {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--sap-radius-md);
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+}
+
+/* Clip window for the sliding feature panel. height is intentionally
+   "auto" - it always sizes to the card's own (untransformed) layout height,
+   so overflow-y:hidden clips exactly the slice of the card that a given
+   translateY pushes past its bottom edge. That's what makes the reveal work
+   without a hardcoded pixel height (which would break the moment content or
+   font-size changes) and without ever animating height/layout (only the
+   child's transform moves - no reflow, no layout shift). overflow-x stays
+   visible so the card's own box-shadow isn't clipped on the sides. */
+.featureCardClip {
+  position: relative;
+  z-index: 2;
+  margin: 24px 24px 0;
+  overflow-x: visible;
+  overflow-y: hidden;
+}
+
+/* Glass feature panel. Sits translated down inside .featureCardClip by
+   default - only its top sliver (rounded corner) peeks out, the rest is
+   clipped away by the ancestor, i.e. genuinely hidden rather than just
+   dimmed. Hovering .imageSide (the whole monitor + panel area, not just the
+   panel itself) slides it up to translateY(0), where it exactly fills the
+   clip window and reads as "emerging from behind the laptop". */
+.featureCard {
+  position: relative;
+  display: flex;
+  gap: 24px;
+  padding: 32px 28px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--sap-radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  transform: translateY(85%);
+  transition: transform 550ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.imageSide:hover .featureCard {
+  transform: translateY(0);
+}
+
+.feature {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  padding-inline: 24px;
+}
+
+.feature:first-child {
+  padding-left: 0;
+}
+
+.feature:last-child {
+  padding-right: 0;
+}
+
+/* Divider as an inset pseudo-element (not a full-height border) so it
+   stops short of the card's top/bottom edges instead of touching them. */
+.feature + .feature::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.featureIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--sap-radius-sm);
+  background: var(--sap-bg-tint);
+  color: var(--color-primary-dark);
+  font-size: 1.4rem;
+  transition: background-color var(--sap-transition);
+}
+
+.feature:hover .featureIcon {
+  background: var(--color-primary-lightest);
+}
+
+.featureTitle {
+  margin: 0 0 8px;
+  font-family: var(--sap-font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
+  color: var(--color-neutral);
+}
+
+.featureDescription {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--sap-text-light);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* "Image below the text" on mobile regardless of imagePosition. */
+  .imageLeft .content,
+  .content {
+    order: 1;
+  }
+
+  .imageLeft .imageSide,
+  .imageSide {
+    order: 2;
+    margin-top: 48px;
+  }
+
+  .dotGrid {
+    width: 110px;
+    height: 110px;
+    top: 24px;
+    right: 24px;
+  }
+
+  /* Once content and image stack, the accent block has no fixed image
+     position to sit behind and risks drifting over stacked content instead
+     - simplest safe behavior is to drop it at the same breakpoint the
+     layout itself stacks. */
+  .accentBlock {
+    display: none;
+  }
+
+  .featureCardClip {
+    margin-top: 32px;
+  }
+
+  .featureCard {
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+    /* No hover on touch - panel stays fully visible, no hidden/reveal state. */
+    transform: none;
+  }
+
+  .feature {
+    padding-inline: 0;
+  }
+
+  .feature + .feature {
+    padding-top: 20px;
+  }
+
+  .feature + .feature::before {
+    left: 8px;
+    right: 8px;
+    top: 0;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .featureCardClip {
+    margin-inline: 0;
+  }
+}
+
+/* Touch devices (tablets included, regardless of viewport width) have no
+   real :hover - without this, the panel would stay stuck in its clipped,
+   mostly-hidden resting state with no way to reveal it. */
+@media (hover: none) {
+  .featureCard {
+    transform: none;
+  }
+
+  .imageSide:hover .monitor {
+    transform: none;
+    filter: none;
+  }
+}

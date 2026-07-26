@@ -20,7 +20,7 @@ export const sapBusinessOneCustomization = {
     verticalAlign: "start",
     image: "/assets/image2/SAP-Services-3.png",
     imageAlt: "Climber ascending a rock face",
-    background: "linear-gradient(120deg, #eaf5ee 0%, #ffffff 60%)",
+    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 60%)",
     title: "Get SAP Customization for YOUR enterprise: Avail 12+ Tailored Add-Ons",
     description: [
       "Why should your business adapt to the SAP software? Ideally, the system is designed to meet the unique needs of YOUR business. As your strategic SAP partner, Ayushman Solution crafts custom ERP solutions that don't just function but fit your needs precisely. We offer SAP ERP customization solutions in the form of tailored add-ons. These tailored products are ready for acquisition, designed to align with the precise demands of your business operations.",
@@ -64,7 +64,7 @@ export const sapBusinessOneCustomization = {
       2020: [{ prefix: "SAP Business One", bold: "Top Partner, North & East India", year: "2020" }],
       2019: [{ prefix: "SAP", bold: "Partner Excellence Award", year: "2019" }],
     },
-    background: "#0a1e3c",
+    background: "var(--color-neutral-darker)",
   },
 
   extendsToIntro: {
@@ -192,21 +192,21 @@ export const sapBusinessOneCustomization = {
         date: "05 Dec 2023",
         title: "10 Challenges and Strategies in SAP S/4HANA Implementation",
         source: "TechMagazines",
-        background: "#0a0a0a",
+        background: "var(--color-neutral-darkest)",
         href: "#",
       },
       {
         date: "01 Sep 2021",
         title: "The SME and the SAP Business One Difference",
         source: "TechWire Asia",
-        background: "#0a0a0a",
+        background: "var(--color-neutral-darkest)",
         href: "#",
       },
       {
         date: "24 May 2024",
         title: "Ayushman Solution Embarks on SAP NOW 2024's Mission: Showcases Indian Businesses the SAP S/4HANA Cloud Pathway to Global...",
         source: "Deccan Herald",
-        background: "#127877",
+        background: "var(--color-neutral-darker)",
         href: "#",
       },
     ],
@@ -255,7 +255,7 @@ export const sapBusinessOneCustomization = {
         href: "#",
       },
       {
-        bannerColor: "linear-gradient(135deg,#0e7a3e 0%,#3fbf72 100%)",
+        bannerColor: "linear-gradient(135deg, var(--color-neutral) 0%, var(--color-neutral-light) 100%)",
         brandMark: "AYUSHMAN SOLUTION",
         eyebrow: "Customer Success Story",
         headline: "How Lahori Zeera Transform Their Journey With Ayushman Solution",

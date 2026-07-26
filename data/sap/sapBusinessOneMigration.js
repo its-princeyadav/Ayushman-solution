@@ -1,12 +1,11 @@
 // Content for /sap/business-one/migration ("SAP Business One Migration").
 // Reuses the exact same section components as sapBusinessOne.js /
 // sapBusinessOneImplementation.js / sapSolutions.js — only this sibling data
-// file differs. Button variants below (e.g. "migrationPrimary") are additive,
-// page-scoped brand variants that only this page references — see
-// components/Sap-pages/SapBusinessOneMigration.module.css for the
-// page-scoped color/spacing token overrides that pair with them.
-// FeatureCard's variant: "pricing" is a generic, shared pricing-card look
-// (also used by the License page), not migration-specific.
+// file differs. Buttons use the shared "primary"/"outline" variants (no
+// page-scoped brand color) so this page renders with the same brand yellow
+// as the rest of the site. FeatureCard's variant: "pricing" is a generic,
+// shared pricing-card look (also used by the License page), not
+// migration-specific.
 
 export const sapBusinessOneMigration = {
   hero: {
@@ -18,7 +17,7 @@ export const sapBusinessOneMigration = {
     align: "right",
     textTheme: "dark",
     title: "Unlock Seamless Transition with Ayushman Solution's SAP Migration Services",
-    button: { label: "Request A Demo", href: "#", variant: "migrationPrimary" },
+    button: { label: "Request A Demo", href: "#", variant: "primary" },
   },
 
   // Folded into FeatureCard's existing icon + title + description + action
@@ -35,7 +34,7 @@ export const sapBusinessOneMigration = {
         title: "Basic Pack",
         description:
           "Subscription per month/year. A basic licensing pack to gain greater control over the most pressing business processes and SAP data migration. Includes: Finance, CRM, Sales, Purchasing, Inventory, Bill of Materials, Mobile.",
-        action: { label: "Contact Us For Pricing", href: "#", variant: "migrationPrimary" },
+        action: { label: "Contact Us For Pricing", href: "#", variant: "primary" },
         variant: "pricing",
       },
       {
@@ -43,7 +42,7 @@ export const sapBusinessOneMigration = {
         title: "Professional Pack",
         description:
           "Subscription per month/year. Get access to all modules, features along with a software development kit for SAP S/4HANA migration. Includes: Administration, Financials, CRM, Sales, Purchasing, Banking, Inventory, Production, MRP, Service, HR, Mobile.",
-        action: { label: "Contact Us For Pricing", href: "#", variant: "migrationPrimary" },
+        action: { label: "Contact Us For Pricing", href: "#", variant: "primary" },
         variant: "pricing",
       },
       {
@@ -51,7 +50,7 @@ export const sapBusinessOneMigration = {
         title: "Financial User Pack",
         description:
           "Subscription per month/year. Seamlessly manage payroll, financials, sales aspects, and more. Includes: Financials, Sales Aspects, Purchasing Aspects, Banking, Inventory Aspects, Production Aspects, Mobile.",
-        action: { label: "Contact Us For Pricing", href: "#", variant: "migrationPrimary" },
+        action: { label: "Contact Us For Pricing", href: "#", variant: "primary" },
         variant: "pricing",
       },
     ],
@@ -64,8 +63,8 @@ export const sapBusinessOneMigration = {
     description:
       "Choose Ayushman Solution as your strategic ally to embrace the transformative power of SAP S/4HANA migration. Upgrading to SAP HANA promises unparalleled speed and performance, enabling enterprises to capitalize on new opportunities and enhance the ROI of their SAP infrastructure with rapid time-to-value. With our expertise in SAP cloud migration, businesses can maintain agility and competitiveness without compromising on essential factors such as business continuity, security, compliance, and performance.",
     buttons: [
-      { label: "Explore SAP Business One", href: "/sap/business-one", variant: "migrationPrimary" },
-      { label: "Request Demo", href: "#", variant: "migrationOutline" },
+      { label: "Explore SAP Business One", href: "/sap/business-one", variant: "primary" },
+      { label: "Request Demo", href: "#", variant: "outline" },
     ],
     // Cutout-on-white photo, so "bleed" (taller 5:4 crop) holds the full
     // standing figure far better than the wide 4:3 "boxed" crop would.
@@ -93,7 +92,7 @@ export const sapBusinessOneMigration = {
       2020: [{ prefix: "SAP Business One", bold: "Top Partner, North & East India", year: "2020" }],
       2019: [{ prefix: "SAP", bold: "Partner Excellence Award", year: "2019" }],
     },
-    background: "#0a1e3c",
+    background: "var(--color-neutral-darker)",
   },
 
   // TODO: real client logo image assets aren't available for every client
@@ -186,7 +185,7 @@ export const sapBusinessOneMigration = {
         title: "SAP S/4HANA Is Not a Choice but a Necessity for Insurance Industry",
         source: "TechsSlash",
         image: "/assets/image2/techsslash-logo.jpg",
-        background: "#0d0d0d",
+        background: "var(--color-neutral-darkest)",
         href: "#",
       },
       {
@@ -194,14 +193,14 @@ export const sapBusinessOneMigration = {
         title: "SAP Sustainability: Unlocking the Potential of S/4HANA for a Greener Future",
         source: "TechBehindIT",
         image: "/assets/image2/techbehindit-logo.jpg",
-        background: "#ffffff",
+        background: "var(--sap-white)",
         href: "#",
       },
       {
         date: "05 Dec 2023",
         title: "10 Challenges and Strategies in SAP S/4HANA Implementation",
         source: "TechMagazines",
-        background: "#0f2942",
+        background: "var(--color-neutral-darker)",
         href: "#",
       },
     ],
@@ -243,7 +242,7 @@ export const sapBusinessOneMigration = {
   ctaBanner: {
     title: "Want to Know More?",
     description: "Let our experts show you a full proof of concept (POC).",
-    button: { label: "Request Demo", href: "#", variant: "migrationPrimary" },
+    button: { label: "Request Demo", href: "#", variant: "primary" },
     backgroundImage: "/assets/image2/service-water.webp",
     textTheme: "light",
   },
@@ -252,7 +251,7 @@ export const sapBusinessOneMigration = {
     title: "Let's Start a Conversation",
     theme: "light",
     compact: true,
-    background: "linear-gradient(120deg, #0B2A72 0%, #163d8f 100%)",
-    buttons: [{ label: "Connect With Us", href: "#", variant: "migrationPrimary" }],
+    background: "linear-gradient(120deg, var(--color-neutral-darker) 0%, var(--color-neutral) 100%)",
+    buttons: [{ label: "Connect With Us", href: "#", variant: "primary" }],
   },
 };
