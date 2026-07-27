@@ -3,7 +3,6 @@ import Preloader from "../components/Common/Preloader";
 import Popups from "../components/Common/Popups";
 import Navbar, { NavbarUtilityBar } from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-import Providers from "../components/Providers";
 import "./globals.css";
 
 const description =
@@ -145,7 +144,7 @@ export default function RootLayout({ children }) {
                   this element by tag (only by its classes/data attributes),
                   so this is a pure a11y improvement with no visual effect. */}
               <main data-elementor-type="wp-page" data-elementor-id="6" className="elementor elementor-6">
-                <Providers>{children}</Providers>
+                {children}
               </main>
               <div data-elementor-type="wp-post" data-elementor-id="1386" className="elementor elementor-1386">
                 <Footer />
