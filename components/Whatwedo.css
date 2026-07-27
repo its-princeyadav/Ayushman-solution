@@ -54,8 +54,12 @@
 
 .wcf-megamenu__panel {
   width: min(1100px, 92vw);
-  max-height: 80vh;
-  overflow-y: auto;
+  /* Fixed (not max-) height: every category renders at the same panel
+     height, so switching categories never resizes/jumps the menu. Capped
+     by 80vh (same cap as before) only as a short-viewport safety net.
+     Overflow lives on the sidebar/content panes below, not here - each
+     scrolls independently within this fixed height instead of growing it. */
+  height: min(520px, 80vh);
   display: none;
   background: #ffffff;
   border: 1px solid rgba(15, 23, 42, 0.08);
@@ -65,24 +69,33 @@
   visibility: hidden;
   transform: translateY(-8px);
   transition: opacity 250ms ease, transform 250ms ease, visibility 0s linear 250ms;
+}
 
-  /* Thin, branded-neutral scrollbar for when content exceeds max-height -
-     purely cosmetic, doesn't change the 80vh cap or trigger layout shift. */
+/* Thin, branded-neutral scrollbar shared by whichever pane actually
+   overflows (sidebar in practice never does with 5 categories, content
+   does for the longer ones) - purely cosmetic, doesn't affect the fixed
+   height above or cause layout shift. */
+.wcf-megamenu__sidebar,
+.wcf-megamenu__content {
   scrollbar-width: thin;
   scrollbar-color: #ccd0d9 transparent;
 }
 
-.wcf-megamenu__panel::-webkit-scrollbar {
+.wcf-megamenu__sidebar::-webkit-scrollbar,
+.wcf-megamenu__content::-webkit-scrollbar {
   width: 7px;
 }
-.wcf-megamenu__panel::-webkit-scrollbar-track {
+.wcf-megamenu__sidebar::-webkit-scrollbar-track,
+.wcf-megamenu__content::-webkit-scrollbar-track {
   background: transparent;
 }
-.wcf-megamenu__panel::-webkit-scrollbar-thumb {
+.wcf-megamenu__sidebar::-webkit-scrollbar-thumb,
+.wcf-megamenu__content::-webkit-scrollbar-thumb {
   background: #ccd0d9;
   border-radius: 10px;
 }
-.wcf-megamenu__panel::-webkit-scrollbar-thumb:hover {
+.wcf-megamenu__sidebar::-webkit-scrollbar-thumb:hover,
+.wcf-megamenu__content::-webkit-scrollbar-thumb:hover {
   background: #b3b8c4;
 }
 
@@ -107,6 +120,12 @@
   flex-direction: column;
   gap: 6px;
   position: relative;
+  /* Stretches to the panel's fixed height via the row's default
+     align-items:stretch; min-height:0 lets it actually scroll within that
+     height instead of forcing the row taller (5 cards never need this in
+     practice, but it's the same safety net as .wcf-megamenu__content). */
+  min-height: 0;
+  overflow-y: auto;
 }
 
 /* Soft gradient-fade divider instead of a hard border - separates the two
@@ -206,7 +225,15 @@
 
 .wcf-megamenu__content {
   flex: 1 1 auto;
+  /* Independent scroll region: stretches to the panel's fixed height,
+     min-height:0 lets it actually shrink/scroll within that height rather
+     than growing the panel to fit a long category's content. Grid content
+     stays top-aligned by default (align-content:start) - short categories
+     just leave empty space below instead of stretching to fill it. */
+  min-height: 0;
+  overflow-y: auto;
   display: grid;
+  align-content: start;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 28px;
   padding: 28px 32px;
