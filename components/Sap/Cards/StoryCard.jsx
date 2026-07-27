@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Button from "../common/Button";
 import styles from "./StoryCard.module.css";
 
@@ -54,7 +55,7 @@ export default function StoryCard({
 
       <div className={styles.body}>
         <h4 className={styles.title}>
-          <a href={href}>{title}</a>
+          <Link href={href}>{title}</Link>
         </h4>
 
         <div className={styles.metaGrid}>
@@ -82,9 +83,9 @@ export default function StoryCard({
               Download
             </Button>
           )}
-          <a href={href} className={styles.readMore}>
+          <Link href={href} className={styles.readMore}>
             Read More
-          </a>
+          </Link>
         </div>
       </div>
     </article>

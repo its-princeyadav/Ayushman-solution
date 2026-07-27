@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { FaArrowRight, FaLongArrowAltLeft } from "react-icons/fa";
 import { PARTNERS, getPartnerBySlug } from "../../../data/whoWeAre";
 import "../partners.css";
@@ -25,9 +26,9 @@ export default async function PartnerDetailPage({ params }) {
   return (
     <div className="partners-page">
       <nav className="partners-breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <Link href="/">Home</Link>
         <span>/</span>
-        <a href="/partners">Partners</a>
+        <Link href="/partners">Partners</Link>
         <span>/</span>
         <span aria-current="page">{partner.category}</span>
       </nav>
@@ -52,9 +53,9 @@ export default async function PartnerDetailPage({ params }) {
         </a>
       </div>
 
-      <a href="/partners" className="partners-back-link">
+      <Link href="/partners" className="partners-back-link">
         <FaLongArrowAltLeft aria-hidden="true" /> Back to Partners
-      </a>
+      </Link>
     </div>
   );
 }
