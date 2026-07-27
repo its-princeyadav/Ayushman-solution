@@ -1,15 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import Container from "../common/Container";
 import SectionHeading from "../common/SectionHeading";
 import Button from "../common/Button";
 import styles from "./IndustryOrbit.module.css";
 
-/**
- * Bespoke circular layout: one hub circle, N satellite circles positioned by
- * percentage coordinates from data, connected with dashed SVG lines drawn in
- * the same 0-100 coordinate space so they always line up with the circles
- * regardless of viewport width.
- */
+
 export default function IndustryOrbit({ title, center, items, buttons }) {
   return (
     <section className={styles.section} data-sap-reveal>
@@ -38,9 +34,9 @@ export default function IndustryOrbit({ title, center, items, buttons }) {
               className={styles.satellite}
               style={{ top: `${item.top}%`, left: `${item.left}%` }}
             >
-              <a href={item.href || "#"} className={styles.satelliteCircle}>
+              <Link href={item.href || "#"} className={styles.satelliteCircle}>
                 <Image src={item.image} alt="" fill sizes="140px" className={styles.satelliteImage} />
-              </a>
+              </Link>
               <span className={styles.satelliteLabel}>{item.label}</span>
             </div>
           ))}

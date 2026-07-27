@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { FaLinkedinIn, FaCogs, FaCloud, FaUsers, FaChartLine } from "react-icons/fa";
 import { HERO, INTRO, LEADERS, STATS, CLIENTS, PARTNERS } from "../../data/whoWeAre";
 import "./WhoWeAre.css";
@@ -135,7 +136,7 @@ export default function WhoWeAre() {
         </div>
         <div className="wwa-partners__grid">
           {PARTNERS.map((partner) => (
-            <a href={`/partners/${partner.slug}`} className="wwa-partners__card" key={partner.category}>
+            <Link href={`/partners/${partner.slug}`} className="wwa-partners__card" key={partner.category}>
               <div className="wwa-partners__logo-zone">
                 <div className="wwa-partners__logos">
                   {partner.logos.map((logo) =>
@@ -152,7 +153,7 @@ export default function WhoWeAre() {
                 {partner.teaser && <p className="wwa-partners__teaser">{partner.teaser}</p>}
               </div>
               <div className="wwa-partners__label">{partner.category}</div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>

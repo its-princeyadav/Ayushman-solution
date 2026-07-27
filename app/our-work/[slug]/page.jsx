@@ -60,13 +60,13 @@ export default async function OurWorkDetailPage({ params }) {
         {TOPICS.map((topic) => {
           const Icon = topic.icon;
           return (
-            <a key={topic.title} href={topic.href} className="our-work-topics__card">
+            <Link key={topic.title} href={topic.href} className="our-work-topics__card">
               <span className="our-work-topics__icon">
                 <Icon aria-hidden="true" />
               </span>
               <span className="our-work-topics__title">{topic.title}</span>
               <span className="our-work-topics__desc">{topic.description}</span>
-            </a>
+            </Link>
           );
         })}
       </div>

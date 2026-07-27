@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./Button.module.css";
 
 const VARIANTS = {
@@ -28,9 +29,9 @@ export default function Button({
 
   if (href) {
     return (
-      <a href={href} className={classes}>
+      <Link href={href} className={classes}>
         {content}
-      </a>
+      </Link>
     );
   }
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Link from "next/link";
 import { FaCogs, FaChartLine, FaUsers, FaCloud, FaMicrochip, FaAngleDown, FaAngleRight } from "react-icons/fa";
 import "./Whatwedo.css";
 
@@ -204,10 +205,7 @@ export default function Whatwedo() {
     return () => mq.removeEventListener("change", handleChange);
   }, []);
 
-  // Mobile-only: collapse this accordion when a sibling nav submenu opens,
-  // or when the off-canvas drawer itself closes (core.js dispatches this).
-  // Desktop hover/click behaviour never touches this event, so it can't
-  // affect desktop timing.
+
   useEffect(() => {
     function handleCloseRequest(e) {
       if (isDesktop || e.detail?.except === MENU_ID) return;
@@ -295,7 +293,7 @@ export default function Whatwedo() {
             const Icon = category.icon;
             const isActive = index === activeIndex;
             return (
-              <a
+              <Link
                 key={category.id}
                 href={category.href}
                 role="menuitem"
@@ -312,7 +310,7 @@ export default function Whatwedo() {
                   <span className="wcf-megamenu__sidebar-desc">{category.description}</span>
                 </span>
                 {isActive && <FaAngleRight aria-hidden="true" className="wcf-megamenu__sidebar-arrow" />}
-              </a>
+              </Link>
             );
           })}
         </div>
@@ -324,15 +322,15 @@ export default function Whatwedo() {
               <ul className="wcf-megamenu__column-list">
                 {column.items.map((item) => (
                   <li key={item.title}>
-                    <a href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
+                    <Link href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
                       <span className="wcf-megamenu__item-title">{item.title}</span>
                       {item.description && <span className="wcf-megamenu__item-desc">{item.description}</span>}
-                    </a>
+                    </Link>
                     {item.links && (
                       <ul className="wcf-megamenu__sublinks">
                         {item.links.map((link) => (
                           <li key={link.title}>
-                            <a href={link.href} onClick={closeMenu}>{link.title}</a>
+                            <Link href={link.href} onClick={closeMenu}>{link.title}</Link>
                           </li>
                         ))}
                       </ul>
@@ -378,10 +376,7 @@ export default function Whatwedo() {
 
       {mounted && isDesktop && createPortal(desktopPanel, document.body)}
 
-      {/* Mobile accordion — the top-level trigger above toggles `isOpen` to
-          reveal this whole category list; each category then expands
-          individually via mobileOpenIndex. No separate top-level button, so
-          there is only ever one visible "What We Do" control. */}
+
       <div className="wcf-megamenu__mobile">
         <div className={`wcf-megamenu__accordion-panel ${isOpen ? "is-open" : ""}`}>
           <div className="wcf-megamenu__accordion-panel-inner">
@@ -408,14 +403,14 @@ export default function Whatwedo() {
                               <ul className="wcf-megamenu__column-list">
                                 {column.items.map((item) => (
                                   <li key={item.title}>
-                                    <a href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
+                                    <Link href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
                                       <span className="wcf-megamenu__item-title">{item.title}</span>
-                                    </a>
+                                    </Link>
                                     {item.links && (
                                       <ul className="wcf-megamenu__sublinks">
                                         {item.links.map((link) => (
                                           <li key={link.title}>
-                                            <a href={link.href} onClick={closeMenu}>{link.title}</a>
+                                            <Link href={link.href} onClick={closeMenu}>{link.title}</Link>
                                           </li>
                                         ))}
                                       </ul>
