@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
@@ -9,8 +10,14 @@ import { HiOutlineUser } from "react-icons/hi";
 import Whatwedo from "../Whatwedo";
 import Industries from "../Industries";
 import OurWork from "../Our-work/Our-work";
-import AuthModal from "../Auth/AuthModal";
 import "./Navbar.css";
+
+// Code-split out of the navbar's (and thus every page's) initial bundle:
+// AuthModal pulls in framer-motion and only ever renders anything once a
+// user actually opens it (it returns null server-side and until mounted -
+// see the `mounted` guard in AuthModal.jsx - so ssr:false changes nothing
+// about what's rendered, only when its JS is fetched).
+const AuthModal = dynamic(() => import("../Auth/AuthModal"), { ssr: false });
 
 export function NavbarUtilityBar() {
   const searchWidgetRef = useRef(null);
