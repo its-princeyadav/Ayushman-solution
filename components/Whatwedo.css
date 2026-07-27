@@ -41,18 +41,49 @@
   }
 }
 
+/* Category identity colors. Applied via data-accent="<category id>" on both
+   the sidebar card (sets its own icon/hover/active tint) and the content
+   pane (so column headings + item hover/arrow pick up whichever category is
+   currently active). Kept as static per-category values rather than
+   color-mix() so older/enterprise browsers render the same result. */
+[data-accent="sap-erp"] { --c: #4f46e5; --c-soft: #eef0fe; --c-border: rgba(79, 70, 229, 0.22); --c-shadow: rgba(79, 70, 229, 0.35); }
+[data-accent="data-analytics"] { --c: #7c3aed; --c-soft: #f3edfe; --c-border: rgba(124, 58, 237, 0.22); --c-shadow: rgba(124, 58, 237, 0.32); }
+[data-accent="salesforce-crm"] { --c: #0891b2; --c-soft: #e6f6fa; --c-border: rgba(8, 145, 178, 0.22); --c-shadow: rgba(8, 145, 178, 0.32); }
+[data-accent="cloud"] { --c: #0284c7; --c-soft: #e6f3fb; --c-border: rgba(2, 132, 199, 0.22); --c-shadow: rgba(2, 132, 199, 0.32); }
+[data-accent="technology"] { --c: #ea580c; --c-soft: #fdece0; --c-border: rgba(234, 88, 12, 0.22); --c-shadow: rgba(234, 88, 12, 0.32); }
+
 .wcf-megamenu__panel {
   width: min(1100px, 92vw);
   max-height: 80vh;
   overflow-y: auto;
   display: none;
   background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 24px 60px -20px rgba(15, 23, 42, 0.35), 0 4px 16px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 22px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), 0 32px 80px -24px rgba(15, 23, 42, 0.3);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px);
   transition: opacity 250ms ease, transform 250ms ease, visibility 0s linear 250ms;
+
+  /* Thin, branded-neutral scrollbar for when content exceeds max-height -
+     purely cosmetic, doesn't change the 80vh cap or trigger layout shift. */
+  scrollbar-width: thin;
+  scrollbar-color: #ccd0d9 transparent;
+}
+
+.wcf-megamenu__panel::-webkit-scrollbar {
+  width: 7px;
+}
+.wcf-megamenu__panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.wcf-megamenu__panel::-webkit-scrollbar-thumb {
+  background: #ccd0d9;
+  border-radius: 10px;
+}
+.wcf-megamenu__panel::-webkit-scrollbar-thumb:hover {
+  background: #b3b8c4;
 }
 
 @media (min-width: 1025px) {
@@ -70,43 +101,76 @@
 }
 
 .wcf-megamenu__sidebar {
-  flex: 0 0 300px;
-  border-right: 1px solid #eef0f4;
-  padding: 16px;
+  flex: 0 0 308px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  position: relative;
+}
+
+/* Soft gradient-fade divider instead of a hard border - separates the two
+   panes without a harsh edge. */
+.wcf-megamenu__sidebar::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  right: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.13) 15%, rgba(15, 23, 42, 0.13) 85%, transparent);
 }
 
 .wcf-megamenu__sidebar-item {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 10px;
+  gap: 13px;
+  padding: 13px 14px;
+  border-radius: 15px;
+  border: 1px solid transparent;
   text-decoration: none;
   color: #1f2937;
-  transition: background-color 200ms ease;
+  transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
 }
 
-.wcf-megamenu__sidebar-item.is-active,
 .wcf-megamenu__sidebar-item:hover,
 .wcf-megamenu__sidebar-item:focus-visible {
-  background-color: #f2f6fd;
+  background-color: var(--c-soft, #f2f6fd);
+  transform: translateY(-1px);
   outline: none;
+}
+
+.wcf-megamenu__sidebar-item.is-active {
+  background: linear-gradient(135deg, var(--c-soft, #eef2fb), #ffffff 78%);
+  border-color: var(--c-border, transparent);
+  box-shadow: 0 10px 28px -14px var(--c-shadow, rgba(15, 23, 42, 0.25)), inset 3px 0 0 var(--c, #1d4ed8);
+  transform: none;
 }
 
 .wcf-megamenu__sidebar-icon {
   flex: 0 0 auto;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  background: #eaf1ff;
-  color: #1d4ed8;
-  font-size: 1rem;
+  border-radius: 12px;
+  background: var(--c-soft, #eaf1ff);
+  color: var(--c, #1d4ed8);
+  border: 1px solid var(--c-border, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 6px 14px -8px var(--c-shadow, transparent);
+  font-size: 1.05rem;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.wcf-megamenu__sidebar-item:hover .wcf-megamenu__sidebar-icon {
+  transform: scale(1.06);
+}
+
+.wcf-megamenu__sidebar-item.is-active .wcf-megamenu__sidebar-icon {
+  background: linear-gradient(145deg, var(--c, #1d4ed8), color-mix(in srgb, var(--c, #1d4ed8) 75%, black));
+  color: #fff;
+  border-color: transparent;
 }
 
 .wcf-megamenu__sidebar-text {
@@ -120,6 +184,7 @@
   font-weight: 600;
   font-size: 0.95rem;
   color: #111827;
+  letter-spacing: 0.002em;
 }
 
 .wcf-megamenu__sidebar-desc {
@@ -130,8 +195,21 @@
 
 .wcf-megamenu__sidebar-arrow {
   align-self: center;
-  color: #1d4ed8;
   flex: 0 0 auto;
+  color: var(--c, #1d4ed8);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.wcf-megamenu__sidebar-item:hover .wcf-megamenu__sidebar-arrow {
+  opacity: 0.45;
+  transform: translateX(0);
+}
+
+.wcf-megamenu__sidebar-item.is-active .wcf-megamenu__sidebar-arrow {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .wcf-megamenu__content {
@@ -155,12 +233,24 @@
 }
 
 .wcf-megamenu__column-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin: 0 0 14px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: #1d4ed8;
+  color: #8b93a3;
+}
+
+.wcf-megamenu__column-heading::before {
+  content: "";
+  width: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c, #1d4ed8);
+  flex: none;
 }
 
 .wcf-megamenu__column-list {
@@ -169,17 +259,18 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 2px;
 }
 
 .wcf-megamenu__item {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
   text-decoration: none;
-  border-radius: 8px;
-  padding: 4px 8px;
-  margin: -4px -8px;
+  border-radius: 11px;
+  padding: 9px 10px;
+  margin: 0 -10px;
   transition: background-color 200ms ease;
 }
 
@@ -189,10 +280,23 @@
   outline: none;
 }
 
+.wcf-megamenu__item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
 .wcf-megamenu__item-title {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.9rem;
   color: #111827;
+  transition: color 200ms ease;
+}
+
+.wcf-megamenu__item:hover .wcf-megamenu__item-title,
+.wcf-megamenu__item:focus-visible .wcf-megamenu__item-title {
+  color: var(--c, #1d4ed8);
 }
 
 .wcf-megamenu__item-desc {
@@ -201,24 +305,52 @@
   line-height: 1.35;
 }
 
+.wcf-megamenu__item-go {
+  flex: none;
+  margin-top: 3px;
+  font-size: 0.8rem;
+  color: #c2c7d1;
+  opacity: 0;
+  transform: translateX(-3px);
+  transition: opacity 200ms ease, transform 200ms ease, color 200ms ease;
+}
+
+.wcf-megamenu__item:hover .wcf-megamenu__item-go,
+.wcf-megamenu__item:focus-visible .wcf-megamenu__item-go {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--c, #1d4ed8);
+}
+
+/* SAP Near You cities - pill tags instead of a plain inline text list. */
 .wcf-megamenu__sublinks {
   list-style: none;
-  margin: 6px 0 0;
-  padding: 0 0 0 8px;
+  margin: 8px 0 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 14px;
+  gap: 7px;
 }
 
 .wcf-megamenu__sublinks a {
-  font-size: 0.8rem;
-  color: #374151;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #5b6472;
+  background: #f5f7fb;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 6px 13px;
+  border-radius: 100px;
   text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
 .wcf-megamenu__sublinks a:hover {
-  color: #1d4ed8;
-  text-decoration: underline;
+  background: var(--c-soft, #eaf1ff);
+  color: var(--c, #1d4ed8);
+  border-color: var(--c-border, transparent);
+  transform: translateY(-1px);
 }
 
 /* ---------- Mobile accordion ---------- */
@@ -331,9 +463,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: #14304f;
+    background: none;
+    border: none;
+    border-radius: 0;
   }
 
   .wcf-megamenu__mobile .wcf-megamenu__sublinks a:hover {
     color: #1d4ed8;
+    background: none;
+    transform: none;
   }
 }
