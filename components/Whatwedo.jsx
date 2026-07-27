@@ -319,7 +319,6 @@ export default function Whatwedo() {
                 </span>
                 <span className="wcf-megamenu__sidebar-text">
                   <span className="wcf-megamenu__sidebar-title">{category.title}</span>
-                  <span className="wcf-megamenu__sidebar-desc">{category.description}</span>
                 </span>
                 <LuArrowRight aria-hidden="true" className="wcf-megamenu__sidebar-arrow" />
               </Link>
