@@ -1,0 +1,54 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  /* AdminLoginScreen's card centers its branding/title text - override
+     that inheritance here so inputs/labels/checkbox row read left-aligned. */
+  text-align: left;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--admin-gray);
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.toggle svg {
+  width: 17px;
+  height: 17px;
+}
+
+.toggle:hover {
+  color: var(--admin-dark);
+  background: var(--admin-gray-soft);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2px 0 6px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.forgot {
+  font-family: var(--admin-font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--admin-dark);
+  text-decoration: none;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}

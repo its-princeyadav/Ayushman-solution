@@ -1,0 +1,78 @@
+.field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  left: 16px;
+  width: 18px;
+  height: 18px;
+  color: var(--admin-gray);
+  pointer-events: none;
+  transition: color 200ms ease;
+}
+
+.input {
+  width: 100%;
+  font-family: var(--admin-font-body);
+  font-size: 0.95rem;
+  color: var(--admin-dark);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1.5px solid var(--admin-border);
+  border-radius: var(--admin-radius-sm);
+  padding: 22px 44px 8px 44px;
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.input::placeholder {
+  color: transparent;
+}
+
+.input:hover {
+  border-color: rgba(28, 29, 32, 0.2);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--admin-yellow);
+  background: var(--admin-white);
+  box-shadow: 0 0 0 4px rgba(254, 190, 14, 0.18);
+}
+
+.input:focus ~ .icon {
+  color: var(--admin-dark);
+}
+
+.label {
+  position: absolute;
+  left: 44px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--admin-font-body);
+  font-size: 0.95rem;
+  color: var(--admin-gray);
+  pointer-events: none;
+  transition: top 180ms ease, font-size 180ms ease, color 180ms ease;
+}
+
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  top: 13px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--admin-gray);
+}
+
+.input:focus + .label {
+  color: var(--admin-dark);
+}
+
+.end {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+}

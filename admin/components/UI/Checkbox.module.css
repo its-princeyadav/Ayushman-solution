@@ -1,0 +1,58 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.box {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid var(--admin-border);
+  background: var(--admin-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.check {
+  width: 11px;
+  height: 11px;
+  color: var(--admin-dark);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.input:checked + .box {
+  background: var(--admin-yellow);
+  border-color: var(--admin-yellow);
+}
+
+.input:checked + .box .check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.input:focus-visible + .box {
+  outline: 2px solid var(--admin-dark);
+  outline-offset: 2px;
+}
+
+.label {
+  font-family: var(--admin-font-body);
+  font-size: 0.85rem;
+  color: var(--admin-text-muted);
+}

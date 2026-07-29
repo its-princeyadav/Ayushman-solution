@@ -1,0 +1,71 @@
+.card {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 36px 32px;
+  border-radius: var(--admin-radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: var(--admin-surface-glass);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: var(--admin-shadow-card);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.logo {
+  border-radius: 50%;
+}
+
+.brandText {
+  font-family: var(--admin-font-display);
+  font-size: 1.15rem;
+}
+
+.brandPrimary {
+  font-weight: 600;
+  color: var(--admin-dark);
+}
+
+.brandSecondary {
+  font-weight: 400;
+  color: var(--admin-gray);
+}
+
+.title {
+  margin: 0 0 6px;
+  font-family: var(--admin-font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: 0.01em;
+  color: var(--admin-dark);
+}
+
+.welcome {
+  margin: 0 0 28px;
+  font-family: var(--admin-font-body);
+  font-size: 0.9rem;
+  color: var(--admin-gray);
+}
+
+.footer {
+  margin: 28px 0 0;
+  font-family: var(--admin-font-body);
+  font-size: 0.75rem;
+  color: var(--admin-gray);
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 32px 22px 24px;
+    border-radius: var(--admin-radius-md);
+  }
+}
