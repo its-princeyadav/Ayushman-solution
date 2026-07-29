@@ -1,0 +1,22 @@
+.shell {
+  min-height: 100dvh;
+  background: #f7f7f6;
+}
+
+.main {
+  margin-left: 260px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 1 auto;
+  padding: 24px;
+}
+
+@media (max-width: 1024px) {
+  .main {
+    margin-left: 0;
+  }
+}

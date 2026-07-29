@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { LuMail, LuLock, LuEye, LuEyeOff } from "react-icons/lu";
 import TextField from "../UI/TextField";
 import Checkbox from "../UI/Checkbox";
@@ -9,11 +10,13 @@ import styles from "./LoginForm.module.css";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   function handleSubmit(event) {
     event.preventDefault();
-    // UI-only phase - no auth/API wiring yet.
+    // UI-only phase - no auth/API wiring yet, this just navigates.
     console.log("[admin] login submit (placeholder, no backend wired up yet)");
+    router.push("/admin/dashboard");
   }
 
   return (

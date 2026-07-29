@@ -1,0 +1,180 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.welcome {
+  margin: 0;
+  font-family: var(--admin-font-body);
+  font-size: 0.95rem;
+  color: var(--admin-gray);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.panel {
+  background: var(--admin-white);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  padding: 20px;
+  box-shadow: var(--admin-shadow-soft);
+}
+
+.panelTitle {
+  margin: 0 0 16px;
+  font-family: var(--admin-font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--admin-dark);
+}
+
+.activityList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.activityItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.activityDot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--admin-yellow);
+}
+
+.activityText {
+  flex: 1 1 auto;
+  font-family: var(--admin-font-body);
+  font-size: 0.85rem;
+  color: var(--admin-dark);
+  line-height: 1.4;
+}
+
+.activityTime {
+  flex: none;
+  font-family: var(--admin-font-body);
+  font-size: 0.75rem;
+  color: var(--admin-gray);
+  white-space: nowrap;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  font-family: var(--admin-font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--admin-gray);
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.table td {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--admin-border);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.userCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userAvatar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--admin-gray-soft);
+  color: var(--admin-dark);
+  font-family: var(--admin-font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.userName {
+  font-family: var(--admin-font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--admin-dark);
+}
+
+.userEmail {
+  font-family: var(--admin-font-body);
+  font-size: 0.75rem;
+  color: var(--admin-gray);
+}
+
+.muted {
+  font-family: var(--admin-font-body);
+  font-size: 0.82rem;
+  color: var(--admin-gray);
+  white-space: nowrap;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--admin-font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.statusActive {
+  color: var(--admin-success);
+  background: var(--admin-success-soft);
+}
+
+.statusPending {
+  color: #a3760f;
+  background: #fdf3e0;
+}
+
+@media (max-width: 900px) {
+  .panels {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,151 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  background: var(--admin-dark);
+  padding: 20px 14px;
+  z-index: 40;
+  transition: transform 250ms ease;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 22px;
+  position: relative;
+}
+
+.logo {
+  border-radius: 50%;
+  flex: none;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  font-family: var(--admin-font-display);
+}
+
+.brandPrimary {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--admin-white);
+}
+
+.brandSecondary {
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--admin-gray);
+}
+
+.closeBtn {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--admin-gray);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: var(--admin-radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--admin-gray);
+  font-family: var(--admin-font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.navIcon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--admin-white);
+}
+
+.navItem.active {
+  background: var(--admin-yellow);
+  color: var(--admin-dark);
+  font-weight: 700;
+}
+
+.footer {
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: var(--admin-radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--admin-gray);
+  font-family: var(--admin-font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.logout:hover {
+  background: rgba(214, 69, 69, 0.14);
+  color: #ff8a8a;
+}
+
+.scrim {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .closeBtn {
+    display: flex;
+  }
+
+  .scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 15, 0.4);
+    z-index: 39;
+  }
+}
