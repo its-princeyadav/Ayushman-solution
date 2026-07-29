@@ -83,6 +83,20 @@ export const sapNearYou = {
       buttonText: "Read More",
     },
     {
+      title: "SAP Business One Partner in Gurgaon",
+      description: "Deploy and scale SAP Business One with local, on-ground SAP experts in Gurgaon.",
+      image: "/assets/image2/sap-solution-banner.jpg",
+      route: "/erp/erp-software-gurgaon",
+      buttonText: "Read More",
+    },
+    {
+      title: "SAP Business One Partners in Noida",
+      description: "Deploy and scale SAP Business One with local, on-ground SAP experts in Noida.",
+      image: "/assets/image2/city-06.webp",
+      route: "/erp/erp-software-noida",
+      buttonText: "Read More",
+    },
+    {
       title: "ERP Software Pune",
       description: "Deploy and scale SAP Business One with local, on-ground SAP experts in Pune.",
       image: "/assets/image2/solution-products-img-2.webp",

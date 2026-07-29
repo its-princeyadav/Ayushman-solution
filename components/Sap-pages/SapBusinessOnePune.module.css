@@ -1,0 +1,70 @@
+/*
+ * Page-scoped styling for /erp/erp-software-pune only.
+ *
+ * Same technique as every other SAP-family page (Migration/License/
+ * Consulting/Add-Ons/Near You/Ahmedabad/Mumbai/Delhi NCR/Bangalore/Chennai/
+ * Hyderabad/Kerala): these are the same CSS custom-property names every SAP
+ * component already consumes (see components/Sap/sap-tokens.css). Wrapping
+ * just this page's JSX tree in `.scope` re-values them only for the
+ * component instances rendered inside that wrapper - custom properties
+ * inherit through the DOM, so no other page is affected, and neither
+ * sap-tokens.css nor app/globals.css is touched. No new colors here - navy
+ * heading / yellow accent match this page's parent "SAP Near You" listing
+ * page exactly.
+ */
+.scope {
+  --color-neutral: #0b2a78;
+  --sap-navy: #0b2a78;
+  --sap-text: #555555;
+  --sap-text-light: #777777;
+  --color-primary: #f7b500;
+  --color-primary-dark: #e0a300;
+  /* Taller Service Portfolio tiles on this page only (ImageOverlayCard reads
+     this via a var() fallback, so every other page keeps its default 3 / 2
+     ratio untouched). */
+  --sap-overlay-card-ratio: 4 / 3;
+}
+
+.tintWhite {
+  background: var(--sap-white);
+}
+
+.tintLight {
+  background: #eaf6ff;
+}
+
+/*
+ * Plain CSS grid for the "Wherever Your Organization is in Pune" benefits
+ * section — deliberately not the shared BenefitsSection (that wraps cards in
+ * a 3-per-view Slider), since this page's four cards all need to stay
+ * visible together at once, matching its own reference layout. Reuses the
+ * existing FeatureCard for each item; only the grid wrapper is new.
+ */
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: stretch;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.benefitsClosing {
+  margin: 40px 0 0;
+  max-width: 900px;
+  color: var(--color-neutral);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .benefitsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .benefitsGrid {
+    grid-template-columns: 1fr;
+  }
+}

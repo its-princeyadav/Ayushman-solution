@@ -1,0 +1,73 @@
+/*
+ * Page-scoped styling for /erp/erp-software-gurgaon only.
+ *
+ * Same technique as every other SAP-family page: `.scope` sits above the
+ * section components and re-values the shared --sap-* tokens from
+ * sap-tokens.css for just this page's instances. Only the Service Portfolio
+ * tile ratio is overridden (taller, matching the Nepal/Noida pages) so the
+ * 8 service cards read closer to the reference screenshots; every other
+ * token stays the module default (same navy/blue system, no new colours).
+ */
+.scope {
+  --sap-overlay-card-ratio: 1 / 1;
+}
+
+.tintWhite {
+  background: var(--sap-white);
+}
+
+.tintLight {
+  background: #eaf6ff;
+}
+
+.tintCream {
+  background: #fdf6e9;
+}
+
+.centeredCopy {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* "Why SAP Business One Can Be the Best ERP for You?" — plain text benefit
+   grid (no card boxes), 4 columns collapsing to 1 on mobile. Unlike the
+   Noida page, this section has no 5th centred item. Text colours reuse the
+   same rgba(255,255,255,*) values RichContent's own light-theme text
+   already uses, so nothing new is introduced. */
+.whySapGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .whySapGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .whySapGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.whySapItemTitle {
+  margin: 0 0 12px;
+  color: var(--sap-white);
+  font-family: var(--sap-font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
+}
+
+.whySapItemDescription {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}

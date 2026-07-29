@@ -1,0 +1,27 @@
+/*
+ * Page-scoped styling for /erp/erp-software-nepal only.
+ *
+ * Same technique as every other SAP-family page (Delhi NCR/Mumbai/Pune/
+ * Ahmedabad/...): `.scope` sits above the section components and re-values
+ * the shared --sap-* tokens from sap-tokens.css for just this page's
+ * instances. Only the Service Portfolio tile ratio is overridden (taller,
+ * matching the Delhi NCR page) so the 6 service cards read closer to the
+ * reference screenshots; every other token stays the module default.
+ */
+.scope {
+  --sap-overlay-card-ratio: 4 / 3;
+}
+
+.tintWhite {
+  background: var(--sap-white);
+}
+
+.tintLight {
+  background: #eaf6ff;
+}
+
+.centeredCopy {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
