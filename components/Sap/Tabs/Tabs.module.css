@@ -15,18 +15,30 @@
 }
 
 .tab {
+  position: relative;
   padding: 15px 40px;
-  font-family: var(--sap-font-heading);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  /* Matches the main navbar's nav-item typography exactly (font-family via
+     the shared --font-nav token, same size/weight/letter-spacing/transform/
+     line-height - see components/Navbar/Navbar.css .wcf-nav-item) so this
+     bar reads as an extension of the primary nav rather than a separate
+     component with its own type system. */
+  font-family: var(--font-nav);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: normal;
   text-transform: uppercase;
-  line-height: var(--sap-heading-line-height-compact);
+  /* Buttons don't inherit line-height from an ancestor the way the navbar's
+     <a> tags do (browser UA default resets it to "normal" on form controls)
+     - setting the same 1.33 ratio explicitly reproduces the nav's actual
+     rendered line-height instead of drifting per-browser on "normal". */
+  line-height: 1.33;
   color: var(--color-neutral);
-  background: var(--sap-white);
+  /* Light gray, not white - reads as a clear "unselected" neutral against the
+     active tab's brand-yellow fill below. */
+  background: var(--color-secondary-lightest);
   border: 1px solid var(--sap-border);
   cursor: pointer;
-  transition: background-color var(--sap-transition), color var(--sap-transition);
+  transition: background-color 270ms ease, color 270ms ease, box-shadow 270ms ease;
 }
 
 .tab:not(:first-child) {
@@ -37,10 +49,75 @@
   background: var(--sap-bg-tint);
 }
 
+/* Active indicator: a full-width bar sitting flush with the tab's bottom
+   edge. Lives on every .tab (at zero width) so switching tabs animates the
+   width/color in via transition instead of the bar just popping in/out. */
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 4px;
+  border-radius: var(--sap-radius-pill);
+  background: var(--color-tab-accent);
+  transform: translateX(-50%);
+  transition: width 270ms ease, background-color 270ms ease;
+}
+
 .active {
-  background: var(--sap-blue);
-  border-color: var(--sap-blue);
+  /* Same brand fill as the site navbar (Navbar.css .elementor-47), so the
+     selected tab reads as an extension of the site chrome rather than a
+     one-off accent color. Typography stays identical to .tab (same as the
+     navbar's own nav-items) - distinction comes from color/background only. */
+  background: var(--color-primary);
+  border-color: var(--color-primary);
   color: var(--color-neutral);
+}
+
+.active::after {
+  width: 100%;
+}
+
+/* Segmented pill variant - a compact two/three-option switch (e.g. the
+   Testimonials Video/Text toggle), as opposed to the full-width .stretch
+   service tab bar. Same Tabs component/switching logic, just a different
+   `pill` prop so the two presentations don't collide. */
+.pill {
+  display: inline-flex;
+  gap: 4px;
+  padding: 5px;
+  border-radius: var(--sap-radius-pill);
+  background: var(--color-secondary-lightest);
+  border: 1px solid var(--color-primary-light);
+  box-shadow: var(--sap-shadow-card);
+  /* Override .tabs's overflow:hidden - it would clip the active pill's own
+     shadow/lift below. */
+  overflow: visible;
+}
+
+.pillTab {
+  padding: 10px 24px;
+  border: none;
+  border-radius: var(--sap-radius-pill);
+  transition: background-color 270ms ease, color 270ms ease, box-shadow 270ms ease, transform 270ms ease;
+}
+
+/* The pill variant's own elevated-active-segment look replaces the
+   full-width bottom stripe used by the service tab bar. */
+.pillTab::after {
+  content: none;
+}
+
+.pillTab.active {
+  box-shadow: var(--sap-shadow-card);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 500px) {
+  .pillTab {
+    padding: 9px 18px;
+  }
 }
 
 @media (max-width: 900px) {

@@ -4,7 +4,6 @@ import CenteredSection from "../Sap/common/CenteredSection";
 import RichContent from "../Sap/common/RichContent";
 import ImageTextSection from "../Sap/common/ImageTextSection";
 import BenefitsSection from "../Sap/sections/BenefitsSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import StatsGrid from "../Sap/common/StatsGrid";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
@@ -23,7 +22,6 @@ export default function SapBusinessOneNoida() {
     localBenefits,
     erpLifecycle,
     whySapStandsOut,
-    timeline,
     capability,
     clients,
     services,
@@ -86,8 +84,6 @@ export default function SapBusinessOneNoida() {
           <p className={styles.whySapItemDescription}>{whySapStandsOut.centeredItem.description}</p>
         </div>
       </CenteredSection>
-
-      <TimelineTabs {...timeline} />
 
       <div className={styles.tintWhite}>
         <CenteredSection title={capability.title} description={capability.description}>

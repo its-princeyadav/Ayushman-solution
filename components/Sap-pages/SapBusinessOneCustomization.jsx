@@ -1,7 +1,6 @@
 import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import CenteredSection from "../Sap/common/CenteredSection";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
@@ -18,7 +17,6 @@ export default function SapBusinessOneCustomization() {
     <>
       <HeroBanner {...sapBusinessOneCustomization.hero} />
       <ImageTextSection {...sapBusinessOneCustomization.intro} />
-      <TimelineTabs {...sapBusinessOneCustomization.awards} />
 
       <CenteredSection title={extendsToIntro.title} />
       {extendsToRows.map((row) => (

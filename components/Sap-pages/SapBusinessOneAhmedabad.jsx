@@ -4,7 +4,6 @@ import CenteredSection from "../Sap/common/CenteredSection";
 import CheckList from "../Sap/common/CheckList";
 import RichContent from "../Sap/common/RichContent";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import StatsGrid from "../Sap/common/StatsGrid";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
@@ -22,7 +21,6 @@ export default function SapBusinessOneAhmedabad() {
     businessGrowth,
     growthCta,
     benefits,
-    timeline,
     stats,
     clients,
     services,
@@ -72,8 +70,6 @@ export default function SapBusinessOneAhmedabad() {
           <p className={styles.checklistTrailing}>{benefits.trailingText}</p>
         </div>
       </CenteredSection>
-
-      <TimelineTabs {...timeline} />
 
       <div className={styles.tintWhite}>
         <CenteredSection title={stats.title} description={stats.description}>

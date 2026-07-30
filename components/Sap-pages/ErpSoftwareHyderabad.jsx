@@ -3,7 +3,6 @@ import HeroBanner from "../Sap/Hero/HeroBanner";
 import CenteredSection from "../Sap/common/CenteredSection";
 import RichContent from "../Sap/common/RichContent";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import StatsGrid from "../Sap/common/StatsGrid";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
@@ -20,7 +19,6 @@ export default function ErpSoftwareHyderabad() {
     intro,
     whyIdeal,
     whyChooseUs,
-    timeline,
     telangana,
     capability,
     clients,
@@ -56,8 +54,6 @@ export default function ErpSoftwareHyderabad() {
         background={whyChooseUs.background}
         theme="light"
       />
-
-      <TimelineTabs {...timeline} />
 
       <div className={styles.tintLight}>
         <CenteredSection title={telangana.title} description={telangana.description} compact />

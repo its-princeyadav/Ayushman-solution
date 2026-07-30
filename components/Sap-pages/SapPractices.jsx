@@ -1,7 +1,6 @@
 import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import CenteredSection from "../Sap/common/CenteredSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
 import TestimonialsSection from "../Sap/sections/TestimonialsSection";
@@ -17,7 +16,6 @@ export default function SapPractices() {
     <>
       <HeroBanner {...sapPractices.hero} />
       <ImageTextSection {...sapPractices.partner} />
-      <TimelineTabs {...sapPractices.timeline} />
 
       <CenteredSection title={transformative.title} description={transformative.description} />
       {practiceRows.map((row) => (

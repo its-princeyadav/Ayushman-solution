@@ -61,7 +61,14 @@
      uppercase is used 44 times there, "PT Serif" 0 times despite being the
      sitewide h1-h6 default in master.min.css). Centralized here so every
      heading in this module points at one definition instead of repeating it. */
-  --sap-font-heading: "Teko", sans-serif;
+  /* Site-wide typography standardization: every SAP heading now matches the
+     main navbar's font-family (--font-nav, see Navbar.css .wcf-nav-item)
+     instead of the Teko display font. --sap-font-heading-hero preserves the
+     original Teko treatment for the one deliberate exception - the Hero
+     Banner section (see HeroBanner.module.css) - which is intentionally
+     left unchanged per design direction. */
+  --sap-font-heading: var(--font-nav);
+  --sap-font-heading-hero: "Teko", sans-serif;
   --sap-heading-weight: 700;
   --sap-heading-transform: uppercase;
   /* Large hero/section titles (H1/H2 scale) match the homepage's tightest
@@ -103,7 +110,7 @@ main h3,
 main h4,
 main h5,
 main h6 {
-  font-family: "Teko", sans-serif;
+  font-family: var(--sap-font-heading);
 }
 
 main p {

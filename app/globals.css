@@ -1,9 +1,9 @@
 :root {
   --color-primary-lightest: #f7fddd;
   --color-primary-lighter: #e9faa5;
-  --color-primary-light: #fdf457;
+  --color-primary-light: #fff100;
   --color-primary: #fbf022;
-  --color-primary-dark: #9dc20a;
+  --color-primary-dark: #f0ea69;
   --color-primary-darker: #698107;
   --color-primary-darkest: #344103;
 
@@ -31,6 +31,16 @@
   --color-success: #5cb85c;
   --color-warning: #f0ad4e;
   --color-error: #d9534f;
+
+  /* Active-tab bottom stripe accent (SAP service tabs) - a specific brand
+     pick, not a step of the --color-primary-* scale. */
+  --color-tab-accent: #919605;
+
+  /* Main navbar's nav-item font stack (see components/Navbar/Navbar.css
+     .wcf-nav-item) - centralized here so anything meant to read as an
+     extension of the primary nav (e.g. the SAP service tabs) references
+     this single source instead of duplicating the literal font stack. */
+  --font-nav: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .elementor-widget-wcf--site-logo .elementor-image img {

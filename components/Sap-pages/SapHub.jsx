@@ -2,7 +2,6 @@ import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import CenteredSection from "../Sap/common/CenteredSection";
 import StatsGrid from "../Sap/common/StatsGrid";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
 import TestimonialsSection from "../Sap/sections/TestimonialsSection";
@@ -18,7 +17,6 @@ export default function SapHub() {
     hero,
     intro,
     practiceAreas,
-    timeline,
     capability,
     ecosystem,
     testimonials,
@@ -37,8 +35,6 @@ export default function SapHub() {
       <CenteredSection title={intro.title} description={intro.description} />
 
       <FunctionalityGrid title={practiceAreas.title} description={practiceAreas.description} items={practiceAreas.items} />
-
-      <TimelineTabs {...timeline} />
 
       <CenteredSection title={capability.title} description={capability.description} buttons={capability.buttons}>
         <StatsGrid items={capability.stats} />

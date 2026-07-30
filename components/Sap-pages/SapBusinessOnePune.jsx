@@ -5,7 +5,6 @@ import Container from "../Sap/common/Container";
 import SectionHeading from "../Sap/common/SectionHeading";
 import FeatureCard from "../Sap/Cards/FeatureCard";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import StatsGrid from "../Sap/common/StatsGrid";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
@@ -24,7 +23,6 @@ export default function SapBusinessOnePune() {
     consultingBenefits,
     implementation,
     whySap,
-    timeline,
     capability,
     clients,
     services,
@@ -70,8 +68,6 @@ export default function SapBusinessOnePune() {
         background={whySap.background}
         theme="light"
       />
-
-      <TimelineTabs {...timeline} />
 
       <div className={styles.tintWhite}>
         <CenteredSection title={capability.title} description={capability.description} buttons={capability.buttons}>

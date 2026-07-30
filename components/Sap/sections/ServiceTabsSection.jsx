@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Container from "../common/Container";
 import Button from "../common/Button";
 import Tabs from "../Tabs/Tabs";
@@ -11,6 +10,13 @@ import styles from "./ServiceTabsSection.module.css";
  * Full-bleed "pick a service, see its method" panel used by SAP Services.
  * Reuses Tabs for the switcher and Container/Button for content, so the only
  * new surface is the full-bleed image + numbered method list layout itself.
+ *
+ * Depth effect: the image is a CSS background-attachment: fixed layer, so it
+ * stays put while the heading/description/steps/CTA scroll over it - a
+ * lightweight, no-JS parallax (see ServiceTabsSection.module.css for the
+ * fixed/scroll breakpoint and reduced-motion handling). The image URL is the
+ * only thing passed in per page (via a CSS custom property); every visual
+ * rule lives in the stylesheet so this stays a drop-in, page-agnostic panel.
  */
 export default function ServiceTabsSection({ tabs, panels }) {
   const [activeId, setActiveId] = useState(tabs[0]?.id);
@@ -23,13 +29,11 @@ export default function ServiceTabsSection({ tabs, panels }) {
       <Tabs tabs={tabs} activeId={activeId} onChange={setActiveId} stretch />
 
       <div className={styles.panel}>
-        <Image
-          key={panel.image}
-          src={panel.image}
-          alt={panel.imageAlt || ""}
-          fill
-          sizes="100vw"
+        <div
           className={styles.image}
+          style={{ "--panel-bg-image": `url(${panel.image})` }}
+          role="img"
+          aria-label={panel.imageAlt || undefined}
         />
         <div className={styles.scrim} />
 

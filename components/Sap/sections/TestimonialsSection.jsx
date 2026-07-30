@@ -39,7 +39,7 @@ export default function TestimonialsSection({
           action={action}
         />
 
-        <Tabs tabs={TABS} activeId={activeTab} onChange={setActiveTab} />
+        <Tabs tabs={TABS} activeId={activeTab} onChange={setActiveTab} pill />
 
         <div className={styles.divider} />
 

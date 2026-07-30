@@ -1,7 +1,10 @@
 .section {
   position: relative;
   padding-block: var(--sap-section-gap);
-  background: var(--sap-bg-tint-soft);
+  /* Light gray, not the pale-yellow --sap-bg-tint-soft - reads cleaner
+     against the dark testimonial cards and matches the site's other
+     neutral-gray surfaces (see Tabs.module.css's inactive-tab background). */
+  background: var(--color-secondary-lightest);
   overflow: hidden;
 }
 
