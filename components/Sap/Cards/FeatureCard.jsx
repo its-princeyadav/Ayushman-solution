@@ -9,6 +9,12 @@ import {
   FaPuzzlePiece,
   FaUserShield,
   FaHeadset,
+  FaChartLine,
+  FaDatabase,
+  FaRobot,
+  FaLayerGroup,
+  FaChartPie,
+  FaShieldAlt,
 } from "react-icons/fa";
 import Button from "../common/Button";
 import styles from "./FeatureCard.module.css";
@@ -16,6 +22,9 @@ import styles from "./FeatureCard.module.css";
 // Server Component, so mapping an icon name -> component here (instead of
 // importing icon components inside the data file) keeps data/*.js plain,
 // serializable content that can still cross into the Slider Client Component.
+// chart/database/robot/layers/dashboard/shieldCheck were added for the
+// Analytics practice's benefit cards (data/analytics.js) — purely additive,
+// every existing key above is untouched.
 const ICONS = {
   store: FaStore,
   capsules: FaCapsules,
@@ -27,6 +36,12 @@ const ICONS = {
   puzzle: FaPuzzlePiece,
   shield: FaUserShield,
   headset: FaHeadset,
+  chart: FaChartLine,
+  database: FaDatabase,
+  robot: FaRobot,
+  layers: FaLayerGroup,
+  dashboard: FaChartPie,
+  shieldCheck: FaShieldAlt,
 };
 
 export default function FeatureCard({ icon, title, description, action, compact = false, variant }) {

@@ -72,27 +72,27 @@ const CATEGORIES = [
       {
         heading: "Analytics Services",
         items: [
-          { title: "Data Visualization", description: "Go from information to insights.", href: "#" },
-          { title: "BI Dashboard", description: "Track, analyze, and share data easily.", href: "#" },
-          { title: "BI Managed Services", description: "Dashboard monitoring and data security.", href: "#" },
-          { title: "BI Training", description: "Teaching core analytics concepts.", href: "#" },
-          { title: "BI Development", description: "Designing simple, intuitive dashboards.", href: "#" },
-          { title: "BI Consulting", description: "Define effective BI strategy and roadmap.", href: "#" },
+          { title: "Data Visualization", description: "Go from information to insights.", href: "/analytics/data-visualization" },
+          { title: "BI Dashboard", description: "Track, analyze, and share data easily.", href: "/analytics#bi-services" },
+          { title: "BI Managed Services", description: "Dashboard monitoring and data security.", href: "/analytics#bi-services" },
+          { title: "BI Training", description: "Teaching core analytics concepts.", href: "/analytics#bi-services" },
+          { title: "BI Development", description: "Designing simple, intuitive dashboards.", href: "/analytics#bi-services" },
+          { title: "BI Consulting", description: "Define effective BI strategy and roadmap.", href: "/analytics#bi-services" },
         ],
       },
       {
         heading: "Tableau",
         items: [
-          { title: "Tableau Implementation", description: "Advanced analytics software installation.", href: "#" },
-          { title: "Tableau License", description: "Products & pricing for teams & enterprise.", href: "#" },
+          { title: "Tableau Implementation", description: "Advanced analytics software installation.", href: "/analytics#tableau" },
+          { title: "Tableau License", description: "Products & pricing for teams & enterprise.", href: "/analytics#tableau" },
         ],
       },
       {
         heading: null,
         items: [
-          { title: "Power BI", description: "Powering businesses to make insights-driven decisions.", href: "#" },
-          { title: "Alteryx Solutions", description: "Data-driven, advanced automation solutions to build intelligent enterprises.", href: "#" },
-          { title: "QuickSight", description: "Seamless Cloud Integration for SMBs with Amazon BI Tool.", href: "#" },
+          { title: "Power BI", description: "Powering businesses to make insights-driven decisions.", href: "/analytics#power-bi" },
+          { title: "Alteryx Solutions", description: "Data-driven, advanced automation solutions to build intelligent enterprises.", href: "/analytics#automation" },
+          { title: "QuickSight", description: "Seamless Cloud Integration for SMBs with Amazon BI Tool.", href: "/analytics#data-science" },
         ],
       },
     ],

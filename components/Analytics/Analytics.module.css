@@ -1,0 +1,92 @@
+/*
+ * Page-scoped styling for /analytics only.
+ *
+ * Same technique as every SAP-family page (see components/Sap-pages/
+ * ErpSoftwareHyderabad.module.css): these are the exact custom-property
+ * names every Sap/* component already consumes (components/Sap/sap-tokens.css).
+ * Re-valuing them only inside `.scope` gives the Analytics practice its own
+ * gold/amber accent identity (a richer, more premium shade than the
+ * homepage's bright lime-yellow, still in the same brand hue family) on a
+ * deep-navy neutral scale, without touching sap-tokens.css or app/globals.css,
+ * so nothing outside this page is affected.
+ */
+.scope {
+  --color-primary-lightest: #fff8e1;
+  --color-primary-lighter: #ffecb3;
+  --color-primary-light: #ffd54f;
+  --color-primary: #f5b400;
+  --color-primary-dark: #d99a00;
+  --color-primary-darker: #a86e00;
+  --color-primary-darkest: #6b4600;
+
+  --color-neutral-lightest: #e7e4db;
+  --color-neutral-lighter: #a39c85;
+  --color-neutral-light: #4a4530;
+  --color-neutral: #0b1830;
+  --color-neutral-dark: #081226;
+  --color-neutral-darker: #050b18;
+  --color-neutral-darkest: #03060d;
+
+  --sap-navy: #0b1830;
+  --sap-blue: #a86e00;
+  --sap-blue-dark: #6b4600;
+  --sap-bg-tint: #fff8e1;
+  --sap-bg-tint-soft: #fffdf5;
+  --sap-overlay-rgb: 5, 12, 28;
+}
+
+.tintWhite {
+  background: var(--sap-white);
+}
+
+.tintLight {
+  background: #fff9ec;
+}
+
+.centeredCopy {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/*
+ * SectionHeading/Container carry no vertical padding of their own - every
+ * other caller in this component tree wraps them in a `<section>` that
+ * supplies `padding-block: var(--sap-section-gap)` (FAQSection, BenefitsSection,
+ * NewsSection, ...). The solutions intro heading sits directly inside the
+ * "#solutions" wrapper without that wrapping `<section>`, so it needs its own
+ * top/bottom spacing here instead of sitting flush against the previous
+ * section's seam.
+ */
+.solutionsIntro {
+  padding-top: var(--sap-section-gap);
+  padding-bottom: 8px;
+}
+
+/*
+ * The 5 alternating solution blocks (BI Services/Tableau/Power BI/Automation/
+ * Data Science) are each a full ImageTextSection, which carries its own
+ * `padding-block: var(--sap-section-gap)` (56-96px top AND bottom) for use as
+ * a single standalone section elsewhere. Stacked back-to-back here, that adds
+ * up to ~110-190px of dead space between every block. Rather than lowering
+ * --sap-section-gap (shared by every ImageTextSection on every SAP page),
+ * this targets only the `<section>` elements nested directly under this
+ * wrapper's per-block `<div id="...">` children - Container's own child
+ * `<div>` (the heading above the stack) has no `section` child, so it's
+ * untouched by this selector.
+ */
+.solutionsStack > div > section {
+  padding-block: 32px;
+}
+
+.solutionsStack > div:not(:first-child) > section {
+  border-top: 1px solid var(--sap-border);
+}
+
+.solutionsStack > div:first-child > section {
+  padding-top: 8px;
+}
+
+.solutionsStack > div:last-child > section {
+  padding-bottom: 8px;
+}
