@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import {
   FaGraduationCap,
   FaHeartbeat,
@@ -36,7 +37,7 @@ export default function Careers() {
     <>
       {/* ---------- Hero ---------- */}
       <section className="careers-hero">
-        <img src={HERO.image} alt={HERO.alt} className="careers-hero__image" />
+        <Image src={HERO.image} alt={HERO.alt} className="careers-hero__image" fill sizes="100vw" />
         <div className="careers-hero__overlay">
           <span className="careers-hero__eyebrow">{HERO.eyebrow}</span>
           <h1 className="careers-hero__heading">{HERO.heading}</h1>

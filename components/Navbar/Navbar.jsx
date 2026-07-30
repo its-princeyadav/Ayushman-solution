@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
@@ -9,45 +10,19 @@ import { HiOutlineUser } from "react-icons/hi";
 import Whatwedo from "../Whatwedo";
 import Industries from "../Industries";
 import OurWork from "../Our-work/Our-work";
-import AuthModal from "../Auth/AuthModal";
 import "./Navbar.css";
-/* Top Utility Bar: the premium two-level header's top row - search (moved
-   here from the main nav row, element 7660472 below - it now holds the
-   Login button instead) plus Book Slot/Contact Us. Splitting these out of
-   the main row is what actually fixes the crowding on small desktop/laptop
-   widths - the main row no longer has to reserve most of its width for
-   them, so the nav menu column can reclaim that space (see the
-   elementor-element-36aa0a2/7660472 width overrides in post-47.css). Stays
-   visible (including mobile) per spec, so it deliberately does NOT reuse
-   the navbar-actions__btn class - button.min.css hides that class at
-   <=767px, which is the opposite of what's wanted here.
 
-   Rendered by layout.jsx as a SIBLING before the `.elementor-47` wrapper,
-   not nested inside it: position:sticky on `.elementor-47` needs its own
-   containing block (`#page`) to span the full page for the "stuck" range
-   to have any room to work in. If this bar were a child of `.elementor-47`
-   instead, that wrapper's height would shrink back down to just the header
-   area, sticky would run out of room within the first ~150px and the
-   navbar would just scroll away like a normal element - which is exactly
-   what happened before this bar was pulled out to a sibling. */
+// Code-split out of the navbar's (and thus every page's) initial bundle:
+// AuthModal pulls in framer-motion and only ever renders anything once a
+// user actually opens it (it returns null server-side and until mounted -
+// see the `mounted` guard in AuthModal.jsx - so ssr:false changes nothing
+// about what's rendered, only when its JS is fetched).
+const AuthModal = dynamic(() => import("../Auth/AuthModal"), { ssr: false });
+
 export function NavbarUtilityBar() {
   const searchWidgetRef = useRef(null);
 
-  // Elementor's own frontend runtime only wires up a widget's JS (here,
-  // search.min.js's expand/collapse + live-search handlers) by scanning
-  // for `.elementor-element` nodes INSIDE each `data-elementor-id` root
-  // (frontend-modules.min.js: `this.$element.find(".elementor-element")`,
-  // a descendant-only search) and firing
-  // `frontend/element_ready/{widget_type}` for each one it finds. This
-  // widget used to live inside `.elementor-47` (the navbar's own
-  // Elementor document) where that scan would find it; now that it's
-  // rendered here in NavbarUtilityBar - a sibling BEFORE `.elementor-47`,
-  // required for the sticky-header containing-block reasons in the
-  // comment above - the scan never reaches it, so its handlers never got
-  // bound. This replays that exact same lifecycle event by hand, once
-  // Elementor's own hook system exists, targeting this widget's actual
-  // (moved) DOM node directly - sidesteps the document-scoping issue
-  // instead of fighting it.
+
   useEffect(() => {
     let cancelled = false;
     let frame;
@@ -74,12 +49,7 @@ export function NavbarUtilityBar() {
   return (
     <div className="navbar-utility-bar">
       <div className="navbar-utility-bar__inner">
-        {/* Search widget - moved here from the main nav row (was
-            elementor-element-7660472 below). Same widget markup/classes as
-            before (search.min.js/wcf-search-form.css target it by class,
-            not by parent), so the expand/collapse + submit behavior is
-            unchanged; only its position in the header moved - see the
-            useEffect above for why that move needs a manual re-trigger. */}
+    
         <div
           ref={searchWidgetRef}
           className="elementor-element elementor-element-b50f876 elementor-widget elementor-widget-wcf--blog--search--form"
@@ -136,10 +106,7 @@ export function NavbarUtilityBar() {
 
 export default function Navbar() {
   const [authOpen, setAuthOpen] = useState(false);
-  // Drives the scroll-adaptive logo only (circular mini-logo badge, text
-  // fades/collapses away) - purely visual, doesn't touch .elementor-47's
-  // own position:sticky (see the big comment near that rule in
-  // post-47.css), which is what actually keeps the header pinned.
+
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -188,12 +155,6 @@ export default function Navbar() {
             </div>
             <div className="wcf__nav-menu mobile-menu-active mobile-menu-right hover-pointer-" suppressHydrationWarning>
               <button className="wcf-menu-hamburger" type="button" aria-label="hamburger-icon">
-                {/* Custom 3-line icon, not FaBars - nav-menu.min.js toggles
-                    "wcf-nav-is-toggled" on the ancestor .wcf__nav-menu on
-                    click (see mobileMenu() in that file); the hamburger-to-X
-                    morph below is pure CSS keyed off that same class, so it
-                    needs no JS/state of its own and doesn't touch the
-                    existing open/close logic at all. */}
                 <span className="navbar-menu-icon" aria-hidden="true">
                   <span className="navbar-menu-icon__line navbar-menu-icon__line--top" />
                   <span className="navbar-menu-icon__line navbar-menu-icon__line--middle" />
@@ -206,10 +167,10 @@ export default function Navbar() {
                   <Industries />
                   <OurWork />
                   <li id="menu-item-8727" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-8727">
-                    <a href="/who-we-are" className="wcf-nav-item">Who We Are</a>
+                    <Link href="/who-we-are" className="wcf-nav-item">Who We Are</Link>
                   </li>
                   <li id="menu-item-8763" className="menu-item menu-item-type-custom menu-item-object-custom menu-item-8763">
-                    <a href="/careers" className="wcf-nav-item">Careers</a>
+                    <Link href="/careers" className="wcf-nav-item">Careers</Link>
                   </li>
                 </ul>
                 <button className="wcf-menu-close" type="button">

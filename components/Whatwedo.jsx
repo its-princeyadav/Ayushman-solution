@@ -2,13 +2,23 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { FaCogs, FaChartLine, FaUsers, FaCloud, FaMicrochip, FaAngleDown, FaAngleRight } from "react-icons/fa";
+import Link from "next/link";
+import {
+  LuLayers,
+  LuChartNoAxesColumnIncreasing,
+  LuUsers,
+  LuCloud,
+  LuCpu,
+  LuChevronDown,
+  LuArrowRight,
+  LuArrowUpRight,
+} from "react-icons/lu";
 import "./Whatwedo.css";
 
 const CATEGORIES = [
   {
     id: "sap-erp",
-    icon: FaCogs,
+    icon: LuLayers,
     title: "SAP ERP",
     description: "Run Smarter with Integrated, Advanced ERP",
     href: "/sap",
@@ -64,7 +74,7 @@ const CATEGORIES = [
   },
   {
     id: "data-analytics",
-    icon: FaChartLine,
+    icon: LuChartNoAxesColumnIncreasing,
     title: "Data Analytics",
     description: "Enable Decisive, Predictive Decision-Making",
     href: "/analytics",
@@ -99,7 +109,7 @@ const CATEGORIES = [
   },
   {
     id: "salesforce-crm",
-    icon: FaUsers,
+    icon: LuUsers,
     title: "Salesforce CRM",
     description: "Orchestrate Unified, Insight-Rich Customer Journeys",
     href: "/salesforce",
@@ -133,7 +143,7 @@ const CATEGORIES = [
   },
   {
     id: "cloud",
-    icon: FaCloud,
+    icon: LuCloud,
     title: "Cloud",
     description: "Leverage Elastic, Enterprise-Grade Infrastructure",
     href: "/cloud",
@@ -160,7 +170,7 @@ const CATEGORIES = [
   },
   {
     id: "technology",
-    icon: FaMicrochip,
+    icon: LuCpu,
     title: "Technology",
     description: "Anchor Operations in Adaptive Tech Stacks",
     href: "/technology",
@@ -206,10 +216,7 @@ export default function Whatwedo() {
     return () => mq.removeEventListener("change", handleChange);
   }, []);
 
-  // Mobile-only: collapse this accordion when a sibling nav submenu opens,
-  // or when the off-canvas drawer itself closes (core.js dispatches this).
-  // Desktop hover/click behaviour never touches this event, so it can't
-  // affect desktop timing.
+
   useEffect(() => {
     function handleCloseRequest(e) {
       if (isDesktop || e.detail?.except === MENU_ID) return;
@@ -297,10 +304,11 @@ export default function Whatwedo() {
             const Icon = category.icon;
             const isActive = index === activeIndex;
             return (
-              <a
+              <Link
                 key={category.id}
                 href={category.href}
                 role="menuitem"
+                data-accent={category.id}
                 className={`wcf-megamenu__sidebar-item ${isActive ? "is-active" : ""}`}
                 onMouseEnter={() => setActiveIndex(index)}
                 onFocus={() => setActiveIndex(index)}
@@ -311,30 +319,32 @@ export default function Whatwedo() {
                 </span>
                 <span className="wcf-megamenu__sidebar-text">
                   <span className="wcf-megamenu__sidebar-title">{category.title}</span>
-                  <span className="wcf-megamenu__sidebar-desc">{category.description}</span>
                 </span>
-                {isActive && <FaAngleRight aria-hidden="true" className="wcf-megamenu__sidebar-arrow" />}
-              </a>
+                <LuArrowRight aria-hidden="true" className="wcf-megamenu__sidebar-arrow" />
+              </Link>
             );
           })}
         </div>
 
-        <div className="wcf-megamenu__content" key={activeCategory.id}>
+        <div className="wcf-megamenu__content" data-accent={activeCategory.id} key={activeCategory.id}>
           {activeCategory.columns.map((column, columnIndex) => (
             <div className="wcf-megamenu__column" key={`${activeCategory.id}-${columnIndex}`}>
               {column.heading && <h4 className="wcf-megamenu__column-heading">{column.heading}</h4>}
               <ul className="wcf-megamenu__column-list">
                 {column.items.map((item) => (
                   <li key={item.title}>
-                    <a href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
-                      <span className="wcf-megamenu__item-title">{item.title}</span>
-                      {item.description && <span className="wcf-megamenu__item-desc">{item.description}</span>}
-                    </a>
+                    <Link href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
+                      <span className="wcf-megamenu__item-body">
+                        <span className="wcf-megamenu__item-title">{item.title}</span>
+                        {item.description && <span className="wcf-megamenu__item-desc">{item.description}</span>}
+                      </span>
+                      <LuArrowUpRight aria-hidden="true" className="wcf-megamenu__item-go" />
+                    </Link>
                     {item.links && (
                       <ul className="wcf-megamenu__sublinks">
                         {item.links.map((link) => (
                           <li key={link.title}>
-                            <a href={link.href} onClick={closeMenu}>{link.title}</a>
+                            <Link href={link.href} onClick={closeMenu}>{link.title}</Link>
                           </li>
                         ))}
                       </ul>
@@ -375,15 +385,12 @@ export default function Whatwedo() {
         }}
       >
         What We Do
-        <FaAngleDown aria-hidden="true" className={`wcf-megamenu__chevron ${isOpen ? "is-open" : ""}`} />
+        <LuChevronDown aria-hidden="true" className={`wcf-megamenu__chevron ${isOpen ? "is-open" : ""}`} />
       </a>
 
       {mounted && isDesktop && createPortal(desktopPanel, document.body)}
 
-      {/* Mobile accordion — the top-level trigger above toggles `isOpen` to
-          reveal this whole category list; each category then expands
-          individually via mobileOpenIndex. No separate top-level button, so
-          there is only ever one visible "What We Do" control. */}
+
       <div className="wcf-megamenu__mobile">
         <div className={`wcf-megamenu__accordion-panel ${isOpen ? "is-open" : ""}`}>
           <div className="wcf-megamenu__accordion-panel-inner">
@@ -399,7 +406,7 @@ export default function Whatwedo() {
                       onClick={() => setMobileOpenIndex(isExpanded ? null : index)}
                     >
                       <span className="wcf-megamenu__sidebar-title">{category.title}</span>
-                      <FaAngleDown aria-hidden="true" className={`wcf-megamenu__chevron ${isExpanded ? "is-open" : ""}`} />
+                      <LuChevronDown aria-hidden="true" className={`wcf-megamenu__chevron ${isExpanded ? "is-open" : ""}`} />
                     </button>
                     <div className={`wcf-megamenu__accordion-panel ${isExpanded ? "is-open" : ""}`}>
                       <div className="wcf-megamenu__accordion-panel-inner">
@@ -410,14 +417,14 @@ export default function Whatwedo() {
                               <ul className="wcf-megamenu__column-list">
                                 {column.items.map((item) => (
                                   <li key={item.title}>
-                                    <a href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
+                                    <Link href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
                                       <span className="wcf-megamenu__item-title">{item.title}</span>
-                                    </a>
+                                    </Link>
                                     {item.links && (
                                       <ul className="wcf-megamenu__sublinks">
                                         {item.links.map((link) => (
                                           <li key={link.title}>
-                                            <a href={link.href} onClick={closeMenu}>{link.title}</a>
+                                            <Link href={link.href} onClick={closeMenu}>{link.title}</Link>
                                           </li>
                                         ))}
                                       </ul>

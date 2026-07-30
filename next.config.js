@@ -28,6 +28,16 @@ const nextConfig = {
           { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
         ],
       },
+      {
+        // Hash-named font files (self-hosted from Google Fonts, see font10.css/
+        // fonts6.css/fonts5.css) - the filename itself changes if the content
+        // ever does, so unlike the plain-filename assets above, immutable
+        // long-lived caching is safe here.
+        source: "/assets/fonts/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
     ];
   },
 };

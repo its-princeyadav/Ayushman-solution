@@ -65,13 +65,13 @@ export default async function IndustryDetailPage({ params }) {
         {SOLUTIONS.map((solution) => {
           const Icon = solution.icon;
           return (
-            <a key={solution.title} href={solution.href} className="industries-solutions__card">
+            <Link key={solution.title} href={solution.href} className="industries-solutions__card">
               <span className="industries-solutions__icon">
                 <Icon aria-hidden="true" />
               </span>
               <span className="industries-solutions__title">{solution.title}</span>
               <span className="industries-solutions__desc">{solution.description}</span>
-            </a>
+            </Link>
           );
         })}
       </div>

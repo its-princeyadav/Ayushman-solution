@@ -289,6 +289,7 @@ export default function Hero() {
                 >
                   <div className="elementor-widget-container">
                     <Image
+                      priority
                       width={251}
                       height={500}
                       src="/assets/images/1-1.jpg"

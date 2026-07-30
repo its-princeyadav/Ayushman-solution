@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PARTNERS } from "../../data/whoWeAre";
 import "./partners.css";
 
@@ -11,7 +12,7 @@ export default function PartnersPage() {
   return (
     <div className="partners-page">
       <nav className="partners-breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <Link href="/">Home</Link>
         <span>/</span>
         <span aria-current="page">Partners</span>
       </nav>
@@ -26,10 +27,10 @@ export default function PartnersPage() {
 
       <div className="partners-grid">
         {PARTNERS.map((partner) => (
-          <a key={partner.slug} href={`/partners/${partner.slug}`} className="partners-grid__card">
+          <Link key={partner.slug} href={`/partners/${partner.slug}`} className="partners-grid__card">
             <span className="partners-grid__card-title">{partner.category}</span>
             <span className="partners-grid__card-tagline">{partner.teaser}</span>
-          </a>
+          </Link>
         ))}
       </div>
     </div>

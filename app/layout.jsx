@@ -3,7 +3,6 @@ import Preloader from "../components/Common/Preloader";
 import Popups from "../components/Common/Popups";
 import Navbar, { NavbarUtilityBar } from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-import Providers from "../components/Providers";
 import "./globals.css";
 
 const description =
@@ -51,7 +50,6 @@ export default function RootLayout({ children }) {
             (index, follow, max-image-preview:large) - having it both there
             and as a hand-written tag here would render two <meta name=
             "robots"> tags. */}
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Hero's "Transforming Businesses" <h2> is the largest above-fold
             text node (confirmed live - by far the biggest bounding box of
             any text element on the homepage) and renders in Teko, so its
@@ -60,13 +58,14 @@ export default function RootLayout({ children }) {
             browser to discover it via the stylesheet's @font-face. Every
             Teko weight (300-700) resolves to this same physical file per
             subset (verified in font10.css), so this one preload covers
-            whatever weight actually gets applied. */}
+            whatever weight actually gets applied. Self-hosted under
+            /assets/fonts/ (was fonts.gstatic.com) - same-origin now, so no
+            preconnect/crossOrigin needed. */}
         <link
           rel="preload"
-          href="https://fonts.gstatic.com/s/teko/v23/LYjNdG7kmE0gfaN9pQ.woff2"
+          href="/assets/fonts/teko/LYjNdG7kmE0gfaN9pQ.woff2"
           as="font"
           type="font/woff2"
-          crossOrigin="anonymous"
         />
         <link rel="stylesheet" id="aae-starter-animations-css" href="/assets/css/starter-animations.css" media="all" />
         <link rel="stylesheet" id="wcf--addons-css" href="/assets/css/wcf-addons.min.css" media="all" />
@@ -88,7 +87,11 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" id="wcf--icon-box-css" href="/assets/css/icon-box.min.css" media="all" />
         <link rel="stylesheet" id="wcf--team-css" href="/assets/css/team.min.css" media="all" />
         <link rel="stylesheet" id="widget-accordion-css" href="/assets/css/custom-widget-accordion.min.css" media="all" />
-        <link rel="stylesheet" id="elementor-post-6-css" href="/assets/css/post-6.css" media="all" />
+        {/* post-6.css (204KB, the single largest CSS file in the project) moved to
+            app/page.jsx: every one of its ~221 rules is scoped to a homepage-only
+            .elementor-6 .elementor-element-XXXXXXX widget ID (verified against every
+            Navbar/Footer element ID - zero overlap), so it styled nothing outside
+            the homepage while still being downloaded and parsed on every route. */}
         <link rel="stylesheet" id="elementor-gf-teko-css" href="/assets/css/font10.css" media="all" />
         <link rel="stylesheet" id="elementor-gf-kanit-css" href="/assets/css/fonts6.css" media="all" />
       </head>
@@ -141,7 +144,7 @@ export default function RootLayout({ children }) {
                   this element by tag (only by its classes/data attributes),
                   so this is a pure a11y improvement with no visual effect. */}
               <main data-elementor-type="wp-page" data-elementor-id="6" className="elementor elementor-6">
-                <Providers>{children}</Providers>
+                {children}
               </main>
               <div data-elementor-type="wp-post" data-elementor-id="1386" className="elementor elementor-1386">
                 <Footer />
@@ -157,9 +160,12 @@ export default function RootLayout({ children }) {
                 <link> tags were two network requests contributing zero
                 style - nav-menu/search widget styling comes entirely from
                 the other stylesheets already loaded above. */}
-            <link rel="stylesheet" id="arolax-tabs-css" href="/assets/css/arolax-tabs.css" media="all" />
-            <link rel="stylesheet" id="arolax-gallery-css" href="/assets/css/arolax-gallery.css" media="all" />
-            <link rel="stylesheet" id="arolax-testimonial-css" href="/assets/css/arolax-testimonial.css" media="all" />
+            {/* arolax-tabs.css / arolax-gallery.css / arolax-testimonial.css moved to
+                app/page.jsx, same reasoning as swiper.min.css/brand-slider.min.css/
+                posts.min.css above them: their selectors (.tab-title/.wcf--tabs,
+                .g-slider--one/.g-slider--two, .arolax_testimonial_*) only match
+                Process/Portfolio/Testimonials markup, which only renders on the
+                homepage. */}
             <link rel="stylesheet" id="elementor-post-1386-css" href="/assets/css/post-1386.css" media="all" />
             <link rel="stylesheet" id="wcf--social-icons-css" href="/assets/css/social-icons.min.css" media="all" />
 
@@ -214,23 +220,36 @@ export default function RootLayout({ children }) {
                 the plugin file itself cannot throw. ~13KB less parsed per
                 page load. */}
             <Script id="ScrollTrigger-js" src="/assets/js/ScrollTrigger.min.js" strategy="afterInteractive" async={false} />
-            <Script id="aae-video-popup-mix-js" src="/assets/js/aae-video-popup.min.js" strategy="afterInteractive" async={false} />
+            {/* aae-video-popup.min.js / wcf-addons-ex.min.js moved to app/page.jsx:
+                both only do anything for the homepage's Hero video-popup widget
+                (wcf--video-popup.default/wcf--video-box*.default markup, which
+                renders nowhere else). Verified safe to load earlier than this
+                block too: aae-video-popup.min.js only registers a deferred
+                window "elementor/frontend/init" listener (native addEventListener,
+                order-independent - the listener just needs to exist before the
+                event fires, which happens later once frontend.min.js runs), and
+                wcf-addons-ex.min.js's one live code path (its popup-close click
+                handler) is a plain document "DOMContentLoaded"-gated delegated
+                click listener with no synchronous elementorFrontend/gsap
+                reference - its other branches (ScrollSmoother, cursor-follower,
+                read-later) are already dead everywhere per the ScrollSmoother
+                comment above and WCF_ADDONS_JS.enable_cursor being "". */}
             <Script id="ScrollToPlugin-js" src="/assets/js/ScrollToPlugin.min.js" strategy="afterInteractive" async={false} />
             <Script id="aae-scroll-to-ele-js" src="/assets/js/aae-scroll-to-ele.min.js" strategy="afterInteractive" async={false} />
             <Script id="SplitText-js" src="/assets/js/SplitText.min.js" strategy="afterInteractive" async={false} />
-            <Script id="wcf--addons-ex-js" src="/assets/js/wcf-addons-ex.min.js" strategy="afterInteractive" async={false} />
             <Script id="aae--animations--modules-js" src="/assets/js/animations.min.js" strategy="afterInteractive" async={false} />
             <Script id="aae-one-page-scroll-js" src="/assets/js/one-page-scroll.min.js" strategy="afterInteractive" async={false} />
             <Script id="wcf--nav-menu-js" src="/assets/js/nav-menu.min.js" strategy="afterInteractive" async={false} />
             <Script id="aae--search-js" src="/assets/js/search.min.js" strategy="afterInteractive" async={false} />
 
             {/* Consolidated project scripts (see comment above). Order matters:
-                animations.js and main.js both read globals core.js defines
-                (runOnDomReady/runOnWindowLoad), and all three rely on jQuery,
-                GSAP/ScrollTrigger and elementorFrontend having already loaded above. */}
+                animations.js reads globals core.js defines (runOnDomReady/
+                runOnWindowLoad), and both rely on jQuery, GSAP/ScrollTrigger and
+                elementorFrontend having already loaded above. (main.js - the
+                third file this comment used to cover - moved to app/page.jsx;
+                it never actually used core.js's globals, see the comment there.) */}
             <Script id="core-js" src="/assets/js/core.js" strategy="afterInteractive" async={false} />
             <Script id="animations-js" src="/assets/js/animations.js" strategy="afterInteractive" async={false} />
-            <Script id="main-js" src="/assets/js/main.js" strategy="afterInteractive" async={false} />
           </div>
         </div>
       </body>
