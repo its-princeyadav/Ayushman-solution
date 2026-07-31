@@ -4,7 +4,6 @@ import CenteredSection from "../Sap/common/CenteredSection";
 import RichContent from "../Sap/common/RichContent";
 import BenefitsSection from "../Sap/sections/BenefitsSection";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
 import BlogSection from "../Sap/sections/BlogSection";
@@ -19,7 +18,6 @@ export default function SapBusinessOneLicense() {
     intro,
     packages,
     licenseCost,
-    awards,
     clients,
     licenseTypes,
     blogs,
@@ -45,8 +43,6 @@ export default function SapBusinessOneLicense() {
       </div>
 
       <ImageTextSection {...licenseCost} />
-
-      <TimelineTabs {...awards} />
 
       <div className={styles.tintLight}>
         <ClientsSection {...clients} />

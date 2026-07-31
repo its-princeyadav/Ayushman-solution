@@ -1,0 +1,36 @@
+.button {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--admin-font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 14px 20px;
+  border-radius: var(--admin-radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.primary {
+  background: var(--admin-yellow);
+  color: var(--admin-dark);
+  box-shadow: var(--admin-shadow-button);
+}
+
+.primary:hover {
+  background: var(--admin-yellow-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -12px rgba(254, 190, 14, 0.6);
+}
+
+.primary:focus-visible {
+  outline: 2px solid var(--admin-dark);
+  outline-offset: 2px;
+}

@@ -2,7 +2,6 @@ import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import BenefitsSection from "../Sap/sections/BenefitsSection";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
 import NewsSection from "../Sap/sections/NewsSection";
@@ -17,7 +16,6 @@ export default function SapBusinessOneMigration() {
     hero,
     packages,
     businessIntro,
-    awards,
     clients,
     migrationProcess,
     news,
@@ -35,8 +33,6 @@ export default function SapBusinessOneMigration() {
       </div>
 
       <ImageTextSection {...businessIntro} />
-
-      <TimelineTabs {...awards} />
 
       <div className={styles.tintLight}>
         <ClientsSection {...clients} />

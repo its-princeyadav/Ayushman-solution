@@ -10,8 +10,21 @@
   color: var(--sap-white);
 }
 
+/*
+ * Parallax: a fixed-attachment background stays pinned to the viewport while
+ * the panel (and its content) scroll past it, so the image reads as a static
+ * backdrop the copy moves over - no JS, just a CSS decoupling of scroll rate.
+ * The image itself is set per-page via the --panel-bg-image custom property
+ * (see ServiceTabsSection.jsx), so this rule stays page-agnostic.
+ */
 .image {
-  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  background-image: var(--panel-bg-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .scrim {
@@ -37,7 +50,7 @@
 
 .title {
   margin: 0 0 4px;
-  font-family: var(--sap-font-heading);
+  font-family: var(--font-nav);
   font-size: clamp(1.5rem, 2.8vw, 2rem);
   font-weight: 600;
   text-transform: var(--sap-heading-transform);
@@ -46,7 +59,7 @@
 
 .titleAccent {
   margin: 0 0 20px;
-  font-family: var(--sap-font-heading);
+  font-family: var(--font-nav);
   font-size: clamp(1.5rem, 2.8vw, 2rem);
   font-weight: 800;
   text-transform: var(--sap-heading-transform);
@@ -55,6 +68,11 @@
 
 .description {
   margin: 0 0 16px;
+  /* sap-tokens.css's `main p { font-family: "Kanit" }` matches this element
+     directly, so it isn't enough to set the font on a parent (an inherited
+     value always loses to any rule that matches the element itself) -
+     override it here explicitly to get the navbar's --font-nav instead. */
+  font-family: var(--font-nav);
   font-size: 1rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.9);
@@ -66,7 +84,7 @@
 
 .methodTitle {
   margin: 0 0 20px;
-  font-family: var(--sap-font-heading);
+  font-family: var(--font-nav);
   font-size: 1.1rem;
   font-weight: 700;
   text-transform: var(--sap-heading-transform);
@@ -85,6 +103,7 @@
 .step {
   display: flex;
   gap: 10px;
+  font-family: var(--font-nav);
   font-size: 0.98rem;
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.9);
@@ -111,5 +130,17 @@
 @media (max-width: 700px) {
   .container {
     padding-block: 40px 48px;
+  }
+
+  /* Mobile: background-attachment: fixed is janky/unsupported on many touch
+     browsers - fall back to a plain scrolling background instead. */
+  .image {
+    background-attachment: scroll;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    background-attachment: scroll;
   }
 }

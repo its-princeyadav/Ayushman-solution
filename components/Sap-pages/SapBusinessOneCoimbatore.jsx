@@ -2,7 +2,6 @@ import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import CenteredSection from "../Sap/common/CenteredSection";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import StatsGrid from "../Sap/common/StatsGrid";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
@@ -19,7 +18,6 @@ export default function SapBusinessOneCoimbatore() {
     intro,
     sapPartner,
     itSector,
-    timeline,
     capability,
     topSap,
     clients,
@@ -50,8 +48,6 @@ export default function SapBusinessOneCoimbatore() {
         background={itSector.background}
         theme="light"
       />
-
-      <TimelineTabs {...timeline} />
 
       <div className={styles.tintWhite}>
         <CenteredSection title={capability.title} description={capability.description}>

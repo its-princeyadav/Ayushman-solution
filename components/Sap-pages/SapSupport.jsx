@@ -1,7 +1,6 @@
 import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import CenteredSection from "../Sap/common/CenteredSection";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import BenefitsSection from "../Sap/sections/BenefitsSection";
@@ -18,7 +17,6 @@ export default function SapSupport() {
     <>
       <HeroBanner {...sapSupport.hero} />
       <ImageTextSection {...sapSupport.roadblocks} />
-      <TimelineTabs {...sapSupport.timeline} />
       <CenteredSection {...sapSupport.challenges} />
       <ClientsSection {...sapSupport.clients} />
 

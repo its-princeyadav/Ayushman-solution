@@ -4,7 +4,6 @@ import CenteredSection from "../Sap/common/CenteredSection";
 import RichContent from "../Sap/common/RichContent";
 import BenefitsSection from "../Sap/sections/BenefitsSection";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import TestimonialsSection from "../Sap/sections/TestimonialsSection";
 import BlogSection from "../Sap/sections/BlogSection";
@@ -19,7 +18,6 @@ export default function SapBusinessOneImplementation() {
     industryExpertise,
     packages,
     implementationsStats,
-    awards,
     partnersIntro,
     s4hanaPartner,
     b1Partner,
@@ -43,8 +41,6 @@ export default function SapBusinessOneImplementation() {
       <BenefitsSection title={packages.title} features={packages.features} showDots={false} />
 
       <ImageTextSection {...implementationsStats} />
-
-      <TimelineTabs {...awards} />
 
       <CenteredSection title={partnersIntro.title} description={partnersIntro.description} />
       <ImageTextSection {...s4hanaPartner} />

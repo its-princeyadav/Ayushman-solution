@@ -81,7 +81,10 @@
 
 .title {
   margin: 0 0 20px;
-  font-family: var(--sap-font-heading);
+  /* Intentionally exempt from the site-wide --font-nav heading standard -
+     the Hero Banner keeps its original Teko display treatment (see
+     --sap-font-heading-hero in sap-tokens.css). */
+  font-family: var(--sap-font-heading-hero);
   font-size: clamp(2.1rem, 5vw, 3.25rem);
   font-weight: 700;
   text-transform: var(--sap-heading-transform);
@@ -107,7 +110,7 @@
 .overlayHeading {
   margin: 56px 0 0;
   max-width: 620px;
-  font-family: var(--sap-font-heading);
+  font-family: var(--sap-font-heading-hero);
   font-size: clamp(1.5rem, 3.2vw, 2.15rem);
   font-weight: 700;
   text-transform: var(--sap-heading-transform);

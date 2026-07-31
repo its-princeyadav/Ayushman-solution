@@ -3,7 +3,6 @@ import HeroBanner from "../Sap/Hero/HeroBanner";
 import CenteredSection from "../Sap/common/CenteredSection";
 import RichContent from "../Sap/common/RichContent";
 import ImageTextSection from "../Sap/common/ImageTextSection";
-import TimelineTabs from "../Sap/Timeline/TimelineTabs";
 import StatsGrid from "../Sap/common/StatsGrid";
 import ClientsSection from "../Sap/sections/ClientsSection";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
@@ -20,7 +19,6 @@ export default function SapBusinessOneNepal() {
     intro,
     whyChooseSap,
     whyChooseAyushman,
-    timeline,
     capability,
     clients,
     services,
@@ -54,8 +52,6 @@ export default function SapBusinessOneNepal() {
         background={whyChooseAyushman.background}
         theme={whyChooseAyushman.theme}
       />
-
-      <TimelineTabs {...timeline} />
 
       <div className={styles.tintWhite}>
         <CenteredSection title={capability.title} description={capability.description} buttons={capability.buttons}>

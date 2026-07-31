@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import Script from "next/script";
 import Preloader from "../components/Common/Preloader";
 import Popups from "../components/Common/Popups";
@@ -32,7 +33,28 @@ const organizationJsonLd = {
   description,
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  // Set by middleware.js (x-pathname header) - the only way for this Server
+  // Component root layout to see the current URL. Reading headers() opts
+  // the WHOLE app out of static prerendering into per-request dynamic
+  // rendering (every route, not just /admin) - a deliberate, known tradeoff
+  // to keep the admin module's layout fully isolated (no public Navbar/
+  // Footer/vendor bundle) without restructuring the existing app/ tree into
+  // route groups. See the admin module's own notes for the alternative.
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "";
+  const isAdmin = pathname.startsWith("/admin");
+
+  if (isAdmin) {
+    // Bare shell only - no Navbar/Footer/preloader/vendor CSS+JS. The admin
+    // module brings its own fonts/styles via app/admin/layout.jsx.
+    return (
+      <html lang="en-US">
+        <body>{children}</body>
+      </html>
+    );
+  }
+
   return (
     <html lang="en-US">
       <head>

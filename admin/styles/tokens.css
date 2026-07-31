@@ -1,0 +1,51 @@
+/* Admin module design tokens. Loaded once (app/admin/layout.jsx) as a
+   plain global stylesheet - the --admin-* prefix keeps it from ever
+   colliding with the public site's own --color-* tokens (globals.css),
+   which the admin module never imports. */
+:root {
+  --admin-yellow: #febe0e;
+  --admin-yellow-hover: #e6ac00;
+  --admin-dark: #1c1d20;
+  --admin-gray: #9f9da0;
+  --admin-gray-soft: #e9e8ea;
+  --admin-white: #ffffff;
+
+  --admin-surface: #ffffff;
+  --admin-surface-glass: rgba(255, 255, 255, 0.72);
+  --admin-border: rgba(28, 29, 32, 0.1);
+  --admin-text: var(--admin-dark);
+  --admin-text-muted: var(--admin-gray);
+
+  --admin-radius-lg: 24px;
+  --admin-radius-md: 14px;
+  --admin-radius-sm: 10px;
+
+  --admin-shadow-card: 0 1px 2px rgba(28, 29, 32, 0.04), 0 24px 60px -20px rgba(28, 29, 32, 0.25);
+  --admin-shadow-button: 0 10px 24px -10px rgba(254, 190, 14, 0.55);
+  --admin-shadow-soft: 0 1px 2px rgba(28, 29, 32, 0.03), 0 8px 24px -12px rgba(28, 29, 32, 0.12);
+
+  /* Semantic (trend/status) colors - deliberately separate from the yellow
+     brand accent above, so "up 12%" doesn't compete visually with brand. */
+  --admin-success: #1a9c6b;
+  --admin-success-soft: #e6f6ef;
+  --admin-danger: #d64545;
+  --admin-danger-soft: #fbeaea;
+
+  /* Same two typefaces as the public site (self-hosted, loaded by
+     app/admin/layout.jsx from the existing /assets/fonts files - no new
+     font files). Kanit is the display face for headings only, DM Sans
+     carries all body/UI text - matches how the public site splits them. */
+  --admin-font-display: "Kanit", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --admin-font-body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Baseline reset - only takes effect on routes that actually import this
+   file (app/admin/layout.jsx), so it can't leak into the public site. The
+   admin root <body> (see app/layout.jsx's isAdmin branch) has no className
+   of its own to hang this on. */
+body {
+  margin: 0;
+  font-family: var(--admin-font-body);
+  color: var(--admin-text);
+  -webkit-font-smoothing: antialiased;
+}
