@@ -1,0 +1,15 @@
+/*
+ * Page-scoped styling for /analytics/bi-consulting only.
+ *
+ * Same technique already used by BiManagedServices.module.css /
+ * BiDevelopment.module.css / BiTraining.module.css: ImageOverlayCard reads
+ * --sap-overlay-card-ratio via a var() fallback, so re-valuing it only
+ * inside this page's own `.scope` wrapper doesn't affect any other page's
+ * cards. The "Our Business Intelligence Consultancy" tiles pair a full
+ * sentence description with no button, which still overflows the default
+ * 3 / 2 ratio, so this page needs the same taller 4 / 3 ratio already
+ * established for that exact scenario.
+ */
+.scope {
+  --sap-overlay-card-ratio: 4 / 3;
+}

@@ -83,11 +83,11 @@ const CATEGORIES = [
         heading: "Analytics Services",
         items: [
           { title: "Data Visualization", description: "Go from information to insights.", href: "/analytics/data-visualization" },
-          { title: "BI Dashboard", description: "Track, analyze, and share data easily.", href: "/analytics#bi-services" },
-          { title: "BI Managed Services", description: "Dashboard monitoring and data security.", href: "/analytics#bi-services" },
-          { title: "BI Training", description: "Teaching core analytics concepts.", href: "/analytics#bi-services" },
-          { title: "BI Development", description: "Designing simple, intuitive dashboards.", href: "/analytics#bi-services" },
-          { title: "BI Consulting", description: "Define effective BI strategy and roadmap.", href: "/analytics#bi-services" },
+          { title: "BI Dashboard", description: "Track, analyze, and share data easily.", href: "/analytics/bi-dashboard" },
+          { title: "BI Managed Services", description: "Dashboard monitoring and data security.", href: "/analytics/bi-managed-services" },
+          { title: "BI Training", description: "Teaching core analytics concepts.", href: "/analytics/bi-training" },
+          { title: "BI Development", description: "Designing simple, intuitive dashboards.", href: "/analytics/bi-development" },
+          { title: "BI Consulting", description: "Define effective BI strategy and roadmap.", href: "/analytics/bi-consulting" },
         ],
       },
       {

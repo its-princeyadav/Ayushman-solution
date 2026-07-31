@@ -20,7 +20,6 @@ export default function DataVisualization() {
     mobileBiDetail,
     clients,
     industryVertical,
-    featureBanners,
     blogs,
     caseStudies,
     cta,
@@ -36,17 +35,13 @@ export default function DataVisualization() {
 
       <ImageTextSection {...overview} />
 
-      <CenteredSection title={mobileBiIntro.title} description={mobileBiIntro.description} buttons={mobileBiIntro.buttons} theme="light" />
+      <CenteredSection title={mobileBiIntro.title} description={mobileBiIntro.description} buttons={mobileBiIntro.buttons} />
 
       <ImageTextSection {...mobileBiDetail} />
 
       <ClientsSection {...clients} />
 
       <FunctionalityGrid title={industryVertical.title} description={industryVertical.description} items={industryVertical.items} />
-
-      {featureBanners.map((banner) => (
-        <CTASection key={banner.title} {...banner} />
-      ))}
 
       <BlogSection {...blogs} />
 

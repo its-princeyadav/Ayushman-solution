@@ -6,8 +6,14 @@
 // introduced for this page.
 
 export const dataVisualization = {
+  // TODO: no dedicated data-visualization photography exists in the project
+  // yet — reusing an already-established wide/high-res banner asset (same
+  // convention as every SAP hero) instead of the previous city-06.webp,
+  // which is only 400x477 and was being stretched full-bleed across the
+  // entire viewport width, causing visible blur; it's also already used
+  // lower down this same page as the "Manufacturing" industry tile.
   hero: {
-    backgroundImage: "/assets/image2/city-06.webp",
+    backgroundImage: "/assets/image2/modern-sap-migration.webp",
     align: "left",
     title: "Data Visualization Services that Unlock a Steady Stream of Insights",
     button: { label: "Request A Demo", href: "#contact" },
@@ -194,27 +200,6 @@ export const dataVisualization = {
       },
     ],
   },
-
-  // Feature Banner Slider — two full-bleed promo banners, reusing the
-  // existing CTASection (image + overlay + heading + button) already used
-  // everywhere else on this and every SAP page, rather than a new slider
-  // component.
-  featureBanners: [
-    {
-      title: "Quickly Analyze Your Geospatial Data",
-      description: "Location-based Analysis",
-      button: { label: "Know More", href: "#contact", variant: "primary" },
-      backgroundImage: "/assets/image2/green-mountains.png",
-      textTheme: "light",
-    },
-    {
-      title: "AI-Driven Analytics and Predictions to Your CRM",
-      description: "Analytics across functions",
-      button: { label: "Know More", href: "#contact", variant: "primary" },
-      backgroundImage: "/assets/image2/modern-sap-migration.webp",
-      textTheme: "light",
-    },
-  ],
 
   blogs: {
     title: "Blogs",

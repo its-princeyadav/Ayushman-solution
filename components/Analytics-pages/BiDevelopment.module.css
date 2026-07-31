@@ -1,0 +1,14 @@
+/*
+ * Page-scoped styling for /analytics/bi-development only.
+ *
+ * Same technique already used by ErpSoftwareHyderabad.module.css /
+ * ErpSoftwareBangalore.module.css / the SAP city pages: ImageOverlayCard
+ * reads --sap-overlay-card-ratio via a var() fallback, so re-valuing it only
+ * inside this page's own `.scope` wrapper doesn't affect any other page's
+ * cards. The "Our Expertise" tiles pair a full paragraph description with a
+ * button, which overflows the default 3 / 2 ratio, so this page needs the
+ * same taller 4 / 3 ratio already established for that exact scenario.
+ */
+.scope {
+  --sap-overlay-card-ratio: 4 / 3;
+}
