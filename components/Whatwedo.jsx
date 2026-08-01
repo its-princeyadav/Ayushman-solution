@@ -93,8 +93,8 @@ const CATEGORIES = [
       {
         heading: "Tableau",
         items: [
-          { title: "Tableau Implementation", description: "Advanced analytics software installation.", href: "/analytics#tableau" },
-          { title: "Tableau License", description: "Products & pricing for teams & enterprise.", href: "/analytics#tableau" },
+          { title: "Tableau Implementation", description: "Advanced analytics software installation.", href: "/analytics/tableau-implementation" },
+          { title: "Tableau License", description: "Products & pricing for teams & enterprise.", href: "/analytics/tableau-license" },
         ],
       },
       {
