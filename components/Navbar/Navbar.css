@@ -39,10 +39,10 @@
 
 .navbar-brand__text {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1;
   margin: 0;
-  letter-spacing: normal;
+  letter-spacing: normal; 
 }
 
 .elementor-element-e072e0e .wcf-nav-item,
@@ -51,8 +51,22 @@
 .elementor-element-e072e0e .wcf-nav-item:active,
 .elementor-element-e072e0e .wcf-nav-item.active {
   font-family: var(--font-nav) !important;
-  font-size: 16px !important;
+  font-size: 18px !important;
   font-weight: 500 !important;
+}
+
+/* Below the 1024px desktop-nav breakpoint the same .wcf-nav-item class is
+   reused by the off-canvas mobile menu (see Navbar.jsx's desktop-menu-active
+   vs mobile-menu-active toggle) - kept at its original size there so mobile
+   layout/wrapping is untouched by the desktop-only increase above. */
+@media (max-width: 1024px) {
+  .elementor-element-e072e0e .wcf-nav-item,
+  .elementor-element-e072e0e .wcf-nav-item:hover,
+  .elementor-element-e072e0e .wcf-nav-item:focus,
+  .elementor-element-e072e0e .wcf-nav-item:active,
+  .elementor-element-e072e0e .wcf-nav-item.active {
+    font-size: 16px !important;
+  }
 }
 
 .elementor-47 {
@@ -61,18 +75,18 @@
 }
 
 .navbar-brand__primary {
-  color: #000000;
+  color: var(--color-logo-yellow);
   font-weight: 800;
 }
 
 .navbar-brand__secondary {
-  color: #000000;
+  color: var(--color-logo-gray);
   font-weight: 600;
 }
 
 @media (max-width: 1024px) {
   .navbar-brand__text {
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 

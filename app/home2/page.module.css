@@ -1,0 +1,17 @@
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: var(--color-white);
+}
+
+.heading {
+  margin: 0;
+  font-family: var(--font-nav);
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 600;
+  color: var(--color-neutral);
+  text-align: center;
+}
