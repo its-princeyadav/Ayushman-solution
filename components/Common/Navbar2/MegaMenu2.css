@@ -7,17 +7,28 @@
   padding: 28px;
 }
 
-/* ---------- Grid mode (Industries / Our Work) ---------- */
+/* ---------- Grid mode (Industries / Our Work) ----------
+   Structure/proportions synced to Industries.jsx/Our-work.jsx's own panel
+   (intro card width, panel width, whole-panel max-height+scroll) - colors
+   stay Home2's (var(--surface) etc.), not Main's peach gradient. */
+
+.as-megamenu-panel:has(.as-megamenu-intro) {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  width: min(1140px, 92vw);
+  max-height: 80vh;
+  overflow-y: auto;
+}
 
 .as-megamenu-intro {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
-  width: 220px;
-  flex-shrink: 0;
+  width: 260px;
+  flex: 0 0 260px;
   padding: 20px;
-  margin-right: 8px;
   border-radius: var(--radius-md);
   background: var(--surface-light);
   text-decoration: none;
@@ -49,12 +60,6 @@
   color: var(--text-primary);
 }
 
-.as-megamenu-intro-desc {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--text-secondary);
-}
-
 .as-megamenu-intro-arrow {
   margin-top: auto;
   color: var(--text-primary);
@@ -72,13 +77,6 @@
   flex: 1;
 }
 
-/* When a .as-megamenu-intro sits before .as-megamenu-grid inside
-   .as-megamenu-panel, lay them out side by side. */
-.as-megamenu-panel:has(.as-megamenu-intro) {
-  display: flex;
-  align-items: stretch;
-}
-
 .as-megamenu-column {
   display: flex;
   flex-direction: column;
@@ -89,6 +87,9 @@
 }
 
 .as-megamenu-column-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 8px 12px;
   font-family: var(--font-nav);
   font-size: 0.72rem;
@@ -98,10 +99,20 @@
   color: var(--text-secondary);
 }
 
+.as-megamenu-column-heading::before {
+  content: "";
+  width: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--primary);
+  flex: none;
+}
+
 .as-megamenu-item {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
   padding: 9px 12px;
   border-radius: 10px;
   text-decoration: none;
@@ -114,6 +125,13 @@
   transform: translateX(2px);
 }
 
+.as-megamenu-item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
 .as-megamenu-item-title {
   font-family: var(--font-nav);
   font-size: 0.92rem;
@@ -121,83 +139,214 @@
   color: var(--text-primary);
 }
 
-.as-megamenu-item-desc {
-  font-size: 0.78rem;
+/* Trailing "go" arrow - What We Do content items only (Column's
+   showItemArrow prop), matching Whatwedo.jsx's wcf-megamenu__item-go. */
+.as-megamenu-item-go {
+  flex: none;
+  margin-top: 3px;
+  font-size: 0.75rem;
   color: var(--text-secondary);
+  opacity: 0;
+  transform: translateX(-3px);
+  transition: opacity var(--transition), transform var(--transition), color var(--transition);
 }
 
-/* ---------- Categorized mode (What We Do) ---------- */
+.as-megamenu-item:hover .as-megamenu-item-go,
+.as-megamenu-item:focus-visible .as-megamenu-item-go {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--text-primary);
+}
 
-.as-megamenu-tabs {
+/* Sub-links (e.g. SAP Near You's city list) - pill tags under their parent
+   item, matching Whatwedo.jsx's wcf-megamenu__sublinks. */
+.as-megamenu-sublinks {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  padding-bottom: 18px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--border);
+  gap: 7px;
 }
 
-.as-megamenu-tab {
+.as-megamenu-sublinks a {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-nav);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--surface-light);
+  border: 1px solid var(--border);
+  padding: 6px 13px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition),
+    transform var(--transition);
+}
+
+.as-megamenu-sublinks a:hover {
+  background: var(--primary-light);
+  color: var(--text-primary);
+  border-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+/* ---------- Sidebar mode (What We Do) ----------
+   Structure synced to Whatwedo.jsx's sidebar/content panel: fixed-height
+   panel, left category sidebar + right content pane, each scrolling
+   independently so switching categories never resizes the panel. Colors
+   stay Home2's single --primary accent (not Main's per-category hues). */
+
+.as-megamenu-panel--sidebar {
+  display: flex;
+  align-items: stretch;
+  width: min(1100px, 92vw);
+  height: min(520px, 80vh);
+  padding: 0;
+}
+
+.as-megamenu-sidebar,
+.as-megamenu-content {
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.as-megamenu-sidebar::-webkit-scrollbar,
+.as-megamenu-content::-webkit-scrollbar {
+  width: 7px;
+}
+
+.as-megamenu-sidebar::-webkit-scrollbar-track,
+.as-megamenu-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.as-megamenu-sidebar::-webkit-scrollbar-thumb,
+.as-megamenu-content::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+.as-megamenu-sidebar {
+  flex: 0 0 308px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  position: relative;
+}
+
+/* Soft gradient-fade divider between sidebar and content. */
+.as-megamenu-sidebar::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  right: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border) 15%, var(--border) 85%, transparent);
+}
+
+.as-megamenu-sidebar-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex: 1 1 200px;
-  padding: 10px 14px;
-  border: none;
+  gap: 13px;
+  padding: 13px 14px;
   border-radius: var(--radius-md);
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-  transition: background-color var(--transition);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: background-color var(--transition), transform var(--transition);
 }
 
-.as-megamenu-tab:hover {
+.as-megamenu-sidebar-item:hover,
+.as-megamenu-sidebar-item:focus-visible {
   background: var(--surface-light);
+  transform: translateY(-1px);
+  outline: none;
 }
 
-.as-megamenu-tab-active {
-  background: var(--surface-light);
+/* Single flat fill for the active card - the row and its icon both use the
+   exact same --primary value (not --primary-light) so there's no visible
+   seam between the icon's own box and the row behind it. Chained with the
+   base class (not just .as-megamenu-sidebar-item-active alone) so its
+   specificity actually beats the :hover rule above - a hovered item is
+   also always the active one here (activeId is set onMouseEnter), so
+   without this the plain :hover selector's higher specificity (a class +
+   a pseudo-class) was winning and leaving the row gray. */
+.as-megamenu-sidebar-item.as-megamenu-sidebar-item-active {
+  background: var(--primary);
+  transform: none;
 }
 
-.as-megamenu-tab-icon {
+.as-megamenu-sidebar-icon {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: var(--surface);
+  border-radius: var(--radius-md);
+  background: var(--surface-light);
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 1.05rem;
   box-shadow: var(--shadow);
-  transition: background-color var(--transition), color var(--transition);
+  transition: transform var(--transition), background-color var(--transition), color var(--transition),
+    box-shadow var(--transition);
 }
 
-.as-megamenu-tab-active .as-megamenu-tab-icon {
+.as-megamenu-sidebar-item:hover .as-megamenu-sidebar-icon {
+  transform: scale(1.06);
+}
+
+.as-megamenu-sidebar-item-active .as-megamenu-sidebar-icon {
   background: var(--primary);
+  color: var(--text-primary);
+  box-shadow: none;
 }
 
-.as-megamenu-tab-text {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
+.as-megamenu-sidebar-title {
+  flex: 1 1 auto;
   min-width: 0;
-}
-
-.as-megamenu-tab-title {
   font-family: var(--font-nav);
-  font-size: 0.88rem;
   font-weight: 600;
+  font-size: 0.95rem;
   color: var(--text-primary);
 }
 
-.as-megamenu-tab-desc {
-  font-size: 0.74rem;
-  color: var(--text-secondary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.as-megamenu-sidebar-arrow {
+  flex: 0 0 auto;
+  align-self: center;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.as-megamenu-sidebar-item:hover .as-megamenu-sidebar-arrow,
+.as-megamenu-sidebar-item-active .as-megamenu-sidebar-arrow {
+  opacity: 0.6;
+  transform: translateX(0);
+}
+
+.as-megamenu-content {
+  flex: 1 1 auto;
+  padding: 28px 32px;
+  animation: asMegamenuContentFade 220ms ease;
+}
+
+@keyframes asMegamenuContentFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .as-megamenu-view-all {
@@ -218,16 +367,6 @@
 .as-megamenu-view-all:hover {
   gap: 12px;
   color: var(--primary-dark);
-}
-
-@media (max-width: 1180px) {
-  .as-megamenu-tabs {
-    flex-wrap: wrap;
-  }
-
-  .as-megamenu-tab-desc {
-    display: none;
-  }
 }
 
 @media (max-width: 900px) {

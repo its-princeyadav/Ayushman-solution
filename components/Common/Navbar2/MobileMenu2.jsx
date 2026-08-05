@@ -42,9 +42,22 @@ function CategoryAccordion({ category, isOpen, onToggle, onNavigate }) {
         <div className="as-mobilemenu-section-panel-inner">
           <div className="as-mobilemenu-category-items">
             {category.columns.flatMap((column) => column.items).map((item) => (
-              <Link key={item.title} href={item.href} className="as-mobilemenu-leaf-link" onClick={onNavigate}>
-                {item.title}
-              </Link>
+              <div key={item.title} className="as-mobilemenu-leaf-group">
+                <Link href={item.href} className="as-mobilemenu-leaf-link" onClick={onNavigate}>
+                  {item.title}
+                </Link>
+                {item.links && (
+                  <ul className="as-mobilemenu-sublinks">
+                    {item.links.map((link) => (
+                      <li key={link.title}>
+                        <Link href={link.href} onClick={onNavigate}>
+                          {link.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             ))}
           </div>
         </div>

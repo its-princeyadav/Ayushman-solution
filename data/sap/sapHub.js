@@ -11,9 +11,12 @@
 
 export const sapHub = {
   hero: {
-    backgroundImage: "/assets/image2/sap-solution-banner.jpg",
-    align: "right",
-    title: "Everything You Need to Succeed with SAP",
+    backgroundImage: "/assets/image2/sap-hero.png",
+    align: "left",
+    titleLines: [
+      [{ text: "Transforming Businesses", highlight: true }],
+      [{ text: "with " }, { text: "Intelligent SAP Solutions", highlight: true }],
+    ],
     description:
       "One partner for your entire SAP journey — from SAP Business One and SAP S/4HANA Cloud to implementation, support, and managed services.",
     buttons: [

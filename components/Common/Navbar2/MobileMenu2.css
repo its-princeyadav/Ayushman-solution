@@ -175,6 +175,39 @@
   background: var(--surface-light);
 }
 
+.as-mobilemenu-leaf-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sub-links (e.g. SAP Near You's city list) - stacked under their parent
+   item, matching the desktop sidebar's sublinks content one level deeper. */
+.as-mobilemenu-sublinks {
+  list-style: none;
+  margin: 0 0 4px;
+  padding: 0 0 0 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.as-mobilemenu-sublinks a {
+  display: block;
+  min-height: 40px;
+  padding: 9px 12px;
+  box-sizing: border-box;
+  font-family: var(--font-nav);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.as-mobilemenu-sublinks a:hover {
+  background: var(--surface-light);
+  color: var(--text-primary);
+}
+
 .as-mobilemenu-plain-link {
   display: block;
   font-weight: 600;

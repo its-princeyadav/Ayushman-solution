@@ -122,10 +122,6 @@ export default function Industries() {
             <FaBuilding aria-hidden="true" />
           </span>
           <span className="wcf-industries__intro-title">Industries</span>
-          <span className="wcf-industries__intro-desc">
-            Showcasing our diverse experience across publicly listed, unicorn, fintech, digital-native,
-            and SME companies across a wide range of niches.
-          </span>
           <span className="wcf-industries__intro-arrow">
             <FaArrowRight aria-hidden="true" />
           </span>

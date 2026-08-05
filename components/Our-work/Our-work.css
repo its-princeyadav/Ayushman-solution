@@ -113,12 +113,6 @@
   color: #14304f;
 }
 
-.wcf-ourwork__intro-desc {
-  font-size: 0.85rem;
-  line-height: 1.55;
-  color: #5b6472;
-}
-
 .wcf-ourwork__intro-arrow {
   position: absolute;
   bottom: 20px;
@@ -158,13 +152,14 @@
 .wcf-ourwork__column {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  /* Matches .wcf-industries__column's gap - both are now single-line title
+     lists after the item description was removed. */
+  gap: 4px;
 }
 
 .wcf-ourwork__item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
   text-decoration: none;
   border-radius: 10px;
   padding: 8px 10px;
@@ -187,12 +182,6 @@
 .wcf-ourwork__item:hover .wcf-ourwork__item-title,
 .wcf-ourwork__item:focus-visible .wcf-ourwork__item-title {
   color: #1d4ed8;
-}
-
-.wcf-ourwork__item-desc {
-  font-size: 0.82rem;
-  color: #6b7280;
-  line-height: 1.45;
 }
 
 /* ---------- Mobile accordion ---------- */
@@ -245,9 +234,5 @@
     min-height: 44px;
     box-sizing: border-box;
     justify-content: center;
-  }
-
-  .wcf-ourwork__mobile .wcf-ourwork__item-desc {
-    display: none;
   }
 }

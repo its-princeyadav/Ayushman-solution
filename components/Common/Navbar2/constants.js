@@ -5,19 +5,15 @@ import { OUR_WORK } from "../../../data/ourWork";
 
 /**
  * Mirrors the content of the current site's "What We Do" mega menu
- * (components/Whatwedo.jsx CATEGORIES) so Navbar2 stays fully independent
- * of that component while showing the exact same labels/links. Sub-links
- * (e.g. the per-city list under "SAP Near You") are intentionally not
- * duplicated here - "SAP Near You" links straight to its own index page,
- * which already lists every city - keeping this wide mega menu's column
- * height reasonable instead of nesting a third menu level.
+ * (components/Whatwedo.jsx CATEGORIES) verbatim - including the "SAP Near
+ * You" city sub-links - so Navbar2 stays fully independent of that
+ * component while showing identical content.
  */
 export const WHAT_WE_DO_CATEGORIES = [
   {
     id: "sap-erp",
     icon: LuLayers,
     title: "SAP ERP",
-    description: "Run Smarter with Integrated, Advanced ERP",
     href: "/sap",
     columns: [
       {
@@ -27,7 +23,25 @@ export const WHAT_WE_DO_CATEGORIES = [
           { title: "SAP Services", href: "/sap/services" },
           { title: "SAP Support", href: "/sap/support" },
           { title: "SAP Practices", href: "/sap/practices" },
-          { title: "SAP Near You", href: "/erp/sap-near-you" },
+          {
+            title: "SAP Near You",
+            href: "/erp/sap-near-you",
+            links: [
+              { title: "Ahmedabad", href: "/erp/erp-software-ahmedabad" },
+              { title: "Mumbai", href: "/erp/erp-software-mumbai" },
+              { title: "Delhi NCR", href: "/erp/erp-software-delhi-ncr" },
+              { title: "Gurgaon", href: "/erp/erp-software-gurgaon" },
+              { title: "Bangalore", href: "/erp/erp-software-bangalore" },
+              { title: "Chennai", href: "/erp/erp-software-chennai" },
+              { title: "Hyderabad", href: "/erp/erp-software-hyderabad" },
+              { title: "Kerala", href: "/erp/erp-software-kerala" },
+              { title: "Nepal", href: "/erp/erp-software-nepal" },
+              { title: "Noida", href: "/erp/erp-software-noida" },
+              { title: "Pune", href: "/erp/erp-software-pune" },
+              { title: "Rajasthan", href: "/erp/erp-software-rajasthan" },
+              { title: "Coimbatore", href: "/erp/erp-software-coimbatore" },
+            ],
+          },
         ],
       },
       {
@@ -55,33 +69,32 @@ export const WHAT_WE_DO_CATEGORIES = [
     id: "data-analytics",
     icon: LuChartNoAxesColumnIncreasing,
     title: "Data Analytics",
-    description: "Enable Decisive, Predictive Decision-Making",
     href: "/analytics",
     columns: [
       {
         heading: "Analytics Services",
         items: [
-          { title: "Data Visualization", href: "#" },
-          { title: "BI Dashboard", href: "#" },
-          { title: "BI Managed Services", href: "#" },
-          { title: "BI Training", href: "#" },
-          { title: "BI Development", href: "#" },
-          { title: "BI Consulting", href: "#" },
+          { title: "Data Visualization", href: "/analytics/data-visualization" },
+          { title: "BI Dashboard", href: "/analytics/bi-dashboard" },
+          { title: "BI Managed Services", href: "/analytics/bi-managed-services" },
+          { title: "BI Training", href: "/analytics/bi-training" },
+          { title: "BI Development", href: "/analytics/bi-development" },
+          { title: "BI Consulting", href: "/analytics/bi-consulting" },
         ],
       },
       {
         heading: "Tableau",
         items: [
-          { title: "Tableau Implementation", href: "#" },
-          { title: "Tableau License", href: "#" },
+          { title: "Tableau Implementation", href: "/analytics/tableau-implementation" },
+          { title: "Tableau License", href: "/analytics/tableau-license" },
         ],
       },
       {
         heading: null,
         items: [
-          { title: "Power BI", href: "#" },
-          { title: "Alteryx Solutions", href: "#" },
-          { title: "QuickSight", href: "#" },
+          { title: "Power BI", href: "/analytics#power-bi" },
+          { title: "Alteryx Solutions", href: "/analytics#automation" },
+          { title: "QuickSight", href: "/analytics#data-science" },
         ],
       },
     ],
@@ -90,7 +103,6 @@ export const WHAT_WE_DO_CATEGORIES = [
     id: "salesforce-crm",
     icon: LuUsers,
     title: "Salesforce CRM",
-    description: "Orchestrate Unified, Insight-Rich Customer Journeys",
     href: "/salesforce",
     columns: [
       {
@@ -102,6 +114,7 @@ export const WHAT_WE_DO_CATEGORIES = [
           { title: "Support", href: "#" },
           { title: "Customization", href: "#" },
           { title: "Migration", href: "#" },
+          { title: "Salesforce Products", href: "#" },
         ],
       },
       {
@@ -111,6 +124,10 @@ export const WHAT_WE_DO_CATEGORIES = [
           { title: "Intelligent Geolocation, Beat Planning and PJP", href: "#" },
           { title: "Database Integration", href: "#" },
           { title: "Non-Moving Inventory Tracking", href: "#" },
+          { title: "Custom CPQ (Configure, Price, Quote)", href: "#" },
+          { title: "WhatsApp Integration", href: "#" },
+          { title: "Single View Competitor and Account Planning", href: "#" },
+          { title: "File Tagging", href: "#" },
         ],
       },
     ],
@@ -119,7 +136,6 @@ export const WHAT_WE_DO_CATEGORIES = [
     id: "cloud",
     icon: LuCloud,
     title: "Cloud",
-    description: "Leverage Elastic, Enterprise-Grade Infrastructure",
     href: "/cloud",
     columns: [
       {
@@ -146,7 +162,6 @@ export const WHAT_WE_DO_CATEGORIES = [
     id: "technology",
     icon: LuCpu,
     title: "Technology",
-    description: "Anchor Operations in Adaptive Tech Stacks",
     href: "/technology",
     columns: [
       {
@@ -173,8 +188,6 @@ export const INDUSTRIES_MEGA_MENU = {
   intro: {
     icon: FaBuilding,
     title: "Industries",
-    description:
-      "Showcasing our diverse experience across publicly listed, unicorn, fintech, digital-native, and SME companies across a wide range of niches.",
     href: "/industries",
   },
   columns: [
@@ -194,15 +207,12 @@ export const OUR_WORK_MEGA_MENU = {
   intro: {
     icon: FaBriefcase,
     title: "Our Work",
-    description:
-      "Showcasing our expertise, insights, success stories, industry knowledge, customer experiences, and business transformation initiatives across multiple industries and technologies.",
     href: "/our-work",
   },
   columns: [OUR_WORK.slice(0, 3), OUR_WORK.slice(3, 6), OUR_WORK.slice(6, 8)].map((column) => ({
     heading: null,
     items: column.map((item) => ({
       title: item.title,
-      description: item.tagline,
       href: `/our-work/${item.slug}`,
     })),
   })),

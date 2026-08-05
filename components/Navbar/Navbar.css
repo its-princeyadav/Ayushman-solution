@@ -51,8 +51,11 @@
 .elementor-element-e072e0e .wcf-nav-item:active,
 .elementor-element-e072e0e .wcf-nav-item.active {
   font-family: var(--font-nav) !important;
-  font-size: 18px !important;
-  font-weight: 500 !important;
+  font-size: var(--nav-font-size) !important;
+  font-weight: var(--nav-font-weight) !important;
+  letter-spacing: var(--nav-letter-spacing) !important;
+  line-height: var(--nav-line-height) !important;
+  text-transform: var(--nav-text-transform) !important;
 }
 
 /* Below the 1024px desktop-nav breakpoint the same .wcf-nav-item class is

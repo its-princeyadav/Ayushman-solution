@@ -56,8 +56,19 @@
   font-family: var(--font-nav);
   font-size: 1.05rem;
   font-weight: 600;
-  color: var(--text-primary);
   white-space: nowrap;
+}
+
+/* Same two-tone treatment as the main site's wordmark (components/Navbar/
+   Navbar.css .navbar-brand__primary/__secondary) - reuses that navbar's
+   --color-logo-yellow/--color-logo-gray tokens instead of introducing new
+   hardcoded values. */
+.as-nav2-brand-text-primary {
+  color: var(--color-logo-yellow);
+}
+
+.as-nav2-brand-text-secondary {
+  color: var(--color-logo-gray);
 }
 
 /* ---------- Center nav links ---------- */
@@ -82,8 +93,11 @@
   background: none;
   border-radius: var(--radius-pill);
   font-family: var(--font-nav);
-  font-size: 1.125rem !important;
-  font-weight: 500;
+  font-size: var(--nav-font-size) !important;
+  font-weight: var(--nav-font-weight);
+  letter-spacing: var(--nav-letter-spacing);
+  line-height: var(--nav-line-height);
+  text-transform: var(--nav-text-transform);
   color: var(--text-primary);
   text-decoration: none;
   cursor: pointer;

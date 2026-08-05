@@ -136,7 +136,10 @@ export default function Navbar2() {
               height={40}
               className="as-nav2-brand-icon"
             />
-            <span className="as-nav2-brand-text">Ayushman Solutions</span>
+            <span className="as-nav2-brand-text">
+              <span className="as-nav2-brand-text-primary">Ayushman</span>{" "}
+              <span className="as-nav2-brand-text-secondary">Solutions</span>
+            </span>
           </Link>
 
           <nav className="as-nav2-links" onMouseLeave={scheduleClose}>

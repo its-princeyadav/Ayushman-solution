@@ -1,17 +1,421 @@
-.page {
+.heroWrap {
+  padding-top: 50px;
+}
+
+/* Card-style hero: a fixed 70vh height no longer matches the image's own
+   ~2:1 ratio, so object-fit:contain is used instead of cover - it scales
+   the whole image down to fit inside the card with zero cropping, rather
+   than cover's crop-to-fill. Any letterbox strip that leaves is filled by
+   .hero's own background-color, sampled from the image's own corner
+   pixels (~rgb(0,15,40)), so the letterbox reads as part of the same
+   artwork instead of a visible gap. */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 90%;
+  max-width: 1600px;
+  /* 70vh alone ignores card width: on a tall/narrow viewport (tablet
+     portrait) it produced a nearly-square card mostly filled by the
+     letterbox background instead of the image. Capping with a vw-relative
+     ceiling keeps 70vh's exact height on typical wide desktop windows
+     (where 55vw is already larger and never binds) while preventing that
+     on narrower ones. */
+  height: min(70vh, 55vw);
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-menu);
+  background: #050f28;
+}
+
+.heroImage {
+  object-fit: contain;
+  object-position: center center;
+}
+
+/* No existing overlay token in home2-theme.css to reuse - a flat 45% black
+   scrim is a one-off value specific to this hero, not a reusable design
+   token, so it's kept local rather than promoted to a CSS variable. */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.heroTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  /* Percentage-based, not a fixed px cap: the hero is now aspect-ratio
+     locked to the image, so the SAP graphic's on-screen position scales
+     down proportionally with viewport width too - a fixed max-width held
+     its ground while the graphic moved closer, and the two collided at
+     tablet widths. Capping as a share of the container keeps the same
+     clearance at every width. */
+  max-width: min(720px, 48%);
+  font-family: var(--font-nav);
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--surface);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+
+.heroTitleSecondary {
+  font-size: 0.55em;
+}
+
+.heroAccent {
+  width: 64px;
+  height: 4px;
+  margin-top: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-logo-yellow);
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    width: 94%;
+  }
+
+  .heroContent {
+    padding: 24px;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .heroWrap {
+    padding-top: 24px;
+  }
+
+  /* 70vh on a narrow phone makes a tall, portrait-shaped card that a
+     contain-fit landscape image can't fill without a large empty band -
+     capped lower here so the card stays a sensible shape on mobile. */
+  .hero {
+    width: 92%;
+    height: 56vh;
+    min-height: 340px;
+    border-radius: 18px;
+  }
+
+  .heroContent {
+    padding: 20px 16px;
+  }
+}
+
+/* ---------- "Our SAP Expertise" section ---------- */
+
+/* Full-bleed background (edge to edge, unlike the max-width-constrained
+   content below it) - flat and plain by request: no gradients, glow, or
+   pattern overlays, just the same light-gray tone used elsewhere on the
+   page. Depth comes only from the cards' own shadows. */
+.expertise {
+  padding-block: 110px;
+  background: #f5f7fa;
+}
+
+.expertiseInner {
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  grid-template-areas:
+    "label label"
+    "intro cards"
+    "cta   cards";
+  column-gap: 88px;
+  row-gap: 36px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-inline: 32px;
+}
+
+/* Centered eyebrow: text flanked by two thin rule lines, spanning the full
+   section width above both columns (not nested in .expertiseIntro, which
+   stays left-aligned like the rest of that column's content). */
+.expertiseLabelRow {
+  grid-area: label;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: 24px;
-  background: var(--color-white);
+  gap: 20px;
+  margin-bottom: 12px;
 }
 
-.heading {
+.expertiseLabel {
+  flex: none;
+  font-family: var(--font-nav);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.expertiseLabelLine {
+  flex: 1 1 auto;
+  max-width: 90px;
+  height: 1px;
+  background: var(--primary);
+}
+
+.expertiseIntro {
+  grid-area: intro;
+}
+
+.expertiseTitle {
+  margin: 0 0 24px;
+  max-width: 580px;
+  font-family: var(--font-nav);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.expertiseTitleAccent {
+  color: var(--color-logo-yellow);
+}
+
+.expertiseDesc {
+  margin: 0 0 28px;
+  max-width: 560px;
+  font-family: var(--font-nav);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--color-secondary-darker);
+}
+
+.expertiseTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.expertiseTag {
+  padding: 9px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-nav);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+
+.expertiseTag:hover {
+  border-color: var(--color-logo-yellow);
+  background: color-mix(in srgb, var(--color-logo-yellow) 12%, white);
+  box-shadow: 0 8px 18px -10px rgba(254, 190, 14, 0.5);
+  transform: translateY(-2px);
+}
+
+.expertiseCta {
+  grid-area: cta;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-self: start;
+  gap: 16px;
+}
+
+/* Primary CTA reuses components/Common/Navbar2/Navbar2.css's own
+   .as-nav2-login-btn class directly (applied alongside this one in the
+   JSX) instead of re-declaring matching background/radius/shadow/
+   typography/transition values here - "same design system" via one
+   shared rule instead of two copies that can drift apart. This class only
+   adds what that shared one doesn't: Link needs text-decoration reset,
+   and full-width-on-mobile (below) is specific to this CTA row. */
+.ctaPrimary {
+  /* .as-nav2-login-btn doesn't set box-sizing (defaults to content-box) -
+     harmless there since it's never given an explicit width, but this CTA
+     gets width:100% on mobile below, where content-box would add its own
+     padding on top of that 100% and push the button past its container. */
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.ctaPrimaryArrow {
+  transition: transform 300ms ease;
+}
+
+.ctaPrimary:hover .ctaPrimaryArrow,
+.ctaPrimary:focus-visible .ctaPrimaryArrow {
+  transform: translateX(4px);
+}
+
+.ctaSecondary {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 30px;
+  border: 1.5px solid var(--primary);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--primary);
+  font-family: var(--font-nav);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 300ms ease, color 300ms ease, box-shadow 300ms ease;
+}
+
+.ctaSecondary:hover,
+.ctaSecondary:focus-visible {
+  background: var(--primary);
+  color: var(--color-neutral-darkest);
+  box-shadow: var(--shadow);
+  outline: none;
+}
+
+.expertiseCards {
+  grid-area: cards;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  align-content: start;
+}
+
+.expertiseCard {
+  padding: 30px 26px;
+  /* Deliberately not var(--radius-lg) (20px): that token is shared with
+     the mega menu panel (components/Common/Navbar2/MegaMenu2.css), so
+     raising it to the 22-24px this spec asks for would silently round the
+     mega menu's corners too. Kept as an explicit local value instead. */
+  border-radius: 22px;
+  background: var(--surface);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow);
+  transition: transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease;
+}
+
+.expertiseCard:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-logo-yellow);
+  box-shadow: 0 28px 56px -20px rgba(15, 23, 42, 0.22);
+}
+
+.expertiseCardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--color-logo-yellow) 14%, white);
+  box-shadow: 0 6px 16px -8px rgba(254, 190, 14, 0.35);
+  color: var(--color-logo-yellow);
+  font-size: 1.5rem;
+  transition: background-color 350ms ease, transform 350ms ease;
+}
+
+.expertiseCard:hover .expertiseCardIcon {
+  background: color-mix(in srgb, var(--color-logo-yellow) 26%, white);
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.expertiseCardTitle {
+  margin: 0 0 10px;
+  font-family: var(--font-nav);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.expertiseCardDesc {
   margin: 0;
   font-family: var(--font-nav);
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
-  font-weight: 600;
-  color: var(--color-neutral);
-  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1024px) {
+  .expertise {
+    padding-block: 80px;
+  }
+
+  .expertiseInner {
+    column-gap: 48px;
+    row-gap: 28px;
+    padding-inline: 24px;
+  }
+
+  .expertiseCards {
+    gap: 22px;
+  }
+
+  .expertiseCard {
+    padding: 22px 20px;
+  }
+}
+
+/* Below tablet width, the two 45/55 columns get too narrow to hold a 2x2
+   card grid legibly - stack, and reorder so cards land between the intro
+   copy and the CTAs (content -> cards -> buttons) instead of the desktop
+   order (content -> buttons, cards alongside). */
+@media (max-width: 640px) {
+  .expertise {
+    padding-block: 56px;
+  }
+
+  .expertiseInner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "intro"
+      "cards"
+      "cta";
+    row-gap: 40px;
+    padding-inline: 20px;
+  }
+
+  .expertiseTitle,
+  .expertiseDesc {
+    max-width: none;
+  }
+
+  .expertiseCards {
+    grid-template-columns: 1fr;
+  }
+
+  .expertiseCta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    justify-content: center;
+    width: 100%;
+  }
 }

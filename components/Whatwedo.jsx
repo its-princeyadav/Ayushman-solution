@@ -20,16 +20,15 @@ const CATEGORIES = [
     id: "sap-erp",
     icon: LuLayers,
     title: "SAP ERP",
-    description: "Run Smarter with Integrated, Advanced ERP",
     href: "/sap",
     columns: [
       {
         heading: "SAP",
         items: [
-          { title: "SAP Solutions", description: "Thrive with SAP Business One and SAP S/4HANA Cloud", href: "/sap/solutions" },
-          { title: "SAP Services", description: "SAP application services and industry-specific deployment", href: "/sap/services" },
-          { title: "SAP Support", description: "Enabling IT modernization with SAP managed solutions", href: "/sap/support" },
-          { title: "SAP Practices", description: "RISE with SAP and GROW with SAP solutions.", href: "/sap/practices" },
+          { title: "SAP Solutions", href: "/sap/solutions" },
+          { title: "SAP Services", href: "/sap/services" },
+          { title: "SAP Support", href: "/sap/support" },
+          { title: "SAP Practices", href: "/sap/practices" },
           {
             title: "SAP Near You",
             href: "/erp/sap-near-you",
@@ -54,20 +53,20 @@ const CATEGORIES = [
       {
         heading: "SAP Business One",
         items: [
-          { title: "Overview", description: "A scalable ERP solution for SMEs.", href: "/sap/business-one" },
-          { title: "Implementation", description: "Cutting-edge deployment with maximized agility.", href: "/sap/business-one/implementation" },
-          { title: "Integrations", description: "Connect SAP with your apps and systems.", href: "/sap/business-one/integration" },
-          { title: "Customization", description: "Personalize SAP B1 as per your business processes.", href: "/sap/business-one/customization" },
-          { title: "Managed Services", description: "Reliable user adoption to maintenance support.", href: "/sap/business-one/managed-services" },
+          { title: "Overview", href: "/sap/business-one" },
+          { title: "Implementation", href: "/sap/business-one/implementation" },
+          { title: "Integrations", href: "/sap/business-one/integration" },
+          { title: "Customization", href: "/sap/business-one/customization" },
+          { title: "Managed Services", href: "/sap/business-one/managed-services" },
         ],
       },
       {
         heading: null,
         items: [
-          { title: "Migrations", description: "Transition data and apps to B1 seamlessly.", href: "/sap/business-one/migration" },
-          { title: "SAP License", description: "Understanding best-fit SAP B1 user types.", href: "/sap/business-one/license" },
-          { title: "Consulting", description: "Carve your SAP vision with dependable guidance.", href: "/sap/consulting" },
-          { title: "Add-Ons", description: "Extend SAP B1 with ready-made add-ons.", href: "/sap/business-one/add-ons" },
+          { title: "Migrations", href: "/sap/business-one/migration" },
+          { title: "SAP License", href: "/sap/business-one/license" },
+          { title: "Consulting", href: "/sap/consulting" },
+          { title: "Add-Ons", href: "/sap/business-one/add-ons" },
         ],
       },
     ],
@@ -76,33 +75,32 @@ const CATEGORIES = [
     id: "data-analytics",
     icon: LuChartNoAxesColumnIncreasing,
     title: "Data Analytics",
-    description: "Enable Decisive, Predictive Decision-Making",
     href: "/analytics",
     columns: [
       {
         heading: "Analytics Services",
         items: [
-          { title: "Data Visualization", description: "Go from information to insights.", href: "/analytics/data-visualization" },
-          { title: "BI Dashboard", description: "Track, analyze, and share data easily.", href: "/analytics/bi-dashboard" },
-          { title: "BI Managed Services", description: "Dashboard monitoring and data security.", href: "/analytics/bi-managed-services" },
-          { title: "BI Training", description: "Teaching core analytics concepts.", href: "/analytics/bi-training" },
-          { title: "BI Development", description: "Designing simple, intuitive dashboards.", href: "/analytics/bi-development" },
-          { title: "BI Consulting", description: "Define effective BI strategy and roadmap.", href: "/analytics/bi-consulting" },
+          { title: "Data Visualization", href: "/analytics/data-visualization" },
+          { title: "BI Dashboard", href: "/analytics/bi-dashboard" },
+          { title: "BI Managed Services", href: "/analytics/bi-managed-services" },
+          { title: "BI Training", href: "/analytics/bi-training" },
+          { title: "BI Development", href: "/analytics/bi-development" },
+          { title: "BI Consulting", href: "/analytics/bi-consulting" },
         ],
       },
       {
         heading: "Tableau",
         items: [
-          { title: "Tableau Implementation", description: "Advanced analytics software installation.", href: "/analytics/tableau-implementation" },
-          { title: "Tableau License", description: "Products & pricing for teams & enterprise.", href: "/analytics/tableau-license" },
+          { title: "Tableau Implementation", href: "/analytics/tableau-implementation" },
+          { title: "Tableau License", href: "/analytics/tableau-license" },
         ],
       },
       {
         heading: null,
         items: [
-          { title: "Power BI", description: "Powering businesses to make insights-driven decisions.", href: "/analytics#power-bi" },
-          { title: "Alteryx Solutions", description: "Data-driven, advanced automation solutions to build intelligent enterprises.", href: "/analytics#automation" },
-          { title: "QuickSight", description: "Seamless Cloud Integration for SMBs with Amazon BI Tool.", href: "/analytics#data-science" },
+          { title: "Power BI", href: "/analytics#power-bi" },
+          { title: "Alteryx Solutions", href: "/analytics#automation" },
+          { title: "QuickSight", href: "/analytics#data-science" },
         ],
       },
     ],
@@ -111,17 +109,16 @@ const CATEGORIES = [
     id: "salesforce-crm",
     icon: LuUsers,
     title: "Salesforce CRM",
-    description: "Orchestrate Unified, Insight-Rich Customer Journeys",
     href: "/salesforce",
     columns: [
       {
         heading: "Salesforce",
         items: [
-          { title: "Consultation", description: "Direction to unlock the power of AI+Data+CRM.", href: "#" },
-          { title: "Implementation", description: "Configure and deploy your CRM system.", href: "#" },
-          { title: "Integration", description: "Combining Salesforce with other tools.", href: "#" },
-          { title: "Support", description: "Managed CRM services and maintenance.", href: "#" },
-          { title: "Customization", description: "Personalizing CRM for your business.", href: "#" },
+          { title: "Consultation", href: "#" },
+          { title: "Implementation", href: "#" },
+          { title: "Integration", href: "#" },
+          { title: "Support", href: "#" },
+          { title: "Customization", href: "#" },
           { title: "Migration", href: "#" },
           { title: "Salesforce Products", href: "#" },
         ],
@@ -145,25 +142,24 @@ const CATEGORIES = [
     id: "cloud",
     icon: LuCloud,
     title: "Cloud",
-    description: "Leverage Elastic, Enterprise-Grade Infrastructure",
     href: "/cloud",
     columns: [
       {
         heading: "Cloud Services",
         items: [
-          { title: "Cloud Consulting", description: "Strategic roadmap for cloud adoption.", href: "#" },
-          { title: "Cloud Migration", description: "Move workloads with zero disruption.", href: "#" },
-          { title: "Managed Cloud Services", description: "24/7 monitoring and optimization.", href: "#" },
-          { title: "DevOps & Automation", description: "Faster, reliable delivery pipelines.", href: "#" },
+          { title: "Cloud Consulting", href: "#" },
+          { title: "Cloud Migration", href: "#" },
+          { title: "Managed Cloud Services", href: "#" },
+          { title: "DevOps & Automation", href: "#" },
         ],
       },
       {
         heading: "Cloud Platforms",
         items: [
-          { title: "Amazon Web Services", description: "Scalable AWS infrastructure and support.", href: "#" },
-          { title: "Microsoft Azure", description: "Enterprise-grade Azure deployments.", href: "#" },
-          { title: "Google Cloud Platform", description: "Modern GCP architecture and tooling.", href: "#" },
-          { title: "Hybrid & Private Cloud", description: "Secure infrastructure tailored to you.", href: "#" },
+          { title: "Amazon Web Services", href: "#" },
+          { title: "Microsoft Azure", href: "#" },
+          { title: "Google Cloud Platform", href: "#" },
+          { title: "Hybrid & Private Cloud", href: "#" },
         ],
       },
     ],
@@ -172,21 +168,20 @@ const CATEGORIES = [
     id: "technology",
     icon: LuCpu,
     title: "Technology",
-    description: "Anchor Operations in Adaptive Tech Stacks",
     href: "/technology",
     columns: [
       {
         heading: "Tech Edge",
         items: [
-          { title: "Technology Services", description: "Industry-ready, advanced business technologies.", href: "#" },
-          { title: "Business Process Consulting", description: "Strategic advisory for organizational process agility.", href: "#" },
+          { title: "Technology Services", href: "#" },
+          { title: "Business Process Consulting", href: "#" },
         ],
       },
       {
         heading: "Offshore Tech Solutions",
         items: [
-          { title: "Offshore Development Center", description: "Dedicated project divisions with skilled resources.", href: "#" },
-          { title: "Staff Augmentation", description: "Pool of talented digital engineering developers.", href: "#" },
+          { title: "Offshore Development Center", href: "#" },
+          { title: "Staff Augmentation", href: "#" },
         ],
       },
     ],
@@ -336,7 +331,6 @@ export default function Whatwedo() {
                     <Link href={item.href} className="wcf-megamenu__item" onClick={closeMenu}>
                       <span className="wcf-megamenu__item-body">
                         <span className="wcf-megamenu__item-title">{item.title}</span>
-                        {item.description && <span className="wcf-megamenu__item-desc">{item.description}</span>}
                       </span>
                       <LuArrowUpRight aria-hidden="true" className="wcf-megamenu__item-go" />
                     </Link>
