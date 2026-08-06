@@ -1,8 +1,5 @@
 .card {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   aspect-ratio: var(--sap-overlay-card-ratio, 3 / 2);
   overflow: hidden;
   border-radius: var(--sap-radius-md);
@@ -51,14 +48,23 @@
   background: rgba(var(--sap-overlay-rgb), 0.28);
 }
 
+/* Absolutely positioned (not a normal-flow flex child of .card) so its
+   content can never push .card taller than its aspect-ratio - a card whose
+   hover-revealed description+button is long enough (e.g. FunctionalityGrid
+   tiles with a longer description) would otherwise grow past its siblings
+   in the same grid row, since flex items' default automatic min-size can
+   still let intrinsic content size win out over aspect-ratio in some
+   browsers even with overflow:hidden on the ancestor. */
 .textWrap {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
-  max-width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 10px;
+  padding: 10% 10%;
   text-align: center;
 }
 
@@ -106,6 +112,9 @@
    a button, so they need to grow with their content instead of being locked
    to (and clipped by) the fixed 3:2 photo aspect ratio. */
 .forceVisible {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   aspect-ratio: auto;
   min-height: 280px;
   overflow: visible;
@@ -115,6 +124,16 @@
 
 .forceVisible:hover {
   transform: translateY(-6px);
+}
+
+/* Restores normal-flow sizing for this variant only: forceVisible has no
+   image to crop, so - unlike every other card - it's meant to grow with its
+   content instead of being clipped to a fixed box. */
+.forceVisible .textWrap {
+  position: relative;
+  inset: auto;
+  padding: 0;
+  max-width: 100%;
 }
 
 .forceVisible .description,
