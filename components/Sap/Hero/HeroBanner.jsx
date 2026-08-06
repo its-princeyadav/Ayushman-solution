@@ -16,6 +16,7 @@ import styles from "./HeroBanner.module.css";
 export default function HeroBanner({
   backgroundImage,
   title,
+  titleLines,
   description,
   bullets,
   numberedBullets = false,
@@ -57,7 +58,22 @@ export default function HeroBanner({
 
       <Container className={styles.container}>
         <div className={styles.content}>
-          <h1 className={styles.title}>{title}</h1>
+          <h1 className={`${styles.title} ${titleLines ? styles.titleModern : ""}`}>
+            {titleLines
+              ? titleLines.map((line, lineIndex) => (
+                  <span className={styles.titleLine} key={lineIndex}>
+                    {line.map((segment, segmentIndex) => (
+                      <span
+                        key={segmentIndex}
+                        className={segment.highlight ? styles.titleHighlight : undefined}
+                      >
+                        {segment.text}
+                      </span>
+                    ))}
+                  </span>
+                ))
+              : title}
+          </h1>
           {description && <p className={styles.description}>{description}</p>}
 
           <RichContent

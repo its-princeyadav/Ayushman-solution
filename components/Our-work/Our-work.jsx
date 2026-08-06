@@ -117,10 +117,6 @@ export default function OurWork() {
             <FaBriefcase aria-hidden="true" />
           </span>
           <span className="wcf-ourwork__intro-title">Our Work</span>
-          <span className="wcf-ourwork__intro-desc">
-            Showcasing our expertise, insights, success stories, industry knowledge, customer experiences,
-            and business transformation initiatives across multiple industries and technologies.
-          </span>
           <span className="wcf-ourwork__intro-arrow">
             <FaArrowRight aria-hidden="true" />
           </span>
@@ -137,7 +133,6 @@ export default function OurWork() {
                   onClick={closeMenu}
                 >
                   <span className="wcf-ourwork__item-title">{item.title}</span>
-                  <span className="wcf-ourwork__item-desc">{item.tagline}</span>
                 </Link>
               ))}
             </div>

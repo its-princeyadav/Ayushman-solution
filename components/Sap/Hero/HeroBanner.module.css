@@ -91,6 +91,26 @@
   line-height: var(--sap-heading-line-height);
 }
 
+/* Opt-in override for callers passing `titleLines` instead of a plain
+   `title` string (currently only the /sap hub hero) - swaps the Teko
+   display face above for the site's system-native "modern enterprise" sans
+   stack (--font-nav, already used for the main nav/premium UI chrome)
+   without touching .title itself, so every other HeroBanner caller still
+   using plain `title` keeps the original Teko treatment untouched. */
+.titleModern {
+  font-family: var(--font-nav);
+  text-transform: none;
+  letter-spacing: -0.01em;
+}
+
+.titleLine {
+  display: block;
+}
+
+.titleHighlight {
+  color: var(--color-primary);
+}
+
 .description {
   margin: 0 0 32px;
   max-width: 480px;

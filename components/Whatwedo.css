@@ -318,12 +318,6 @@
   color: var(--c, #1d4ed8);
 }
 
-.wcf-megamenu__item-desc {
-  font-size: 0.78rem;
-  color: #6b7280;
-  line-height: 1.35;
-}
-
 .wcf-megamenu__item-go {
   flex: none;
   margin-top: 3px;
@@ -445,10 +439,6 @@
   .wcf-megamenu__accordion-panel-content--top {
     gap: 2px;
     padding: 8px 4px 16px 12px;
-  }
-
-  .wcf-megamenu__mobile .wcf-megamenu__item-desc {
-    display: none;
   }
 
   .wcf-megamenu__mobile .wcf-megamenu__item {
