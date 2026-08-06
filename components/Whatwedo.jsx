@@ -100,7 +100,7 @@ const CATEGORIES = [
       {
         heading: null,
         items: [
-          { title: "Power BI", description: "Powering businesses to make insights-driven decisions.", href: "/analytics#power-bi" },
+          { title: "Power BI", description: "Powering businesses to make insights-driven decisions.", href: "/analytics/power-bi" },
           { title: "Alteryx Solutions", description: "Data-driven, advanced automation solutions to build intelligent enterprises.", href: "/analytics#automation" },
           { title: "QuickSight", description: "Seamless Cloud Integration for SMBs with Amazon BI Tool.", href: "/analytics#data-science" },
         ],
