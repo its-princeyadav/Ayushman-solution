@@ -1,20 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  LuLayers,
-  LuUsers,
-  LuCloud,
-  LuZap,
-  LuArrowRight,
-  LuAward,
-  LuChartColumn,
-  LuBuilding2,
-  LuMonitor,
-  LuTarget,
-  LuShieldCheck,
-} from "react-icons/lu";
+import { LuLayers, LuUsers, LuCloud, LuZap, LuArrowRight, LuAward, LuChartColumn, LuBuilding2, LuMonitor } from "react-icons/lu";
 import Navbar2 from "../../components/Common/Navbar2";
 import SectionLabel from "../../components/Common/SectionLabel";
+import WhyBusinessesChooseUs from "../../components/Home2/WhyBusinessesChooseUs/WhyBusinessesChooseUs";
 import "./home2-theme.css";
 import styles from "./page.module.css";
 
@@ -75,31 +64,6 @@ const WHY_US_CARDS = [
     icon: LuCloud,
     title: "Managed IT Services",
     description: "End-to-end infrastructure management, cloud monitoring, security, and ongoing technical support for business continuity.",
-  },
-];
-
-const CHOOSE_US_CARDS = [
-  {
-    icon: LuTarget,
-    title: "Business-Centric Solutions",
-    description: "Every implementation is aligned with your operational goals and growth strategy.",
-  },
-  {
-    icon: LuAward,
-    title: "Certified SAP Experts",
-    description:
-      "Experienced consultants with deep expertise across SAP Business One, SAP S/4HANA, SAP BTP, and SAP Analytics.",
-  },
-  {
-    icon: LuBuilding2,
-    title: "Industry Experience",
-    description:
-      "Proven success across Manufacturing, Pharmaceuticals, Retail, Distribution, Engineering, FMCG, Healthcare, and Services.",
-  },
-  {
-    icon: LuShieldCheck,
-    title: "Cost-Effective Delivery",
-    description: "Enterprise-grade solutions optimized for maximum ROI and long-term value.",
   },
 ];
 
@@ -277,26 +241,7 @@ export default function Home2Page() {
           </div>
         </section>
 
-        <section className={styles.chooseUs}>
-          <div className={styles.chooseUsInner}>
-            <SectionLabel title="Why Businesses Choose Us" className={styles.chooseUsLabelRow} />
-
-            <div className={styles.chooseUsGrid}>
-              {CHOOSE_US_CARDS.map((card) => {
-                const Icon = card.icon;
-                return (
-                  <div className={styles.chooseUsCard} key={card.title}>
-                    <span className={styles.chooseUsCardIcon}>
-                      <Icon aria-hidden="true" />
-                    </span>
-                    <h3 className={styles.chooseUsCardTitle}>{card.title}</h3>
-                    <p className={styles.chooseUsCardDesc}>{card.description}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        <WhyBusinessesChooseUs />
       </main>
     </>
   );
