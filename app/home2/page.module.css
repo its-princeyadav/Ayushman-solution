@@ -451,8 +451,7 @@
   .about *,
   .whyUs *,
   .whyUs *::before,
-  .whyUs *::after,
-  .chooseUs * {
+  .whyUs *::after {
     animation: none !important;
     transition: none !important;
   }
@@ -1121,127 +1120,5 @@
 
   .whyUsDesc {
     margin-bottom: 40px;
-  }
-}
-
-/* ---------- "Why Businesses Choose Us" section ---------- */
-
-.chooseUs {
-  padding-block: 110px;
-  background: var(--surface);
-}
-
-.chooseUsInner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding-inline: 32px;
-}
-
-.chooseUsLabelRow {
-  justify-content: center;
-  margin-bottom: 56px;
-}
-
-.chooseUsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-}
-
-.chooseUsCard {
-  padding: 30px 24px;
-  border-radius: 22px;
-  background: var(--surface);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: var(--shadow);
-  animation: as-fade-up 700ms ease both;
-  transition: transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease;
-}
-
-.chooseUsCard:nth-child(2) {
-  animation-delay: 100ms;
-}
-
-.chooseUsCard:nth-child(3) {
-  animation-delay: 200ms;
-}
-
-.chooseUsCard:nth-child(4) {
-  animation-delay: 300ms;
-}
-
-.chooseUsCard:hover {
-  transform: translateY(-8px);
-  border-color: var(--color-logo-yellow);
-  box-shadow: 0 28px 56px -20px rgba(15, 23, 42, 0.22);
-}
-
-.chooseUsCardIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 54px;
-  height: 54px;
-  margin-bottom: 18px;
-  border-radius: 15px;
-  background: color-mix(in srgb, var(--color-logo-yellow) 14%, white);
-  box-shadow: 0 6px 16px -8px rgba(254, 190, 14, 0.35);
-  color: var(--color-logo-yellow);
-  font-size: 1.4rem;
-  transition: background-color 350ms ease, transform 350ms ease;
-}
-
-.chooseUsCard:hover .chooseUsCardIcon {
-  background: color-mix(in srgb, var(--color-logo-yellow) 26%, white);
-  transform: rotate(-6deg) scale(1.05);
-}
-
-.chooseUsCardTitle {
-  margin: 0 0 10px;
-  font-family: var(--font-nav);
-  font-size: 1.02rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.chooseUsCardDesc {
-  margin: 0;
-  font-family: var(--font-nav);
-  font-size: 0.86rem;
-  font-weight: 500;
-  line-height: 1.6;
-  color: var(--text-secondary);
-}
-
-@media (max-width: 1024px) {
-  .chooseUs {
-    padding-block: 80px;
-  }
-
-  .chooseUsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-  }
-
-  .chooseUsCard {
-    padding: 24px 20px;
-  }
-}
-
-@media (max-width: 640px) {
-  .chooseUs {
-    padding-block: 56px;
-  }
-
-  .chooseUsInner {
-    padding-inline: 20px;
-  }
-
-  .chooseUsLabelRow {
-    margin-bottom: 36px;
-  }
-
-  .chooseUsGrid {
-    grid-template-columns: 1fr;
   }
 }

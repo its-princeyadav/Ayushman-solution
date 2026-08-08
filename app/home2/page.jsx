@@ -1,20 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  LuLayers,
-  LuUsers,
-  LuCloud,
-  LuZap,
-  LuArrowRight,
-  LuAward,
-  LuChartColumn,
-  LuBuilding2,
-  LuMonitor,
-  LuTarget,
-  LuShieldCheck,
-} from "react-icons/lu";
-import Navbar2 from "../../components/common/Navbar2";
+import { LuLayers, LuUsers, LuCloud, LuZap, LuArrowRight, LuAward, LuChartColumn, LuBuilding2, LuMonitor } from "react-icons/lu";
+import Navbar2 from "../../components/Common/Navbar2";
 import SectionLabel from "../../components/Common/SectionLabel";
+import WhyBusinessesChooseUs from "../../components/Home2/WhyBusinessesChooseUs/WhyBusinessesChooseUs";
+import EnterpriseSolutions from "../../components/Home2/EnterpriseSolutions/EnterpriseSolutions";
 import "./home2-theme.css";
 import styles from "./page.module.css";
 
@@ -78,31 +68,6 @@ const WHY_US_CARDS = [
   },
 ];
 
-const CHOOSE_US_CARDS = [
-  {
-    icon: LuTarget,
-    title: "Business-Centric Solutions",
-    description: "Every implementation is aligned with your operational goals and growth strategy.",
-  },
-  {
-    icon: LuAward,
-    title: "Certified SAP Experts",
-    description:
-      "Experienced consultants with deep expertise across SAP Business One, SAP S/4HANA, SAP BTP, and SAP Analytics.",
-  },
-  {
-    icon: LuBuilding2,
-    title: "Industry Experience",
-    description:
-      "Proven success across Manufacturing, Pharmaceuticals, Retail, Distribution, Engineering, FMCG, Healthcare, and Services.",
-  },
-  {
-    icon: LuShieldCheck,
-    title: "Cost-Effective Delivery",
-    description: "Enterprise-grade solutions optimized for maximum ROI and long-term value.",
-  },
-];
-
 export default function Home2Page() {
   return (
     <>
@@ -141,7 +106,7 @@ export default function Home2Page() {
               <p className={styles.expertiseDesc}>
                 We help organizations accelerate digital transformation through SAP Implementation, IT
                 Consulting, Cloud Solutions, and Enterprise Automation. Our experts deliver scalable, secure,
-                and future-ready SAP ecosystems tailored to your business.
+                and future-ready SAP ecosystems tailored to your business   .
               </p>
               <ul className={styles.expertiseTags}>
                 {SERVICE_TAGS.map((tag) => (
@@ -277,26 +242,9 @@ export default function Home2Page() {
           </div>
         </section>
 
-        <section className={styles.chooseUs}>
-          <div className={styles.chooseUsInner}>
-            <SectionLabel title="Why Businesses Choose Us" className={styles.chooseUsLabelRow} />
+        <WhyBusinessesChooseUs />
 
-            <div className={styles.chooseUsGrid}>
-              {CHOOSE_US_CARDS.map((card) => {
-                const Icon = card.icon;
-                return (
-                  <div className={styles.chooseUsCard} key={card.title}>
-                    <span className={styles.chooseUsCardIcon}>
-                      <Icon aria-hidden="true" />
-                    </span>
-                    <h3 className={styles.chooseUsCardTitle}>{card.title}</h3>
-                    <p className={styles.chooseUsCardDesc}>{card.description}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        <EnterpriseSolutions />
       </main>
     </>
   );

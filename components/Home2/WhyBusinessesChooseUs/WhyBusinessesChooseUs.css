@@ -1,0 +1,300 @@
+
+.home2WhyChoose-section {
+  padding-block: 110px;
+  background: var(--color-white);
+}
+
+.home2WhyChoose-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: 32px;
+}
+
+/* ---------- Eyebrow label (built locally, not the shared SectionLabel) ---------- */
+
+.home2WhyChoose-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 56px;
+}
+  
+.home2WhyChoose-labelBar {
+  flex: none;
+  width: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.home2WhyChoose-labelBar:first-child {
+  align-items: flex-end;
+}
+
+.home2WhyChoose-labelBar:last-child {
+  align-items: flex-start;
+}
+
+.home2WhyChoose-labelBar::before {
+  content: "";
+  width: 60%;
+  height: 2px;
+  background: var(--color-logo-yellow);
+}
+
+.home2WhyChoose-labelBar::after {
+  content: "";
+  width: 100%;
+  height: 3px;
+  background: var(--color-logo-yellow);
+}
+
+.home2WhyChoose-labelText {
+  font-family: var(--font-nav);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-secondary-dark);
+  white-space: nowrap;
+}
+
+/* ---------- Layout: timeline list (left) + image (right) ---------- */
+
+.home2WhyChoose-grid {
+  display: grid;
+  grid-template-columns: 43fr 57fr;
+  align-items: center;
+  column-gap: 64px;
+}
+
+.home2WhyChoose-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Thin solid yellow timeline line running through the icon column, behind
+   the icons themselves - inset to roughly the first/last icon's own
+   center so it doesn't run past them. */
+.home2WhyChoose-list::before {
+  content: "";
+  position: absolute;
+  top: 36px;
+  bottom: 60px;
+  left: 35px;
+  width: 2px;
+  background: var(--color-logo-yellow);
+  z-index: 0;
+}
+
+.home2WhyChoose-item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  animation: home2WhyChoose-fadeUp 600ms ease both;
+}
+
+.home2WhyChoose-item:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.home2WhyChoose-item:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+.home2WhyChoose-item:nth-child(4) {
+  animation-delay: 270ms;
+}
+
+/* No background card, per the reference - hover just nudges the icon and
+   title color, active state (below) is the same kind of nudge, just
+   stronger. */
+.home2WhyChoose-item:hover .home2WhyChoose-itemIcon {
+  background: var(--color-secondary-lighter);
+}
+
+.home2WhyChoose-itemIcon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-secondary-lightest);
+  color: var(--color-neutral-darkest);
+  font-size: 1.7rem;
+  transition: background-color 300ms ease, transform 300ms ease;
+}
+
+.home2WhyChoose-item--active .home2WhyChoose-itemIcon {
+  background: var(--color-logo-yellow);
+  color: var(--color-neutral-darkest);
+}
+
+.home2WhyChoose-itemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.home2WhyChoose-itemTitle {
+  font-family: ui-sans-serif, sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--color-neutral);
+  transition: color 300ms ease;
+}
+
+.home2WhyChoose-item--active .home2WhyChoose-itemTitle {
+  color: var(--color-neutral-darkest);
+}
+
+.home2WhyChoose-itemDesc {
+  font-family: var(--font-nav);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--color-secondary-dark);
+}
+
+/* ---------- Right side: image ---------- */
+
+.home2WhyChoose-media {
+  position: relative;
+}
+
+.home2WhyChoose-imageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3.4;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 55px -28px rgba(0, 0, 0, 0.4);
+  animation: home2WhyChoose-imageIn 450ms ease both;
+}
+
+.home2WhyChoose-image {
+  object-fit: cover;
+}
+
+@keyframes home2WhyChoose-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes home2WhyChoose-imageIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home2WhyChoose-section * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+  .home2WhyChoose-section {
+    padding-block: 80px;
+  }
+
+  .home2WhyChoose-grid {
+    grid-template-columns: 45fr 55fr;
+    column-gap: 36px;
+  }
+
+  .home2WhyChoose-list {
+    gap: 32px;
+  }
+
+  .home2WhyChoose-list::before {
+    top: 30px;
+    left: 29px;
+  }
+
+  .home2WhyChoose-item {
+    gap: 18px;
+  }
+
+  .home2WhyChoose-itemIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.45rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home2WhyChoose-section {
+    padding-block: 56px;
+  }
+
+  .home2WhyChoose-inner {
+    padding-inline: 20px;
+  }
+
+  .home2WhyChoose-label {
+    margin-bottom: 36px;
+  }
+
+  /* Timeline stacks above the image; click functionality is unaffected
+     since it's driven entirely by React state. */
+  .home2WhyChoose-grid {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+  }
+
+  .home2WhyChoose-list {
+    gap: 28px;
+  }
+
+  .home2WhyChoose-list::before {
+    top: 26px;
+    bottom: 50px;
+    left: 25px;
+  }
+
+  .home2WhyChoose-item {
+    gap: 16px;
+  }
+
+  .home2WhyChoose-itemIcon {
+    width: 52px;
+    height: 52px;
+    font-size: 1.3rem;
+  }
+
+  .home2WhyChoose-imageWrap {
+    aspect-ratio: 4 / 3;
+  }
+}
