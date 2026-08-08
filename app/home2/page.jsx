@@ -13,7 +13,7 @@ import {
   LuTarget,
   LuShieldCheck,
 } from "react-icons/lu";
-import Navbar2 from "../../components/common/Navbar2";
+import Navbar2 from "../../components/Common/Navbar2";
 import SectionLabel from "../../components/Common/SectionLabel";
 import "./home2-theme.css";
 import styles from "./page.module.css";
