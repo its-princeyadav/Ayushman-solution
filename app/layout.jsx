@@ -44,13 +44,16 @@ export default async function RootLayout({ children }) {
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "";
   const isAdmin = pathname.startsWith("/admin");
+  // /home2 is a standalone experimentation/redesign page - same bare-shell
+  // treatment as /admin so it isn't wrapped in the current site's chrome.
+  const isHome2 = pathname.startsWith("/home2");
 
-  if (isAdmin) {
+  if (isAdmin || isHome2) {
     // Bare shell only - no Navbar/Footer/preloader/vendor CSS+JS. The admin
     // module brings its own fonts/styles via app/admin/layout.jsx.
     return (
       <html lang="en-US">
-        <body>{children}</body>
+        <body suppressHydrationWarning>{children}</body>
       </html>
     );
   }

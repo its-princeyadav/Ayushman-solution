@@ -1,0 +1,265 @@
+.as-mobilemenu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  visibility: hidden;
+  opacity: 0;
+  background: rgba(15, 23, 42, 0.32);
+  transition: opacity var(--transition), visibility var(--transition);
+}
+
+.as-mobilemenu-overlay-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.as-mobilemenu-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* Matches the production navbar's off-canvas drawer width (Navbar.css /
+     wcf-nav-menu-container, 250px) - slightly roomier for this drawer's
+     extra footer buttons, but the same compact proportions. */
+  width: min(280px, 85vw);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  box-shadow: var(--shadow-menu);
+  transform: translateX(100%);
+  /* Same 0.45s slide duration as the production drawer. */
+  transition: transform 450ms ease;
+}
+
+.as-mobilemenu-overlay-open .as-mobilemenu-panel {
+  transform: translateX(0);
+}
+
+.as-mobilemenu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.as-mobilemenu-header-title {
+  font-family: var(--font-nav);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.as-mobilemenu-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--surface-light);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.as-mobilemenu-close-btn:hover {
+  background: var(--primary-light);
+}
+
+.as-mobilemenu-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 12px 24px;
+}
+
+.as-mobilemenu-section {
+  border-bottom: 1px solid var(--border);
+}
+
+.as-mobilemenu-section-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 12px;
+  border: none;
+  background: none;
+  font-family: var(--font-nav);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.as-mobilemenu-chevron {
+  transition: transform var(--transition);
+}
+
+.as-mobilemenu-chevron-open {
+  transform: rotate(180deg);
+}
+
+.as-mobilemenu-section-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition);
+}
+
+.as-mobilemenu-section-panel-open {
+  grid-template-rows: 1fr;
+}
+
+.as-mobilemenu-section-panel-inner {
+  overflow: hidden;
+}
+
+.as-mobilemenu-category-block {
+  border-top: 1px solid var(--border);
+}
+
+.as-mobilemenu-category-block:first-child {
+  border-top: none;
+}
+
+/* Second-level accordion trigger (SAP ERP, Data Analytics, ...) - indented
+   and lighter-weight than the top-level .as-mobilemenu-section-trigger so
+   the hierarchy (What We Do > category > items) reads clearly at a glance. */
+.as-mobilemenu-category-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 12px 11px 20px;
+  border: none;
+  background: none;
+  font-family: var(--font-nav);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.as-mobilemenu-category-trigger .as-mobilemenu-chevron {
+  font-size: 0.85em;
+}
+
+/* Indented one step further than the category trigger, so leaf links read
+   as children of their category rather than siblings of it. */
+.as-mobilemenu-category-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px 8px 10px 28px;
+}
+
+.as-mobilemenu-leaf-link,
+.as-mobilemenu-plain-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  font-family: var(--font-nav);
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color var(--transition);
+}
+
+.as-mobilemenu-leaf-link:hover,
+.as-mobilemenu-plain-link:hover {
+  background: var(--surface-light);
+}
+
+.as-mobilemenu-leaf-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sub-links (e.g. SAP Near You's city list) - stacked under their parent
+   item, matching the desktop sidebar's sublinks content one level deeper. */
+.as-mobilemenu-sublinks {
+  list-style: none;
+  margin: 0 0 4px;
+  padding: 0 0 0 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.as-mobilemenu-sublinks a {
+  display: block;
+  min-height: 40px;
+  padding: 9px 12px;
+  box-sizing: border-box;
+  font-family: var(--font-nav);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.as-mobilemenu-sublinks a:hover {
+  background: var(--surface-light);
+  color: var(--text-primary);
+}
+
+.as-mobilemenu-plain-link {
+  display: block;
+  font-weight: 600;
+}
+
+.as-mobilemenu-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 24px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.as-mobilemenu-search-btn,
+.as-mobilemenu-book-btn,
+.as-mobilemenu-contact-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-nav);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
+}
+
+.as-mobilemenu-search-btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.as-mobilemenu-book-btn {
+  border: none;
+  background: var(--primary);
+  color: var(--text-primary);
+}
+
+.as-mobilemenu-book-btn:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.as-mobilemenu-contact-btn {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.as-mobilemenu-contact-btn:hover {
+  background: var(--surface-light);
+}

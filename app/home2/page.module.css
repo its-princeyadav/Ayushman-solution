@@ -1,0 +1,1247 @@
+.heroWrap {
+  padding-top: 50px;
+}
+
+/* Card-style hero: a fixed 70vh height no longer matches the image's own
+   ~2:1 ratio, so object-fit:contain is used instead of cover - it scales
+   the whole image down to fit inside the card with zero cropping, rather
+   than cover's crop-to-fill. Any letterbox strip that leaves is filled by
+   .hero's own background-color, sampled from the image's own corner
+   pixels (~rgb(0,15,40)), so the letterbox reads as part of the same
+   artwork instead of a visible gap. */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 90%;
+  max-width: 1600px;
+  /* 70vh alone ignores card width: on a tall/narrow viewport (tablet
+     portrait) it produced a nearly-square card mostly filled by the
+     letterbox background instead of the image. Capping with a vw-relative
+     ceiling keeps 70vh's exact height on typical wide desktop windows
+     (where 55vw is already larger and never binds) while preventing that
+     on narrower ones. */
+  height: min(70vh, 55vw);
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-menu);
+  background: #050f28;
+}
+
+.heroImage {
+  object-fit: contain;
+  object-position: center center;
+}
+
+/* No existing overlay token in home2-theme.css to reuse - a flat 45% black
+   scrim is a one-off value specific to this hero, not a reusable design
+   token, so it's kept local rather than promoted to a CSS variable. */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.heroTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  /* Percentage-based, not a fixed px cap: the hero is now aspect-ratio
+     locked to the image, so the SAP graphic's on-screen position scales
+     down proportionally with viewport width too - a fixed max-width held
+     its ground while the graphic moved closer, and the two collided at
+     tablet widths. Capping as a share of the container keeps the same
+     clearance at every width. */
+  max-width: min(720px, 48%);
+  font-family: var(--font-nav);
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--surface);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+
+.heroTitleSecondary {
+  font-size: 0.55em;
+}
+
+.heroAccent {
+  width: 64px;
+  height: 4px;
+  margin-top: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-logo-yellow);
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    width: 94%;
+  }
+
+  .heroContent {
+    padding: 24px;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .heroWrap {
+    padding-top: 24px;
+  }
+
+  /* 70vh on a narrow phone makes a tall, portrait-shaped card that a
+     contain-fit landscape image can't fill without a large empty band -
+     capped lower here so the card stays a sensible shape on mobile. */
+  .hero {
+    width: 92%;
+    height: 56vh;
+    min-height: 340px;
+    border-radius: 18px;
+  }
+
+  .heroContent {
+    padding: 20px 16px;
+  }
+}
+
+/* ---------- "Our SAP Expertise" section ---------- */
+
+/* Full-bleed background (edge to edge, unlike the max-width-constrained
+   content below it) - flat and plain by request: no gradients, glow, or
+   pattern overlays, just the same light-gray tone used elsewhere on the
+   page. Depth comes only from the cards' own shadows. */
+.expertise {
+  padding-block: 110px;
+  background: #f5f7fa;
+}
+
+.expertiseInner {
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  grid-template-areas:
+    "label label"
+    "intro cards"
+    "cta   cards";
+  column-gap: 88px;
+  row-gap: 36px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-inline: 32px;
+}
+
+/* Text/bars styling now lives in the shared components/Common/SectionLabel
+   - this just positions it within the grid. */
+.expertiseLabelRow {
+  grid-area: label;
+}
+
+.expertiseIntro {
+  grid-area: intro;
+}
+
+.expertiseTitle {
+  margin: 0 0 24px;
+  max-width: 580px;
+  font-family: ui-sans-serif, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.expertiseTitleAccent {
+  color: var(--color-logo-yellow);
+}
+
+.expertiseDesc {
+  margin: 0 0 28px;
+  max-width: 560px;
+  font-family: var(--font-nav);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--color-secondary-darker);
+}
+
+.expertiseTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.expertiseTag {
+  padding: 9px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-nav);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+
+.expertiseTag:hover {
+  border-color: var(--color-logo-yellow);
+  background: color-mix(in srgb, var(--color-logo-yellow) 12%, white);
+  box-shadow: 0 8px 18px -10px rgba(254, 190, 14, 0.5);
+  transform: translateY(-2px);
+}
+
+.expertiseCta {
+  grid-area: cta;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-self: start;
+  gap: 16px;
+}
+
+/* Primary CTA reuses components/Common/Navbar2/Navbar2.css's own
+   .as-nav2-login-btn class directly (applied alongside this one in the
+   JSX) instead of re-declaring matching background/radius/shadow/
+   typography/transition values here - "same design system" via one
+   shared rule instead of two copies that can drift apart. This class only
+   adds what that shared one doesn't: Link needs text-decoration reset,
+   and full-width-on-mobile (below) is specific to this CTA row. */
+.ctaPrimary {
+  /* .as-nav2-login-btn doesn't set box-sizing (defaults to content-box) -
+     harmless there since it's never given an explicit width, but this CTA
+     gets width:100% on mobile below, where content-box would add its own
+     padding on top of that 100% and push the button past its container. */
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.ctaPrimaryArrow {
+  transition: transform 300ms ease;
+}
+
+.ctaPrimary:hover .ctaPrimaryArrow,
+.ctaPrimary:focus-visible .ctaPrimaryArrow {
+  transform: translateX(4px);
+}
+
+.ctaSecondary {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 30px;
+  border: 1.5px solid var(--primary);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--primary);
+  font-family: var(--font-nav);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 300ms ease, color 300ms ease, box-shadow 300ms ease;
+}
+
+.ctaSecondary:hover,
+.ctaSecondary:focus-visible {
+  background: var(--primary);
+  color: var(--color-neutral-darkest);
+  box-shadow: var(--shadow);
+  outline: none;
+}
+
+.expertiseCards {
+  grid-area: cards;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  align-content: start;
+}
+
+.expertiseCard {
+  padding: 30px 26px;
+  /* Deliberately not var(--radius-lg) (20px): that token is shared with
+     the mega menu panel (components/Common/Navbar2/MegaMenu2.css), so
+     raising it to the 22-24px this spec asks for would silently round the
+     mega menu's corners too. Kept as an explicit local value instead. */
+  border-radius: 22px;
+  background: var(--surface);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow);
+  transition: transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease;
+}
+
+.expertiseCard:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-logo-yellow);
+  box-shadow: 0 28px 56px -20px rgba(15, 23, 42, 0.22);
+}
+
+.expertiseCardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--color-logo-yellow) 14%, white);
+  box-shadow: 0 6px 16px -8px rgba(254, 190, 14, 0.35);
+  color: var(--color-logo-yellow);
+  font-size: 1.5rem;
+  transition: background-color 350ms ease, transform 350ms ease;
+}
+
+.expertiseCard:hover .expertiseCardIcon {
+  background: color-mix(in srgb, var(--color-logo-yellow) 26%, white);
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.expertiseCardTitle {
+  margin: 0 0 10px;
+  font-family: var(--font-nav);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.expertiseCardDesc {
+  margin: 0;
+  font-family: var(--font-nav);
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1024px) {
+  .expertise {
+    padding-block: 80px;
+  }
+
+  .expertiseInner {
+    column-gap: 48px;
+    row-gap: 28px;
+    padding-inline: 24px;
+  }
+
+  .expertiseCards {
+    gap: 22px;
+  }
+
+  .expertiseCard {
+    padding: 22px 20px;
+  }
+}
+
+/* Below tablet width, the two 45/55 columns get too narrow to hold a 2x2
+   card grid legibly - stack, and reorder so cards land between the intro
+   copy and the CTAs (content -> cards -> buttons) instead of the desktop
+   order (content -> buttons, cards alongside). */
+@media (max-width: 640px) {
+  .expertise {
+    padding-block: 56px;
+  }
+
+  .expertiseInner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "intro"
+      "cards"
+      "cta";
+    row-gap: 40px;
+    padding-inline: 20px;
+  }
+
+  .expertiseTitle,
+  .expertiseDesc {
+    max-width: none;
+  }
+
+  .expertiseCards {
+    grid-template-columns: 1fr;
+  }
+
+  .expertiseCta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* ---------- Shared entrance / float animations ---------- */
+
+@keyframes as-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes as-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Bell-style jingle: a few quick rotational shakes, then holds still for
+   the rest of the cycle. See .whyUsCardIcon. */
+@keyframes whyIconJingle {
+  0%,
+  82% {
+    rotate: 0deg;
+  }
+  84% {
+    rotate: -13deg;
+  }
+  86% {
+    rotate: 11deg;
+  }
+  88% {
+    rotate: -9deg;
+  }
+  90% {
+    rotate: 7deg;
+  }
+  92% {
+    rotate: -4deg;
+  }
+  94%,
+  100% {
+    rotate: 0deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about *,
+  .whyUs *,
+  .whyUs *::before,
+  .whyUs *::after,
+  .chooseUs * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- "About Us" section ---------- */
+
+.about {
+  padding-block: 110px;
+  background: var(--surface);
+  overflow: clip;
+}
+
+.aboutHeader {
+  max-width: 780px;
+  margin: 0 auto 60px;
+  padding-inline: 32px;
+  text-align: center;
+  animation: as-fade-up 700ms ease both;
+}
+
+.aboutTitle {
+  margin: 0;
+  font-family: ui-sans-serif, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.aboutInner {
+  display: grid;
+  grid-template-columns: 48fr 52fr;
+  align-items: center;
+  column-gap: 90px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-inline: 32px;
+}
+
+.aboutText {
+  animation: as-fade-up 700ms ease both;
+}
+
+.aboutStatCard {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 26px;
+  padding: 16px 24px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-lg);
+  background: var(--surface-light);
+  box-shadow: var(--shadow);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.aboutStatCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.aboutStatIcon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--color-logo-yellow) 16%, white);
+  color: var(--color-logo-yellow);
+  font-size: 1.3rem;
+}
+
+.aboutStatCard > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.aboutStatNumber {
+  font-family: var(--font-nav);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.aboutStatLabel {
+  font-family: var(--font-nav);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.aboutParagraph {
+  margin: 0 0 18px;
+  max-width: 560px;
+  font-family: var(--font-nav);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--color-secondary-darker);
+}
+
+.aboutCta {
+  box-sizing: border-box;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.aboutCtaArrow {
+  transition: transform 300ms ease;
+}
+
+.aboutCta:hover .aboutCtaArrow,
+.aboutCta:focus-visible .aboutCtaArrow {
+  transform: translateX(4px);
+}
+
+.aboutMedia {
+  position: relative;
+  animation: as-fade-up 700ms ease 150ms both;
+}
+
+.aboutImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-menu);
+}
+
+.aboutImage {
+  object-fit: cover;
+}
+
+.aboutImageAccent {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--color-logo-yellow);
+  box-shadow: 0 10px 22px -8px rgba(254, 190, 14, 0.55);
+}
+
+.floatCard {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* Flex/grid items default to min-width:auto, which floors their size at
+     their content's min-content width - in the ≤1024px grid layout that
+     let three cards' intrinsic width exceed their column, eating into
+     (or erasing) the grid gap between them. min-width:0 lets the card
+     actually shrink to its column so the gap is never squeezed out. */
+  min-width: 0;
+  padding: 14px 20px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-hover);
+  animation: as-float 4.5s ease-in-out infinite, as-fade-up 700ms ease both;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.floatCard:hover {
+  box-shadow: var(--shadow-menu);
+  transform: translateY(-6px) scale(1.02);
+}
+
+.floatCardIcon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-logo-yellow) 16%, white);
+  color: var(--color-logo-yellow);
+  font-size: 1.15rem;
+}
+
+.floatCard > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.floatCardNumber {
+  font-family: var(--font-nav);
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.floatCardLabel {
+  font-family: var(--font-nav);
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+.floatCard--experience {
+  top: 6%;
+  right: -6%;
+  animation-delay: 0ms, 200ms;
+}
+
+.floatCard--clients {
+  bottom: 14%;
+  left: -8%;
+  animation-delay: 900ms, 350ms;
+}
+
+.floatCard--industries {
+  bottom: -6%;
+  right: 8%;
+  animation-delay: 1500ms, 500ms;
+}
+
+@media (max-width: 1180px) {
+  .floatCard--experience {
+    right: 4px;
+  }
+
+  .floatCard--clients {
+    left: 4px;
+  }
+
+  .floatCard--industries {
+    right: 4px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .about {
+    padding-block: 80px;
+  }
+
+  .aboutHeader {
+    margin-bottom: 44px;
+    padding-inline: 24px;
+  }
+
+  .aboutInner {
+    grid-template-columns: 1fr;
+    row-gap: 64px;
+    padding-inline: 24px;
+  }
+
+  .aboutParagraph {
+    max-width: none;
+  }
+
+  /* Once the columns stack, the image no longer has a wide sibling column
+     bounding its width, so the absolute-positioned float cards' -6%/-8%
+     offsets (sized for the desktop split) collide with each other around
+     the now-centered, narrower image. Drop to a static grid beneath the
+     image instead - same breakpoint the column stack itself uses, since
+     that's what actually changes the available width. Image spans the
+     full row; the three cards share the remaining columns evenly. */
+  .aboutMedia {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+
+  .aboutImageWrap {
+    grid-column: 1 / -1;
+  }
+
+  /* No explicit width here - grid's default stretch already fills the
+     column, correctly subtracting the card's own padding/border. An
+     explicit width:100% would instead set the content box to 100% of the
+     column and let padding add on top, pushing the card past its column
+     into the gap (content-box is this project's box-sizing default). */
+  .floatCard {
+    position: static;
+    animation: as-fade-up 700ms ease both;
+  }
+
+  .floatCardLabel {
+    white-space: normal;
+  }
+}
+
+/* Below this, three equal-width cards get too narrow to hold their
+   content - switch to one per row. */
+@media (max-width: 555px) {
+  .aboutMedia {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .about {
+    padding-block: 56px;
+  }
+
+  .aboutHeader {
+    margin-bottom: 36px;
+    padding-inline: 20px;
+  }
+
+  .aboutInner {
+    row-gap: 48px;
+    padding-inline: 20px;
+  }
+
+  .aboutStatCard {
+    width: 100%;
+  }
+
+  .aboutCta {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .floatCard {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------- "Why Ayushman Solution" section ---------- */
+
+/* CSS-only parallax: the hero photo is painted directly on the section
+   with background-attachment:fixed, so it stays pinned to the viewport
+   while .whyUsInner scrolls over it - no JS/rAF loop needed on desktop.
+   Disabled on mobile in the 640px breakpoint below, where fixed
+   backgrounds are unreliable in mobile browsers and costly to repaint. */
+.whyUs {
+  position: relative;
+  /* ~25% down from 128px - trims the section's own whitespace without
+     touching the heading/desc/card spacing below, so nothing inside gets
+     cramped or clipped. */
+  padding-block: 96px;
+  overflow: hidden;
+  background-image: url("/assets/image2/sap-hero.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Dark scrim over the photo so white text stays readable without hiding
+   the image itself. */
+.whyUs::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.whyUsInner {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-inline: 32px;
+  text-align: center;
+}
+
+.whyUsLabelRow {
+  justify-content: center;
+}
+
+/* SectionLabel's default gray label text is tuned for a light section
+   background - against this section's dark photo it needs to go white.
+   The default yellow dash-bars already read well on dark, so they're left
+   alone. Scoped to whyUsLabelRow only, so every other SectionLabel usage
+   on the page (light backgrounds) is untouched. */
+.whyUsLabelRow :global(.as-section-label-text) {
+  color: var(--surface);
+}
+
+.whyUsTitle {
+  margin: 0 0 20px;
+  font-family: ui-sans-serif, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  color: var(--surface);
+}
+
+.whyUsDesc {
+  max-width: 760px;
+  margin: 0 auto 52px;
+  font-family: var(--font-nav);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--color-neutral-lightest);
+}
+
+.whyUsCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  text-align: left;
+}
+
+/* Glassmorphism card: translucent gradient fill (doubles as the "inner
+   highlight") + backdrop blur so the hero photo shows through softly,
+   with a hairline white border to read as a distinct pane of glass.
+   overflow stays visible here (not hidden) so the outer glow/shadow below
+   isn't clipped - the rounded-corner clipping for the decorative patterns
+   happens on .whyUsCardDecor instead, which owns its own overflow. Each
+   card gets its own accent that its icon, glow and CTA all read from via
+   custom properties. */
+.whyUsCard {
+  position: relative;
+  padding: 28px 26px;
+  border-radius: 26px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 24px 55px -28px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: as-fade-up 700ms ease both;
+  transition: transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease, backdrop-filter 350ms ease;
+}
+
+/* Explicit client request: red/white, blue/white, green/white per card,
+   overriding the yellow-only palette this section otherwise uses. */
+.whyUsCard:nth-child(1) {
+  --card-accent: #f87171;
+  --card-accent-2: #dc2626;
+}
+
+.whyUsCard:nth-child(2) {
+  --card-accent: #60a5fa;
+  --card-accent-2: #2563eb;
+  animation-delay: 120ms;
+}
+
+.whyUsCard:nth-child(3) {
+  --card-accent: #4ade80;
+  --card-accent-2: #16a34a;
+  animation-delay: 240ms;
+}
+
+.whyUsCard:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+  box-shadow: 0 36px 70px -24px rgba(0, 0, 0, 0.65),
+    0 0 0 1px color-mix(in srgb, var(--card-accent) 35%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Soft static edge glow (no breathing/pulsing) in the card's accent. */
+.whyUsCard::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 30%, transparent),
+    0 0 26px -6px color-mix(in srgb, var(--card-accent) 45%, transparent);
+  pointer-events: none;
+}
+
+/* Purely decorative, static micro-patterns: a top-right dot grid and a
+   bottom-left ring of concentric circles, each faded out with a radial
+   mask so they read as a subtle texture in the corner rather than tiling
+   the whole card. Its own overflow:hidden + inherited radius clips them
+   to the card's rounded shape without touching the card's own
+   box-shadow. */
+.whyUsCardDecor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.whyUsCardDecor::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1.5px);
+  background-size: 15px 15px;
+  -webkit-mask-image: radial-gradient(circle 130px at 100% 0%, black, transparent 72%);
+  mask-image: radial-gradient(circle 130px at 100% 0%, black, transparent 72%);
+  opacity: 0.55;
+}
+
+.whyUsCardDecor::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-radial-gradient(
+    circle at 0% 100%,
+    rgba(255, 255, 255, 0.4) 0,
+    rgba(255, 255, 255, 0.4) 1px,
+    transparent 1px,
+    transparent 13px
+  );
+  -webkit-mask-image: radial-gradient(circle 150px at 0% 100%, black, transparent 75%);
+  mask-image: radial-gradient(circle 150px at 0% 100%, black, transparent 75%);
+  opacity: 0.45;
+}
+
+/* Icon: wrap hosts a static soft glow blob behind the icon; the icon
+   itself carries the gradient. No motion on either. */
+.whyUsCardIconWrap {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin-bottom: 16px;
+}
+
+.whyUsCardIconWrap::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  z-index: -1;
+  border-radius: 20px;
+  background: radial-gradient(circle, var(--card-accent) 0%, transparent 70%);
+  filter: blur(10px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Icon "jingle": a quick wiggle, then a long still pause before it
+   repeats - kept occasional (not constant motion) since continuous icon
+   animation was the earlier complaint. Each card jingles on its own
+   offset so all three don't wiggle in lockstep. */
+.whyUsCardIcon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--card-accent), var(--card-accent-2));
+  box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--card-accent) 65%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  color: var(--surface);
+  font-size: 1.5rem;
+  animation: whyIconJingle 4.5s ease-in-out infinite;
+  transition: box-shadow 350ms ease;
+}
+
+.whyUsCard:nth-child(1) .whyUsCardIcon {
+  animation-delay: 0s;
+}
+
+.whyUsCard:nth-child(2) .whyUsCardIcon {
+  animation-delay: 0.4s;
+}
+
+.whyUsCard:nth-child(3) .whyUsCardIcon {
+  animation-delay: 0.8s;
+}
+
+.whyUsCard:hover .whyUsCardIcon {
+  box-shadow: 0 16px 34px -6px color-mix(in srgb, var(--card-accent) 80%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.whyUsCardTitle {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 10px;
+  font-family: var(--font-nav);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--surface);
+}
+
+.whyUsCardDesc {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-nav);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Circular glass CTA indicator - decorative (the card has nowhere for it
+   to navigate to yet), so it's a span, not a link. */
+.whyUsCardCta {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-top: 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid color-mix(in srgb, var(--card-accent) 55%, transparent);
+  color: var(--surface);
+  font-size: 1.05rem;
+  transition: background-color 350ms ease, box-shadow 350ms ease;
+}
+
+.whyUsCardCta svg {
+  transition: transform 350ms ease;
+}
+
+.whyUsCard:hover .whyUsCardCta {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 22px -2px var(--card-accent);
+}
+
+.whyUsCard:hover .whyUsCardCta svg {
+  transform: translateX(3px);
+}
+
+@media (max-width: 1024px) {
+  .whyUs {
+    padding-block: 70px;
+  }
+
+  /* Tablet: two cards per row. */
+  .whyUsCards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .whyUsCard {
+    padding: 22px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .whyUs {
+    padding-block: 48px;
+    /* background-attachment:fixed is unreliable (and expensive to
+       repaint) on mobile browsers - fall back to a normal scrolling
+       background image below the tablet breakpoint. */
+    background-attachment: scroll;
+  }
+
+  /* Mobile: one card per row. */
+  .whyUsCards {
+    grid-template-columns: 1fr;
+  }
+
+  .whyUsInner {
+    padding-inline: 20px;
+  }
+
+  .whyUsDesc {
+    margin-bottom: 40px;
+  }
+}
+
+/* ---------- "Why Businesses Choose Us" section ---------- */
+
+.chooseUs {
+  padding-block: 110px;
+  background: var(--surface);
+}
+
+.chooseUsInner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-inline: 32px;
+}
+
+.chooseUsLabelRow {
+  justify-content: center;
+  margin-bottom: 56px;
+}
+
+.chooseUsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.chooseUsCard {
+  padding: 30px 24px;
+  border-radius: 22px;
+  background: var(--surface);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow);
+  animation: as-fade-up 700ms ease both;
+  transition: transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease;
+}
+
+.chooseUsCard:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.chooseUsCard:nth-child(3) {
+  animation-delay: 200ms;
+}
+
+.chooseUsCard:nth-child(4) {
+  animation-delay: 300ms;
+}
+
+.chooseUsCard:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-logo-yellow);
+  box-shadow: 0 28px 56px -20px rgba(15, 23, 42, 0.22);
+}
+
+.chooseUsCardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 18px;
+  border-radius: 15px;
+  background: color-mix(in srgb, var(--color-logo-yellow) 14%, white);
+  box-shadow: 0 6px 16px -8px rgba(254, 190, 14, 0.35);
+  color: var(--color-logo-yellow);
+  font-size: 1.4rem;
+  transition: background-color 350ms ease, transform 350ms ease;
+}
+
+.chooseUsCard:hover .chooseUsCardIcon {
+  background: color-mix(in srgb, var(--color-logo-yellow) 26%, white);
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.chooseUsCardTitle {
+  margin: 0 0 10px;
+  font-family: var(--font-nav);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.chooseUsCardDesc {
+  margin: 0;
+  font-family: var(--font-nav);
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1024px) {
+  .chooseUs {
+    padding-block: 80px;
+  }
+
+  .chooseUsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+
+  .chooseUsCard {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .chooseUs {
+    padding-block: 56px;
+  }
+
+  .chooseUsInner {
+    padding-inline: 20px;
+  }
+
+  .chooseUsLabelRow {
+    margin-bottom: 36px;
+  }
+
+  .chooseUsGrid {
+    grid-template-columns: 1fr;
+  }
+}
