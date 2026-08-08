@@ -141,7 +141,7 @@ export default function Home2Page() {
               <p className={styles.expertiseDesc}>
                 We help organizations accelerate digital transformation through SAP Implementation, IT
                 Consulting, Cloud Solutions, and Enterprise Automation. Our experts deliver scalable, secure,
-                and future-ready SAP ecosystems tailored to your business.
+                and future-ready SAP ecosystems tailored to your business   .
               </p>
               <ul className={styles.expertiseTags}>
                 {SERVICE_TAGS.map((tag) => (
