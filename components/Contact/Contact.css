@@ -1,0 +1,321 @@
+/* Styles for the Contact Us page (components/Contact/*.jsx). Pure CSS, no
+   framework - matches the navy/blue/gray language already established in
+   components/Careers/Careers.css and components/Who We Are/WhoWeAre.css
+   (navy #14304f, blue #1d4ed8, gray #6b7280/#4b5563) so this page reads as
+   part of the same site. */
+
+/* ==================== Hero ==================== */
+
+.contactHero {
+  padding: clamp(64px, 10vw, 120px) 24px clamp(56px, 8vw, 88px);
+  background: linear-gradient(135deg, #0f2542 0%, #14304f 55%, #1d4ed8 130%);
+  text-align: center;
+}
+
+.contactHero__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.contactHero__eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9fc0ff;
+}
+
+.contactHero__heading {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0;
+}
+
+.contactHero__subheading {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 560px;
+  margin: 0;
+}
+
+/* ==================== Main (info + form) ==================== */
+
+.contactMain {
+  padding: clamp(56px, 8vw, 96px) 24px;
+}
+
+.contactMain__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+/* ---------- Info column ---------- */
+
+.contactInfo__heading {
+  font-size: clamp(1.75rem, 3vw, 2.3rem);
+  color: #14304f;
+  margin: 0 0 16px;
+  line-height: 1.25;
+}
+
+.contactInfo__description {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #4b5563;
+  margin: 0 0 32px;
+}
+
+.contactInfo__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contactInfo__card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 24px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #eef0f4;
+  transition: box-shadow 300ms ease, border-color 300ms ease;
+}
+
+.contactInfo__card:hover {
+  box-shadow: 0 18px 34px -20px rgba(15, 23, 42, 0.3);
+  border-color: #dbe4f5;
+}
+
+.contactInfo__cardIcon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #eaf1ff;
+  color: #1d4ed8;
+  font-size: 1.25rem;
+}
+
+.contactInfo__cardLabel {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin: 0 0 4px;
+}
+
+.contactInfo__cardValue {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #14304f;
+  margin: 0;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+a.contactInfo__cardValue:hover,
+a.contactInfo__cardValue:focus-visible {
+  color: #1d4ed8;
+  outline: none;
+}
+
+/* ---------- Form column ---------- */
+
+.contactForm {
+  padding: clamp(28px, 4vw, 40px);
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #eef0f4;
+  box-shadow: 0 24px 60px -30px rgba(15, 23, 42, 0.35);
+}
+
+.contactForm__heading {
+  font-size: 1.4rem;
+  color: #14304f;
+  margin: 0 0 24px;
+}
+
+.contactForm__notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.contactForm__notice svg {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  margin-top: 1px;
+}
+
+.contactForm__notice--success {
+  background: #eef8f1;
+  color: #14532d;
+}
+
+.contactForm__notice--success svg {
+  color: #22a06b;
+}
+
+.contactForm__notice--error {
+  background: #fdecec;
+  color: #7f1d1d;
+}
+
+.contactForm__notice--error svg {
+  color: #d9534f;
+}
+
+.contactForm__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contactForm__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.contactForm__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contactForm__field label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #14304f;
+}
+
+.contactForm__required {
+  color: #d9534f;
+}
+
+.contactForm__field input,
+.contactForm__field select,
+.contactForm__field textarea {
+  padding: 13px 16px;
+  border-radius: 8px;
+  border: 1px solid #d9e2ef;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #14304f;
+  background: #ffffff;
+  transition: border-color 200ms ease;
+  width: 100%;
+}
+
+.contactForm__field input:focus,
+.contactForm__field select:focus,
+.contactForm__field textarea:focus {
+  outline: none;
+  border-color: #1d4ed8;
+}
+
+.contactForm__field input[aria-invalid="true"],
+.contactForm__field select[aria-invalid="true"],
+.contactForm__field textarea[aria-invalid="true"] {
+  border-color: #d9534f;
+}
+
+.contactForm__field textarea {
+  resize: vertical;
+}
+
+.contactForm__error {
+  font-size: 0.8rem;
+  color: #d9534f;
+}
+
+.contactForm__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.contactForm__consent input {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  accent-color: #1d4ed8;
+  flex-shrink: 0;
+}
+
+.contactForm__consent label {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #4b5563;
+}
+
+.contactForm__submit {
+  align-self: flex-start;
+  padding: 15px 44px;
+  border-radius: 999px;
+  border: none;
+  background: #1d4ed8;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 250ms ease, transform 250ms ease;
+}
+
+.contactForm__submit:hover:not(:disabled),
+.contactForm__submit:focus-visible:not(:disabled) {
+  background: #163ec2;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.contactForm__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ==================== Responsive ==================== */
+
+@media (max-width: 1024px) {
+  .contactMain__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .contactHero,
+  .contactMain {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .contactForm__row {
+    grid-template-columns: 1fr;
+  }
+
+  .contactForm__submit {
+    align-self: stretch;
+    text-align: center;
+  }
+}

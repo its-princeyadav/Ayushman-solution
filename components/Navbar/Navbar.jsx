@@ -94,10 +94,10 @@ export function NavbarUtilityBar() {
             <FaRegCalendarAlt aria-hidden="true" />
             Book Slot
           </a>
-          <a href="#" className="navbar-utility-bar__btn navbar-utility-bar__btn--outline">
+          <Link href="/contact-us" className="navbar-utility-bar__btn navbar-utility-bar__btn--outline">
             <FaPhone aria-hidden="true" />
             Contact Us
-          </a>
+          </Link>
         </div>
       </div>
     </div>
