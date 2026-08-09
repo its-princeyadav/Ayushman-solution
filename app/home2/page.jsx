@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LuLayers, LuUsers, LuCloud, LuZap, LuArrowRight } from "react-icons/lu";
-import Navbar2 from "../../components/common/Navbar2";
+import { LuLayers, LuUsers, LuCloud, LuZap, LuArrowRight, LuAward, LuChartColumn, LuBuilding2, LuMonitor } from "react-icons/lu";
+import Navbar2 from "../../components/Common/Navbar2";
+import SectionLabel from "../../components/Common/SectionLabel";
+import WhyBusinessesChooseUs from "../../components/Home2/WhyBusinessesChooseUs/WhyBusinessesChooseUs";
+import EnterpriseSolutions from "../../components/Home2/EnterpriseSolutions/EnterpriseSolutions";
 import "./home2-theme.css";
 import styles from "./page.module.css";
 
@@ -35,6 +38,36 @@ const SERVICE_CARDS = [
   },
 ];
 
+const ABOUT_PARAGRAPHS = [
+  "At Ayushman Solution, we are a leading IT Services and IT Consulting company specializing in SAP ERP, Digital Transformation, Cloud Technologies, Enterprise Applications, and Business Automation.",
+  "We partner with organizations to simplify complex business processes, improve operational efficiency, and enable data-driven decision-making through intelligent enterprise solutions.",
+  "Our experienced SAP consultants, solution architects, and technology experts work closely with clients to deliver scalable, secure, and future-ready digital solutions.",
+];
+
+const ABOUT_FLOAT_STATS = [
+  { icon: LuChartColumn, number: "200+", label: "Satisfied Clients", position: "clients" },
+  { icon: LuUsers, number: "15+", label: "Years of Experience", position: "experience" },
+  { icon: LuBuilding2, number: "15+", label: "Industries Served", position: "industries" },
+];
+
+const WHY_US_CARDS = [
+  {
+    icon: LuUsers,
+    title: "SAP Consulting Team",
+    description: "Certified SAP professionals delivering implementation, migration, customization, upgrades, and support.",
+  },
+  {
+    icon: LuMonitor,
+    title: "Digital Transformation Team",
+    description: "Experts in business process optimization, automation, cloud adoption, and enterprise modernization.",
+  },
+  {
+    icon: LuCloud,
+    title: "Managed IT Services",
+    description: "End-to-end infrastructure management, cloud monitoring, security, and ongoing technical support for business continuity.",
+  },
+];
+
 export default function Home2Page() {
   return (
     <>
@@ -63,11 +96,7 @@ export default function Home2Page() {
 
         <section className={styles.expertise}>
           <div className={styles.expertiseInner}>
-            <div className={styles.expertiseLabelRow}>
-              <span className={styles.expertiseLabelLine} />
-              <span className={styles.expertiseLabel}>Our SAP Expertise</span>
-              <span className={styles.expertiseLabelLine} />
-            </div>
+            <SectionLabel title="Our SAP Expertise" className={styles.expertiseLabelRow} />
 
             <div className={styles.expertiseIntro}>
               <h2 className={styles.expertiseTitle}>
@@ -77,7 +106,7 @@ export default function Home2Page() {
               <p className={styles.expertiseDesc}>
                 We help organizations accelerate digital transformation through SAP Implementation, IT
                 Consulting, Cloud Solutions, and Enterprise Automation. Our experts deliver scalable, secure,
-                and future-ready SAP ecosystems tailored to your business.
+                and future-ready SAP ecosystems tailored to your business   .
               </p>
               <ul className={styles.expertiseTags}>
                 {SERVICE_TAGS.map((tag) => (
@@ -114,6 +143,108 @@ export default function Home2Page() {
             </div>
           </div>
         </section>
+
+        <section className={styles.about}>
+          <div className={styles.aboutHeader}>
+            <SectionLabel title="About Us" />
+            <h2 className={styles.aboutTitle}>
+              Driving Business Excellence Through SAP & Digital Innovation
+            </h2>
+          </div>
+
+          <div className={styles.aboutInner}>
+            <div className={styles.aboutText}>
+              <div className={styles.aboutStatCard}>
+                <span className={styles.aboutStatIcon}>
+                  <LuAward aria-hidden="true" />
+                </span>
+                <div>
+                  <span className={styles.aboutStatNumber}>500+</span>
+                  <span className={styles.aboutStatLabel}>Successful Projects Delivered</span>
+                </div>
+              </div>
+
+              {ABOUT_PARAGRAPHS.map((paragraph) => (
+                <p className={styles.aboutParagraph} key={paragraph.slice(0, 24)}>
+                  {paragraph}
+                </p>
+              ))}
+
+              <Link href="#" className={`as-nav2-login-btn ${styles.aboutCta}`}>
+                Explore More
+                <LuArrowRight aria-hidden="true" className={styles.aboutCtaArrow} />
+              </Link>
+            </div>
+
+            <div className={styles.aboutMedia}>
+              <div className={styles.aboutImageWrap}>
+                <Image
+                  src="/assets/image2/city-05.webp"
+                  alt="Ayushman Solution consultants collaborating on a SAP project"
+                  fill
+                  sizes="(max-width: 1024px) 90vw, 45vw"
+                  className={styles.aboutImage}
+                />
+                <span className={styles.aboutImageAccent} aria-hidden="true" />
+              </div>
+
+              {ABOUT_FLOAT_STATS.map((stat) => {
+                const Icon = stat.icon;
+                return (
+                  <div
+                    className={`${styles.floatCard} ${styles[`floatCard--${stat.position}`]}`}
+                    key={stat.position}
+                  >
+                    <span className={styles.floatCardIcon}>
+                      <Icon aria-hidden="true" />
+                    </span>
+                    <div>
+                      <span className={styles.floatCardNumber}>{stat.number}</span>
+                      <span className={styles.floatCardLabel}>{stat.label}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.whyUs}>
+          <div className={styles.whyUsInner}>
+            <SectionLabel title="Why Ayushman Solution" className={styles.whyUsLabelRow} />
+            <h2 className={styles.whyUsTitle}>Technology That Accelerates Business Growth</h2>
+            <p className={styles.whyUsDesc}>
+              Our ability to combine deep SAP expertise, industry knowledge, and innovative technologies enables
+              businesses to operate smarter, faster, and more efficiently.
+            </p>
+
+            <div className={styles.whyUsCards}>
+              {WHY_US_CARDS.map((card) => {
+                const Icon = card.icon;
+                return (
+                  <div className={styles.whyUsCard} key={card.title}>
+                    {/* Decorative only (dot-grid, rings, glow blob) - hidden from assistive tech */}
+                    <span className={styles.whyUsCardDecor} aria-hidden="true" />
+                    <span className={styles.whyUsCardIconWrap}>
+                      <span className={styles.whyUsCardIcon}>
+                        <Icon aria-hidden="true" />
+                      </span>
+                    </span>
+                    <h3 className={styles.whyUsCardTitle}>{card.title}</h3>
+                    <p className={styles.whyUsCardDesc}>{card.description}</p>
+                    <span className={styles.whyUsCardCta} aria-hidden="true">
+                      <LuArrowRight />
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <WhyBusinessesChooseUs />
+
+        <EnterpriseSolutions />
       </main>
     </>
   );
