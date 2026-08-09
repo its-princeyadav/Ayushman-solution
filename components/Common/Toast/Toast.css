@@ -1,0 +1,48 @@
+.toastStack {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: min(360px, calc(100vw - 40px));
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--color-white);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.25);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.toast svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: 1.2rem;
+}
+
+.toast--success {
+  color: var(--color-success);
+}
+
+.toast--error {
+  color: var(--color-error);
+}
+
+@media (max-width: 480px) {
+  .toastStack {
+    top: auto;
+    bottom: max(20px, env(safe-area-inset-bottom));
+    left: 20px;
+    right: 20px;
+    max-width: none;
+  }
+}

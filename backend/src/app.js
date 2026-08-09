@@ -3,6 +3,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const contactRoutes = require("../routes/contactRoutes");
+const authRoutes = require("../routes/authRoutes");
+const adminRoutes = require("../routes/adminRoutes");
 const { errorHandler, notFound } = require("../middleware/errorHandler");
 
 const app = express();
@@ -31,6 +33,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/contact", contactRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

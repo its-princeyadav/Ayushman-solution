@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   LuLayoutDashboard,
   LuUsers,
@@ -11,6 +12,7 @@ import {
   LuLogOut,
   LuX,
 } from "react-icons/lu";
+import { adminLogout } from "../../../lib/api";
 import styles from "./AdminSidebar.module.css";
 
 const NAV_ITEMS = [
@@ -26,6 +28,20 @@ const NAV_ITEMS = [
 // admin module notes - other /admin/* pages aren't built yet).
 export default function AdminSidebar({ open, onClose }) {
   const [activeId, setActiveId] = useState("dashboard");
+  const [loggingOut, setLoggingOut] = useState(false);
+  const router = useRouter();
+
+  async function handleLogout() {
+    if (loggingOut) return;
+    setLoggingOut(true);
+    try {
+      await adminLogout();
+    } catch {
+      // Even if the request fails, the client has no way to keep using an
+      // HttpOnly cookie it can't read - still send the admin back to login.
+    }
+    router.push("/admin");
+  }
 
   return (
     <>
@@ -61,9 +77,9 @@ export default function AdminSidebar({ open, onClose }) {
         </nav>
 
         <div className={styles.footer}>
-          <button type="button" className={styles.logout}>
+          <button type="button" className={styles.logout} onClick={handleLogout} disabled={loggingOut}>
             <LuLogOut aria-hidden="true" />
-            <span>Log Out</span>
+            <span>{loggingOut ? "Logging Out..." : "Log Out"}</span>
           </button>
         </div>
       </aside>

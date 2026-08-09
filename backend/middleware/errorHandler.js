@@ -17,6 +17,13 @@ function errorHandler(err, req, res, next) { // eslint-disable-line no-unused-va
         });
     }
 
+    if (err.code === 11000) {
+        return res.status(409).json({
+            success: false,
+            message: "An account with this email already exists.",
+        });
+    }
+
     res.status(err.statusCode || 500).json({
         success: false,
         message: "Something went wrong. Please try again later.",

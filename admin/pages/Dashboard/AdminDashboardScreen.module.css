@@ -173,6 +173,23 @@
   background: #fdf3e0;
 }
 
+.emptyState {
+  margin: 0;
+  font-family: var(--admin-font-body);
+  font-size: 0.85rem;
+  color: var(--admin-gray);
+}
+
+.errorBanner {
+  padding: 14px 16px;
+  border-radius: var(--admin-radius-sm);
+  background: var(--admin-danger-soft);
+  color: var(--admin-danger);
+  font-family: var(--admin-font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 @media (max-width: 900px) {
   .panels {
     grid-template-columns: 1fr;

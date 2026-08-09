@@ -13,10 +13,15 @@ import {
   HiOutlinePhone,
   HiOutlineX,
   HiOutlineArrowRight,
+  HiOutlineExclamationCircle,
+  HiOutlineCheckCircle,
 } from "react-icons/hi";
+import { loginUser, registerUser } from "../../lib/api";
+import { useToast } from "../Common/Toast/ToastProvider";
 import "./AuthModal.css";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^[0-9+()\-.\s]{7,20}$/;
 const EASE = [0.16, 1, 0.3, 1];
 
 function validateLogin(data) {
@@ -24,25 +29,32 @@ function validateLogin(data) {
   if (!data.email?.trim()) errors.email = "Email is required.";
   else if (!EMAIL_RE.test(data.email)) errors.email = "Enter a valid email address.";
   if (!data.password) errors.password = "Password is required.";
+  else if (data.password.length < 8) errors.password = "Password must be at least 8 characters.";
   return errors;
 }
 
 function validateRegister(data) {
   const errors = {};
   if (!data.name?.trim()) errors.name = "Full name is required.";
+  else if (data.name.trim().length < 2) errors.name = "Name must be at least 2 characters.";
   if (!data.email?.trim()) errors.email = "Email is required.";
   else if (!EMAIL_RE.test(data.email)) errors.email = "Enter a valid email address.";
+  if (data.phone?.trim() && !PHONE_RE.test(data.phone.trim())) {
+    errors.phone = "Enter a valid phone number.";
+  }
   if (!data.password) errors.password = "Password is required.";
   else if (data.password.length < 8) errors.password = "Password must be at least 8 characters.";
-  if (data.confirmPassword !== data.password) errors.confirmPassword = "Passwords do not match.";
+  if (!data.confirmPassword) errors.confirmPassword = "Please confirm your password.";
+  else if (data.confirmPassword !== data.password) errors.confirmPassword = "Passwords do not match.";
   return errors;
 }
 
-function FieldError({ message }) {
+function FieldError({ message, id }) {
   return (
     <AnimatePresence>
       {message && (
         <motion.span
+          id={id}
           className="authModal__error"
           role="alert"
           initial={{ opacity: 0, height: 0, marginTop: 0 }}
@@ -52,6 +64,30 @@ function FieldError({ message }) {
         >
           {message}
         </motion.span>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function FormBanner({ type, message }) {
+  return (
+    <AnimatePresence>
+      {message && (
+        <motion.div
+          className={`authModal__banner authModal__banner--${type}`}
+          role={type === "error" ? "alert" : "status"}
+          initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+          animate={{ opacity: 1, height: "auto", marginBottom: 16 }}
+          exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+          transition={{ duration: 0.18 }}
+        >
+          {type === "error" ? (
+            <HiOutlineExclamationCircle aria-hidden="true" />
+          ) : (
+            <HiOutlineCheckCircle aria-hidden="true" />
+          )}
+          <span>{message}</span>
+        </motion.div>
       )}
     </AnimatePresence>
   );
@@ -77,30 +113,61 @@ function Divider() {
 function LoginForm({ onSwitch, onClose }) {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const showToast = useToast();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (submitting) return;
+
     const data = Object.fromEntries(new FormData(event.currentTarget));
     const nextErrors = validateLogin(data);
     setErrors(nextErrors);
+    setFormError("");
     if (Object.keys(nextErrors).length > 0) return;
 
     setSubmitting(true);
-    window.setTimeout(() => {
+    try {
+      await loginUser({
+        email: data.email.trim(),
+        password: data.password,
+      });
+
+      setSuccessMessage("You are successfully logged in.");
+      showToast("You are successfully logged in.", "success");
+      window.setTimeout(() => {
+        onClose();
+      }, 1200);
+    } catch (error) {
+      // Backend already returns the same generic message for both a
+      // missing email and a wrong password - just surface it as-is.
+      setFormError(error.message || "Something went wrong. Please try again.");
       setSubmitting(false);
-      onClose();
-    }, 600);
+    }
   };
 
   return (
     <form className="authModal__form" onSubmit={handleSubmit} noValidate>
+      <FormBanner type="error" message={formError} />
+      <FormBanner type="success" message={successMessage} />
+
       <div className="authModal__field">
         <label htmlFor="authModal-login-email">Email Address</label>
         <div className={`authModal__inputWrap ${errors.email ? "authModal__inputWrap--error" : ""}`}>
           <HiOutlineMail aria-hidden="true" />
-          <input id="authModal-login-email" name="email" type="email" placeholder="you@example.com" />
+          <input
+            id="authModal-login-email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            autoComplete="email"
+            disabled={submitting || !!successMessage}
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "authModal-login-email-error" : undefined}
+          />
         </div>
-        <FieldError message={errors.email} />
+        <FieldError message={errors.email} id="authModal-login-email-error" />
       </div>
 
       <div className="authModal__field">
@@ -112,19 +179,28 @@ function LoginForm({ onSwitch, onClose }) {
         </div>
         <div className={`authModal__inputWrap ${errors.password ? "authModal__inputWrap--error" : ""}`}>
           <HiOutlineLockClosed aria-hidden="true" />
-          <input id="authModal-login-password" name="password" type="password" placeholder="********" />
+          <input
+            id="authModal-login-password"
+            name="password"
+            type="password"
+            placeholder="********"
+            autoComplete="current-password"
+            disabled={submitting || !!successMessage}
+            aria-invalid={!!errors.password}
+            aria-describedby={errors.password ? "authModal-login-password-error" : undefined}
+          />
         </div>
-        <FieldError message={errors.password} />
+        <FieldError message={errors.password} id="authModal-login-password-error" />
       </div>
 
-      <button type="submit" className="authModal__submit" disabled={submitting}>
+      <button type="submit" className="authModal__submit" disabled={submitting || !!successMessage}>
         <span>{submitting ? "Logging In..." : "Login"}</span>
         {!submitting && <HiOutlineArrowRight aria-hidden="true" />}
       </button>
 
       <p className="authModal__switch">
         Don&apos;t have an account?{" "}
-        <button type="button" onClick={onSwitch}>
+        <button type="button" onClick={onSwitch} disabled={submitting}>
           Create Account
         </button>
       </p>
@@ -135,75 +211,151 @@ function LoginForm({ onSwitch, onClose }) {
 function RegisterForm({ onSwitch, onClose }) {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const showToast = useToast();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (submitting) return;
+
     const data = Object.fromEntries(new FormData(event.currentTarget));
     const nextErrors = validateRegister(data);
     setErrors(nextErrors);
+    setFormError("");
     if (Object.keys(nextErrors).length > 0) return;
 
     setSubmitting(true);
-    window.setTimeout(() => {
+    try {
+      await registerUser({
+        name: data.name.trim(),
+        email: data.email.trim(),
+        phone: data.phone?.trim() || "",
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      });
+
+      setSuccessMessage("Registration successful! Your account has been created.");
+      // Fires now (not after the delay below) so the toast is already on
+      // screen and keeps confirming success for its own duration after the
+      // modal - which only shows the banner briefly - closes.
+      showToast("Registration successful! Your account has been created.", "success");
+      window.setTimeout(() => {
+        onClose();
+      }, 1500);
+    } catch (error) {
+      if (error.status === 409) {
+        setErrors({ email: error.message });
+      } else {
+        setFormError(error.message || "Something went wrong. Please try again.");
+      }
       setSubmitting(false);
-      onClose();
-    }, 600);
+    }
   };
 
   return (
     <form className="authModal__form" onSubmit={handleSubmit} noValidate>
+      <FormBanner type="error" message={formError} />
+      <FormBanner type="success" message={successMessage} />
+
       <div className="authModal__field">
         <label htmlFor="authModal-register-name">Full Name</label>
         <div className={`authModal__inputWrap ${errors.name ? "authModal__inputWrap--error" : ""}`}>
           <HiOutlineUser aria-hidden="true" />
-          <input id="authModal-register-name" name="name" type="text" placeholder="Your name" />
+          <input
+            id="authModal-register-name"
+            name="name"
+            type="text"
+            placeholder="Your name"
+            autoComplete="name"
+            disabled={submitting || !!successMessage}
+            aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? "authModal-register-name-error" : undefined}
+          />
         </div>
-        <FieldError message={errors.name} />
+        <FieldError message={errors.name} id="authModal-register-name-error" />
       </div>
 
       <div className="authModal__field">
         <label htmlFor="authModal-register-email">Email Address</label>
         <div className={`authModal__inputWrap ${errors.email ? "authModal__inputWrap--error" : ""}`}>
           <HiOutlineMail aria-hidden="true" />
-          <input id="authModal-register-email" name="email" type="email" placeholder="you@example.com" />
+          <input
+            id="authModal-register-email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            autoComplete="email"
+            disabled={submitting || !!successMessage}
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "authModal-register-email-error" : undefined}
+          />
         </div>
-        <FieldError message={errors.email} />
+        <FieldError message={errors.email} id="authModal-register-email-error" />
       </div>
 
       <div className="authModal__field">
         <label htmlFor="authModal-register-phone">Phone Number</label>
-        <div className="authModal__inputWrap">
+        <div className={`authModal__inputWrap ${errors.phone ? "authModal__inputWrap--error" : ""}`}>
           <HiOutlinePhone aria-hidden="true" />
-          <input id="authModal-register-phone" name="phone" type="tel" placeholder="+91 00000 00000" />
+          <input
+            id="authModal-register-phone"
+            name="phone"
+            type="tel"
+            placeholder="+91 00000 00000"
+            autoComplete="tel"
+            disabled={submitting || !!successMessage}
+            aria-invalid={!!errors.phone}
+            aria-describedby={errors.phone ? "authModal-register-phone-error" : undefined}
+          />
         </div>
+        <FieldError message={errors.phone} id="authModal-register-phone-error" />
       </div>
 
       <div className="authModal__field">
         <label htmlFor="authModal-register-password">Password</label>
         <div className={`authModal__inputWrap ${errors.password ? "authModal__inputWrap--error" : ""}`}>
           <HiOutlineLockClosed aria-hidden="true" />
-          <input id="authModal-register-password" name="password" type="password" placeholder="********" />
+          <input
+            id="authModal-register-password"
+            name="password"
+            type="password"
+            placeholder="********"
+            autoComplete="new-password"
+            disabled={submitting || !!successMessage}
+            aria-invalid={!!errors.password}
+            aria-describedby={errors.password ? "authModal-register-password-error" : undefined}
+          />
         </div>
-        <FieldError message={errors.password} />
+        <FieldError message={errors.password} id="authModal-register-password-error" />
       </div>
 
       <div className="authModal__field">
         <label htmlFor="authModal-register-confirm">Confirm Password</label>
         <div className={`authModal__inputWrap ${errors.confirmPassword ? "authModal__inputWrap--error" : ""}`}>
           <HiOutlineLockClosed aria-hidden="true" />
-          <input id="authModal-register-confirm" name="confirmPassword" type="password" placeholder="********" />
+          <input
+            id="authModal-register-confirm"
+            name="confirmPassword"
+            type="password"
+            placeholder="********"
+            autoComplete="new-password"
+            disabled={submitting || !!successMessage}
+            aria-invalid={!!errors.confirmPassword}
+            aria-describedby={errors.confirmPassword ? "authModal-register-confirm-error" : undefined}
+          />
         </div>
-        <FieldError message={errors.confirmPassword} />
+        <FieldError message={errors.confirmPassword} id="authModal-register-confirm-error" />
       </div>
 
-      <button type="submit" className="authModal__submit" disabled={submitting}>
-        <span>{submitting ? "Creating Account..." : "Create Account"}</span>
+      <button type="submit" className="authModal__submit" disabled={submitting || !!successMessage}>
+        <span>{submitting ? "Registering..." : "Register"}</span>
         {!submitting && <HiOutlineArrowRight aria-hidden="true" />}
       </button>
 
       <p className="authModal__switch">
         Already have an account?{" "}
-        <button type="button" onClick={onSwitch}>
+        <button type="button" onClick={onSwitch} disabled={submitting}>
           Login
         </button>
       </p>

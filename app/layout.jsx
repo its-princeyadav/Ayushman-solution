@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import Script from "next/script";
 import Preloader from "../components/Common/Preloader";
 import Popups from "../components/Common/Popups";
+import { ToastProvider } from "../components/Common/Toast/ToastProvider";
 import Navbar, { NavbarUtilityBar } from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import "./globals.css";
@@ -53,7 +54,9 @@ export default async function RootLayout({ children }) {
     // module brings its own fonts/styles via app/admin/layout.jsx.
     return (
       <html lang="en-US">
-        <body suppressHydrationWarning>{children}</body>
+        <body suppressHydrationWarning>
+          <ToastProvider>{children}</ToastProvider>
+        </body>
       </html>
     );
   }
@@ -124,6 +127,7 @@ export default async function RootLayout({ children }) {
         className="arolax-base wcf-preloader-active"
         suppressHydrationWarning
       >
+        <ToastProvider>
         <Script id="wcf--addons-js-extra" strategy="beforeInteractive">
           {`var WCF_ADDONS_JS = {ajaxUrl:"/wp-admin/admin-ajax.php",_wpnonce:"372ea7fafd",post_id:"6",i18n:{okay:"Okay",cancel:"Cancel",submit:"Submit",success:"Success",warning:"Warning"},smoothScroller:null,mode:"",elementor_breakpoint:{laptop:1366,tablet:1024,mobile:767,desktop:1400},elementor_devices:{mobile:{label:"Mobile Portrait",value:767,direction:"max"},mobile_extra:{label:"Mobile Landscape",value:880,direction:"max"},tablet:{label:"Tablet Portrait",value:1024,direction:"max"},tablet_extra:{label:"Tablet Landscape",value:1200,direction:"max"},laptop:{label:"Laptop",value:1366,direction:"max"},widescreen:{label:"Widescreen",value:2400,direction:"min"}},enable_cursor:"",cursor_breakpoint:"mobile",editor_mode:"",aae_loop_source:"",aae_loop_post:"0",page_smoother:{disableInEditor:true},isLoggedIn:""};`}
         </Script>
@@ -277,6 +281,7 @@ export default async function RootLayout({ children }) {
             <Script id="animations-js" src="/assets/js/animations.js" strategy="afterInteractive" async={false} />
           </div>
         </div>
+        </ToastProvider>
       </body>
     </html>
   );

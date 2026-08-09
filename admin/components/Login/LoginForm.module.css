@@ -52,3 +52,28 @@
 .forgot:hover {
   text-decoration: underline;
 }
+
+.banner {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--admin-radius-sm);
+  background: var(--admin-danger-soft);
+  color: var(--admin-danger);
+  font-family: var(--admin-font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.bannerSuccess {
+  background: var(--admin-success-soft);
+  color: var(--admin-success);
+}
+
+.fieldError {
+  margin: -8px 0 0;
+  color: var(--admin-danger);
+  font-family: var(--admin-font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
