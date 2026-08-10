@@ -62,7 +62,7 @@ export default async function RootLayout({ children }) {
   }
 
   return (
-    <html lang="en-US">
+    <html suppressHydrationWarning lang="en-US">
       <head>
         <script
           type="application/ld+json"
