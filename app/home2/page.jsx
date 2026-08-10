@@ -4,7 +4,6 @@ import { LuLayers, LuUsers, LuCloud, LuZap, LuArrowRight, LuAward, LuChartColumn
 import Navbar2 from "../../components/Common/Navbar2";
 import SectionLabel from "../../components/Common/SectionLabel";
 import WhyBusinessesChooseUs from "../../components/Home2/WhyBusinessesChooseUs/WhyBusinessesChooseUs";
-import EnterpriseSolutions from "../../components/Home2/EnterpriseSolutions/EnterpriseSolutions";
 import "./home2-theme.css";
 import styles from "./page.module.css";
 
@@ -243,8 +242,6 @@ export default function Home2Page() {
         </section>
 
         <WhyBusinessesChooseUs />
-
-        <EnterpriseSolutions />
       </main>
     </>
   );
