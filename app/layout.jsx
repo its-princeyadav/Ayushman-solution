@@ -52,14 +52,14 @@ export default async function RootLayout({ children }) {
     // Bare shell only - no Navbar/Footer/preloader/vendor CSS+JS. The admin
     // module brings its own fonts/styles via app/admin/layout.jsx.
     return (
-      <html lang="en-US">
+      <html suppressHydrationWarning lang="en-US">
         <body suppressHydrationWarning>{children}</body>
       </html>
     );
   }
 
   return (
-    <html lang="en-US">
+    <html suppressHydrationWarning lang="en-US">
       <head>
         <script
           type="application/ld+json"
