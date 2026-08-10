@@ -1,396 +1,75 @@
-/*
-  Enterprise Solutions section (Home2)
-  ------------------------------------
-  Plain global CSS, not a CSS Module - every class name below is exactly
-  what's rendered in the browser, so Ctrl+Shift+F in the editor finds it.
-  All classes are prefixed "enterprise-" to avoid clashing with other
-  stylesheets in the project.
-
-  This section uses its own precise color palette (custom properties on
-  .enterprise-section below) rather than the rest of Home2's yellow tokens -
-  a deliberate "premium SaaS" look distinct from the rest of the page, per
-  an explicit color spec (#FFBE0B / #F5F6F8 / #111111 / #555555).
-
-  Sections in this file, in order:
-    1. Section + Background Decorations
-    2. Header (eyebrow + title)
-    3. Description
-    4. Technology Grid (layout)
-    5. Technology Card
-    6. Responsive
-*/
-
-/* ==========================================================================
-   1. Section + Background Decorations
-   ========================================================================== */
-
-.enterprise-section {
-  --enterprise-accent: #ffbe0b;
-  --enterprise-bg: #f5f6f8;
-  --enterprise-text: #111111;
-  --enterprise-text-muted: #555555;
-  --enterprise-glass-border: rgba(255, 255, 255, 0.6);
-
-  position: relative;
-  padding-block: 120px;
-  background: var(--enterprise-bg);
-  overflow: hidden;
+.enterpriseSolutions-section {
+  padding: 4rem 1.5rem;
+  background: #f8fafc;
 }
 
-/* Fine dotted grid, confined to the top-right corner with a radial mask
-   so it reads as texture rather than tiling the whole section. */
-.enterprise-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(17, 17, 17, 0.12) 1px, transparent 1.5px);
-  background-size: 22px 22px;
-  -webkit-mask-image: radial-gradient(circle 260px at 100% 0%, black, transparent 75%);
-  mask-image: radial-gradient(circle 260px at 100% 0%, black, transparent 75%);
-}
-
-/* Thin concentric circle outline, bottom-left, mostly off-canvas - a quiet
-   geometric accent, not a glow or gradient blob. */
-.enterprise-section::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-  left: -140px;
-  bottom: -180px;
-  width: 440px;
-  height: 440px;
-  border-radius: 50%;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  box-shadow: 0 0 0 46px rgba(17, 17, 17, 0.025), 0 0 0 47px rgba(255, 190, 11, 0.16);
-}
-
-.enterprise-container {
-  position: relative;
-  z-index: 1;
-  max-width: 1280px;
+.enterpriseSolutions-content {
+  max-width: 1200px;
   margin: 0 auto;
-  padding-inline: 32px;
+}
+
+.enterpriseSolutions-header {
   text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-@keyframes enterprise-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+.enterpriseSolutions-label {
+  display: inline-block;
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #2563eb;
+  margin-bottom: 0.75rem;
 }
 
-/* ==========================================================================
-   2. Header (eyebrow label + title)
-   ------------------------------------
-   Sized/spaced to match the About Us heading (app/home2/page.module.css
-   .aboutHeader/.aboutTitle) so the two look identical, without importing
-   that CSS Module file (which would reintroduce hashed class names here).
-   ========================================================================== */
-
-.enterprise-header {
-  max-width: 780px;
-  margin: 0 auto 40px;
-  padding-inline: 32px;
-  text-align: center;
-  animation: enterprise-fade-up 700ms ease both;
-}
-
-.enterprise-title {
+.enterpriseSolutions-title {
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.05;
   margin: 0;
-  font-family: ui-sans-serif, sans-serif;
-  font-weight: 800;
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  line-height: 1.16;
-  letter-spacing: -0.015em;
-  color: var(--enterprise-text);
 }
 
-/* ==========================================================================
-   3. Description
-   ========================================================================== */
-
-.enterprise-description {
-  max-width: 740px;
-  margin: 0 auto 64px;
-  font-family: ui-sans-serif, sans-serif;
-  font-size: 1.05rem;
-  font-weight: 500;
-  line-height: 1.7;
-  color: var(--enterprise-text-muted);
+.enterpriseSolutions-copy {
+  max-width: 700px;
+  margin: 1rem auto 0;
+  color: #475569;
+  font-size: 1rem;
+  line-height: 1.8;
 }
 
-/* ==========================================================================
-   4. Technology Grid (layout)
-   ------------------------------------
-   Deliberately asymmetric, not a uniform grid: 6 columns total, the first
-   two cards (the "featured" row) each take half the width, the remaining
-   three split the row below into thirds.
-   ========================================================================== */
-
-.enterprise-grid {
+.enterpriseSolutions-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 28px;
-  text-align: left;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
-.enterprise-card:nth-child(-n + 2) {
-  grid-column: span 3;
+.enterpriseSolutions-card {
+  background: #ffffff;
+  padding: 1.75rem;
+  border-radius: 1rem;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.16);
 }
 
-.enterprise-card:nth-child(n + 3) {
-  grid-column: span 2;
-}
-
-/* ==========================================================================
-   5. Technology Card
-   ========================================================================== */
-
-.enterprise-card {
-  position: relative;
-  padding: 40px 36px;
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--enterprise-glass-border);
-  box-shadow: 0 20px 45px -26px rgba(17, 17, 17, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  overflow: hidden;
-  transition: transform 400ms ease, box-shadow 400ms ease, background-color 400ms ease, border-color 400ms ease,
-    backdrop-filter 400ms ease;
-}
-
-.enterprise-card:nth-child(n + 3) {
-  padding: 30px 28px;
-}
-
-.enterprise-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(26px);
-  -webkit-backdrop-filter: blur(26px);
-  border-color: rgba(255, 190, 11, 0.4);
-  box-shadow: 0 34px 70px -28px rgba(17, 17, 17, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.85);
-}
-
-/* Soft dotted texture inside the card itself, top-right corner, very low
-   opacity - a "floating glass highlight" rather than a solid pattern. */
-.enterprise-card-decoration {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(17, 17, 17, 0.2) 1px, transparent 1.5px);
-  background-size: 14px 14px;
-  -webkit-mask-image: radial-gradient(circle 120px at 100% 0%, black, transparent 70%);
-  mask-image: radial-gradient(circle 120px at 100% 0%, black, transparent 70%);
-  opacity: 0.5;
-}
-
-.enterprise-card-icon {
-  position: relative;
-  z-index: 1;
-  display: flex;
+.enterpriseSolutions-cardIcon {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 68px;
-  height: 68px;
-  margin-bottom: 22px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 2px solid var(--enterprise-accent);
-  box-shadow: 0 10px 24px -12px rgba(17, 17, 17, 0.25);
-  color: var(--enterprise-accent);
-  font-size: 1.6rem;
-  transition: transform 400ms ease, box-shadow 400ms ease;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background: #eff6ff;
+  color: #2563eb;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
-.enterprise-card:nth-child(n + 3) .enterprise-card-icon {
-  width: 56px;
-  height: 56px;
-  margin-bottom: 18px;
-  font-size: 1.35rem;
+.enterpriseSolutions-cardTitle {
+  margin: 0 0 0.75rem;
+  font-size: 1.125rem;
 }
 
-.enterprise-card:hover .enterprise-card-icon {
-  transform: rotate(8deg) scale(1.06);
-  box-shadow: 0 14px 30px -12px rgba(255, 190, 11, 0.5);
-}
-
-.enterprise-card-title {
-  position: relative;
-  z-index: 1;
-  margin: 0 0 12px;
-  font-family: ui-sans-serif, sans-serif;
-  font-weight: 800;
-  font-size: 1.3rem;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  color: var(--enterprise-text);
-}
-
-.enterprise-card:nth-child(n + 3) .enterprise-card-title {
-  font-size: 1.1rem;
-}
-
-.enterprise-card-divider {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 18px;
-  height: 2px;
-  margin-bottom: 14px;
-  background: var(--enterprise-accent);
-  transition: width 400ms ease;
-}
-
-.enterprise-card:hover .enterprise-card-divider {
-  width: 60px;
-}
-
-.enterprise-card-description {
-  position: relative;
-  z-index: 1;
-  max-width: 46ch;
+.enterpriseSolutions-cardDesc {
   margin: 0;
-  padding-right: 56px;
-  font-family: ui-sans-serif, sans-serif;
-  font-size: 0.94rem;
-  font-weight: 500;
-  line-height: 1.65;
-  color: var(--enterprise-text-muted);
-}
-
-.enterprise-card-arrow {
-  position: absolute;
-  z-index: 1;
-  right: 28px;
-  bottom: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--enterprise-glass-border);
-  color: var(--enterprise-text);
-  box-shadow: 0 8px 20px -10px rgba(17, 17, 17, 0.25);
-  transition: background-color 400ms ease, color 400ms ease, box-shadow 400ms ease;
-}
-
-.enterprise-card-arrow svg {
-  transition: transform 400ms ease;
-}
-
-.enterprise-card:hover .enterprise-card-arrow {
-  background: var(--enterprise-accent);
-  box-shadow: 0 12px 28px -10px rgba(255, 190, 11, 0.55);
-}
-
-.enterprise-card:hover .enterprise-card-arrow svg {
-  transform: translateX(3px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .enterprise-section * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
-/* ==========================================================================
-   6. Responsive
-   ========================================================================== */
-
-@media (max-width: 1024px) {
-  .enterprise-section {
-    padding-block: 88px;
-  }
-
-  .enterprise-header {
-    margin-bottom: 44px;
-    padding-inline: 24px;
-  }
-
-  .enterprise-description {
-    margin-bottom: 48px;
-  }
-
-  /* The 2-large/3-medium asymmetry needs real width to read well - below
-     this it collapses to a plain 2-column grid instead of squeezing. */
-  .enterprise-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-  }
-
-  .enterprise-card:nth-child(-n + 2),
-  .enterprise-card:nth-child(n + 3) {
-    grid-column: span 1;
-  }
-
-  .enterprise-card:nth-child(n + 3) {
-    padding: 34px 30px;
-  }
-
-  .enterprise-card:nth-child(n + 3) .enterprise-card-icon {
-    width: 68px;
-    height: 68px;
-    margin-bottom: 22px;
-    font-size: 1.6rem;
-  }
-
-  .enterprise-card:nth-child(n + 3) .enterprise-card-title {
-    font-size: 1.3rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .enterprise-section {
-    padding-block: 64px;
-  }
-
-  .enterprise-header {
-    margin-bottom: 36px;
-    padding-inline: 20px;
-  }
-
-  .enterprise-container {
-    padding-inline: 20px;
-  }
-
-  .enterprise-description {
-    margin-bottom: 40px;
-  }
-
-  .enterprise-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .enterprise-card,
-  .enterprise-card:nth-child(n + 3) {
-    padding: 30px 26px;
-  }
-
-  .enterprise-card-description {
-    padding-right: 0;
-    padding-bottom: 48px;
-  }
-
-  .enterprise-card-arrow {
-    right: 24px;
-    bottom: 24px;
-  }
+  color: #475569;
+  line-height: 1.8;
 }
