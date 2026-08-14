@@ -20,6 +20,15 @@
   --admin-radius-md: 14px;
   --admin-radius-sm: 10px;
 
+  /* Shared between AdminSidebar and AdminDashboardLayout so the sidebar's
+     own width and the main content's margin-left never drift apart. */
+  --admin-sidebar-width: 260px;
+  --admin-sidebar-width-collapsed: 76px;
+  /* Visual gap between the fixed sidebar and the main content column -
+     lets the shell's own background (see .shell) show through as a gutter
+     instead of content butting directly against the sidebar's edge. */
+  --admin-content-gutter: 24px;
+
   --admin-shadow-card: 0 1px 2px rgba(28, 29, 32, 0.04), 0 24px 60px -20px rgba(28, 29, 32, 0.25);
   --admin-shadow-button: 0 10px 24px -10px rgba(254, 190, 14, 0.55);
   --admin-shadow-soft: 0 1px 2px rgba(28, 29, 32, 0.03), 0 8px 24px -12px rgba(28, 29, 32, 0.12);

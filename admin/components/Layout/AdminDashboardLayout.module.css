@@ -4,10 +4,15 @@
 }
 
 .main {
-  margin-left: 260px;
+  margin-left: calc(var(--admin-sidebar-width) + var(--admin-content-gutter));
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  transition: margin-left 220ms ease;
+}
+
+.mainCollapsed {
+  margin-left: calc(var(--admin-sidebar-width-collapsed) + var(--admin-content-gutter));
 }
 
 .content {
@@ -16,7 +21,8 @@
 }
 
 @media (max-width: 1024px) {
-  .main {
+  .main,
+  .mainCollapsed {
     margin-left: 0;
   }
 }

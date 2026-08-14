@@ -234,6 +234,9 @@
      padding on top of that 100% and push the button past its container. */
   box-sizing: border-box;
   text-decoration: none;
+  /* Same yellow as the navbar's Book Slot/Login buttons (--color-primary,
+     not the shared --primary token .as-nav2-login-btn normally uses). */
+  background: var(--color-primary);
 }
 
 .ctaPrimaryArrow {
@@ -251,10 +254,13 @@
   align-items: center;
   gap: 10px;
   padding: 13px 30px;
-  border: 1.5px solid var(--primary);
+  /* var(--color-primary) directly, not the shared --primary token - see
+     .ctaPrimary's comment above for why (master.min.css also defines
+     --primary, as orange, and can win the cascade). */
+  border: 1.5px solid var(--color-primary);
   border-radius: var(--radius-pill);
   background: var(--surface);
-  color: var(--primary);
+  color: var(--color-primary);
   font-family: var(--font-nav);
   font-size: 0.95rem;
   font-weight: 700;
@@ -265,7 +271,7 @@
 
 .ctaSecondary:hover,
 .ctaSecondary:focus-visible {
-  background: var(--primary);
+  background: var(--color-primary);
   color: var(--color-neutral-darkest);
   box-shadow: var(--shadow);
   outline: none;
@@ -561,6 +567,10 @@
   box-sizing: border-box;
   margin-top: 10px;
   text-decoration: none;
+  /* Same override as .ctaPrimary above: .as-nav2-login-btn's own background
+     (var(--primary)) can lose the cascade to master.min.css's unrelated
+     --primary (orange), so pin this CTA to the yellow brand token directly. */
+  background: var(--color-primary);
 }
 
 .aboutCtaArrow {

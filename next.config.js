@@ -3,6 +3,12 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  // Default "bottom-left" dev indicator sits on top of the admin sidebar's
+  // Log Out button (fixed-position, same corner) - moved out of the way.
+  // Dev-only; not rendered in production builds.
+  devIndicators: {
+    position: "bottom-right",
+  },
   async headers() {
     // These are plain public/ files (unhashed filenames), so no "immutable"
     // - if one gets edited, browsers must be able to pick up the change

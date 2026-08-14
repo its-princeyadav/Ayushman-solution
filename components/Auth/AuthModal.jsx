@@ -18,6 +18,7 @@ import {
 } from "react-icons/hi";
 import { loginUser, registerUser } from "../../lib/api";
 import { useToast } from "../Common/Toast/ToastProvider";
+import { useAuth } from "./AuthProvider";
 import "./AuthModal.css";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -116,6 +117,7 @@ function LoginForm({ onSwitch, onClose }) {
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const showToast = useToast();
+  const { login } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -129,10 +131,11 @@ function LoginForm({ onSwitch, onClose }) {
 
     setSubmitting(true);
     try {
-      await loginUser({
+      const result = await loginUser({
         email: data.email.trim(),
         password: data.password,
       });
+      login(result.user);
 
       setSuccessMessage("You are successfully logged in.");
       showToast("You are successfully logged in.", "success");

@@ -3,13 +3,18 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 260px;
+  width: var(--admin-sidebar-width);
   display: flex;
   flex-direction: column;
   background: var(--admin-dark);
   padding: 20px 14px;
   z-index: 40;
-  transition: transform 250ms ease;
+  overflow: hidden;
+  transition: transform 250ms ease, width 220ms ease;
+}
+
+.sidebar.collapsed {
+  width: var(--admin-sidebar-width-collapsed);
 }
 
 .brand {
@@ -30,6 +35,11 @@
   flex-direction: column;
   line-height: 1.2;
   font-family: var(--admin-font-display);
+  white-space: nowrap;
+}
+
+.collapsed .brandText {
+  display: none;
 }
 
 .brandPrimary {
@@ -52,6 +62,32 @@
   color: var(--admin-gray);
   cursor: pointer;
   padding: 4px;
+}
+
+.collapseBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--admin-gray);
+  cursor: pointer;
+  padding: 4px;
+  flex: none;
+}
+
+.collapseBtn:hover {
+  color: var(--admin-white);
+}
+
+.collapsed .brand {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.collapsed .collapseBtn {
+  margin-left: 0;
 }
 
 .nav {
@@ -90,6 +126,18 @@
   color: var(--admin-white);
 }
 
+.collapsed .navItem,
+.collapsed .logout {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.collapsed .navItem span,
+.collapsed .logout span {
+  display: none;
+}
+
 .navItem.active {
   background: var(--admin-yellow);
   color: var(--admin-dark);
@@ -109,18 +157,22 @@
   padding: 11px 12px;
   border-radius: var(--admin-radius-sm);
   border: none;
-  background: transparent;
-  color: var(--admin-gray);
+  background: var(--admin-yellow);
+  color: var(--admin-dark);
   font-family: var(--admin-font-body);
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   transition: background-color 180ms ease, color 180ms ease;
 }
 
 .logout:hover {
-  background: rgba(214, 69, 69, 0.14);
-  color: #ff8a8a;
+  background: var(--admin-yellow-hover);
+}
+
+.logout:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .scrim {
@@ -128,7 +180,12 @@
 }
 
 @media (max-width: 1024px) {
-  .sidebar {
+  .sidebar,
+  .sidebar.collapsed {
+    /* Collapse is a desktop-only affordance - the mobile drawer always
+       opens at full width regardless of a collapsed state left over from
+       a wider viewport. */
+    width: var(--admin-sidebar-width);
     transform: translateX(-100%);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
   }
@@ -139,6 +196,30 @@
 
   .closeBtn {
     display: flex;
+  }
+
+  .collapseBtn {
+    display: none;
+  }
+
+  .collapsed .brand {
+    flex-direction: row;
+  }
+
+  .collapsed .brandText {
+    display: flex;
+  }
+
+  .collapsed .navItem,
+  .collapsed .logout {
+    justify-content: flex-start;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .collapsed .navItem span,
+  .collapsed .logout span {
+    display: inline;
   }
 
   .scrim {

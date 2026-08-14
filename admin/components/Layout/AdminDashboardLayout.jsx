@@ -7,11 +7,17 @@ import styles from "./AdminDashboardLayout.module.css";
 
 export default function AdminDashboardLayout({ title, children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <div className={styles.shell}>
-      <AdminSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <div className={styles.main}>
+      <AdminSidebar
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        collapsed={collapsed}
+        onToggleCollapse={() => setCollapsed((value) => !value)}
+      />
+      <div className={`${styles.main} ${collapsed ? styles.mainCollapsed : ""}`}>
         <AdminHeader title={title} onMenuClick={() => setSidebarOpen(true)} />
         <main className={styles.content}>{children}</main>
       </div>

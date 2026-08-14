@@ -11,6 +11,8 @@ import {
   LuSettings,
   LuLogOut,
   LuX,
+  LuPanelLeftClose,
+  LuPanelLeft,
 } from "react-icons/lu";
 import { adminLogout } from "../../../lib/api";
 import styles from "./AdminSidebar.module.css";
@@ -26,7 +28,7 @@ const NAV_ITEMS = [
 // UI-only phase: only /admin/dashboard exists, so navigation between
 // sections is a local active-state highlight, not real routing (see the
 // admin module notes - other /admin/* pages aren't built yet).
-export default function AdminSidebar({ open, onClose }) {
+export default function AdminSidebar({ open, onClose, collapsed, onToggleCollapse }) {
   const [activeId, setActiveId] = useState("dashboard");
   const [loggingOut, setLoggingOut] = useState(false);
   const router = useRouter();
@@ -46,7 +48,7 @@ export default function AdminSidebar({ open, onClose }) {
   return (
     <>
       {open && <div className={styles.scrim} onClick={onClose} aria-hidden="true" />}
-      <aside className={`${styles.sidebar} ${open ? styles.open : ""}`}>
+      <aside className={`${styles.sidebar} ${open ? styles.open : ""} ${collapsed ? styles.collapsed : ""}`}>
         <div className={styles.brand}>
           <Image src="/assets/image2/mini-logo.png" alt="Ayushman Solutions logo" width={32} height={32} className={styles.logo} />
           <span className={styles.brandText}>
@@ -55,6 +57,14 @@ export default function AdminSidebar({ open, onClose }) {
           </span>
           <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close menu">
             <LuX aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className={styles.collapseBtn}
+            onClick={onToggleCollapse}
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            {collapsed ? <LuPanelLeft aria-hidden="true" /> : <LuPanelLeftClose aria-hidden="true" />}
           </button>
         </div>
 
@@ -68,6 +78,7 @@ export default function AdminSidebar({ open, onClose }) {
                 type="button"
                 className={`${styles.navItem} ${isActive ? styles.active : ""}`}
                 onClick={() => setActiveId(item.id)}
+                title={collapsed ? item.label : undefined}
               >
                 <Icon aria-hidden="true" className={styles.navIcon} />
                 <span>{item.label}</span>
@@ -77,7 +88,13 @@ export default function AdminSidebar({ open, onClose }) {
         </nav>
 
         <div className={styles.footer}>
-          <button type="button" className={styles.logout} onClick={handleLogout} disabled={loggingOut}>
+          <button
+            type="button"
+            className={styles.logout}
+            onClick={handleLogout}
+            disabled={loggingOut}
+            title={collapsed ? "Log Out" : undefined}
+          >
             <LuLogOut aria-hidden="true" />
             <span>{loggingOut ? "Logging Out..." : "Log Out"}</span>
           </button>
