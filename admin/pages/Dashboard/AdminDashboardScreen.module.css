@@ -14,13 +14,13 @@
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  gap: 20px;
 }
 
 .panels {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
-  gap: 16px;
+  gap: 20px;
   align-items: start;
 }
 

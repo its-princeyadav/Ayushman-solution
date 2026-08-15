@@ -3,7 +3,8 @@ import Script from "next/script";
 import Preloader from "../components/Common/Preloader";
 import Popups from "../components/Common/Popups";
 import { ToastProvider } from "../components/Common/Toast/ToastProvider";
-import Navbar, { NavbarUtilityBar } from "../components/Navbar/Navbar";
+import { AuthProvider } from "../components/Auth/AuthProvider";
+import Navbar2 from "../components/Common/Navbar2";
 import Footer from "../components/Footer/Footer";
 import "./globals.css";
 
@@ -45,15 +46,12 @@ export default async function RootLayout({ children }) {
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "";
   const isAdmin = pathname.startsWith("/admin");
-  // /home2 is a standalone experimentation/redesign page - same bare-shell
-  // treatment as /admin so it isn't wrapped in the current site's chrome.
-  const isHome2 = pathname.startsWith("/home2");
 
-  if (isAdmin || isHome2) {
+  if (isAdmin) {
     // Bare shell only - no Navbar/Footer/preloader/vendor CSS+JS. The admin
     // module brings its own fonts/styles via app/admin/layout.jsx.
     return (
-      <html lang="en-US">
+      <html suppressHydrationWarning lang="en-US">
         <body suppressHydrationWarning>
           <ToastProvider>{children}</ToastProvider>
         </body>
@@ -127,6 +125,7 @@ export default async function RootLayout({ children }) {
         className="arolax-base wcf-preloader-active"
         suppressHydrationWarning
       >
+        <AuthProvider>
         <ToastProvider>
         <Script id="wcf--addons-js-extra" strategy="beforeInteractive">
           {`var WCF_ADDONS_JS = {ajaxUrl:"/wp-admin/admin-ajax.php",_wpnonce:"372ea7fafd",post_id:"6",i18n:{okay:"Okay",cancel:"Cancel",submit:"Submit",success:"Success",warning:"Warning"},smoothScroller:null,mode:"",elementor_breakpoint:{laptop:1366,tablet:1024,mobile:767,desktop:1400},elementor_devices:{mobile:{label:"Mobile Portrait",value:767,direction:"max"},mobile_extra:{label:"Mobile Landscape",value:880,direction:"max"},tablet:{label:"Tablet Portrait",value:1024,direction:"max"},tablet_extra:{label:"Tablet Landscape",value:1200,direction:"max"},laptop:{label:"Laptop",value:1366,direction:"max"},widescreen:{label:"Widescreen",value:2400,direction:"min"}},enable_cursor:"",cursor_breakpoint:"mobile",editor_mode:"",aae_loop_source:"",aae_loop_post:"0",page_smoother:{disableInEditor:true},isLoggedIn:""};`}
@@ -164,10 +163,7 @@ export default async function RootLayout({ children }) {
         <div id="smooth-wrapper" style={{ position: "relative" }}>
           <div id="smooth-content">
             <div id="page" className="hfeed site">
-              <NavbarUtilityBar />
-              <div data-elementor-type="wp-post" data-elementor-id="47" className="elementor elementor-47">
-                <Navbar />
-              </div>
+              <Navbar2 />
               {/* <main> instead of <div>: axe/Lighthouse flagged the page as
                   having no main landmark. Verified no CSS selector targets
                   this element by tag (only by its classes/data attributes),
@@ -183,7 +179,6 @@ export default async function RootLayout({ children }) {
             <Popups />
 
             <link rel="stylesheet" href="/assets/css/index2.css" />
-            <link rel="stylesheet" id="elementor-post-47-css" href="/assets/css/post-47.css" media="all" />
             {/* nav-menu.min.css / search.min.css removed: both were verified
                 0 bytes (confirmed identical empty content via hash), so their
                 <link> tags were two network requests contributing zero
@@ -282,6 +277,7 @@ export default async function RootLayout({ children }) {
           </div>
         </div>
         </ToastProvider>
+        </AuthProvider>
       </body>
     </html>
   );

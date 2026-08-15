@@ -5,11 +5,12 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { FaSearch, FaAngleDown, FaRegCalendarAlt, FaPhone } from "react-icons/fa";
-import { HiOutlineUser } from "react-icons/hi";
+import { HiOutlineUser, HiOutlineLogout } from "react-icons/hi";
 import { GridMegaMenu, CategorizedMegaMenu } from "./MegaMenu2";
 import MobileMenu2 from "./MobileMenu2";
 import { WHAT_WE_DO_CATEGORIES, INDUSTRIES_MEGA_MENU, OUR_WORK_MEGA_MENU, NAV_LINKS } from "./constants";
-import "../../../app/home2/home2-theme.css";
+import { useAuth } from "../../Auth/AuthProvider";
+import "../../../app/home-theme.css";
 import "./Navbar2.css";
 
 // Same code-split pattern as components/Navbar/Navbar.jsx: AuthModal pulls in
@@ -47,7 +48,10 @@ export default function Navbar2() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const closeTimerRef = useRef(null);
+  const userMenuRef = useRef(null);
+  const { user, isLoggedIn, logout } = useAuth();
 
   function clearCloseTimer() {
     if (closeTimerRef.current) {
@@ -79,10 +83,22 @@ export default function Navbar2() {
       setOpenMenu(null);
       setSearchOpen(false);
       setMobileOpen(false);
+      setUserMenuOpen(false);
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
+
+  useEffect(() => {
+    if (!userMenuOpen) return undefined;
+    function onClickOutside(event) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setUserMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, [userMenuOpen]);
 
   useEffect(() => {
     if (!mobileOpen) return undefined;
@@ -128,7 +144,7 @@ export default function Navbar2() {
 
       <header className="as-nav2-navbar">
         <div className="as-nav2-inner">
-          <Link href="/home2" className="as-nav2-brand">
+          <Link href="/" className="as-nav2-brand">
             <Image
               src="/assets/image2/mini-logo.png"
               alt="Ayushman Solutions"
@@ -171,10 +187,41 @@ export default function Navbar2() {
           </nav>
 
           <div className="as-nav2-actions">
-            <button type="button" className="as-nav2-login-btn" onClick={() => setAuthOpen(true)}>
-              <HiOutlineUser aria-hidden="true" />
-              <span>Login</span>
-            </button>
+            {isLoggedIn ? (
+              <div className="as-nav2-user-wrap" ref={userMenuRef}>
+                <button
+                  type="button"
+                  className="as-nav2-user-btn"
+                  aria-label="Account menu"
+                  aria-expanded={userMenuOpen}
+                  onClick={() => setUserMenuOpen((value) => !value)}
+                >
+                  <HiOutlineUser aria-hidden="true" />
+                </button>
+                <div className={`as-nav2-user-menu ${userMenuOpen ? "as-nav2-user-menu-open" : ""}`}>
+                  <div className="as-nav2-user-menu-info">
+                    <span className="as-nav2-user-menu-name">{user?.name || "Account"}</span>
+                    {user?.email && <span className="as-nav2-user-menu-email">{user.email}</span>}
+                  </div>
+                  <button
+                    type="button"
+                    className="as-nav2-user-menu-logout"
+                    onClick={() => {
+                      setUserMenuOpen(false);
+                      logout();
+                    }}
+                  >
+                    <HiOutlineLogout aria-hidden="true" />
+                    Logout
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button type="button" className="as-nav2-login-btn" onClick={() => setAuthOpen(true)}>
+                <HiOutlineUser aria-hidden="true" />
+                <span>Login</span>
+              </button>
+            )}
 
             <button
               type="button"

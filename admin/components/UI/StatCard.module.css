@@ -2,7 +2,7 @@
   background: var(--admin-white);
   border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-md);
-  padding: 18px 20px;
+  padding: 20px;
   box-shadow: var(--admin-shadow-soft);
 }
 
