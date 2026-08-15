@@ -43,18 +43,18 @@
   --color-logo-yellow: #febe0e;
   --color-logo-gray: #9f9da0;
 
-  /* Main navbar's nav-item font stack (see components/Navbar/Navbar.css
-     .wcf-nav-item) - centralized here so anything meant to read as an
-     extension of the primary nav (e.g. the SAP service tabs) references
-     this single source instead of duplicating the literal font stack. */
+  /* Main navbar's nav-item font stack - centralized here so anything meant
+     to read as an extension of the primary nav (e.g. the SAP service tabs)
+     references this single source instead of duplicating the literal font
+     stack. */
   --font-nav: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  /* Main navbar's nav-item typography (components/Navbar/Navbar.css
-     .wcf-nav-item) - centralized alongside --font-nav so any other nav
-     that wants to match it exactly (e.g. Navbar2, components/Common/
-     Navbar2/Navbar2.css .as-nav2-link) references the same values instead
-     of duplicating them and drifting out of sync. */
-  --nav-font-size: 18px;
+  /* Main navbar's nav-item typography - centralized alongside --font-nav
+     so any other nav that wants to match it exactly (currently just
+     Navbar2, components/Common/Navbar2/Navbar2.css .as-nav2-link)
+     references the same values instead of duplicating them and drifting
+     out of sync. */
+  --nav-font-size: 14px;
   --nav-font-weight: 500;
   --nav-letter-spacing: normal;
   --nav-line-height: 1.33;

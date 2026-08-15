@@ -110,38 +110,6 @@ export default function Navbar2() {
 
   return (
     <>
-      <div className="as-nav2-topbar">
-        <div className="as-nav2-topbar-inner">
-          <div className="as-nav2-search-wrap">
-            <button
-              type="button"
-              className="as-nav2-icon-btn"
-              aria-label="Toggle search"
-              aria-expanded={searchOpen}
-              onClick={() => setSearchOpen((value) => !value)}
-            >
-              <FaSearch aria-hidden="true" />
-            </button>
-            <form
-              className={`as-nav2-search-form ${searchOpen ? "as-nav2-search-form-open" : ""}`}
-              role="search"
-              action="/"
-            >
-              <input type="search" name="s" placeholder="Search..." className="as-nav2-search-input" />
-            </form>
-          </div>
-
-          <Link href="#" className="as-nav2-book-btn">
-            <FaRegCalendarAlt aria-hidden="true" />
-            Book Slot
-          </Link>
-          <Link href="#" className="as-nav2-contact-btn">
-            <FaPhone aria-hidden="true" />
-            Contact Us
-          </Link>
-        </div>
-      </div>
-
       <header className="as-nav2-navbar">
         <div className="as-nav2-inner">
           <Link href="/" className="as-nav2-brand">
@@ -187,6 +155,34 @@ export default function Navbar2() {
           </nav>
 
           <div className="as-nav2-actions">
+            <div className="as-nav2-search-wrap">
+              <button
+                type="button"
+                className="as-nav2-icon-btn"
+                aria-label="Toggle search"
+                aria-expanded={searchOpen}
+                onClick={() => setSearchOpen((value) => !value)}
+              >
+                <FaSearch aria-hidden="true" />
+              </button>
+              <form
+                className={`as-nav2-search-form ${searchOpen ? "as-nav2-search-form-open" : ""}`}
+                role="search"
+                action="/"
+              >
+                <input type="search" name="s" placeholder="Search..." className="as-nav2-search-input" />
+              </form>
+            </div>
+
+            <Link href="#" className="as-nav2-book-btn">
+              <FaRegCalendarAlt aria-hidden="true" />
+              <span className="as-nav2-btn-label">Book Slot</span>
+            </Link>
+            <Link href="#" className="as-nav2-contact-btn">
+              <FaPhone aria-hidden="true" />
+              <span className="as-nav2-btn-label">Contact Us</span>
+            </Link>
+
             {isLoggedIn ? (
               <div className="as-nav2-user-wrap" ref={userMenuRef}>
                 <button

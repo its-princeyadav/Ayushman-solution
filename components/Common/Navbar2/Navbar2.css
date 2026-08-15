@@ -1,24 +1,7 @@
-/* ---------- Top bar (search / book slot / contact us) ---------- */
-/* Scrolls away with the page - not sticky, on any breakpoint. */
-
-.as-nav2-topbar {
-  background: var(--topbar-bg);
-}
-
-.as-nav2-topbar-inner {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 18px;
-  max-width: 1320px;
-  height: 52px;
-  margin: 0 auto;
-  padding: 0 32px;
-}
-
-/* ---------- Main navbar ---------- */
-/* The only sticky element - stays pinned to the top on scroll while the
-   top bar above it scrolls away normally. */
+/* ---------- Navbar ---------- */
+/* Single sticky strip - search / Book Slot / Contact Us live in
+   .as-nav2-actions alongside Login and the hamburger (previously a
+   separate non-sticky top bar, merged into one row by request). */
 
 .as-nav2-navbar {
   position: sticky;
@@ -26,6 +9,24 @@
   z-index: 100;
   background: var(--navbar-bg);
   border-bottom: 1px solid var(--border);
+  animation: as-nav2-enter 400ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .as-nav2-navbar {
+    animation: none;
+  }
+}
+
+@keyframes as-nav2-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .as-nav2-inner {
@@ -461,29 +462,41 @@ button.as-nav2-login-btn {
 
 /* ---------- Responsive ---------- */
 
-@media (max-width: 1180px) {
-  .as-nav2-topbar-inner {
-    padding: 0 24px;
-    gap: 14px;
+/* Everything now lives in one row (logo + center links + search/Book Slot/
+   Contact Us/Login/hamburger), so Book Slot/Contact Us drop their text
+   label a tier earlier than before - icon-only keeps the row from wrapping
+   or crowding the centered links while there's still room for them. */
+@media (max-width: 1360px) {
+  .as-nav2-btn-label {
+    display: none;
   }
 
+  .as-nav2-book-btn,
+  .as-nav2-contact-btn {
+    padding: 9px 12px;
+  }
+}
+
+@media (max-width: 1180px) {
   .as-nav2-inner {
     padding: 16px 24px;
   }
 
   .as-nav2-link {
     padding: 10px 12px;
-    font-size: 0.88rem;
-  }
-
-  .as-nav2-book-btn,
-  .as-nav2-contact-btn {
-    padding: 9px 16px;
   }
 }
 
 @media (max-width: 1024px) {
   .as-nav2-links {
+    display: none;
+  }
+
+  /* MobileMenu2's own footer already duplicates search/Book Slot/Contact
+     Us, so these fold away here along with the center links. */
+  .as-nav2-search-wrap,
+  .as-nav2-book-btn,
+  .as-nav2-contact-btn {
     display: none;
   }
 
