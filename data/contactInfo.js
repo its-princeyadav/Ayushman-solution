@@ -1,6 +1,6 @@
-// Reused across the Contact page (ContactInfo cards + form). Keep in sync
-// with backend/models/Contact.js SERVICE_OPTIONS - the two run in separate
-// runtimes so the list can't be imported across the boundary.
+// Reused across the Contact page (ContactInfo cards + form), and imported
+// directly by lib/models/Contact.js for the schema's `service` enum - single
+// source of truth, keep changes here in sync with that schema's expectations.
 
 export const CONTACT_EMAIL = "hello@example.com";
 
