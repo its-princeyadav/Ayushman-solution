@@ -5,8 +5,8 @@ import { SessionProvider, signOut as nextAuthSignOut, useSession } from "next-au
 
 const AuthContext = createContext(null);
 
-// The email/password login endpoint (backend/controllers/authController.js)
-// only confirms success - it issues no session cookie/token - so this is the
+// The email/password login endpoint (app/api/auth/login/route.js) only
+// confirms success - it issues no session cookie/token - so this is the
 // only place that remembers the user is logged in. Good enough for a UI
 // indicator, not a real session.
 const STORAGE_KEY = "as_auth_user";
