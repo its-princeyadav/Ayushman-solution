@@ -6,6 +6,10 @@
   opacity: 0;
   background: rgba(15, 23, 42, 0.32);
   transition: opacity var(--transition), visibility var(--transition);
+  /* Stops a swipe that reaches this element from chaining through to the
+     page behind it (relevant on touch devices even with body/html overflow
+     locked in useBodyScrollLock). */
+  overscroll-behavior: contain;
 }
 
 .as-mobilemenu-overlay-open {
@@ -71,6 +75,7 @@
 .as-mobilemenu-body {
   flex: 1;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 12px 12px 24px;
 }
 

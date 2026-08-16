@@ -10,6 +10,7 @@ import { GridMegaMenu, CategorizedMegaMenu } from "./MegaMenu2";
 import MobileMenu2 from "./MobileMenu2";
 import { WHAT_WE_DO_CATEGORIES, INDUSTRIES_MEGA_MENU, OUR_WORK_MEGA_MENU, NAV_LINKS } from "./constants";
 import { useAuth } from "../../Auth/AuthProvider";
+import { useBodyScrollLock } from "../../../hooks/useBodyScrollLock";
 import "../../../app/home-theme.css";
 import "./Navbar2.css";
 
@@ -17,6 +18,9 @@ import "./Navbar2.css";
 // framer-motion and only renders once opened, so it's fetched on demand
 // instead of bloating every /home2 load.
 const AuthModal = dynamic(() => import("../../Auth/AuthModal"), { ssr: false });
+// Same code-split reasoning as AuthModal above: only needed once the user
+// clicks "Book Slot".
+const BookingModal = dynamic(() => import("../BookingModal/BookingModal"), { ssr: false });
 
 const MEGA_MENUS = [
   {
@@ -48,6 +52,7 @@ export default function Navbar2() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const closeTimerRef = useRef(null);
   const userMenuRef = useRef(null);
@@ -100,13 +105,7 @@ export default function Navbar2() {
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, [userMenuOpen]);
 
-  useEffect(() => {
-    if (!mobileOpen) return undefined;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileOpen]);
+  useBodyScrollLock(mobileOpen);
 
   return (
     <>
@@ -131,10 +130,10 @@ export default function Navbar2() {
             </form>
           </div>
 
-          <Link href="#" className="as-nav2-book-btn">
+          <button type="button" className="as-nav2-book-btn" onClick={() => setBookingOpen(true)}>
             <FaRegCalendarAlt aria-hidden="true" />
             Book Slot
-          </Link>
+          </button>
           <Link href="#" className="as-nav2-contact-btn">
             <FaPhone aria-hidden="true" />
             Contact Us
@@ -240,8 +239,13 @@ export default function Navbar2() {
         </div>
       </header>
 
-      <MobileMenu2 isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <MobileMenu2
+        isOpen={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        onBookSlot={() => setBookingOpen(true)}
+      />
       <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </>
   );
 }

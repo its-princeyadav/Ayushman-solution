@@ -1,0 +1,1017 @@
+/* ---------- Backdrop ---------- */
+
+.bookingModal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(14, 14, 16, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  /* Stops a swipe/scroll that reaches this element from chaining through to
+     the page behind it (relevant on touch devices even with body/html
+     overflow locked in useBodyScrollLock). */
+  overscroll-behavior: contain;
+}
+
+/* ---------- Card shell ---------- */
+
+.bookingModal {
+  position: relative;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  /* Body row can shrink to 0 and grow up to what max-height allows - lets
+     .bookingModal__calendarPane (below) become its own bounded, independently
+     scrollable region instead of an implicit auto row that just grows to fit
+     its tallest content regardless of max-height. */
+  grid-template-rows: auto minmax(0, 1fr);
+  width: 100%;
+  /* One constant width for every booking step (date/slot/form/...) - sized
+     to comfortably fit the widest step (lead form + time-slot column)
+     rather than resizing as the user progresses. Earlier steps just get
+     extra breathing room instead of a narrower modal. */
+  max-width: 960px;
+  max-height: 90vh;
+  /* The card itself no longer scrolls as a whole - .bookingModal__info and
+     .bookingModal__calendarPane each own their own scroll region below, so
+     the header and left info panel never move while the right pane
+     scrolls. overflow:hidden here still clips everything to the rounded
+     corners. */
+  overflow: hidden;
+  background: var(--color-white);
+  /* Same curve on all four corners. overflow:hidden above clips every
+     child (header included) to this shape, so the yellow header's top
+     corners and the calendar pane's bottom corners follow it
+     automatically. */
+  border-radius: 22px;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.35);
+  font-family: var(--font-nav);
+}
+
+/* ---------- Header ---------- */
+
+.bookingModal__header {
+  grid-column: 1 / -1;
+  /* On desktop/tablet .bookingModal itself never scrolls (each panel below
+     scrolls independently), so this is inert there - harmless, since
+     position:sticky with no scrolling ancestor just behaves like normal
+     flow. It does matter on mobile (<=680px), where the layout stacks into
+     one column and .bookingModal becomes the scroll container again (see
+     the 680px breakpoint below) - sticking here keeps the header pinned in
+     that case too. */
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 16px 18px 16px 26px;
+  background: var(--color-primary);
+  box-shadow: 0 4px 10px -6px rgba(0, 0, 0, 0.18);
+}
+
+.bookingModal__headerLabel {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-neutral);
+}
+
+.bookingModal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--color-neutral);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-neutral);
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.bookingModal__close:hover,
+.bookingModal__close:focus-visible {
+  background: rgba(28, 29, 32, 0.08);
+  border-color: var(--color-neutral);
+  color: var(--color-neutral);
+  outline: none;
+}
+
+/* ---------- Left: info panel ---------- */
+/* Top padding matches .bookingModal__calendarPane's so the icon on this side
+   and the month-nav row on the right start at the same height. */
+
+.bookingModal__info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  /* This panel's own content is short and fixed (icon/heading/text/feature
+     list - none of it grows across booking steps), so in real use the row
+     is always at least as tall as it needs and this never visibly shows a
+     scrollbar. It's a safety net, not the intended way to view this panel -
+     the same lesson learned earlier with .bookingModal__featureList getting
+     silently clipped on a short viewport when this wasn't here. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 40px 40px;
+  background: var(--color-white);
+  color: var(--color-neutral);
+  border-right: 1px solid var(--color-border);
+}
+
+.bookingModal__infoIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-neutral);
+  font-size: 1.5rem;
+  box-shadow: 0 14px 26px -10px rgba(251, 240, 34, 0.65);
+}
+
+/* Small offset circle layered behind the main icon badge for depth - a
+   lighter echo of the same accent, not a second icon. */
+.bookingModal__infoIcon::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -6px;
+  bottom: -6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-primary-lightest);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
+}
+
+.bookingModal__infoTitle {
+  position: relative;
+  margin: 0 0 12px;
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-neutral);
+}
+
+.bookingModal__infoText {
+  position: relative;
+  max-width: 30ch;
+  margin: 0 0 26px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--color-neutral-light);
+}
+
+.bookingModal__featureList {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bookingModal__featureItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-neutral);
+}
+
+.bookingModal__featureIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-primary-dark);
+  border-radius: 50%;
+  background: var(--color-primary-lightest);
+  color: var(--color-neutral);
+  font-size: 1.1rem;
+}
+
+/* ---------- Confirmation (step 4) ---------- */
+/* The one step without a left sidebar - spans both grid columns (same
+   grid-column:1/-1 technique .bookingModal__header already uses) instead
+   of sitting beside .bookingModal__info, since the reference design this
+   was modeled on centers everything with no info panel at that point. The
+   modal's own width stays the same fixed constant as every other step. */
+
+.bookingModal__confirmation {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 56px 24px;
+  text-align: center;
+}
+
+.bookingModal__confirmationIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  /* Success reads via the conventional green here, not brand yellow - the
+     one deliberate departure from the all-yellow accent used everywhere
+     else in this modal, same token AuthModal.css already uses for its own
+     success banner (--color-success). */
+  background: rgba(92, 184, 92, 0.14);
+  color: var(--color-success);
+  font-size: 2.2rem;
+}
+
+.bookingModal__confirmationTitle {
+  margin: 0 0 10px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-neutral);
+}
+
+.bookingModal__confirmationText {
+  margin: 0 0 28px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-neutral-light);
+}
+
+.bookingModal__confirmationCard {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding: 20px 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-off-white);
+  text-align: left;
+}
+
+.bookingModal__confirmationRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bookingModal__confirmationLabel {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-neutral-light);
+}
+
+.bookingModal__confirmationValue {
+  min-width: 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-neutral);
+  text-align: right;
+  /* A long company/name value has nothing else to give way at narrow
+     widths - wraps onto its own line(s) instead of overflowing the card. */
+  overflow-wrap: break-word;
+}
+
+.bookingModal__confirmationCalendarBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bookingModal__confirmationCalendarBtn svg {
+  font-size: 1.05rem;
+}
+
+/* ---------- Right: calendar panel ---------- */
+
+/* Its own header/content/footer grid, mirroring .bookingModal itself:
+   row 1 is the bounded, independently-scrolling content area
+   (.bookingModal__calendarScroll); row 2 is whichever footer is showing
+   (.bookingModal__formFooter or .bookingModal__selectedDate), sized to its
+   own content and never part of the scrolling region - so it's always
+   flush with the pane's true bottom edge, with zero gap beneath it,
+   regardless of whether the content above is short or overflowing. This
+   replaces an earlier position:sticky + margin-top:auto combination that
+   worked for the "content overflows" case but left a gap in the "content
+   is short" case once combined with the footer's edge-to-edge bleed
+   margins - two different fixes that ended up fighting each other. */
+.bookingModal__calendarPane {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 0;
+  background: var(--color-white);
+}
+
+.bookingModal__calendarScroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 42px 24px;
+}
+
+.bookingModal__calendarRow {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 28px;
+  /* Roughly the calendar's own natural height - keeps the row from visibly
+     collapsing during the calendar<->form swap below, since AnimatePresence
+     mode="wait" briefly unmounts one before mounting the other. */
+  min-height: 320px;
+}
+
+/* Wraps whichever of BookingCalendar/LeadInfoForm is currently shown - the
+   flex-growing behavior belongs here (not on .bookingModal__calendar/
+   .bookingModal__formGrid directly), since those are now nested one level
+   inside this animated wrapper rather than being direct flex children.
+   Always grows to fill the row - the calendar itself now stretches to fill
+   this too (no max-width cap below), so it covers the full width of the
+   right side when it's the only thing showing. */
+.bookingModal__calendarRowMain {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Calendar-showing state only (not the lead form): floors how far the
+   time-slot panel is allowed to squeeze it once that panel appears
+   alongside it - without this, a plain 50/50 flex:1 split would push the
+   calendar below its own functional minimum (7 columns of 38px circles +
+   gaps) at this modal width and the two would visually crowd/overlap. */
+.bookingModal__calendarRowMain--calendar {
+  min-width: 330px;
+}
+
+.bookingModal__calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* No width cap - stretches to fill .bookingModal__calendarRowMain. The
+     7-column grid's own gap (below) is what keeps the date buttons from
+     looking stretched-thin at this width, rather than capping the
+     calendar's own box. */
+  width: 100%;
+}
+
+/* ---------- Time-slot column ---------- */
+
+/* Base: the narrow sidebar-recap width used once the lead form is showing
+   (step 3) - the form is the wide/primary content there. */
+.bookingModal__timeSlotColumn {
+  box-sizing: border-box;
+  width: 150px;
+  flex-shrink: 0;
+  padding-left: 28px;
+  border-left: 1px solid var(--color-border);
+}
+
+/* Date/slot-picking step: this wrapper (around BookingTimeSlots) grows
+   alongside the calendar and overrides the inner column's fixed 150px so
+   the slot list fills its share of the row instead of sitting narrow. */
+.bookingModal__timeSlotWrapper--wide {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookingModal__timeSlotWrapper--wide .bookingModal__timeSlotColumn {
+  width: auto;
+}
+
+.bookingModal__timeSlotHeading {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-neutral);
+}
+
+.bookingModal__slotGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  /* The heading above stays put; only this list scrolls, and only within
+     itself - not the calendar/form beside it, not the modal as a whole. */
+  max-height: 320px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 6px;
+}
+
+.bookingModal__slotCell {
+  padding: 10px 12px;
+  text-align: center;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-neutral);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+.bookingModal__slotCell:hover:not(:disabled):not(.bookingModal__slotCell--selected) {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-neutral);
+}
+
+.bookingModal__slotCell--selected {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-neutral);
+  font-weight: 800;
+}
+
+.bookingModal__slotCell:disabled {
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-neutral-lightest);
+  cursor: not-allowed;
+}
+
+.bookingModal__selectedDateHint {
+  font-weight: 600;
+  color: var(--color-neutral-light);
+}
+
+/* ---------- Lead info form (step 3) ---------- */
+
+.bookingModal__formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 20px;
+}
+
+.bookingModal__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookingModal__field--wide {
+  grid-column: 1 / -1;
+}
+
+.bookingModal__field label {
+  margin-bottom: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-neutral);
+}
+
+.bookingModal__input,
+.bookingModal__textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 13px;
+  background: var(--color-off-white);
+  color: var(--color-neutral);
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.bookingModal__input:focus,
+.bookingModal__textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-dark);
+  background: var(--color-white);
+  box-shadow: 0 0 0 4px rgba(251, 240, 34, 0.25);
+}
+
+.bookingModal__textarea {
+  min-height: 90px;
+  margin-bottom: 24px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* ---------- Form footer (step 3) ---------- */
+
+.bookingModal__formFooter {
+  /* A plain second grid row on .bookingModal__calendarPane now (see above)
+     rather than a sticky/margin-pushed element sharing the same scroll
+     region as the content - it's sized to its own content and placed by
+     the grid itself, so it's always flush with the pane's true bottom
+     edge with zero gap beneath it, whether the form above is short or
+     long, with no sticky positioning or margin math needed at all. It
+     already spans the pane's full width edge-to-edge as a natural
+     consequence of being a direct grid child (not nested inside the
+     padded scroll area), so no bleed margins are needed here either. */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 42px 20px;
+  font-family: var(--font-nav);
+  background: var(--color-off-white);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -6px 16px -10px rgba(15, 23, 42, 0.15);
+}
+
+.bookingModal__formFooterRecap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bookingModal__continueBtn {
+  flex-shrink: 0;
+  padding: 12px 26px;
+  border: none;
+  border-radius: var(--radius-pill, 999px);
+  background: var(--color-primary);
+  color: var(--color-neutral);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px -8px rgba(251, 240, 34, 0.6);
+  transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+}
+
+.bookingModal__continueBtn:hover:not(:disabled),
+.bookingModal__continueBtn:focus-visible:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -10px rgba(251, 240, 34, 0.7);
+  outline: none;
+}
+
+.bookingModal__continueBtn:disabled {
+  opacity: 0.4;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.bookingModal__calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bookingModal__calendarMonth {
+  flex: 1;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-neutral);
+}
+
+.bookingModal__calendarNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-neutral);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease, box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.bookingModal__calendarNav:hover:not(:disabled),
+.bookingModal__calendarNav:focus-visible:not(:disabled) {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-neutral);
+  box-shadow: 0 10px 20px -8px rgba(251, 240, 34, 0.65);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.bookingModal__calendarNav:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px -4px rgba(251, 240, 34, 0.5);
+}
+
+.bookingModal__calendarNav:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.bookingModal__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  /* Matches .bookingModal__days' gap below - both grids use the same
+     repeat(7, 1fr) columns, so the gap has to match too or MON/TUE/... stop
+     lining up with their date column once the calendar stretches wider.
+     Kept modest (not larger) so the calendar's functional minimum width
+     still fits next to the time-slot panel within the fixed modal width -
+     see .bookingModal__calendarRowMain--calendar above. */
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-neutral-light);
+}
+
+.bookingModal__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.bookingModal__dayCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  justify-self: center;
+  align-self: center;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-neutral);
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+.bookingModal__dayCell--blank {
+  visibility: hidden;
+  pointer-events: none;
+  border-color: transparent;
+}
+
+.bookingModal__dayCell:hover:not(:disabled):not(.bookingModal__dayCell--selected) {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-neutral);
+}
+
+.bookingModal__dayCell--selected {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-neutral);
+  font-weight: 800;
+}
+
+.bookingModal__dayCell:disabled {
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-neutral-lightest);
+  cursor: not-allowed;
+}
+
+.bookingModal__selectedDate {
+  /* Direct grid-row child of .bookingModal__calendarPane now (see above),
+     same as .bookingModal__formFooter - sized to its own content and
+     always flush with the pane's bottom edge, so it needs its own
+     horizontal/bottom padding instead of relying on the pane's (removed). */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 42px 34px;
+  font-family: var(--font-nav);
+  border-top: 1px solid var(--color-border);
+}
+
+.bookingModal__selectedDateLabel {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-neutral-light);
+}
+
+.bookingModal__selectedDateValue {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-neutral);
+}
+
+/* ---------- Responsive ---------- */
+
+/* Tablet and below: the modal stops being a centered dialog and becomes a
+   native full-page experience - no backdrop dimming/blur, no card shadow
+   or rounded corners, fills the viewport. Desktop (>980px) is completely
+   unaffected by anything in this block. */
+@media (max-width: 980px) {
+  .bookingModal__backdrop {
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .bookingModal {
+    width: 100vw;
+    height: 100vh;
+    /* dvh accounts for a mobile browser's address bar the way plain vh
+       doesn't - layered after vh so browsers without dvh support still get
+       a correct (if slightly less precise) fallback. */
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    grid-template-columns: 1fr;
+    /* Just one row now, not a 3-row header/info/content grid - only the
+       header stays fixed (it's already position:sticky); everything below
+       it (info panel, calendar/slots/form, footer) scrolls together as one
+       continuous page instead of the calendar pane owning its own
+       independently-scrolling region with a separately-fixed footer. */
+    grid-template-rows: auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .bookingModal__info {
+    /* Defers to .bookingModal's own scroll above instead of being its own
+       independently-scrolling region - keeps this simple single page feel
+       instead of nested scroll areas. */
+    overflow-y: visible;
+    padding: 28px 26px 20px;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* No longer needs a max-width cap once the info panel is gone and
+     everything scrolls together - fills the full page width like every
+     other step instead of floating as a narrower centered card. */
+  .bookingModal__confirmation {
+    max-width: none;
+    overflow-y: visible;
+    padding: 36px 24px;
+  }
+
+  /* .bookingModal__calendarPane's own header/content/footer grid (base
+     rules above) is what gave it an independently-scrolling region with a
+     separately-fixed footer - dropped back to a plain flex column here so
+     its content and footer just flow one after another as part of the
+     single page scroll instead. */
+  .bookingModal__calendarPane {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bookingModal__calendarScroll {
+    overflow-y: visible;
+    padding: 32px 26px 20px;
+  }
+
+  /* .bookingModal__calendarRow stacks the calendar/form and time-slot
+     column vertically here instead of side-by-side (its base rule is a
+     desktop-only side-by-side flex row). flex-wrap:wrap and min-height:
+     320px both belong to that desktop row layout too (wrap as a tablet
+     overflow safety net; min-height to stop the row collapsing during the
+     calendar<->form swap animation) - neither makes sense once this is a
+     column, and leaving flex-wrap:wrap active here risked the stacked
+     children being laid out as a second wrapped column instead of a
+     single vertical stack. Resetting both here (not just at the narrower
+     680px tier below, which only handles further column-collapsing of
+     grids inside the content) keeps this consistent across the whole
+     tablet-and-mobile range, not just phones. */
+  .bookingModal__calendarRow {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    min-height: 0;
+  }
+
+  /* ---------- Touch targets (≥44px) ---------- */
+
+  .bookingModal__close {
+    width: 44px;
+    height: 44px;
+  }
+
+  .bookingModal__calendarNav {
+    width: 44px;
+    height: 44px;
+  }
+
+  .bookingModal__dayCell {
+    width: 44px;
+    height: 44px;
+  }
+
+  .bookingModal__formFooter {
+    padding: 16px 26px 20px;
+  }
+
+  .bookingModal__selectedDate {
+    padding: 18px 26px 30px;
+  }
+
+  .bookingModal__input,
+  .bookingModal__textarea {
+    padding: 14px;
+  }
+
+  .bookingModal__slotCell {
+    padding: 14px 12px;
+  }
+
+  .bookingModal__continueBtn {
+    padding: 14px 26px;
+  }
+}
+
+@media (max-width: 680px) {
+  /* .bookingModal's own structure (full-page sizing, sticky header, single
+     scrolling page below it) already comes from the 980px block above and
+     applies all the way down through this breakpoint too - nothing to
+     re-declare here. Everything below is this tier's own genuinely
+     different concern: collapsing multi-column layouts to one column and
+     a bit more padding taper for a narrower phone. */
+
+  /* Label-above-value instead of a left/right split - same stacking idea
+     already used for .bookingModal__formFooter at this breakpoint, so a
+     long value never has to squeeze against its label on a narrow phone. */
+  .bookingModal__confirmationRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .bookingModal__confirmationValue {
+    text-align: left;
+  }
+
+  .bookingModal__confirmationCalendarBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bookingModal__infoText {
+    margin-bottom: 18px;
+  }
+
+  .bookingModal__featureList {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin: 0;
+  }
+
+  .bookingModal__calendarScroll {
+    padding: 24px 26px 26px;
+  }
+
+  /* flex-direction/min-height are already set at the 980px tier above -
+     this tier only tightens the gap further for a narrower phone. */
+  .bookingModal__calendarRow {
+    gap: 20px;
+  }
+
+  /* The 330px floor exists to stop the time-slot panel squeezing the
+     calendar in the side-by-side row - once stacked into one column on a
+     narrow phone, that same min-width could force horizontal overflow
+     instead, so drop it here. */
+  .bookingModal__calendarRowMain--calendar {
+    min-width: 0;
+  }
+
+  .bookingModal__timeSlotColumn {
+    width: 100%;
+    padding-left: 0;
+    padding-top: 20px;
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* The wide slot-list split only matters in the side-by-side desktop/
+     tablet row - once everything stacks into one column, flex:1 would mean
+     "grow to fill available height" instead (main axis flips with
+     flex-direction:column), which isn't what's wanted here. */
+  .bookingModal__timeSlotWrapper--wide {
+    flex: none;
+  }
+
+  .bookingModal__timeSlotWrapper--wide .bookingModal__timeSlotColumn {
+    width: 100%;
+  }
+
+  .bookingModal__slotGrid {
+    grid-template-columns: repeat(4, 1fr);
+    /* This 4-column grid is naturally compact (fewer rows than desktop's
+       single column), so it stays unconstrained here and relies on
+       .bookingModal__calendarScroll's own scroll for the rare case it
+       doesn't fit, rather than adding a second, redundant nested
+       scrollbar for what's normally a short grid. */
+    max-height: none;
+    overflow-y: visible;
+    padding-right: 0;
+  }
+
+  .bookingModal__formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .bookingModal__formFooter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 14px 26px 20px;
+  }
+
+  .bookingModal__selectedDate {
+    padding: 16px 26px 22px;
+  }
+
+  .bookingModal__continueBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .bookingModal__info {
+    padding: 22px 20px 18px;
+  }
+
+  .bookingModal__calendarScroll {
+    padding: 18px 16px 22px;
+  }
+
+  .bookingModal__formFooter {
+    padding: 12px 20px 18px;
+  }
+
+  .bookingModal__selectedDate {
+    padding: 14px 20px 20px;
+  }
+
+  .bookingModal__confirmation {
+    padding: 28px 18px;
+  }
+
+  .bookingModal__confirmationIcon {
+    width: 52px;
+    height: 52px;
+    font-size: 1.8rem;
+  }
+
+  .bookingModal__confirmationTitle {
+    font-size: 1.35rem;
+  }
+
+  .bookingModal__confirmationCard {
+    padding: 16px 18px;
+  }
+
+  .bookingModal__weekdays {
+    gap: 4px;
+  }
+
+  .bookingModal__days {
+    gap: 4px;
+  }
+
+  /* 7 columns of the full 44px touch target plus gaps (308px + gaps) don't
+     actually fit next to .bookingModal__calendarScroll's own padding on
+     the narrowest common phones (~360px viewports) - 40px is the closest
+     practical compromise that still fits with room to spare, rather than
+     the 44px guideline on paper or the old 32px this used to be. */
+  .bookingModal__dayCell {
+    width: 40px;
+    height: 40px;
+  }
+}
