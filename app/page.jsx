@@ -182,15 +182,23 @@ export default function Home() {
 
           <div className={styles.aboutMedia}>
             <div className={styles.aboutImageWrap}>
-              <div className={styles.aboutImageInset}>
-                <Image
-                  src="/assets/image2/digital-transformation-wheel.png"
-                  alt="Digital Transformation wheel: Digitization, Modern Infrastructure, Business Application Transformation, Business Process Simplification, Break Application Silos, and Business Insight"
-                  fill
-                  sizes="(max-width: 1024px) 90vw, 45vw"
-                  className={styles.aboutImage}
-                />
-              </div>
+              {/* unoptimized: Next's image optimizer re-encodes this to
+                  AVIF/WebP for browsers that accept it (per next.config.js),
+                  and that specific re-encode drops every text label around
+                  the ring while leaving the circle/icons/numbers intact -
+                  confirmed by decoding the actual AVIF variant it serves.
+                  Root cause sits in the optimizer's AVIF encoding of this
+                  image's semi-transparent regions, not in this app's code -
+                  bypassing optimization serves the original file byte-for-
+                  byte, which has always rendered correctly. */}
+              <Image
+                src="/assets/image2/digital-transformation-wheel.png"
+                alt="Digital Transformation wheel: Digitization, Modern Infrastructure, Business Application Transformation, Business Process Simplification, Break Application Silos, and Business Insight"
+                width={1030}
+                height={775}
+                unoptimized
+                className={styles.aboutImage}
+              />
             </div>
 
             {ABOUT_FLOAT_STATS.map((stat) => {

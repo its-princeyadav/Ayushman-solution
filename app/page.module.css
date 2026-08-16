@@ -566,7 +566,6 @@
 }
 
 .aboutInner {
-  position: relative;
   display: grid;
   /* Was 48fr 52fr - the wheel diagram reads small/underweight at that
      size (it's centered artwork with its own internal whitespace, unlike
@@ -580,28 +579,7 @@
   padding-inline: 32px;
 }
 
-/* Soft background glow spanning the gap between the two columns - without
-   it, the text and the image read as two disconnected blocks sitting on
-   plain white with nothing tying them together. Sits behind both columns
-   (z-index 0 vs their 1) and is clipped by .about's own overflow: clip,
-   so it's safe to size larger than the viewport on narrow screens. */
-.aboutInner::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  top: 50%;
-  left: 44%;
-  width: 760px;
-  height: 760px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-primary) 16%, transparent) 0%, transparent 70%);
-  pointer-events: none;
-}
-
 .aboutText {
-  position: relative;
-  z-index: 1;
   animation: as-fade-up 700ms ease both;
   animation-timeline: view();
   animation-range: entry 0% entry 55%;
@@ -711,47 +689,38 @@
 
 .aboutMedia {
   position: relative;
-  z-index: 1;
   animation: as-fade-up 700ms ease 150ms both;
   animation-timeline: view();
   animation-range: entry 0% entry 55%;
 }
 
-/* No border-radius/overflow/border/shadow/background here - those suited
-   the previous photo, which needed a "card" frame to look intentional.
-   This is a transparent-background diagram (the whole point of removing
-   its background), so it just floats directly on the section instead of
-   being boxed in - a visible rectangular border/fill around an irregular
-   transparent shape would look like a mistake, not a frame. */
+/* Deliberately simple: a flex box that centers a naturally-sized image,
+   not Next's `fill` + object-fit + absolute-positioned inset wrapper (the
+   previous approach here) - swapped after that combination reproducibly
+   showed the wheel's ring intact but its outer text labels missing on the
+   live page, while the exact same file/URL opened directly always showed
+   the complete image with every label. Root cause not conclusively
+   isolated (forcing object-fit: contain !important didn't fix it either,
+   which rules out a simple cascade collision) - rather than keep
+   debugging that specific combination blind, this sidesteps it with a
+   plainer, harder-to-get-wrong pattern: padding for the margin the
+   floating stat cards need to clear the wheel's labels, and an
+   intrinsically-sized <Image width height> that just scales down to fit,
+   no object-fit/fill/absolute-positioning involved at all. */
 .aboutImageWrap {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   aspect-ratio: 4 / 3;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Shrinks the diagram within its frame (plain padding on .aboutImageWrap
-   wouldn't do this - an absolutely positioned `fill` image sizes itself
-   to the padding box of its nearest positioned ancestor, so padding on
-   that ancestor doesn't create a visible gap). This inner box is that
-   "nearest positioned ancestor" instead, deliberately smaller than the
-   outer frame, so there's real empty margin at the edges for the
-   floating stat cards below to sit in without landing on the wheel's own
-   outward-pointing labels (which otherwise reach close to the image's
-   actual edges on all sides). */
-.aboutImageInset {
-  position: absolute;
-  /* Was 48px - the earlier screenshot showed more clearance than the
-     floating cards actually needed to clear the wheel's labels, at the
-     cost of making the diagram look smaller than it should. */
-  inset: 20px;
-}
-
-/* contain, not cover: this is a diagram (Digital Transformation wheel),
-   not a photo - cropping it would cut off labels around the ring. The
-   source image (1030x775) is close enough to this frame's 4:3 ratio that
-   there's minimal letterboxing anyway. */
 .aboutImage {
-  object-fit: contain;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
 }
 
 .floatCard {
