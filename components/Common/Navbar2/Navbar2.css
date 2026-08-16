@@ -122,23 +122,43 @@
 
 /* ---------- Mega menu positioning + animation ---------- */
 
+/* Full-bleed flush band (edge to edge, flush against the navbar's own
+   bottom border, no radius) instead of a centered floating card - the
+   background/border/shadow live here on the full-width wrapper;
+   MegaMenu2.css's .as-megamenu-panel is just a centered max-width:1320px
+   content container inside it, same layering as .as-nav2-navbar (full
+   width) + .as-nav2-inner (centered) above. Positioned absolute against
+   .as-nav2-navbar (the nearest positioned ancestor, via its own
+   position:sticky) rather than the individual nav link, which is what
+   makes left:0/right:0 span the full navbar width and not just the
+   triggering link's own column. */
 .as-nav2-mega-menu-wrap {
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(4px) scale(0.98);
-  padding-top: 14px;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-menu);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+  transform: translateY(-8px);
+  /* Local timing/easing, not the shared --transition token (that 250ms
+     linear-ish ease is tuned for small hover flips - button lifts,
+     chevrons - not for a panel this size unfurling open).
+     cubic-bezier(0.16,1,0.3,1) is a fast-out/gentle-settle curve
+     (decelerates hard near the end) that reads as a much more deliberate
+     "open" than a flat ease. */
+  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1), transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .as-nav2-mega-menu-wrap-open {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 /* ---------- Top bar actions: search ---------- */
