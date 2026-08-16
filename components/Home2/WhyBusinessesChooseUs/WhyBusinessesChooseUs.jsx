@@ -12,32 +12,36 @@ import "./WhyBusinessesChooseUs.css";
  * so it has zero dependency on any other component and can be dropped into
  * any page as-is.
  */
+// All four images below are partially-transparent cutouts, not opaque
+// full-bleed photos - see WhyBusinessesChooseUs.css's .home2WhyChoose-
+// imageWrap/-image for why that means object-fit: contain and no card
+// frame around them.
 const FEATURES = [
   {
     icon: LuTarget,
     title: "Business-Centric Solutions",
     description: "Every implementation is aligned with your operational goals and growth strategy.",
-    image: "/assets/image2/city-05.webp",
+    image: "/assets/image2/business-centric-solutions.png",
   },
   {
     icon: LuAward,
     title: "Certified SAP Experts",
     description:
       "Experienced consultants with deep expertise across SAP Business One, SAP S/4HANA, SAP BTP, and SAP Analytics.",
-    image: "/assets/image2/fujikura-thumb-1.jpg",
+    image: "/assets/image2/certified-sap-experts.png",
   },
   {
     icon: LuBuilding2,
     title: "Industry Experience",
     description:
       "Proven success across Manufacturing, Pharmaceuticals, Retail, Distribution, Engineering, FMCG, Healthcare, and Services.",
-    image: "/assets/image2/clearpack-thumb-1.jpg",
+    image: "/assets/image2/industry-experience.png",
   },
   {
     icon: LuShieldCheck,
     title: "Cost-Effective Delivery",
     description: "Enterprise-grade solutions optimized for maximum ROI and long-term value.",
-    image: "/assets/image2/city-06.webp",
+    image: "/assets/image2/cost-effective-delivery.png",
   },
 ];
 

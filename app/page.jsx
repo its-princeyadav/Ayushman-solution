@@ -182,14 +182,15 @@ export default function Home() {
 
           <div className={styles.aboutMedia}>
             <div className={styles.aboutImageWrap}>
-              <Image
-                src="/assets/image2/city-05.webp"
-                alt="Ayushman Solution consultants collaborating on a SAP project"
-                fill
-                sizes="(max-width: 1024px) 90vw, 45vw"
-                className={styles.aboutImage}
-              />
-              <span className={styles.aboutImageAccent} aria-hidden="true" />
+              <div className={styles.aboutImageInset}>
+                <Image
+                  src="/assets/image2/digital-transformation-wheel.png"
+                  alt="Digital Transformation wheel: Digitization, Modern Infrastructure, Business Application Transformation, Business Process Simplification, Break Application Silos, and Business Insight"
+                  fill
+                  sizes="(max-width: 1024px) 90vw, 45vw"
+                  className={styles.aboutImage}
+                />
+              </div>
             </div>
 
             {ABOUT_FLOAT_STATS.map((stat) => {
