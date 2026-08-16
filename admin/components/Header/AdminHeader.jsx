@@ -1,9 +1,15 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { LuMenu, LuSearch, LuBell, LuChevronDown } from "react-icons/lu";
+import { ADMIN_NAV_ITEMS } from "../Sidebar/navItems";
 import styles from "./AdminHeader.module.css";
 
-export default function AdminHeader({ title, onMenuClick }) {
+export default function AdminHeader({ onMenuClick }) {
+  const pathname = usePathname();
+  const title = ADMIN_NAV_ITEMS.find((item) => pathname === item.href || pathname?.startsWith(`${item.href}/`))
+    ?.label;
+
   return (
     <header className={styles.header}>
       <div className={styles.left}>

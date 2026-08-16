@@ -12,9 +12,14 @@
 }
 
 .statsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
+}
+
+.statsGrid > * {
+  flex: 1 1 200px;
+  max-width: 340px;
 }
 
 .panels {
