@@ -495,22 +495,25 @@ button.as-nav2-login-btn {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ---------- Responsive ---------- */
-
 /* Everything now lives in one row (logo + center links + search/Book Slot/
-   Contact Us/Login/hamburger), so Book Slot/Contact Us drop their text
-   label a tier earlier than before - icon-only keeps the row from wrapping
-   or crowding the centered links while there's still room for them. */
-@media (max-width: 1360px) {
-  .as-nav2-btn-label {
-    display: none;
-  }
-
-  .as-nav2-book-btn,
-  .as-nav2-contact-btn {
-    padding: 9px 12px;
-  }
+   Contact Us/Login/hamburger) - Book Slot/Contact Us stay icon-only at
+   every desktop width, not just below some breakpoint. The navbar shares
+   the same max-width: 1320px container as every other section (for
+   visual alignment with the content below it), and full text labels here
+   never actually fit within that width alongside the full center-nav
+   menu - there's no viewport size that fixes it, since the container
+   doesn't grow past 1320px on wider screens. Full text labels still show
+   in MobileMenu2's own footer below the 1024px tier. */
+.as-nav2-btn-label {
+  display: none;
 }
+
+.as-nav2-book-btn,
+.as-nav2-contact-btn {
+  padding: 9px 12px;
+}
+
+/* ---------- Responsive ---------- */
 
 @media (max-width: 1180px) {
   .as-nav2-inner {
