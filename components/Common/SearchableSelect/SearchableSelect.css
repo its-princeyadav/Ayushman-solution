@@ -92,7 +92,7 @@
 /* Tablet and below: comfortable touch targets (~44px) for the trigger
    input and each tappable option, matching the same breakpoint/threshold
    BookingModal.css uses for its own touch-target pass. */
-@media (max-width: 980px) {
+@media (max-width: 768px) {
   .searchableSelect__input {
     padding: 14px 34px 14px 14px;
   }

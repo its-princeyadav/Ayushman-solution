@@ -55,12 +55,12 @@
 
 .bookingModal__header {
   grid-column: 1 / -1;
-  /* On desktop/tablet .bookingModal itself never scrolls (each panel below
+  /* On desktop .bookingModal itself never scrolls (each panel below
      scrolls independently), so this is inert there - harmless, since
      position:sticky with no scrolling ancestor just behaves like normal
-     flow. It does matter on mobile (<=680px), where the layout stacks into
-     one column and .bookingModal becomes the scroll container again (see
-     the 680px breakpoint below) - sticking here keeps the header pinned in
+     flow. It does matter at <=768px, where the layout stacks into one
+     column and .bookingModal becomes the single scroll container (see the
+     768px breakpoint below) - sticking here keeps the header pinned in
      that case too. */
   position: sticky;
   top: 0;
@@ -133,6 +133,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Without this, the flex column above can compress the icon's main-axis
+     (height) at cramped viewport heights, turning the circle into an oval -
+     it must always render at its own fixed size, never shrunk by siblings. */
+  flex-shrink: 0;
   width: 50px;
   height: 50px;
   margin-bottom: 18px;
@@ -732,9 +736,9 @@
 
 /* Tablet and below: the modal stops being a centered dialog and becomes a
    native full-page experience - no backdrop dimming/blur, no card shadow
-   or rounded corners, fills the viewport. Desktop (>980px) is completely
+   or rounded corners, fills the viewport. Desktop (>768px) is completely
    unaffected by anything in this block. */
-@media (max-width: 980px) {
+@media (max-width: 768px) {
   .bookingModal__backdrop {
     padding: 0;
     background: transparent;
@@ -754,11 +758,11 @@
     border-radius: 0;
     box-shadow: none;
     grid-template-columns: 1fr;
-    /* Just one row now, not a 3-row header/info/content grid - only the
-       header stays fixed (it's already position:sticky); everything below
-       it (info panel, calendar/slots/form, footer) scrolls together as one
-       continuous page instead of the calendar pane owning its own
-       independently-scrolling region with a separately-fixed footer. */
+    /* .bookingModal itself is the single scroll container here (not a
+       multi-row grid of independently-scrolling panels) - header and
+       footer are pulled out of that scroll via position:sticky (top/
+       bottom) below, and everything else (info panel, calendar, slots,
+       form) just flows and scrolls together as one continuous page. */
     grid-template-rows: auto;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -766,8 +770,9 @@
 
   .bookingModal__info {
     /* Defers to .bookingModal's own scroll above instead of being its own
-       independently-scrolling region - keeps this simple single page feel
-       instead of nested scroll areas. */
+       independently-scrolling (or independently fixed-height) region - the
+       calendar icon/heading/text/details flow as part of the single page
+       scroll, the same as the calendar/slots/form below them. */
     overflow-y: visible;
     padding: 28px 26px 20px;
     border-right: none;
@@ -784,18 +789,39 @@
   }
 
   /* .bookingModal__calendarPane's own header/content/footer grid (base
-     rules above) is what gave it an independently-scrolling region with a
-     separately-fixed footer - dropped back to a plain flex column here so
-     its content and footer just flow one after another as part of the
-     single page scroll instead. */
+     rules above) exists to give it an independently-bounded, separately-
+     scrolling region on desktop - unwrapping it here with display:contents
+     lets its two children (.calendarScroll and whichever footer is
+     showing) become direct scroll-flow participants of .bookingModal
+     instead, so the footer can stick to the bottom of the SAME scroll
+     container the header sticks to the top of, rather than owning a
+     second, separate scrolling region. */
   .bookingModal__calendarPane {
-    display: flex;
-    flex-direction: column;
+    display: contents;
   }
 
   .bookingModal__calendarScroll {
     overflow-y: visible;
     padding: 32px 26px 20px;
+  }
+
+  /* Sticks to the bottom of .bookingModal's own scroll container (see
+     display:contents above) - mirrors .bookingModal__header's existing
+     position:sticky;top:0, so both ends of the page stay pinned while only
+     the content between them scrolls. An explicit background is required
+     now that .bookingModal__calendarPane's own background no longer
+     paints (display:contents removes its box) - without one, scrolled
+     content would visually show through this footer's transparent
+     background as it passes underneath. */
+  .bookingModal__formFooter,
+  .bookingModal__selectedDate {
+    position: sticky;
+    bottom: 0;
+    z-index: 4;
+  }
+
+  .bookingModal__selectedDate {
+    background: var(--color-white);
   }
 
   /* .bookingModal__calendarRow stacks the calendar/form and time-slot
@@ -806,14 +832,57 @@
      calendar<->form swap animation) - neither makes sense once this is a
      column, and leaving flex-wrap:wrap active here risked the stacked
      children being laid out as a second wrapped column instead of a
-     single vertical stack. Resetting both here (not just at the narrower
-     680px tier below, which only handles further column-collapsing of
-     grids inside the content) keeps this consistent across the whole
-     tablet-and-mobile range, not just phones. */
+     single vertical stack. align-items:stretch replaces the desktop
+     row's flex-start - without it, a stacked child narrower than the row
+     (e.g. the 150px-wide .timeSlotColumn below) just sits at its own
+     width instead of filling the full column, leaving unused horizontal
+     space beside it. */
   .bookingModal__calendarRow {
     flex-direction: column;
     flex-wrap: nowrap;
+    align-items: stretch;
     min-height: 0;
+  }
+
+  /* The 330px floor exists to stop the time-slot panel squeezing the
+     calendar in the side-by-side row - once stacked into one column, that
+     same min-width could force horizontal overflow instead, so drop it
+     here (not just at the narrower 680px tier below - this column stack
+     already starts at this breakpoint). */
+  .bookingModal__calendarRowMain--calendar {
+    min-width: 0;
+  }
+
+  .bookingModal__timeSlotColumn {
+    width: 100%;
+    padding-left: 0;
+    padding-top: 20px;
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* The wide slot-list split only matters in the side-by-side desktop/
+     tablet row - once everything stacks into one column, flex:1 would mean
+     "grow to fill available height" instead (main axis flips with
+     flex-direction:column), which isn't what's wanted here. */
+  .bookingModal__timeSlotWrapper--wide {
+    flex: none;
+  }
+
+  .bookingModal__timeSlotWrapper--wide .bookingModal__timeSlotColumn {
+    width: 100%;
+  }
+
+  .bookingModal__slotGrid {
+    grid-template-columns: repeat(4, 1fr);
+    /* This 4-column grid is naturally compact (fewer rows than desktop's
+       single column), so it stays unconstrained here and relies on
+       .bookingModal__calendarScroll's own scroll for the rare case it
+       doesn't fit, rather than adding a second, redundant nested
+       scrollbar for what's normally a short grid. */
+    max-height: none;
+    overflow-y: visible;
+    padding-right: 0;
   }
 
   /* ---------- Touch targets (≥44px) ---------- */
@@ -856,12 +925,13 @@
 }
 
 @media (max-width: 680px) {
-  /* .bookingModal's own structure (full-page sizing, sticky header, single
-     scrolling page below it) already comes from the 980px block above and
-     applies all the way down through this breakpoint too - nothing to
-     re-declare here. Everything below is this tier's own genuinely
-     different concern: collapsing multi-column layouts to one column and
-     a bit more padding taper for a narrower phone. */
+  /* .bookingModal's own structure (full-page sizing, fixed header/footer,
+     .calendarPane's internally-scrolling content) already comes from the
+     768px block above and applies all the way down through this
+     breakpoint too - nothing to re-declare here. Everything below is this
+     tier's own genuinely different concern: collapsing multi-column
+     layouts to one column and a bit more padding taper for a narrower
+     phone. */
 
   /* Label-above-value instead of a left/right split - same stacking idea
      already used for .bookingModal__formFooter at this breakpoint, so a
@@ -896,50 +966,11 @@
     padding: 24px 26px 26px;
   }
 
-  /* flex-direction/min-height are already set at the 980px tier above -
-     this tier only tightens the gap further for a narrower phone. */
+  /* flex-direction/align-items/min-height are already set at the 768px
+     tier above - this tier only tightens the gap further for a narrower
+     phone. */
   .bookingModal__calendarRow {
     gap: 20px;
-  }
-
-  /* The 330px floor exists to stop the time-slot panel squeezing the
-     calendar in the side-by-side row - once stacked into one column on a
-     narrow phone, that same min-width could force horizontal overflow
-     instead, so drop it here. */
-  .bookingModal__calendarRowMain--calendar {
-    min-width: 0;
-  }
-
-  .bookingModal__timeSlotColumn {
-    width: 100%;
-    padding-left: 0;
-    padding-top: 20px;
-    border-left: none;
-    border-top: 1px solid var(--color-border);
-  }
-
-  /* The wide slot-list split only matters in the side-by-side desktop/
-     tablet row - once everything stacks into one column, flex:1 would mean
-     "grow to fill available height" instead (main axis flips with
-     flex-direction:column), which isn't what's wanted here. */
-  .bookingModal__timeSlotWrapper--wide {
-    flex: none;
-  }
-
-  .bookingModal__timeSlotWrapper--wide .bookingModal__timeSlotColumn {
-    width: 100%;
-  }
-
-  .bookingModal__slotGrid {
-    grid-template-columns: repeat(4, 1fr);
-    /* This 4-column grid is naturally compact (fewer rows than desktop's
-       single column), so it stays unconstrained here and relies on
-       .bookingModal__calendarScroll's own scroll for the rare case it
-       doesn't fit, rather than adding a second, redundant nested
-       scrollbar for what's normally a short grid. */
-    max-height: none;
-    overflow-y: visible;
-    padding-right: 0;
   }
 
   .bookingModal__formGrid {
