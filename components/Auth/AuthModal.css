@@ -9,6 +9,10 @@
   background: rgba(14, 14, 16, 0.55);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  /* Stops a swipe/scroll that reaches this element from chaining through to
+     the page behind it (relevant on touch devices even with body/html
+     overflow locked in useBodyScrollLock). */
+  overscroll-behavior: contain;
 }
 
 .authModal {
@@ -79,6 +83,7 @@
 .authModal__body {
   padding: 28px 28px 32px;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 /* ---------- Segmented tabs ---------- */

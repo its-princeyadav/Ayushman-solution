@@ -19,6 +19,7 @@ import {
 import { loginUser, registerUser } from "../../lib/api";
 import { useToast } from "../Common/Toast/ToastProvider";
 import { useAuth } from "./AuthProvider";
+import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
 import "./AuthModal.css";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -377,9 +378,11 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login" }) {
     if (isOpen) setMode(defaultMode);
   }, [isOpen, defaultMode]);
 
-  // Focus trap + ESC-to-close + scroll lock, active only while open. Query
-  // focusables live inside the handler (not cached) so it stays correct
-  // across the login/register form swap without needing to re-bind.
+  useBodyScrollLock(isOpen);
+
+  // Focus trap + ESC-to-close, active only while open. Query focusables live
+  // inside the handler (not cached) so it stays correct across the
+  // login/register form swap without needing to re-bind.
   useEffect(() => {
     if (!isOpen) return undefined;
 
@@ -412,12 +415,9 @@ export default function AuthModal({ isOpen, onClose, defaultMode = "login" }) {
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = previousOverflow;
       previouslyFocused?.focus?.();
     };
   }, [isOpen, onClose]);

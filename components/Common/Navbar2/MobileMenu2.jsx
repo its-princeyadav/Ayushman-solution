@@ -66,7 +66,7 @@ function CategoryAccordion({ category, isOpen, onToggle, onNavigate }) {
   );
 }
 
-export default function MobileMenu2({ isOpen, onClose }) {
+export default function MobileMenu2({ isOpen, onClose, onBookSlot }) {
   const [openSection, setOpenSection] = useState(null);
   const [openCategoryId, setOpenCategoryId] = useState(null);
 
@@ -146,10 +146,17 @@ export default function MobileMenu2({ isOpen, onClose }) {
             <FaSearch aria-hidden="true" />
             Search
           </button>
-          <Link href="#" className="as-mobilemenu-book-btn" onClick={onClose}>
+          <button
+            type="button"
+            className="as-mobilemenu-book-btn"
+            onClick={() => {
+              onClose();
+              onBookSlot();
+            }}
+          >
             <FaRegCalendarAlt aria-hidden="true" />
             Book Slot
-          </Link>
+          </button>
           <Link href="#" className="as-mobilemenu-contact-btn" onClick={onClose}>
             <FaPhone aria-hidden="true" />
             Contact Us
