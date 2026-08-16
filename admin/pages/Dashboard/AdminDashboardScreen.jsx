@@ -1,4 +1,4 @@
-import { LuUsers, LuLogIn, LuUserCheck, LuMessageSquare } from "react-icons/lu";
+import { LuUsers, LuLogIn } from "react-icons/lu";
 import StatCard from "../../components/UI/StatCard";
 import styles from "./AdminDashboardScreen.module.css";
 
@@ -39,14 +39,11 @@ export default function AdminDashboardScreen({ data, error }) {
     );
   }
 
-  const { totalUsers, totalLogins, uniqueLoggedInUsers, newMessages, recentUsers, recentMessages, recentActivity } =
-    data;
+  const { totalUsers, totalLogins, recentUsers, recentMessages, recentActivity } = data;
 
   const stats = [
     { label: "Total Users", value: totalUsers, icon: LuUsers },
     { label: "Total Logins", value: totalLogins, icon: LuLogIn },
-    { label: "Unique Logged-In Users", value: uniqueLoggedInUsers, icon: LuUserCheck },
-    { label: "New Messages", value: newMessages, icon: LuMessageSquare },
   ];
 
   return (

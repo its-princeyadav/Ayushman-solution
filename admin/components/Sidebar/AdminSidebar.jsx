@@ -2,36 +2,17 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import {
-  LuLayoutDashboard,
-  LuUsers,
-  LuFileText,
-  LuWrench,
-  LuSettings,
-  LuLogOut,
-  LuX,
-  LuPanelLeftClose,
-  LuPanelLeft,
-} from "react-icons/lu";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { LuLogOut, LuX, LuPanelLeftClose, LuPanelLeft } from "react-icons/lu";
 import { adminLogout } from "../../../lib/api";
+import { ADMIN_NAV_ITEMS } from "./navItems";
 import styles from "./AdminSidebar.module.css";
 
-const NAV_ITEMS = [
-  { id: "dashboard", label: "Dashboard", icon: LuLayoutDashboard },
-  { id: "users", label: "Users", icon: LuUsers },
-  { id: "blog", label: "Blog", icon: LuFileText },
-  { id: "services", label: "Services", icon: LuWrench },
-  { id: "settings", label: "Settings", icon: LuSettings },
-];
-
-// UI-only phase: only /admin/dashboard exists, so navigation between
-// sections is a local active-state highlight, not real routing (see the
-// admin module notes - other /admin/* pages aren't built yet).
 export default function AdminSidebar({ open, onClose, collapsed, onToggleCollapse }) {
-  const [activeId, setActiveId] = useState("dashboard");
   const [loggingOut, setLoggingOut] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
 
   async function handleLogout() {
     if (loggingOut) return;
@@ -69,20 +50,20 @@ export default function AdminSidebar({ open, onClose, collapsed, onToggleCollaps
         </div>
 
         <nav className={styles.nav} aria-label="Admin navigation">
-          {NAV_ITEMS.map((item) => {
+          {ADMIN_NAV_ITEMS.map((item) => {
             const Icon = item.icon;
-            const isActive = item.id === activeId;
+            const isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
             return (
-              <button
+              <Link
                 key={item.id}
-                type="button"
+                href={item.href}
                 className={`${styles.navItem} ${isActive ? styles.active : ""}`}
-                onClick={() => setActiveId(item.id)}
+                onClick={onClose}
                 title={collapsed ? item.label : undefined}
               >
                 <Icon aria-hidden="true" className={styles.navIcon} />
                 <span>{item.label}</span>
-              </button>
+              </Link>
             );
           })}
         </nav>

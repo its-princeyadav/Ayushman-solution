@@ -1,0 +1,258 @@
+/* Shared list-page styles for Users / Login Users / Contact - copied from
+   AdminDashboardScreen.module.css's panel/table rules so the three new
+   pages match the dashboard exactly without touching that working file. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.panel {
+  background: var(--admin-white);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  padding: 20px;
+  box-shadow: var(--admin-shadow-soft);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  font-family: var(--admin-font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--admin-gray);
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--admin-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 12px 14px 12px 0;
+  border-bottom: 1px solid var(--admin-border);
+  vertical-align: middle;
+}
+
+.table td:last-child {
+  padding-right: 0;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.userCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userAvatar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--admin-gray-soft);
+  color: var(--admin-dark);
+  font-family: var(--admin-font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.userName {
+  font-family: var(--admin-font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--admin-dark);
+}
+
+.userEmail {
+  font-family: var(--admin-font-body);
+  font-size: 0.75rem;
+  color: var(--admin-gray);
+}
+
+.muted {
+  font-family: var(--admin-font-body);
+  font-size: 0.82rem;
+  color: var(--admin-gray);
+  white-space: nowrap;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--admin-font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.statusActive {
+  color: var(--admin-success);
+  background: var(--admin-success-soft);
+}
+
+.statusPending {
+  color: #a3760f;
+  background: #fdf3e0;
+}
+
+.emptyState {
+  margin: 0;
+  font-family: var(--admin-font-body);
+  font-size: 0.85rem;
+  color: var(--admin-gray);
+}
+
+.errorBanner {
+  padding: 14px 16px;
+  border-radius: var(--admin-radius-sm);
+  background: var(--admin-danger-soft);
+  color: var(--admin-danger);
+  font-family: var(--admin-font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.panelTitle {
+  margin: 0;
+  font-family: var(--admin-font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--admin-dark);
+}
+
+.panelCount {
+  font-family: var(--admin-font-body);
+  font-size: 0.8rem;
+  color: var(--admin-gray);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.pageInfo {
+  font-family: var(--admin-font-body);
+  font-size: 0.8rem;
+  color: var(--admin-gray);
+}
+
+.pageLink {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid var(--admin-border);
+  background: var(--admin-white);
+  color: var(--admin-dark);
+  font-family: var(--admin-font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 180ms ease;
+}
+
+.pageLink:hover {
+  background: var(--admin-gray-soft);
+}
+
+.pageLinkDisabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Contact submissions read better as cards than table rows - long messages
+   need to wrap in full, not truncate inside a narrow cell. */
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-sm);
+  padding: 16px;
+}
+
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.cardMeta {
+  font-family: var(--admin-font-body);
+  font-size: 0.78rem;
+  color: var(--admin-gray);
+  margin: 2px 0 0;
+}
+
+.cardSubject {
+  font-family: var(--admin-font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--admin-dark);
+  margin: 10px 0 6px;
+}
+
+.cardMessage {
+  font-family: var(--admin-font-body);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--admin-dark);
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+.cardFootRow {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-family: var(--admin-font-body);
+  font-size: 0.78rem;
+  color: var(--admin-gray);
+}
+
+@media (max-width: 640px) {
+  .panelHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
