@@ -31,8 +31,10 @@ const SERVICE_CARDS = [
   },
 ];
 
+// First paragraph renders separately as a styled "lead" statement (see
+// .aboutLead below) with its key service terms called out in bold - these
+// two are the plain supporting paragraphs that follow it.
 const ABOUT_PARAGRAPHS = [
-  "At Ayushman Solution, we are a leading IT Services and IT Consulting company specializing in SAP ERP, Digital Transformation, Cloud Technologies, Enterprise Applications, and Business Automation.",
   "We partner with organizations to simplify complex business processes, improve operational efficiency, and enable data-driven decision-making through intelligent enterprise solutions.",
   "Our experienced SAP consultants, solution architects, and technology experts work closely with clients to deliver scalable, secure, and future-ready digital solutions.",
 ];
@@ -157,6 +159,14 @@ export default function Home() {
                 <span className={styles.aboutStatLabel}>Successful Projects Delivered</span>
               </div>
             </div>
+
+            <p className={styles.aboutLead}>
+              At Ayushman Solution, we are a leading IT Services and IT Consulting company
+              specializing in <strong className={styles.aboutLeadHighlight}>SAP ERP</strong>,{" "}
+              <strong className={styles.aboutLeadHighlight}>Digital Transformation</strong>,{" "}
+              <strong className={styles.aboutLeadHighlight}>Cloud Technologies</strong>, Enterprise
+              Applications, and Business Automation.
+            </p>
 
             {ABOUT_PARAGRAPHS.map((paragraph) => (
               <p className={styles.aboutParagraph} key={paragraph.slice(0, 24)}>
