@@ -732,12 +732,10 @@
   color: var(--color-neutral);
 }
 
-/* ---------- Responsive ---------- */
-
-/* Tablet and below: the modal stops being a centered dialog and becomes a
-   native full-page experience - no backdrop dimming/blur, no card shadow
-   or rounded corners, fills the viewport. Desktop (>768px) is completely
-   unaffected by anything in this block. */
+/* ---------- Backdrop: no dimming/blur once the mobile page takes over ---------- */
+/* Purely a viewport check (not tied to which JSX tree is mounted) - the
+   backdrop element is shared by both the desktop and mobile trees, and
+   this is the one thing about it that still varies by breakpoint. */
 @media (max-width: 768px) {
   .bookingModal__backdrop {
     padding: 0;
@@ -745,304 +743,489 @@
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
-
-  .bookingModal {
-    width: 100vw;
-    height: 100vh;
-    /* dvh accounts for a mobile browser's address bar the way plain vh
-       doesn't - layered after vh so browsers without dvh support still get
-       a correct (if slightly less precise) fallback. */
-    height: 100dvh;
-    max-width: none;
-    max-height: none;
-    border-radius: 0;
-    box-shadow: none;
-    grid-template-columns: 1fr;
-    /* .bookingModal itself is the single scroll container here (not a
-       multi-row grid of independently-scrolling panels) - header and
-       footer are pulled out of that scroll via position:sticky (top/
-       bottom) below, and everything else (info panel, calendar, slots,
-       form) just flows and scrolls together as one continuous page. */
-    grid-template-rows: auto;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-  }
-
-  .bookingModal__info {
-    /* Defers to .bookingModal's own scroll above instead of being its own
-       independently-scrolling (or independently fixed-height) region - the
-       calendar icon/heading/text/details flow as part of the single page
-       scroll, the same as the calendar/slots/form below them. */
-    overflow-y: visible;
-    padding: 28px 26px 20px;
-    border-right: none;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  /* No longer needs a max-width cap once the info panel is gone and
-     everything scrolls together - fills the full page width like every
-     other step instead of floating as a narrower centered card. */
-  .bookingModal__confirmation {
-    max-width: none;
-    overflow-y: visible;
-    padding: 36px 24px;
-  }
-
-  /* .bookingModal__calendarPane's own header/content/footer grid (base
-     rules above) exists to give it an independently-bounded, separately-
-     scrolling region on desktop - unwrapping it here with display:contents
-     lets its two children (.calendarScroll and whichever footer is
-     showing) become direct scroll-flow participants of .bookingModal
-     instead, so the footer can stick to the bottom of the SAME scroll
-     container the header sticks to the top of, rather than owning a
-     second, separate scrolling region. */
-  .bookingModal__calendarPane {
-    display: contents;
-  }
-
-  .bookingModal__calendarScroll {
-    overflow-y: visible;
-    padding: 32px 26px 20px;
-  }
-
-  /* Sticks to the bottom of .bookingModal's own scroll container (see
-     display:contents above) - mirrors .bookingModal__header's existing
-     position:sticky;top:0, so both ends of the page stay pinned while only
-     the content between them scrolls. An explicit background is required
-     now that .bookingModal__calendarPane's own background no longer
-     paints (display:contents removes its box) - without one, scrolled
-     content would visually show through this footer's transparent
-     background as it passes underneath. */
-  .bookingModal__formFooter,
-  .bookingModal__selectedDate {
-    position: sticky;
-    bottom: 0;
-    z-index: 4;
-  }
-
-  .bookingModal__selectedDate {
-    background: var(--color-white);
-  }
-
-  /* .bookingModal__calendarRow stacks the calendar/form and time-slot
-     column vertically here instead of side-by-side (its base rule is a
-     desktop-only side-by-side flex row). flex-wrap:wrap and min-height:
-     320px both belong to that desktop row layout too (wrap as a tablet
-     overflow safety net; min-height to stop the row collapsing during the
-     calendar<->form swap animation) - neither makes sense once this is a
-     column, and leaving flex-wrap:wrap active here risked the stacked
-     children being laid out as a second wrapped column instead of a
-     single vertical stack. align-items:stretch replaces the desktop
-     row's flex-start - without it, a stacked child narrower than the row
-     (e.g. the 150px-wide .timeSlotColumn below) just sits at its own
-     width instead of filling the full column, leaving unused horizontal
-     space beside it. */
-  .bookingModal__calendarRow {
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    min-height: 0;
-  }
-
-  /* The 330px floor exists to stop the time-slot panel squeezing the
-     calendar in the side-by-side row - once stacked into one column, that
-     same min-width could force horizontal overflow instead, so drop it
-     here (not just at the narrower 680px tier below - this column stack
-     already starts at this breakpoint). */
-  .bookingModal__calendarRowMain--calendar {
-    min-width: 0;
-  }
-
-  .bookingModal__timeSlotColumn {
-    width: 100%;
-    padding-left: 0;
-    padding-top: 20px;
-    border-left: none;
-    border-top: 1px solid var(--color-border);
-  }
-
-  /* The wide slot-list split only matters in the side-by-side desktop/
-     tablet row - once everything stacks into one column, flex:1 would mean
-     "grow to fill available height" instead (main axis flips with
-     flex-direction:column), which isn't what's wanted here. */
-  .bookingModal__timeSlotWrapper--wide {
-    flex: none;
-  }
-
-  .bookingModal__timeSlotWrapper--wide .bookingModal__timeSlotColumn {
-    width: 100%;
-  }
-
-  .bookingModal__slotGrid {
-    grid-template-columns: repeat(4, 1fr);
-    /* This 4-column grid is naturally compact (fewer rows than desktop's
-       single column), so it stays unconstrained here and relies on
-       .bookingModal__calendarScroll's own scroll for the rare case it
-       doesn't fit, rather than adding a second, redundant nested
-       scrollbar for what's normally a short grid. */
-    max-height: none;
-    overflow-y: visible;
-    padding-right: 0;
-  }
-
-  /* ---------- Touch targets (≥44px) ---------- */
-
-  .bookingModal__close {
-    width: 44px;
-    height: 44px;
-  }
-
-  .bookingModal__calendarNav {
-    width: 44px;
-    height: 44px;
-  }
-
-  .bookingModal__dayCell {
-    width: 44px;
-    height: 44px;
-  }
-
-  .bookingModal__formFooter {
-    padding: 16px 26px 20px;
-  }
-
-  .bookingModal__selectedDate {
-    padding: 18px 26px 30px;
-  }
-
-  .bookingModal__input,
-  .bookingModal__textarea {
-    padding: 14px;
-  }
-
-  .bookingModal__slotCell {
-    padding: 14px 12px;
-  }
-
-  .bookingModal__continueBtn {
-    padding: 14px 26px;
-  }
 }
 
-@media (max-width: 680px) {
-  /* .bookingModal's own structure (full-page sizing, fixed header/footer,
-     .calendarPane's internally-scrolling content) already comes from the
-     768px block above and applies all the way down through this
-     breakpoint too - nothing to re-declare here. Everything below is this
-     tier's own genuinely different concern: collapsing multi-column
-     layouts to one column and a bit more padding taper for a narrower
-     phone. */
+/* ============================================================
+   Mobile experience (.bookingModal--mobile)
+   ============================================================
+   Below 769px, BookingModal.jsx renders an entirely different JSX tree
+   (MobileBookingFlow.jsx) instead of resizing the desktop grid above:
+   the info panel, calendar and lead form stop swapping in and out of one
+   slot and instead stack as their own cards down a single scrolling
+   page, with only the header and a booking-summary footer pinned in
+   place. BookingCalendar/BookingTimeSlots/LeadInfoForm/BookingConfirmation
+   are still the exact same components (same class names, same markup) -
+   everything here is either a new .bookingModalMobile__* class from that
+   tree, or a scoped override of one of the shared bookingModal__* classes
+   for how it looks inside this tree specifically. Nothing here can ever
+   leak onto the desktop grid: it's all scoped under .bookingModal--mobile,
+   a class BookingModal.jsx only ever applies together with this
+   completely separate markup. */
 
-  /* Label-above-value instead of a left/right split - same stacking idea
-     already used for .bookingModal__formFooter at this breakpoint, so a
-     long value never has to squeeze against its label on a narrow phone. */
-  .bookingModal__confirmationRow {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .bookingModal__confirmationValue {
-    text-align: left;
-  }
-
-  .bookingModal__confirmationCalendarBtn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .bookingModal__infoText {
-    margin-bottom: 18px;
-  }
-
-  .bookingModal__featureList {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px 18px;
-    margin: 0;
-  }
-
-  .bookingModal__calendarScroll {
-    padding: 24px 26px 26px;
-  }
-
-  /* flex-direction/align-items/min-height are already set at the 768px
-     tier above - this tier only tightens the gap further for a narrower
-     phone. */
-  .bookingModal__calendarRow {
-    gap: 20px;
-  }
-
-  .bookingModal__formGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .bookingModal__formFooter {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-    padding: 14px 26px 20px;
-  }
-
-  .bookingModal__selectedDate {
-    padding: 16px 26px 22px;
-  }
-
-  .bookingModal__continueBtn {
-    width: 100%;
-  }
+/* No box-sizing:border-box reset exists anywhere in this project's global
+   CSS, so every width:100% + padding/border element in this subtree needs
+   one explicitly or it silently overflows its card by exactly that
+   padding/border - the exact failure mode "no horizontal scrolling"
+   above rules out. Scoped to the mobile subtree only, rather than a
+   site-wide reset with a much larger blast radius. */
+.bookingModal--mobile,
+.bookingModal--mobile *,
+.bookingModal--mobile *::before,
+.bookingModal--mobile *::after {
+  box-sizing: border-box;
 }
 
-@media (max-width: 420px) {
-  .bookingModal__info {
-    padding: 22px 20px 18px;
+.bookingModal--mobile {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  /* dvh accounts for a mobile browser's address bar the way plain vh
+     doesn't - layered after vh so browsers without dvh support still get
+     a correct (if slightly less precise) fallback. */
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--color-off-white);
+  /* .bookingModal--mobile is this tree's own scroll container (this
+     overrides the desktop grid's overflow:hidden) - .bookingModalMobile__
+     header/footer below stick to its top/bottom via position:sticky,
+     exactly the pattern already proven for the desktop card's own
+     header/footer. */
+}
+
+/* ---------- Sticky header ---------- */
+
+.bookingModalMobile__header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: 12px;
+  padding: 14px 14px 14px 20px;
+  background: var(--color-primary);
+  box-shadow: 0 4px 14px -8px rgba(0, 0, 0, 0.25);
+}
+
+.bookingModalMobile__headerLabel {
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-neutral);
+}
+
+.bookingModalMobile__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--color-neutral);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-neutral);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 150ms ease;
+}
+
+.bookingModalMobile__close:active {
+  background: rgba(28, 29, 32, 0.1);
+  transform: scale(0.92);
+}
+
+/* ---------- Body: everything but the header/footer flows and scrolls together ---------- */
+
+/* Bottom padding reserves real layout space for the sticky footer below
+   (~120px: its own padding + recap + full-width button) - the footer is
+   sticky, not fixed, so it still occupies a flow position at the bottom
+   of this same scroll container; without this reserve, whatever content
+   happens to scroll to that position (e.g. the calendar's last row, or
+   the bottom of the lead form) renders directly underneath it and can't
+   be tapped, since the footer's own background intercepts the touch. */
+.bookingModalMobile__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 16px 148px;
+}
+
+/* ---------- Step 1: intro card ---------- */
+
+.bookingModalMobile__intro {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 20px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px -20px rgba(15, 23, 42, 0.2);
+}
+
+.bookingModalMobile__introIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  background: var(--color-primary);
+  color: var(--color-neutral);
+  font-size: 1.35rem;
+  box-shadow: 0 10px 22px -10px rgba(251, 240, 34, 0.65);
+}
+
+.bookingModalMobile__introTitle {
+  margin: 0 0 8px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--color-neutral);
+}
+
+.bookingModalMobile__introText {
+  margin: 0 0 18px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--color-neutral-light);
+}
+
+.bookingModalMobile__chipList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bookingModalMobile__chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-primary-dark);
+  border-radius: 999px;
+  background: var(--color-primary-lightest);
+  color: var(--color-neutral);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.bookingModalMobile__chip svg {
+  flex-shrink: 0;
+  font-size: 0.95rem;
+}
+
+/* ---------- Steps 2-4: calendar / time-slot / lead-form cards ---------- */
+
+.bookingModalMobile__stepCard {
+  padding: 20px 18px 22px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  box-shadow: 0 10px 28px -20px rgba(15, 23, 42, 0.18);
+}
+
+.bookingModalMobile__stepLabel {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-neutral-light);
+}
+
+/* The calendar's 7-column grid is the tightest fit of anything in this
+   flow - a narrower horizontal inset here (vs. every other step card)
+   trades a bit of card symmetry for meaningfully larger day-cell touch
+   targets on common ~375-390px phones, the same trade-off
+   BookingModal.css's previous mobile pass already made (see the 420px
+   tier that used to live in this file, now superseded by this tree). */
+.bookingModalMobile__stepCard--calendar {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.bookingModalMobile__stepCard--calendar .bookingModalMobile__stepLabel {
+  padding: 0 8px;
+}
+
+/* ---------- Calendar (BookingCalendar.jsx, same component as desktop) ---------- */
+
+.bookingModal--mobile .bookingModal__calendar {
+  gap: 16px;
+}
+
+.bookingModal--mobile .bookingModal__calendarHeader {
+  padding: 0 8px;
+}
+
+.bookingModal--mobile .bookingModal__calendarMonth {
+  font-size: 1.05rem;
+}
+
+.bookingModal--mobile .bookingModal__calendarNav {
+  width: 40px;
+  height: 40px;
+}
+
+.bookingModal--mobile .bookingModal__calendarNav:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+/* No extra horizontal padding of their own - .stepCard--calendar above
+   already provides the (intentionally narrow) inset for this whole card,
+   so an additional inset here would just double up and shrink the day
+   cells further for no benefit. */
+.bookingModal--mobile .bookingModal__weekdays {
+  gap: 2px;
+  padding: 0 0 8px;
+  font-size: 0.68rem;
+}
+
+.bookingModal--mobile .bookingModal__days {
+  gap: 6px;
+  padding: 6px 0 0;
+}
+
+/* Fixed size matching the desktop day cell (38px), instead of the fluid
+   100%-of-track sizing this used to have - a smaller, deliberately-picked
+   size doesn't need to stretch to fill its grid track the way the old
+   ~44px touch-target-driven sizing did. justify-self/align-self fall back
+   to the base rule's center/center, correct again now that this is a
+   fixed-size circle rather than a track-filling one. 7 x 38px + 6 gaps
+   comfortably fits inside the card's insets even on a ~360px phone, so no
+   horizontal-scroll risk the way a fixed 44px would have had. */
+.bookingModal--mobile .bookingModal__dayCell {
+  width: 38px;
+  height: 38px;
+  font-size: 0.86rem;
+}
+
+.bookingModal--mobile .bookingModal__dayCell:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+/* ---------- Time slots (BookingTimeSlots.jsx) ---------- */
+
+.bookingModal--mobile .bookingModal__timeSlotColumn {
+  width: 100%;
+  padding-left: 0;
+  border-left: none;
+}
+
+.bookingModal--mobile .bookingModal__timeSlotHeading {
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+}
+
+.bookingModal--mobile .bookingModal__slotGrid {
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-height: none;
+  overflow-y: visible;
+  padding-right: 0;
+}
+
+.bookingModal--mobile .bookingModal__slotCell {
+  padding: 15px 16px;
+  border-radius: 14px;
+  font-size: 0.94rem;
+}
+
+.bookingModal--mobile .bookingModal__slotCell:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* ---------- Lead form (LeadInfoForm.jsx) ---------- */
+
+.bookingModal--mobile .bookingModal__formGrid {
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.bookingModal--mobile .bookingModal__field label {
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+/* 16px, not the desktop 14.4px (0.9rem): iOS Safari auto-zooms the page
+   on focusing any input smaller than 16px, which reads as a jarring,
+   unpremium layout jump on a booking form - the single highest-value
+   mobile-only tweak in this whole form. */
+.bookingModal--mobile .bookingModal__input,
+.bookingModal--mobile .bookingModal__textarea {
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 1rem;
+}
+
+.bookingModal--mobile .bookingModal__textarea {
+  margin-bottom: 0;
+}
+
+/* ---------- Sticky footer: booking summary + primary CTA ---------- */
+
+/* Stacked (summary on top, full-width CTA below) rather than side by side:
+   a side-by-side layout left as little as ~160px for the summary text next
+   to the button, truncating even a short "Aug 18, 2026 · 2:00 PM" recap -
+   stacking guarantees the summary reads in full and gives the primary
+   action the full-width, thumb-friendly tap target this kind of sticky
+   mobile footer is expected to have (matches Calendly's own mobile
+   pattern). */
+.bookingModalMobile__footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -8px 20px -14px rgba(15, 23, 42, 0.25);
+}
+
+.bookingModalMobile__footerRecap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.bookingModalMobile__footerLabel {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-neutral-light);
+}
+
+.bookingModalMobile__footerValue {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-neutral);
+}
+
+.bookingModalMobile__cta {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-neutral);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -10px rgba(251, 240, 34, 0.6);
+  transition: transform 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+}
+
+.bookingModalMobile__cta:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.bookingModalMobile__cta:focus-visible {
+  outline: 2px solid var(--color-neutral);
+  outline-offset: 2px;
+}
+
+.bookingModalMobile__cta:disabled {
+  opacity: 0.4;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* ---------- Confirmation screen (BookingConfirmation.jsx) ---------- */
+
+.bookingModal--mobile .bookingModal__confirmation {
+  max-width: none;
+  margin: 0;
+  /* No left/right padding of its own - .bookingModalMobile__body already
+     supplies 16px on both sides, so this only adds the vertical padding
+     the desktop rule doesn't need here. */
+  padding: 8px 0 4px;
+}
+
+.bookingModal--mobile .bookingModal__confirmationCard {
+  border-radius: 18px;
+}
+
+.bookingModal--mobile .bookingModal__confirmationRow {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.bookingModal--mobile .bookingModal__confirmationValue {
+  text-align: left;
+}
+
+.bookingModal--mobile .bookingModal__continueBtn {
+  width: 100%;
+  min-height: 50px;
+  justify-content: center;
+}
+
+/* ---------- Small-phone refinements (~380px and below) ---------- */
+
+@media (max-width: 380px) {
+  .bookingModalMobile__body {
+    padding: 16px 12px 132px;
   }
 
-  .bookingModal__calendarScroll {
-    padding: 18px 16px 22px;
+  .bookingModalMobile__intro,
+  .bookingModalMobile__stepCard {
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
-  .bookingModal__formFooter {
-    padding: 12px 20px 18px;
+  .bookingModalMobile__stepCard--calendar {
+    padding-left: 6px;
+    padding-right: 6px;
   }
 
-  .bookingModal__selectedDate {
-    padding: 14px 20px 20px;
-  }
-
-  .bookingModal__confirmation {
-    padding: 28px 18px;
-  }
-
-  .bookingModal__confirmationIcon {
-    width: 52px;
-    height: 52px;
-    font-size: 1.8rem;
-  }
-
-  .bookingModal__confirmationTitle {
-    font-size: 1.35rem;
-  }
-
-  .bookingModal__confirmationCard {
-    padding: 16px 18px;
-  }
-
-  .bookingModal__weekdays {
+  .bookingModal--mobile .bookingModal__days,
+  .bookingModal--mobile .bookingModal__weekdays {
     gap: 4px;
   }
 
-  .bookingModal__days {
-    gap: 4px;
+  /* One step smaller again on the narrowest phones, matching desktop's
+     own 38px -> 34px taper for the same reasoning: more breathing room
+     inside an already-tight 7-column row. */
+  .bookingModal--mobile .bookingModal__dayCell {
+    width: 34px;
+    height: 34px;
   }
 
-  /* 7 columns of the full 44px touch target plus gaps (308px + gaps) don't
-     actually fit next to .bookingModal__calendarScroll's own padding on
-     the narrowest common phones (~360px viewports) - 40px is the closest
-     practical compromise that still fits with room to spare, rather than
-     the 44px guideline on paper or the old 32px this used to be. */
-  .bookingModal__dayCell {
-    width: 40px;
-    height: 40px;
+  .bookingModalMobile__footer {
+    padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .bookingModalMobile__cta {
+    padding: 0 18px;
+    font-size: 0.88rem;
   }
 }
