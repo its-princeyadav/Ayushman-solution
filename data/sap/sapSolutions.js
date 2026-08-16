@@ -25,12 +25,43 @@ export const sapSolutions = {
     ],
     button: { label: "Explore SAP S/4HANA Cloud", href: "#" },
     features: [
-      { icon: "cloud", title: "Cloud Powered", description: "Run your business anytime, anywhere" },
-      { icon: "shield", title: "Secure & Compliant", description: "Enterprise-grade security and compliance" },
-      { icon: "chart", title: "Intelligent Insights", description: "AI and analytics for smarter decisions" },
+      { icon: "cloud", title: "Cloud Powered", description: "Run your business anytime, anywhere with the power of cloud." },
+      { icon: "shield", title: "Secure & Compliant", description: "Enterprise-grade security and compliance built for trust." },
+      { icon: "chart", title: "Intelligent Insights", description: "AI and analytics for smarter and faster decisions." },
+      { icon: "flex", title: "Flexible & Scalable", description: "Adapt and scale effortlessly as your business grows." },
     ],
-    image: "/assets/image2/man-drone-fly.png",
-    imageAlt: "Person flying a drone on a mountain ridge",
+    // Purely decorative product-dashboard mockup rendered inside a browser-
+    // window frame (see PremiumSplitSection's .browserWindow) - no real data,
+    // no screenshot asset required.
+    dashboard: {
+      url: "ayushmansolutions.com/sap/s4hana-cloud",
+      brand: "S/4HANA",
+      greeting: "Welcome back, Admin",
+      subtitle: "Here's what's happening with your business today.",
+      nav: [
+        { icon: "home", label: "Home", active: true },
+        { icon: "finance", label: "Finance" },
+        { icon: "sales", label: "Sales" },
+        { icon: "procurement", label: "Procurement" },
+        { icon: "inventory", label: "Inventory" },
+        { icon: "analytics", label: "Analytics" },
+        { icon: "reports", label: "Reports" },
+        { icon: "settings", label: "Settings" },
+      ],
+      kpis: [
+        { icon: "revenue", label: "Total Revenue", value: "₹24.8 Cr", change: "12.5%" },
+        { icon: "orders", label: "Total Orders", value: "1,245", change: "8.2%" },
+        { icon: "profit", label: "Operating Profit", value: "₹6.7 Cr", change: "15.3%" },
+        { icon: "customers", label: "Active Customers", value: "856", change: "9.1%" },
+      ],
+      chartTitle: "Business Overview",
+      insightsTitle: "Top Insights",
+      insights: [
+        { icon: "cashflow", text: "Cash flow improved by 18% compared to last month" },
+        { icon: "inventory", text: "Inventory turnover increased by 11% this quarter" },
+        { icon: "sales", text: "Sales growth driven by top 5 products" },
+      ],
+    },
   },
 
   // TODO: trophy asset reused from the awards blog thumbnail — swap for the

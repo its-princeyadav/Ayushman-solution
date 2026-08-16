@@ -1,0 +1,110 @@
+/* Reusable 3D flip CTA button. Self-contained: falls back to sensible
+   literal defaults for every color/radius token via var(--token, fallback),
+   so it renders correctly even on a page that never loaded sap-tokens.css.
+   A caller can re-theme one instance by setting the --flipbtn-* custom
+   properties inline via the `style` prop, without touching this file. */
+
+.flipbtn {
+  --flipbtn-speed: 0.5s;
+  --flipbtn-radius: var(--sap-radius-sm, 6px);
+  --flipbtn-bg: var(--color-primary, #febe0e);
+  --flipbtn-color: var(--color-neutral, #1c1d20);
+  --flipbtn-bg-back: var(--color-neutral, #1c1d20);
+  --flipbtn-color-back: var(--color-white, #ffffff);
+
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: var(--flipbtn-radius);
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  perspective: 900px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flipbtn:disabled,
+.flipbtn[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.flipbtn:focus-visible {
+  outline: 2px solid var(--flipbtn-bg-back);
+  outline-offset: 3px;
+}
+
+.flipbtn-flip {
+  position: relative;
+  display: block;
+  transform-style: preserve-3d;
+}
+
+.flipbtn-face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 17px 34px;
+  border-radius: var(--flipbtn-radius);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0) rotateX(0deg);
+  transition: transform var(--flipbtn-speed) cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
+}
+
+/* The front face is the only one in normal flow - it's what actually sizes
+   the button (matching the original CTA's own padding-driven width/height),
+   so the back face can sit absolutely on top of it without ever changing
+   the button's box size or causing layout shift during the flip. */
+.flipbtn-face-front {
+  position: relative;
+  background: var(--flipbtn-bg);
+  color: var(--flipbtn-color);
+}
+
+.flipbtn-face-back {
+  position: absolute;
+  inset: 0;
+  background: var(--flipbtn-bg-back);
+  color: var(--flipbtn-color-back);
+  transform: translate3d(0, 0, 0) rotateX(-90deg);
+}
+
+.flipbtn:hover .flipbtn-face-front,
+.flipbtn:focus-visible .flipbtn-face-front {
+  transform: translate3d(0, 0, 0) rotateX(90deg);
+}
+
+.flipbtn:hover .flipbtn-face-back,
+.flipbtn:focus-visible .flipbtn-face-back {
+  transform: translate3d(0, 0, 0) rotateX(0deg);
+}
+
+/* Touch devices have no real :hover - leave the button static (front face
+   only) instead of risking a stuck half-flipped state after a tap. */
+@media (hover: none) {
+  .flipbtn:hover .flipbtn-face-front {
+    transform: translate3d(0, 0, 0) rotateX(0deg);
+  }
+
+  .flipbtn:hover .flipbtn-face-back {
+    transform: translate3d(0, 0, 0) rotateX(-90deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flipbtn-face {
+    transition: none;
+  }
+}
