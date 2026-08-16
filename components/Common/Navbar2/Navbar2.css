@@ -245,7 +245,7 @@
 
 .as-nav2-book-btn {
   border: none;
-  background: var(--color-primary);
+  background: var(--color-primary-button);
   color: var(--text-primary);
 }
 
@@ -299,7 +299,7 @@
    More" homepage CTAs, which reuse this same class for its shape/spacing but
    should keep the shared --primary accent. */
 button.as-nav2-login-btn {
-  background: var(--color-primary);
+  background: var(--color-primary-button);
 }
 
 .as-nav2-login-btn:hover,
@@ -329,7 +329,7 @@ button.as-nav2-login-btn {
   height: 38px;
   border: none;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: var(--color-primary-button);
   color: var(--text-primary);
   cursor: pointer;
   box-shadow: var(--shadow);

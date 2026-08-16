@@ -93,7 +93,11 @@
   gap: 10px;
   padding: 14px 28px;
   border-radius: var(--radius-pill);
-  background: var(--color-primary);
+  /* --color-primary-button, not raw --color-primary: this is a large
+     solid fill, which reads more "electric" at that size than the same
+     hex does as text/a small accent (simultaneous contrast). See
+     app/globals.css for the token. */
+  background: var(--color-primary-button);
   /* Same text-on-yellow convention as the navbar's Book Slot/Login buttons
      (Navbar2.css .as-nav2-book-btn/.as-nav2-login-btn: color: var(--text-primary))
      - not a near-black shade, matches what's already used elsewhere. */
@@ -222,7 +226,7 @@
 
 .socialLink:hover,
 .socialLink:focus-visible {
-  background: var(--color-primary);
+  background: var(--color-primary-button);
   border-color: var(--color-primary);
   color: var(--text-primary);
   box-shadow: var(--shadow-hover);

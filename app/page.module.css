@@ -190,8 +190,19 @@
   font-family: var(--font-nav);
   font-size: 1rem;
   font-weight: 500;
-  line-height: 1.8;
+  /* 1.7, not 1.8 - a touch tighter so the paragraph reads as one connected
+     block instead of loosely spaced lines. */
+  line-height: 1.7;
   color: var(--color-secondary-darker);
+}
+
+/* The four service terms this paragraph names (SAP Implementation, IT
+   Consulting, Cloud Solutions, Enterprise Automation) called out in bold -
+   echoes .expertiseTag below instead of the whole paragraph sitting as one
+   flat gray block. */
+.expertiseDescHighlight {
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .expertiseTags {
@@ -249,9 +260,14 @@
      padding on top of that 100% and push the button past its container. */
   box-sizing: border-box;
   text-decoration: none;
-  /* Same yellow as the navbar's Book Slot/Login buttons (--color-primary,
-     not the shared --primary token .as-nav2-login-btn normally uses). */
-  background: var(--color-primary);
+  /* Same yellow as the navbar's Book Slot/Login buttons - --color-primary-
+     button (a slightly muted --color-primary, see app/globals.css) rather
+     than --color-primary itself or the shared --primary token
+     (.as-nav2-login-btn's default): a flat --color-primary reads more
+     "electric" as a large solid fill than the same hex does as text/a
+     small accent (simultaneous contrast), and --primary can lose the
+     cascade entirely to master.min.css's unrelated orange --primary. */
+  background: var(--color-primary-button);
 }
 
 .ctaPrimaryArrow {
@@ -286,8 +302,12 @@
 
 .ctaSecondary:hover,
 .ctaSecondary:focus-visible {
-  background: var(--color-primary);
-  color: var(--color-neutral-darkest);
+  background: var(--color-primary-button);
+  /* --text-primary, not --color-neutral-darkest: same text-on-yellow
+     convention used everywhere else (navbar buttons, footer CTA) - avoids
+     a near-black text color, which is a client preference (no black
+     anywhere, text or background). */
+  color: var(--text-primary);
   box-shadow: var(--shadow);
   outline: none;
 }
@@ -309,7 +329,11 @@
   border-radius: 22px;
   background: var(--surface);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: var(--shadow);
+  /* Stronger than the shared var(--shadow) (which is quite subtle, tuned
+     for smaller elements) - these cards sit on a light-gray section
+     background close in value to their own white fill, so a soft shadow
+     alone left them reading flat/pale instead of visibly elevated. */
+  box-shadow: 0 16px 36px -22px rgba(15, 23, 42, 0.22);
   transition: transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease;
   animation: as-fade-up 700ms ease both;
   animation-timeline: view();
@@ -336,6 +360,12 @@
   box-shadow: 0 28px 56px -20px rgba(15, 23, 42, 0.22);
 }
 
+/* Solid gradient badge with a dark glyph, not a pale tint with a
+   same-hue yellow icon on top - the previous version had the icon and its
+   own background sitting at nearly the same low-contrast yellow, which is
+   what made these read as washed-out/pale rather than a confident brand
+   accent. Dark-on-gold matches the text-on-yellow convention used for
+   buttons everywhere else (navbar, footer, CTAs). */
 .expertiseCardIcon {
   display: flex;
   align-items: center;
@@ -344,15 +374,15 @@
   height: 58px;
   margin-bottom: 20px;
   border-radius: 16px;
-  background: color-mix(in srgb, var(--color-logo-yellow) 14%, white);
-  box-shadow: 0 6px 16px -8px rgba(254, 190, 14, 0.35);
-  color: var(--color-logo-yellow);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-darker) 100%);
+  box-shadow: 0 10px 20px -8px rgba(254, 190, 14, 0.5);
+  color: var(--text-primary);
   font-size: 1.5rem;
-  transition: background-color 350ms ease, transform 350ms ease;
+  transition: box-shadow 350ms ease, transform 350ms ease;
 }
 
 .expertiseCard:hover .expertiseCardIcon {
-  background: color-mix(in srgb, var(--color-logo-yellow) 26%, white);
+  box-shadow: 0 14px 26px -8px rgba(254, 190, 14, 0.65);
   transform: rotate(-6deg) scale(1.05);
 }
 
@@ -611,10 +641,9 @@
   box-sizing: border-box;
   margin-top: 10px;
   text-decoration: none;
-  /* Same override as .ctaPrimary above: .as-nav2-login-btn's own background
-     (var(--primary)) can lose the cascade to master.min.css's unrelated
-     --primary (orange), so pin this CTA to the yellow brand token directly. */
-  background: var(--color-primary);
+  /* Same as .ctaPrimary above (large-fill softened token, not raw
+     --color-primary or the --primary alias - see that comment for why). */
+  background: var(--color-primary-button);
 }
 
 .aboutCtaArrow {

@@ -95,9 +95,12 @@ export default function Home() {
               <span className={styles.expertiseTitleAccent}>SAP Solutions</span>
             </h2>
             <p className={styles.expertiseDesc}>
-              We help organizations accelerate digital transformation through SAP Implementation, IT
-              Consulting, Cloud Solutions, and Enterprise Automation. Our experts deliver scalable, secure,
-              and future-ready SAP ecosystems tailored to your business   .
+              We help organizations accelerate digital transformation through{" "}
+              <strong className={styles.expertiseDescHighlight}>SAP Implementation</strong>,{" "}
+              <strong className={styles.expertiseDescHighlight}>IT Consulting</strong>,{" "}
+              <strong className={styles.expertiseDescHighlight}>Cloud Solutions</strong>, and{" "}
+              <strong className={styles.expertiseDescHighlight}>Enterprise Automation</strong>. Our experts
+              deliver scalable, secure, and future-ready SAP ecosystems tailored to your business.
             </p>
             <ul className={styles.expertiseTags}>
               {SERVICE_TAGS.map((tag) => (

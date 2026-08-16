@@ -2,10 +2,25 @@
   --color-primary-lightest: #f7fddd;
   --color-primary-lighter: #e9faa5;
   --color-primary-light: #fff100;
-  --color-primary: #fbf022;
+  /* Matches --color-logo-yellow (below) - richer gold, replaces the
+     brighter/more lemon #fbf022 this used to be, per feedback that the
+     logo/heading-accent gold reads better than the old CTA yellow. Only
+     the base swatch changed here, not the light/dark scale below it -
+     those ripple into ~30 SAP/Analytics section files not otherwise
+     touched this round; revisit those separately if full consistency is
+     wanted there too. */
+  --color-primary: #febe0e;
   --color-primary-dark: #f0ea69;
   --color-primary-darker: #698107;
   --color-primary-darkest: #344103;
+
+  /* For large solid-fill button backgrounds specifically (not text/icons/
+     thin accent bars) - a flat --color-primary reads noticeably more
+     "electric" as a big filled surface than the exact same hex does as
+     text or a small accent (simultaneous contrast, not an actual color
+     mismatch). Tried as its own explicit gold rather than a color-mix of
+     --color-primary, per feedback. */
+  --color-primary-button: #fec400;
 
   --color-secondary-lightest: #f0f0f0;
   --color-secondary-lighter: #d6d6d6;

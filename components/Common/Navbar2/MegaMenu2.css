@@ -269,20 +269,24 @@
 }
 
 /* Single flat fill for the active card - the row and its icon both use the
-   exact same --color-primary value (not --color-primary-light) so there's
-   no visible seam between the icon's own box and the row behind it.
-   var(--color-primary) directly, not the --primary alias: master.min.css
-   (vendor CSS) also defines a global --primary, as orange (#FF845D), and
-   was winning the cascade over home-theme.css's --primary: var(--color-primary)
-   alias - that's why this was rendering as an odd orange instead of the
-   brand yellow used everywhere else (logo, nav buttons). Chained with the
-   base class (not just .as-megamenu-sidebar-item-active alone) so its
-   specificity actually beats the :hover rule above - a hovered item is
-   also always the active one here (activeId is set onMouseEnter), so
-   without this the plain :hover selector's higher specificity (a class +
-   a pseudo-class) was winning and leaving the row gray. */
+   exact same --color-primary-button value so there's no visible seam
+   between the icon's own box and the row behind it. --color-primary-button
+   (a slightly muted --color-primary, see app/globals.css) rather than
+   --color-primary itself: this active row is a large solid fill, and flat
+   --color-primary reads more "electric" at that size than it does as text/
+   a small accent (simultaneous contrast, not an actual color mismatch).
+   Also not the --primary alias: master.min.css (vendor CSS) also defines a
+   global --primary, as orange (#FF845D), and was winning the cascade over
+   home-theme.css's --primary: var(--color-primary) alias - that's why this
+   was rendering as an odd orange instead of the brand yellow used
+   everywhere else (logo, nav buttons). Chained with the base class (not
+   just .as-megamenu-sidebar-item-active alone) so its specificity actually
+   beats the :hover rule above - a hovered item is also always the active
+   one here (activeId is set onMouseEnter), so without this the plain
+   :hover selector's higher specificity (a class + a pseudo-class) was
+   winning and leaving the row gray. */
 .as-megamenu-sidebar-item.as-megamenu-sidebar-item-active {
-  background: var(--color-primary);
+  background: var(--color-primary-button);
   transform: none;
 }
 
@@ -307,7 +311,7 @@
 }
 
 .as-megamenu-sidebar-item-active .as-megamenu-sidebar-icon {
-  background: var(--color-primary);
+  background: var(--color-primary-button);
   color: var(--text-primary);
   box-shadow: none;
 }
