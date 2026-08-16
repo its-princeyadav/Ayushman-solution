@@ -1,38 +1,37 @@
-.heroWrap {
-  padding-top: 50px;
-}
+/* No top padding: the full-bleed hero below sits flush under the single
+   navbar strip (see Navbar2.css) instead of leaving a gap for a card. */
 
-/* Card-style hero: a fixed 70vh height no longer matches the image's own
-   ~2:1 ratio, so object-fit:contain is used instead of cover - it scales
-   the whole image down to fit inside the card with zero cropping, rather
-   than cover's crop-to-fill. Any letterbox strip that leaves is filled by
-   .hero's own background-color, sampled from the image's own corner
-   pixels (~rgb(0,15,40)), so the letterbox reads as part of the same
-   artwork instead of a visible gap. */
+/* Full-bleed, edge-to-edge hero - fills the viewport right below the
+   navbar. dvh (not vh) so mobile browsers' collapsing address bar doesn't
+   leave a tall empty gap the first time the page loads. */
 .hero {
   position: relative;
   display: flex;
   align-items: center;
-  width: 90%;
-  max-width: 1600px;
-  /* 70vh alone ignores card width: on a tall/narrow viewport (tablet
-     portrait) it produced a nearly-square card mostly filled by the
-     letterbox background instead of the image. Capping with a vw-relative
-     ceiling keeps 70vh's exact height on typical wide desktop windows
-     (where 55vw is already larger and never binds) while preventing that
-     on narrower ones. */
-  height: min(70vh, 55vw);
-  margin: 0 auto;
-  border-radius: 28px;
+  width: 100%;
+  height: 100dvh;
   overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-menu);
-  background: #050f28;
 }
 
+/* cover, not contain: once the frame is full-bleed (no fixed-aspect card
+   to fit inside), cover-and-crop-to-fill is what "full-screen hero" means -
+   trades a bit of edge cropping for filling the whole viewport. Slow
+   "Ken Burns" breathing zoom (alternate, so it eases back in instead of
+   snapping) - a still hero background reads static/dead at full-screen
+   size, this keeps it feeling alive without being distracting. */
 .heroImage {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
+  animation: heroKenBurns 20s ease-in-out infinite alternate;
+}
+
+@keyframes heroKenBurns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
 }
 
 /* No existing overlay token in home2-theme.css to reuse - a flat 45% black
@@ -74,6 +73,10 @@
   letter-spacing: -0.01em;
   color: var(--surface);
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+  /* On-mount, not scroll-triggered (animation-timeline: view()) - this is
+     above the fold and already visible at load, unlike the sections
+     further down the page. */
+  animation: as-fade-up 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .heroTitleSecondary {
@@ -86,13 +89,21 @@
   margin-top: 20px;
   border-radius: var(--radius-pill);
   background: var(--color-logo-yellow);
+  animation: heroAccentGrow 500ms cubic-bezier(0.16, 1, 0.3, 1) 500ms both;
+}
+
+@keyframes heroAccentGrow {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 64px;
+    opacity: 1;
+  }
 }
 
 @media (max-width: 1024px) {
-  .hero {
-    width: 94%;
-  }
-
   .heroContent {
     padding: 24px;
   }
@@ -103,18 +114,10 @@
 }
 
 @media (max-width: 480px) {
-  .heroWrap {
-    padding-top: 24px;
-  }
-
-  /* 70vh on a narrow phone makes a tall, portrait-shaped card that a
-     contain-fit landscape image can't fill without a large empty band -
-     capped lower here so the card stays a sensible shape on mobile. */
+  /* Still full screen, but with a height floor: 100dvh on a short/landscape
+     phone would otherwise squeeze the heading down uncomfortably far. */
   .hero {
-    width: 92%;
-    height: 56vh;
-    min-height: 340px;
-    border-radius: 18px;
+    min-height: 480px;
   }
 
   .heroContent {
@@ -148,13 +151,22 @@
 }
 
 /* Text/bars styling now lives in the shared components/Common/SectionLabel
-   - this just positions it within the grid. */
+   - this just positions it within the grid. Scroll-triggered entrance
+   (animation-timeline: view()) since this section sits right at/below the
+   fold - see the matching comment on .aboutHeader further down this file
+   for why that's used instead of a plain on-mount animation. */
 .expertiseLabelRow {
   grid-area: label;
+  animation: as-fade-up 700ms ease both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
 }
 
 .expertiseIntro {
   grid-area: intro;
+  animation: as-fade-up 700ms ease both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
 }
 
 .expertiseTitle {
@@ -178,8 +190,19 @@
   font-family: var(--font-nav);
   font-size: 1rem;
   font-weight: 500;
-  line-height: 1.8;
+  /* 1.7, not 1.8 - a touch tighter so the paragraph reads as one connected
+     block instead of loosely spaced lines. */
+  line-height: 1.7;
   color: var(--color-secondary-darker);
+}
+
+/* The four service terms this paragraph names (SAP Implementation, IT
+   Consulting, Cloud Solutions, Enterprise Automation) called out in bold -
+   echoes .expertiseTag below instead of the whole paragraph sitting as one
+   flat gray block. */
+.expertiseDescHighlight {
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .expertiseTags {
@@ -218,6 +241,9 @@
   align-items: center;
   align-self: start;
   gap: 16px;
+  animation: as-fade-up 700ms ease 100ms both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
 }
 
 /* Primary CTA reuses components/Common/Navbar2/Navbar2.css's own
@@ -234,9 +260,14 @@
      padding on top of that 100% and push the button past its container. */
   box-sizing: border-box;
   text-decoration: none;
-  /* Same yellow as the navbar's Book Slot/Login buttons (--color-primary,
-     not the shared --primary token .as-nav2-login-btn normally uses). */
-  background: var(--color-primary);
+  /* Same yellow as the navbar's Book Slot/Login buttons - --color-primary-
+     button (a slightly muted --color-primary, see app/globals.css) rather
+     than --color-primary itself or the shared --primary token
+     (.as-nav2-login-btn's default): a flat --color-primary reads more
+     "electric" as a large solid fill than the same hex does as text/a
+     small accent (simultaneous contrast), and --primary can lose the
+     cascade entirely to master.min.css's unrelated orange --primary. */
+  background: var(--color-primary-button);
 }
 
 .ctaPrimaryArrow {
@@ -271,8 +302,12 @@
 
 .ctaSecondary:hover,
 .ctaSecondary:focus-visible {
-  background: var(--color-primary);
-  color: var(--color-neutral-darkest);
+  background: var(--color-primary-button);
+  /* --text-primary, not --color-neutral-darkest: same text-on-yellow
+     convention used everywhere else (navbar buttons, footer CTA) - avoids
+     a near-black text color, which is a client preference (no black
+     anywhere, text or background). */
+  color: var(--text-primary);
   box-shadow: var(--shadow);
   outline: none;
 }
@@ -294,8 +329,29 @@
   border-radius: 22px;
   background: var(--surface);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: var(--shadow);
+  /* Stronger than the shared var(--shadow) (which is quite subtle, tuned
+     for smaller elements) - these cards sit on a light-gray section
+     background close in value to their own white fill, so a soft shadow
+     alone left them reading flat/pale instead of visibly elevated. */
+  box-shadow: 0 16px 36px -22px rgba(15, 23, 42, 0.22);
   transition: transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease;
+  animation: as-fade-up 700ms ease both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
+}
+
+/* Staggered, like .whyUsCard below - the 2x2 grid enters as a cascade
+   rather than all four cards popping in at once. */
+.expertiseCard:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.expertiseCard:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+.expertiseCard:nth-child(4) {
+  animation-delay: 270ms;
 }
 
 .expertiseCard:hover {
@@ -304,6 +360,12 @@
   box-shadow: 0 28px 56px -20px rgba(15, 23, 42, 0.22);
 }
 
+/* Solid gradient badge with a dark glyph, not a pale tint with a
+   same-hue yellow icon on top - the previous version had the icon and its
+   own background sitting at nearly the same low-contrast yellow, which is
+   what made these read as washed-out/pale rather than a confident brand
+   accent. Dark-on-gold matches the text-on-yellow convention used for
+   buttons everywhere else (navbar, footer, CTAs). */
 .expertiseCardIcon {
   display: flex;
   align-items: center;
@@ -312,15 +374,19 @@
   height: 58px;
   margin-bottom: 20px;
   border-radius: 16px;
-  background: color-mix(in srgb, var(--color-logo-yellow) 14%, white);
-  box-shadow: 0 6px 16px -8px rgba(254, 190, 14, 0.35);
-  color: var(--color-logo-yellow);
+  /* Gradient between two vibrant golds (button + base primary), not
+     fading down into the muddy olive of --color-primary-darker - kept the
+     depth of a gradient (vs. a flat fill) without it reading dull next to
+     the genuinely bright yellow buttons below. */
+  background: linear-gradient(135deg, var(--color-primary-button) 0%, var(--color-primary) 100%);
+  box-shadow: 0 10px 20px -8px rgba(254, 190, 14, 0.5);
+  color: var(--text-primary);
   font-size: 1.5rem;
-  transition: background-color 350ms ease, transform 350ms ease;
+  transition: box-shadow 350ms ease, transform 350ms ease;
 }
 
 .expertiseCard:hover .expertiseCardIcon {
-  background: color-mix(in srgb, var(--color-logo-yellow) 26%, white);
+  box-shadow: 0 14px 26px -8px rgba(254, 190, 14, 0.65);
   transform: rotate(-6deg) scale(1.05);
 }
 
@@ -454,6 +520,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero *,
+  .expertise *,
   .about *,
   .whyUs *,
   .whyUs *::before,
@@ -477,6 +545,14 @@
   padding-inline: 32px;
   text-align: center;
   animation: as-fade-up 700ms ease both;
+  /* Scroll-triggered instead of on-mount: this section is below the fold,
+     so an on-mount animation had already finished by the time anyone
+     scrolled down to see it. animation-timeline: view() ties it to scroll
+     position instead - plays once as the element enters the viewport.
+     Unsupported browsers just ignore these two lines and keep today's
+     on-mount behavior (graceful fallback, not broken). */
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
 }
 
 .aboutTitle {
@@ -490,6 +566,7 @@
 }
 
 .aboutInner {
+  position: relative;
   display: grid;
   grid-template-columns: 48fr 52fr;
   align-items: center;
@@ -499,10 +576,37 @@
   padding-inline: 32px;
 }
 
-.aboutText {
-  animation: as-fade-up 700ms ease both;
+/* Soft background glow spanning the gap between the two columns - without
+   it, the text and the image read as two disconnected blocks sitting on
+   plain white with nothing tying them together. Sits behind both columns
+   (z-index 0 vs their 1) and is clipped by .about's own overflow: clip,
+   so it's safe to size larger than the viewport on narrow screens. */
+.aboutInner::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 44%;
+  width: 760px;
+  height: 760px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-primary) 16%, transparent) 0%, transparent 70%);
+  pointer-events: none;
 }
 
+.aboutText {
+  position: relative;
+  z-index: 1;
+  animation: as-fade-up 700ms ease both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
+}
+
+/* Same white-card treatment as .floatCard on the image (background/
+   shadow/hover) instead of a flat gray box - reads as one consistent
+   "stat card" family across both columns rather than two unrelated
+   styles either side of the gap. */
 .aboutStatCard {
   display: inline-flex;
   align-items: center;
@@ -511,14 +615,14 @@
   padding: 16px 24px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: var(--radius-lg);
-  background: var(--surface-light);
-  box-shadow: var(--shadow);
+  background: var(--surface);
+  box-shadow: var(--shadow-hover);
   transition: transform 300ms ease, box-shadow 300ms ease;
 }
 
 .aboutStatCard:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
+  box-shadow: var(--shadow-menu);
 }
 
 .aboutStatIcon {
@@ -553,13 +657,33 @@
   color: var(--text-secondary);
 }
 
+/* Opening statement, styled apart from the two plain paragraphs below it -
+   larger/bolder/darker, so the section leads with one confident line
+   instead of three uniform paragraphs of the same weight (which is what
+   read as plain/ordinary). */
+.aboutLead {
+  margin: 0 0 18px;
+  max-width: 560px;
+  font-family: var(--font-nav);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+
+.aboutLeadHighlight {
+  color: var(--color-primary-darker);
+}
+
 .aboutParagraph {
   margin: 0 0 18px;
   max-width: 560px;
   font-family: var(--font-nav);
   font-size: 1rem;
   font-weight: 500;
-  line-height: 1.8;
+  /* 1.7, not 1.8 - a touch tighter so the paragraphs read as connected
+     blocks instead of loosely spaced lines. */
+  line-height: 1.7;
   color: var(--color-secondary-darker);
 }
 
@@ -567,10 +691,9 @@
   box-sizing: border-box;
   margin-top: 10px;
   text-decoration: none;
-  /* Same override as .ctaPrimary above: .as-nav2-login-btn's own background
-     (var(--primary)) can lose the cascade to master.min.css's unrelated
-     --primary (orange), so pin this CTA to the yellow brand token directly. */
-  background: var(--color-primary);
+  /* Same as .ctaPrimary above (large-fill softened token, not raw
+     --color-primary or the --primary alias - see that comment for why). */
+  background: var(--color-primary-button);
 }
 
 .aboutCtaArrow {
@@ -584,7 +707,10 @@
 
 .aboutMedia {
   position: relative;
+  z-index: 1;
   animation: as-fade-up 700ms ease 150ms both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
 }
 
 .aboutImageWrap {
@@ -630,6 +756,11 @@
   background: var(--surface);
   box-shadow: var(--shadow-hover);
   animation: as-float 4.5s ease-in-out infinite, as-fade-up 700ms ease both;
+  /* Two timelines, matched by position to the two animations above: the
+     continuous float keeps running on the normal clock (auto), only the
+     one-time entrance is tied to scroll position. */
+  animation-timeline: auto, view();
+  animation-range: normal, entry 0% entry 55%;
   transition: transform 300ms ease, box-shadow 300ms ease;
 }
 
@@ -751,6 +882,8 @@
   .floatCard {
     position: static;
     animation: as-fade-up 700ms ease both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
   }
 
   .floatCardLabel {
@@ -894,6 +1027,8 @@
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 24px 55px -28px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   animation: as-fade-up 700ms ease both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
   transition: transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease, backdrop-filter 350ms ease;
 }
 

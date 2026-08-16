@@ -31,8 +31,10 @@ const SERVICE_CARDS = [
   },
 ];
 
+// First paragraph renders separately as a styled "lead" statement (see
+// .aboutLead below) with its key service terms called out in bold - these
+// two are the plain supporting paragraphs that follow it.
 const ABOUT_PARAGRAPHS = [
-  "At Ayushman Solution, we are a leading IT Services and IT Consulting company specializing in SAP ERP, Digital Transformation, Cloud Technologies, Enterprise Applications, and Business Automation.",
   "We partner with organizations to simplify complex business processes, improve operational efficiency, and enable data-driven decision-making through intelligent enterprise solutions.",
   "Our experienced SAP consultants, solution architects, and technology experts work closely with clients to deliver scalable, secure, and future-ready digital solutions.",
 ];
@@ -95,9 +97,12 @@ export default function Home() {
               <span className={styles.expertiseTitleAccent}>SAP Solutions</span>
             </h2>
             <p className={styles.expertiseDesc}>
-              We help organizations accelerate digital transformation through SAP Implementation, IT
-              Consulting, Cloud Solutions, and Enterprise Automation. Our experts deliver scalable, secure,
-              and future-ready SAP ecosystems tailored to your business   .
+              We help organizations accelerate digital transformation through{" "}
+              <strong className={styles.expertiseDescHighlight}>SAP Implementation</strong>,{" "}
+              <strong className={styles.expertiseDescHighlight}>IT Consulting</strong>,{" "}
+              <strong className={styles.expertiseDescHighlight}>Cloud Solutions</strong>, and{" "}
+              <strong className={styles.expertiseDescHighlight}>Enterprise Automation</strong>. Our experts
+              deliver scalable, secure, and future-ready SAP ecosystems tailored to your business.
             </p>
             <ul className={styles.expertiseTags}>
               {SERVICE_TAGS.map((tag) => (
@@ -154,6 +159,14 @@ export default function Home() {
                 <span className={styles.aboutStatLabel}>Successful Projects Delivered</span>
               </div>
             </div>
+
+            <p className={styles.aboutLead}>
+              At Ayushman Solution, we are a leading IT Services and IT Consulting company
+              specializing in <strong className={styles.aboutLeadHighlight}>SAP ERP</strong>,{" "}
+              <strong className={styles.aboutLeadHighlight}>Digital Transformation</strong>,{" "}
+              <strong className={styles.aboutLeadHighlight}>Cloud Technologies</strong>, Enterprise
+              Applications, and Business Automation.
+            </p>
 
             {ABOUT_PARAGRAPHS.map((paragraph) => (
               <p className={styles.aboutParagraph} key={paragraph.slice(0, 24)}>

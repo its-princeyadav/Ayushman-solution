@@ -1,10 +1,12 @@
+/* Just a centered content container now - background/border/shadow live on
+   the full-bleed wrapper (Navbar2.css .as-nav2-mega-menu-wrap). Same
+   max-width as .as-nav2-inner so the menu's columns/intro card line up
+   with the navbar's own logo/links above them. */
 .as-megamenu-panel {
-  width: min(920px, 92vw);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-menu);
-  padding: 28px;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 28px 32px;
 }
 
 /* ---------- Grid mode (Industries / Our Work) ----------
@@ -16,7 +18,6 @@
   display: flex;
   align-items: flex-start;
   gap: 32px;
-  width: min(1140px, 92vw);
   max-height: 80vh;
   overflow-y: auto;
 }
@@ -37,7 +38,7 @@
 
 .as-megamenu-intro:hover,
 .as-megamenu-intro:focus-visible {
-  background: var(--primary-light);
+  background: var(--color-primary-light);
   transform: translateY(-2px);
 }
 
@@ -48,7 +49,7 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-md);
-  background: var(--primary);
+  background: var(--color-primary);
   color: var(--text-primary);
   font-size: 1.1rem;
 }
@@ -104,7 +105,7 @@
   width: 12px;
   height: 2px;
   border-radius: 2px;
-  background: var(--primary);
+  background: var(--color-primary);
   flex: none;
 }
 
@@ -186,9 +187,9 @@
 }
 
 .as-megamenu-sublinks a:hover {
-  background: var(--primary-light);
+  background: var(--color-primary-light);
   color: var(--text-primary);
-  border-color: var(--primary-dark);
+  border-color: var(--color-primary-dark);
   transform: translateY(-1px);
 }
 
@@ -201,7 +202,6 @@
 .as-megamenu-panel--sidebar {
   display: flex;
   align-items: stretch;
-  width: min(1100px, 92vw);
   height: min(520px, 80vh);
   padding: 0;
 }
@@ -269,15 +269,24 @@
 }
 
 /* Single flat fill for the active card - the row and its icon both use the
-   exact same --primary value (not --primary-light) so there's no visible
-   seam between the icon's own box and the row behind it. Chained with the
-   base class (not just .as-megamenu-sidebar-item-active alone) so its
-   specificity actually beats the :hover rule above - a hovered item is
-   also always the active one here (activeId is set onMouseEnter), so
-   without this the plain :hover selector's higher specificity (a class +
-   a pseudo-class) was winning and leaving the row gray. */
+   exact same --color-primary-button value so there's no visible seam
+   between the icon's own box and the row behind it. --color-primary-button
+   (a slightly muted --color-primary, see app/globals.css) rather than
+   --color-primary itself: this active row is a large solid fill, and flat
+   --color-primary reads more "electric" at that size than it does as text/
+   a small accent (simultaneous contrast, not an actual color mismatch).
+   Also not the --primary alias: master.min.css (vendor CSS) also defines a
+   global --primary, as orange (#FF845D), and was winning the cascade over
+   home-theme.css's --primary: var(--color-primary) alias - that's why this
+   was rendering as an odd orange instead of the brand yellow used
+   everywhere else (logo, nav buttons). Chained with the base class (not
+   just .as-megamenu-sidebar-item-active alone) so its specificity actually
+   beats the :hover rule above - a hovered item is also always the active
+   one here (activeId is set onMouseEnter), so without this the plain
+   :hover selector's higher specificity (a class + a pseudo-class) was
+   winning and leaving the row gray. */
 .as-megamenu-sidebar-item.as-megamenu-sidebar-item-active {
-  background: var(--primary);
+  background: var(--color-primary-button);
   transform: none;
 }
 
@@ -302,7 +311,7 @@
 }
 
 .as-megamenu-sidebar-item-active .as-megamenu-sidebar-icon {
-  background: var(--primary);
+  background: var(--color-primary-button);
   color: var(--text-primary);
   box-shadow: none;
 }
@@ -366,7 +375,7 @@
 
 .as-megamenu-view-all:hover {
   gap: 12px;
-  color: var(--primary-dark);
+  color: var(--color-primary-dark);
 }
 
 @media (max-width: 900px) {

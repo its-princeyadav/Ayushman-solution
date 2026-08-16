@@ -104,6 +104,13 @@
   font: inherit;
   color: inherit;
   animation: home2WhyChoose-fadeUp 600ms ease both;
+  /* Scroll-triggered, not on-mount - see the matching comment on
+     app/page.module.css's .aboutHeader for why. Not applied to
+     .home2WhyChoose-imageWrap below: that one intentionally replays on
+     every click (remounted via a React `key`), which a scroll-position
+     timeline would break. */
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
 }
 
 .home2WhyChoose-item:nth-child(2) {

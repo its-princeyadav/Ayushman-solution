@@ -1,24 +1,7 @@
-/* ---------- Top bar (search / book slot / contact us) ---------- */
-/* Scrolls away with the page - not sticky, on any breakpoint. */
-
-.as-nav2-topbar {
-  background: var(--topbar-bg);
-}
-
-.as-nav2-topbar-inner {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 18px;
-  max-width: 1320px;
-  height: 52px;
-  margin: 0 auto;
-  padding: 0 32px;
-}
-
-/* ---------- Main navbar ---------- */
-/* The only sticky element - stays pinned to the top on scroll while the
-   top bar above it scrolls away normally. */
+/* ---------- Navbar ---------- */
+/* Single sticky strip - search / Book Slot / Contact Us live in
+   .as-nav2-actions alongside Login and the hamburger (previously a
+   separate non-sticky top bar, merged into one row by request). */
 
 .as-nav2-navbar {
   position: sticky;
@@ -26,11 +9,39 @@
   z-index: 100;
   background: var(--navbar-bg);
   border-bottom: 1px solid var(--border);
+  animation: as-nav2-enter 400ms ease-out;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .as-nav2-navbar {
+    animation: none;
+  }
+}
+
+@keyframes as-nav2-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* minmax(0, 1fr), not bare 1fr: a bare 1fr track is really
+   minmax(auto, 1fr) - it refuses to shrink below its content's own
+   min-content width. Once the actions column grew (search + Book Slot +
+   Contact Us + Login all showing full labels, above the 1360px tier
+   below), its natural width plus the center links' auto column left less
+   room than the brand column's own min-content width demanded, and with
+   nothing able to shrink, the brand text (white-space: nowrap) spilled
+   straight into the links column with no gap. minmax(0, 1fr) lets both
+   side columns actually shrink to fit the available space instead of
+   forcing an overflow. */
 .as-nav2-inner {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 24px;
   max-width: 1320px;
@@ -44,6 +55,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  /* Grid items default to min-width: auto (same gotcha as flex items) -
+     without this, the item refuses to shrink below its own content width
+     even inside a minmax(0, 1fr) track, defeating the point of it. */
+  min-width: 0;
   justify-self: start;
   text-decoration: none;
 }
@@ -121,23 +136,43 @@
 
 /* ---------- Mega menu positioning + animation ---------- */
 
+/* Full-bleed flush band (edge to edge, flush against the navbar's own
+   bottom border, no radius) instead of a centered floating card - the
+   background/border/shadow live here on the full-width wrapper;
+   MegaMenu2.css's .as-megamenu-panel is just a centered max-width:1320px
+   content container inside it, same layering as .as-nav2-navbar (full
+   width) + .as-nav2-inner (centered) above. Positioned absolute against
+   .as-nav2-navbar (the nearest positioned ancestor, via its own
+   position:sticky) rather than the individual nav link, which is what
+   makes left:0/right:0 span the full navbar width and not just the
+   triggering link's own column. */
 .as-nav2-mega-menu-wrap {
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(4px) scale(0.98);
-  padding-top: 14px;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-menu);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+  transform: translateY(-8px);
+  /* Local timing/easing, not the shared --transition token (that 250ms
+     linear-ish ease is tuned for small hover flips - button lifts,
+     chevrons - not for a panel this size unfurling open).
+     cubic-bezier(0.16,1,0.3,1) is a fast-out/gentle-settle curve
+     (decelerates hard near the end) that reads as a much more deliberate
+     "open" than a flat ease. */
+  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1), transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .as-nav2-mega-menu-wrap-open {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 /* ---------- Top bar actions: search ---------- */
@@ -224,7 +259,7 @@
 
 .as-nav2-book-btn {
   border: none;
-  background: var(--color-primary);
+  background: var(--color-primary-button);
   color: var(--text-primary);
 }
 
@@ -253,6 +288,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
   justify-self: end;
 }
 
@@ -278,7 +314,7 @@
    More" homepage CTAs, which reuse this same class for its shape/spacing but
    should keep the shared --primary accent. */
 button.as-nav2-login-btn {
-  background: var(--color-primary);
+  background: var(--color-primary-button);
 }
 
 .as-nav2-login-btn:hover,
@@ -308,7 +344,7 @@ button.as-nav2-login-btn {
   height: 38px;
   border: none;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: var(--color-primary-button);
   color: var(--text-primary);
   cursor: pointer;
   box-shadow: var(--shadow);
@@ -459,31 +495,46 @@ button.as-nav2-login-btn {
   transform: translateY(-7px) rotate(-45deg);
 }
 
+/* Everything now lives in one row (logo + center links + search/Book Slot/
+   Contact Us/Login/hamburger) - Book Slot/Contact Us stay icon-only at
+   every desktop width, not just below some breakpoint. The navbar shares
+   the same max-width: 1320px container as every other section (for
+   visual alignment with the content below it), and full text labels here
+   never actually fit within that width alongside the full center-nav
+   menu - there's no viewport size that fixes it, since the container
+   doesn't grow past 1320px on wider screens. Full text labels still show
+   in MobileMenu2's own footer below the 1024px tier. */
+.as-nav2-btn-label {
+  display: none;
+}
+
+.as-nav2-book-btn,
+.as-nav2-contact-btn {
+  padding: 9px 12px;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1180px) {
-  .as-nav2-topbar-inner {
-    padding: 0 24px;
-    gap: 14px;
-  }
-
   .as-nav2-inner {
     padding: 16px 24px;
   }
 
   .as-nav2-link {
     padding: 10px 12px;
-    font-size: 0.88rem;
-  }
-
-  .as-nav2-book-btn,
-  .as-nav2-contact-btn {
-    padding: 9px 16px;
   }
 }
 
 @media (max-width: 1024px) {
   .as-nav2-links {
+    display: none;
+  }
+
+  /* MobileMenu2's own footer already duplicates search/Book Slot/Contact
+     Us, so these fold away here along with the center links. */
+  .as-nav2-search-wrap,
+  .as-nav2-book-btn,
+  .as-nav2-contact-btn {
     display: none;
   }
 

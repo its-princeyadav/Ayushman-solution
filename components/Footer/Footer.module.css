@@ -1,0 +1,385 @@
+/* Matches the light theme used everywhere else on the site (no dark or
+   black band - client preference) instead of contrasting against it. Built
+   entirely on this project's existing tokens: the color scale from
+   app/globals.css, plus the surface, text, border, radius, shadow,
+   transition and font-nav tokens from app/home-theme.css, already global
+   by the time this renders since Navbar2 (which also sits in the root
+   layout) imports home-theme.css. */
+
+.footer {
+  background: var(--surface-light);
+  color: var(--text-primary);
+}
+
+/* No blanket ".footer a { color: inherit }" - every anchor below already
+   sets its own explicit color, and a blanket rule here would actually beat
+   single-class rules like .ctaButton on specificity (.footer a has an
+   extra type selector), silently overriding intended colors instead of
+   just filling gaps. */
+
+@media (prefers-reduced-motion: reduce) {
+  .footer *,
+  .footer *::before,
+  .footer *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@keyframes footerFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- CTA band ---------- */
+
+.ctaBand {
+  border-bottom: 1px solid var(--border);
+}
+
+.ctaInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 72px 32px;
+  animation: footerFadeUp 700ms ease both;
+}
+
+.ctaEyebrow {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--font-nav);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  /* --color-primary-darker, not raw --color-primary - same contrast fix as
+     the hover states below (bright yellow text is unreadable on this light
+     background). */
+  color: var(--color-primary-darker);
+}
+
+.ctaTitle {
+  margin: 0;
+  max-width: 620px;
+  font-family: ui-sans-serif, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.ctaActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+  flex: none;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  /* --color-primary-button, not raw --color-primary: this is a large
+     solid fill, which reads more "electric" at that size than the same
+     hex does as text/a small accent (simultaneous contrast). See
+     app/globals.css for the token. */
+  background: var(--color-primary-button);
+  /* Same text-on-yellow convention as the navbar's Book Slot/Login buttons
+     (Navbar2.css .as-nav2-book-btn/.as-nav2-login-btn: color: var(--text-primary))
+     - not a near-black shade, matches what's already used elsewhere. */
+  color: var(--text-primary);
+  font-family: var(--font-nav);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.ctaButton:hover,
+.ctaButton:focus-visible {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.ctaButtonArrow {
+  transition: transform var(--transition);
+}
+
+.ctaButton:hover .ctaButtonArrow,
+.ctaButton:focus-visible .ctaButtonArrow {
+  transform: translate(3px, -3px);
+}
+
+.ctaEmail {
+  font-family: var(--font-nav);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.ctaEmail:hover,
+.ctaEmail:focus-visible {
+  /* --color-primary-darker, not raw --color-primary: the bright brand
+     yellow reads fine on buttons/icons but fails contrast as small text on
+     a light background (same convention already used throughout
+     components/Sap/** for exactly this reason). */
+  color: var(--color-primary-darker);
+}
+
+/* ---------- Main link grid ---------- */
+
+.main {
+  border-bottom: 1px solid var(--border);
+}
+
+.mainInner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 48px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 64px 32px;
+  animation: footerFadeUp 700ms ease 100ms both;
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 340px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.brandIcon {
+  border-radius: 50%;
+}
+
+.brandText {
+  font-family: var(--font-nav);
+  font-size: 1.1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Same two-tone wordmark treatment as the navbar (Navbar2.css
+   .as-nav2-brand-text-primary/-secondary). */
+.brandPrimary {
+  color: var(--color-logo-yellow);
+}
+
+.brandSecondary {
+  color: var(--color-logo-gray);
+}
+
+.brandDesc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition),
+    transform var(--transition);
+}
+
+.socialLink:hover,
+.socialLink:focus-visible {
+  background: var(--color-primary-button);
+  border-color: var(--color-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+  outline: none;
+}
+
+.linkColTitle {
+  margin: 0 0 20px;
+  font-family: var(--font-nav);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.linkCol ul {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.linkCol a {
+  position: relative;
+  display: inline-block;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+/* Underline that grows in from the left on hover, instead of a plain
+   color swap - matches the "loves animation" brief without needing JS. */
+.linkCol a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.linkCol a:hover,
+.linkCol a:focus-visible {
+  color: var(--color-primary-darker);
+  outline: none;
+}
+
+.linkCol a:hover::after,
+.linkCol a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Compound selectors (.linkCol a.contactItem, not just .contactItem) so
+   these win on specificity over the plain .linkCol a/ul rules above instead
+   of needing !important. */
+.linkCol a.contactItem,
+.linkCol li.contactItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contactItem svg {
+  flex: none;
+  color: var(--color-primary-darker);
+  font-size: 1.05rem;
+}
+
+/* Business hours isn't a link - it gets the class directly on the <li>
+   (no nested <a>), so it needs its own color instead of inheriting
+   .linkCol a's hover/underline treatment. */
+.linkCol li.contactItem {
+  color: var(--text-secondary);
+}
+
+/* ---------- Bottom bar ---------- */
+
+.bottomInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px 32px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.legalLinks {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legalLinks a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.legalLinks a:hover,
+.legalLinks a:focus-visible {
+  color: var(--color-primary-darker);
+  outline: none;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+  .mainInner {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 40px;
+  }
+
+  .brandCol {
+    grid-column: 1 / -1;
+    max-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ctaInner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 56px 24px;
+  }
+
+  .ctaActions {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .mainInner {
+    grid-template-columns: 1fr;
+    padding: 48px 24px;
+  }
+
+  .bottomInner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 24px;
+  }
+}

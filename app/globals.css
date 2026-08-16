@@ -2,10 +2,25 @@
   --color-primary-lightest: #f7fddd;
   --color-primary-lighter: #e9faa5;
   --color-primary-light: #fff100;
-  --color-primary: #fbf022;
+  /* Matches --color-logo-yellow (below) - richer gold, replaces the
+     brighter/more lemon #fbf022 this used to be, per feedback that the
+     logo/heading-accent gold reads better than the old CTA yellow. Only
+     the base swatch changed here, not the light/dark scale below it -
+     those ripple into ~30 SAP/Analytics section files not otherwise
+     touched this round; revisit those separately if full consistency is
+     wanted there too. */
+  --color-primary: #febe0e;
   --color-primary-dark: #f0ea69;
   --color-primary-darker: #698107;
   --color-primary-darkest: #344103;
+
+  /* For large solid-fill button backgrounds specifically (not text/icons/
+     thin accent bars) - a flat --color-primary reads noticeably more
+     "electric" as a big filled surface than the exact same hex does as
+     text or a small accent (simultaneous contrast, not an actual color
+     mismatch). Tried as its own explicit gold rather than a color-mix of
+     --color-primary, per feedback. */
+  --color-primary-button: #fec400;
 
   --color-secondary-lightest: #f0f0f0;
   --color-secondary-lighter: #d6d6d6;
@@ -43,18 +58,18 @@
   --color-logo-yellow: #febe0e;
   --color-logo-gray: #9f9da0;
 
-  /* Main navbar's nav-item font stack (see components/Navbar/Navbar.css
-     .wcf-nav-item) - centralized here so anything meant to read as an
-     extension of the primary nav (e.g. the SAP service tabs) references
-     this single source instead of duplicating the literal font stack. */
+  /* Main navbar's nav-item font stack - centralized here so anything meant
+     to read as an extension of the primary nav (e.g. the SAP service tabs)
+     references this single source instead of duplicating the literal font
+     stack. */
   --font-nav: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  /* Main navbar's nav-item typography (components/Navbar/Navbar.css
-     .wcf-nav-item) - centralized alongside --font-nav so any other nav
-     that wants to match it exactly (e.g. Navbar2, components/Common/
-     Navbar2/Navbar2.css .as-nav2-link) references the same values instead
-     of duplicating them and drifting out of sync. */
-  --nav-font-size: 18px;
+  /* Main navbar's nav-item typography - centralized alongside --font-nav
+     so any other nav that wants to match it exactly (currently just
+     Navbar2, components/Common/Navbar2/Navbar2.css .as-nav2-link)
+     references the same values instead of duplicating them and drifting
+     out of sync. */
+  --nav-font-size: 14px;
   --nav-font-weight: 500;
   --nav-letter-spacing: normal;
   --nav-line-height: 1.33;
