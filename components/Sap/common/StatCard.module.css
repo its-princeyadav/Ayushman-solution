@@ -1,9 +1,78 @@
+/* Premium floating stat card - icon badge floats above the card's top
+   edge (ring + accent dot behind it), colorful gradient icon, soft
+   natural shadow, small accent divider at the bottom. The `light` variant
+   (used on ~20 pages to sit directly on a dark/colored CenteredSection
+   background - see StatsGrid's `theme` prop) intentionally keeps its
+   original transparent, no-card, centered-icon look further down; only
+   its icon badge picks up the same colorful gradient treatment. */
 .card {
+  position: relative;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 14px;
+  gap: 10px;
+  padding: 52px 24px 28px;
+  background: #ffffff;
+  border: 1px solid var(--sap-border);
+  border-bottom: 3px solid var(--stat-accent, var(--sap-border));
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05), 0 16px 40px -22px rgba(15, 23, 42, 0.14);
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 400ms ease,
+    border-color 400ms ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08), 0 32px 56px -24px rgba(15, 23, 42, 0.22);
+}
+
+.iconWrap {
+  position: absolute;
+  /* -42px -> -56px: floats the icon 14px further above the card's fixed
+     padding-top, growing the gap to the title/label below it without
+     touching the card's own padding, height, or width (icon is absolutely
+     positioned, so this offset never affects the card's box size). */
+  top: -56px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+}
+
+/* Thin semi-circle behind the icon, tapering from ~1px to ~3.5px along its
+   sweep (see buildTaperedArcPath/ICON_RING_PATH in StatCard.jsx) - a plain
+   CSS border can't vary width along its length, so this one decorative
+   piece is an inline SVG filled path instead of a bordered span. inset:
+   -8px keeps the same footprint/position the old CSS-border ring had,
+   growing 8px past the icon circle's own edge. */
+.iconRing {
+  position: absolute;
+  inset: -8px;
+}
+
+.iconRing path {
+  fill: var(--stat-accent);
+  opacity: 0.4;
+}
+
+/* Positioned at the arc's actual computed endpoint (t=1 in
+   buildTaperedArcPath: cx 58 + radius 55.5, cy 58, minus the SVG's own
+   -8px inset offset -> 101.5px, 50px within .iconWrap) rather than an
+   eyeballed offset, so it reads as a continuation of the stroke instead of
+   a separately floating dot. */
+.iconDot {
+  position: absolute;
+  top: 46px;
+  left: 101.5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--stat-accent);
 }
 
 .iconCircle {
@@ -14,10 +83,84 @@
   width: 84px;
   height: 84px;
   border-radius: 50%;
-  background: var(--sap-navy);
-  color: var(--color-primary-light);
+  color: #ffffff;
   font-size: 1.9rem;
   overflow: hidden;
+  background: linear-gradient(135deg, var(--stat-accent) 0%, var(--stat-accent-dark) 100%);
+  box-shadow: 0 12px 26px -12px color-mix(in srgb, var(--stat-accent) 65%, transparent);
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 400ms ease;
+}
+
+.card:hover .iconCircle {
+  animation: none;
+  transform: scale(1.08);
+  box-shadow: 0 18px 34px -12px color-mix(in srgb, var(--stat-accent) 80%, transparent);
+}
+
+/* Gentle idle float+rotate, staggered per card so it reads as a soft wave
+   rather than every icon moving in lockstep - same pattern already used
+   for the dashboard/feature-panel icons elsewhere in the SAP module.
+   Guarded so a no-motion preference just sees the static colorful icon
+   above; hover hands off cleanly via animation: none so the scale/shadow
+   transition above isn't fighting a running animation. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes statIconFloat {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-4px) rotate(2deg);
+    }
+  }
+
+  /* :not(.light) - the light theme (used on ~20 pages to sit stats
+     directly on a dark/colored background) keeps its exact original,
+     fully static icon. */
+  .card:not(.light) .iconCircle {
+    animation: statIconFloat 4.5s ease-in-out infinite;
+  }
+
+  .card:not(.light):nth-child(2) .iconCircle {
+    animation-delay: 0.2s;
+  }
+
+  .card:not(.light):nth-child(3) .iconCircle {
+    animation-delay: 0.4s;
+  }
+
+  .card:not(.light):nth-child(4) .iconCircle {
+    animation-delay: 0.6s;
+  }
+}
+
+/* Touch devices have no real :hover - if it sticks after a tap, resume the
+   idle float instead of staying frozen mid-scale. */
+@media (hover: none) {
+  .card:not(.light):hover .iconCircle {
+    animation: statIconFloat 4.5s ease-in-out infinite;
+    transform: none;
+  }
+}
+
+.accentBlue {
+  --stat-accent: #2563eb;
+  --stat-accent-dark: #1d4ed8;
+}
+
+.accentEmerald {
+  --stat-accent: #059669;
+  --stat-accent-dark: #047857;
+}
+
+.accentPurple {
+  --stat-accent: #7c3aed;
+  --stat-accent-dark: #6d28d9;
+}
+
+.accentOrange {
+  --stat-accent: #ea580c;
+  --stat-accent-dark: #c2410c;
 }
 
 .iconImage {
@@ -30,23 +173,89 @@
   object-fit: cover;
 }
 
+/* Poppins is only self-hosted at weight 700/800 (see SectionLabel.css) -
+   500 needs var(--font-nav)/Kanit instead, which is registered across the
+   full 300-700 range, so this weight actually renders as requested rather
+   than the browser snapping to the nearest bold Poppins face. */
 .value {
-  font-size: 1.6rem;
-  font-weight: 800;
+  margin-top: 8px;
+  font-family: var(--font-nav);
+  font-size: 1.75rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
   color: var(--sap-navy);
 }
 
 .label {
-  font-size: 0.95rem;
+  font-family: var(--font-nav);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
   color: var(--sap-text);
 }
 
-.light .iconCircle {
-  background: var(--sap-white);
-  color: var(--sap-navy);
+/* Short accent dash with a small dot at each end, matching the reference's
+   card-bottom decoration. The dash is the element itself; the two dots are
+   its ::before/::after, positioned just outside its edges. */
+.bottomDivider {
+  position: relative;
+  width: 18px;
+  height: 2px;
+  margin-top: 6px;
+  border-radius: 1px;
+  background: var(--stat-accent);
+  opacity: 0.7;
+}
+
+.bottomDivider::before,
+.bottomDivider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--stat-accent);
+  transform: translateY(-50%);
+}
+
+.bottomDivider::before {
+  left: -9px;
+}
+
+.bottomDivider::after {
+  right: -9px;
+}
+
+/* Original minimal look, preserved: transparent card (no box/shadow/
+   border/padding/floating icon) sitting directly on the dark/colored
+   section background these pages already apply via CenteredSection's own
+   theme="light". Only the icon badge's colorful gradient carries over
+   from the redesign above. */
+.light {
+  padding: 0;
+  background: none;
+  border: none;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.light:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.light .iconWrap {
+  position: static;
+  transform: none;
+  width: auto;
+  height: auto;
 }
 
 .light .value {
+  margin-top: 0;
   color: var(--sap-white);
 }
 

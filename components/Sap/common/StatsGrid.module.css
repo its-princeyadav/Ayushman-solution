@@ -1,13 +1,50 @@
 .grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+  gap: 28px;
   margin: 48px 0;
 }
 
-@media (max-width: 800px) {
+/* Extra top clearance for the default theme only - its stat cards float
+   their icon ~50px above the card's own top edge (see StatCard.module.css
+   .iconWrap), which needs room above the grid. The `light` theme's icon
+   isn't floating, so it keeps the original 48px on ~20 pages. */
+.grid:not(.light) {
+  margin-top: 72px;
+}
+
+/* Very soft ambient glow behind the cards - purely decorative, kept well
+   under the grid (negative z-index) so it never interferes with card
+   content or the hover lift, and never captures clicks. Only for the
+   default (white-card) theme - skipped for `light`, where this grid sits
+   directly on a dark/colored CenteredSection background of unknown color
+   across ~20 pages, and the existing look there should stay unchanged. */
+.grid.light::before {
+  display: none;
+}
+
+.grid::before {
+  content: "";
+  position: absolute;
+  inset: -40px -10% auto -10%;
+  height: 260px;
+  z-index: -1;
+  background: radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.05) 0%, transparent 55%),
+    radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.05) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 40px;
+    row-gap: 36px;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 }

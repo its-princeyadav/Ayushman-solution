@@ -9,7 +9,7 @@
   --flipbtn-radius: var(--sap-radius-sm, 6px);
   --flipbtn-bg: var(--color-primary, #febe0e);
   --flipbtn-color: var(--color-neutral, #1c1d20);
-  --flipbtn-bg-back: var(--color-neutral, #1c1d20);
+  --flipbtn-bg-back: #3a3a3a;
   --flipbtn-color-back: var(--color-white, #ffffff);
 
   position: relative;
@@ -38,10 +38,23 @@
   outline-offset: 3px;
 }
 
+/* This is the ONLY element whose transform ever animates - both faces
+   inside it are pinned at a fixed relative rotation (0deg / 180deg) and
+   never move on their own. That's what makes the whole button flip as one
+   solid unit instead of visibly splitting into two independently-rotating
+   halves that happened to (almost) meet in the middle. */
 .flipbtn-flip {
   position: relative;
   display: block;
   transform-style: preserve-3d;
+  transform: rotateX(0deg);
+  transition: transform var(--flipbtn-speed) cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
+}
+
+.flipbtn:hover .flipbtn-flip,
+.flipbtn:focus-visible .flipbtn-flip {
+  transform: rotateX(180deg);
 }
 
 .flipbtn-face {
@@ -58,9 +71,6 @@
   white-space: nowrap;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transform: translate3d(0, 0, 0) rotateX(0deg);
-  transition: transform var(--flipbtn-speed) cubic-bezier(0.65, 0, 0.35, 1);
-  will-change: transform;
 }
 
 /* The front face is the only one in normal flow - it's what actually sizes
@@ -71,6 +81,7 @@
   position: relative;
   background: var(--flipbtn-bg);
   color: var(--flipbtn-color);
+  transform: rotateX(0deg);
 }
 
 .flipbtn-face-back {
@@ -78,33 +89,19 @@
   inset: 0;
   background: var(--flipbtn-bg-back);
   color: var(--flipbtn-color-back);
-  transform: translate3d(0, 0, 0) rotateX(-90deg);
-}
-
-.flipbtn:hover .flipbtn-face-front,
-.flipbtn:focus-visible .flipbtn-face-front {
-  transform: translate3d(0, 0, 0) rotateX(90deg);
-}
-
-.flipbtn:hover .flipbtn-face-back,
-.flipbtn:focus-visible .flipbtn-face-back {
-  transform: translate3d(0, 0, 0) rotateX(0deg);
+  transform: rotateX(180deg);
 }
 
 /* Touch devices have no real :hover - leave the button static (front face
    only) instead of risking a stuck half-flipped state after a tap. */
 @media (hover: none) {
-  .flipbtn:hover .flipbtn-face-front {
-    transform: translate3d(0, 0, 0) rotateX(0deg);
-  }
-
-  .flipbtn:hover .flipbtn-face-back {
-    transform: translate3d(0, 0, 0) rotateX(-90deg);
+  .flipbtn:hover .flipbtn-flip {
+    transform: rotateX(0deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flipbtn-face {
+  .flipbtn-flip {
     transition: none;
   }
 }

@@ -2,7 +2,9 @@ import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import ImageTextSection from "../Sap/common/ImageTextSection";
 import PremiumSplitSection from "../Sap/common/PremiumSplitSection";
+import PremiumEditionSection from "../Sap/common/PremiumEditionSection";
 import SectionHeading from "../Sap/common/SectionHeading";
+import SectionLabel from "../Common/SectionLabel";
 import Container from "../Sap/common/Container";
 import CenteredSection from "../Sap/common/CenteredSection";
 import StatsGrid from "../Sap/common/StatsGrid";
@@ -33,7 +35,13 @@ const BOTTOM_HALF = [
 ];
 
 export default function SapSolutions() {
-  const { heading, background, public: publicEdition, private: privateEdition } = sapSolutions.cloudEditions;
+  const {
+    eyebrow: cloudEditionsEyebrow,
+    heading,
+    background,
+    public: publicEdition,
+    private: privateEdition,
+  } = sapSolutions.cloudEditions;
   const { background: dtBackground, intro: dtIntro, stats: dtStats } = sapSolutions.digitalTransformation;
 
   return (
@@ -41,18 +49,23 @@ export default function SapSolutions() {
       <HeroBanner {...sapSolutions.hero} />
       <PremiumSplitSection {...sapSolutions.s4hanaIntro} />
 
-      <section style={{ background }}>
+      <section style={{ background, paddingBlock: "var(--sap-section-gap)" }}>
         <Container>
+          {cloudEditionsEyebrow && <SectionLabel title={cloudEditionsEyebrow} align="center" />}
           <SectionHeading title={heading} align="center" />
         </Container>
-        <ImageTextSection {...publicEdition} />
-        <ImageTextSection {...privateEdition} />
+        <PremiumEditionSection {...publicEdition} />
+        <PremiumEditionSection {...privateEdition} />
       </section>
 
       <CenteredSection {...sapSolutions.whoNeedsIt} />
 
       <CenteredSection
+        eyebrow={sapSolutions.empowering.eyebrow}
         title={sapSolutions.empowering.title}
+        highlight={sapSolutions.empowering.highlight}
+        titleDivider={sapSolutions.empowering.titleDivider}
+        decorative={sapSolutions.empowering.decorative}
         description={sapSolutions.empowering.description}
         buttons={sapSolutions.empowering.buttons}
       >

@@ -90,17 +90,28 @@ export const sapSolutions = {
   // TODO: no beach/surf photography exists in the project yet — swap these
   // for the real SAP S/4HANA public/private edition images.
   cloudEditions: {
+    // Short eyebrow label above the heading (double-dash mark, same as the
+    // homepage's SectionLabel) - freely editable/renameable.
+    eyebrow: "Cloud Editions",
     heading: "Cloud SAP Software Solutions\nTailored For Your Business",
-    background: "linear-gradient(120deg, var(--color-secondary-lightest) 0%, var(--sap-white) 40%)",
+    background: "var(--color-secondary-lightest)",
     public: {
       imagePosition: "left",
       title: "SAP S/4HANA Cloud",
       titleAccent: "public edition",
       description: "A ready-to-run ERP to tackle top business priorities and deliver continuous innovation.",
       bullets: ["Automated and continual updates", "Proven best practices", "Secure, scalable, and compliant"],
-      button: { label: "Explore SAP S4/HANA Cloud", href: "#" },
-      image: "/assets/image2/solution-products-img-1.webp",
-      imageAlt: "Group carrying surfboards to the shore",
+      backgroundVideo: "/assets/videos/sap-bg1.mp4",
+      // TODO: placeholder capability labels - swap for whatever the real
+      // Public Edition feature set should highlight once confirmed.
+      features: [
+        { icon: "finance", title: "Finance & Accounting" },
+        { icon: "sales", title: "Sales & Distribution" },
+        { icon: "procurement", title: "Procurement" },
+        { icon: "inventory", title: "Inventory Management" },
+        { icon: "analytics", title: "Analytics & Reporting" },
+        { icon: "security", title: "Cloud Security" },
+      ],
     },
     private: {
       imagePosition: "right",
@@ -108,8 +119,17 @@ export const sapSolutions = {
       titleAccent: "private edition",
       description: "A tailored-to-fit cloud ERP to run unique business requirements and roll out innovations.",
       bullets: ["Innovation at your pace", "Lower TOC", "Streamlined operations and support"],
-      image: "/assets/image2/sap-private-edition.jpg",
-      imageAlt: "Surfer riding a wave",
+      backgroundVideo: "/assets/videos/sap-bg2.mp4",
+      // TODO: placeholder capability labels - swap for whatever the real
+      // Private Edition feature set should highlight once confirmed.
+      features: [
+        { icon: "tenant", title: "Tenant Management" },
+        { icon: "access", title: "Access Control" },
+        { icon: "monitoring", title: "System Monitoring" },
+        { icon: "data", title: "Data Management" },
+        { icon: "integration", title: "Integration Framework" },
+        { icon: "recovery", title: "Disaster Recovery" },
+      ],
     },
   },
 
@@ -124,16 +144,20 @@ export const sapSolutions = {
   },
 
   empowering: {
+    eyebrow: "Our Impact",
     title: "Empowering Businesses\nto Take Giant Strides",
+    highlight: "Giant Strides",
+    titleDivider: true,
+    decorative: true,
     description:
       "Whether it's enterprise transformation or running business-critical operations, SAP solutions company Ayushman Solution has the capabilities to provide value-driven solutions. With a collaborative approach combined with a passion for digital engineering, we enable businesses to drive revenue generation, achieve greater efficiency, and deliver intuitive customer experiences with SAP software solutions.",
     stats: [
       { icon: "handshake", value: "#1 SAP", label: "Platinum Partner" },
       { icon: "certificate", value: "600+", label: "Certified Consultants" },
       { icon: "puzzle", value: "25+", label: "Industry Packages" },
-      { icon: "lightbulb", value: "1200+", label: "Implementations" },
+      { icon: "rocket", value: "1200+", label: "Implementations" },
     ],
-    buttons: [{ label: "Let's Talk", href: "#", variant: "primary" }],
+    buttons: [{ label: "Let's Talk", href: "#", variant: "dark" }],
   },
 
   // TODO: no butterfly/metamorphosis photography exists in the project yet —
@@ -169,16 +193,15 @@ export const sapSolutions = {
     ],
   },
 
-  // TODO: no photography for these six tiles exists in the project yet.
   functionalityGrid: {
     title: "SAP Business One Add-on Functionalities",
     items: [
-      { label: "Finance and accounting", image: "/assets/image2/functionality-finance.jpg", href: "#" },
-      { label: "Sourcing, procurement and purchasing", image: "/assets/image2/functionality-procurement.jpg", href: "#" },
-      { label: "Supply chain and distribution", image: "/assets/image2/functionality-supply-chain.jpg", href: "#" },
-      { label: "Operations and inventory", image: "/assets/image2/functionality-operations.jpg", href: "#" },
-      { label: "Production and pricing", image: "/assets/image2/functionality-production.jpg", href: "#" },
-      { label: "Sales and services", image: "/assets/image2/functionality-sales.jpg", href: "#" },
+      { label: "Finance and accounting", image: "/assets/image2/finance-accounting.png", href: "#" },
+      { label: "Sourcing, procurement and purchasing", image: "/assets/image2/sourcing-procurement.jpg", href: "#" },
+      { label: "Supply chain and distribution", image: "/assets/image2/supply-chain.jpg", href: "#" },
+      { label: "Operations and inventory", image: "/assets/image2/operation-inventory.webp", href: "#" },
+      { label: "Production and pricing", image: "/assets/image2/production-pricing.png", href: "#" },
+      { label: "Sales and services", image: "/assets/image2/sales-service.jpg", href: "#" },
     ],
   },
 

@@ -2,13 +2,16 @@ import Link from "next/link";
 import "./FlipButton.css";
 
 /**
- * Reusable 3D "flip" CTA button - a front face (always the accessible
- * label) that rotates away on hover/focus to reveal a back face rotating in
- * from behind, built from real DOM nodes (not the ::before/::after +
- * content: attr() trick from the original demo) so both faces can hold
- * arbitrary text/markup and the back face can be hidden from assistive tech
- * without duplicating the announced label. Renders a next/link <Link> when
- * `to`/`href` is given, otherwise a plain <button>.
+ * Reusable 3D "flip" CTA button, built from real DOM nodes (not the
+ * ::before/::after + content: attr() trick from the original demo) so both
+ * faces can hold arbitrary text/markup and the back face can be hidden from
+ * assistive tech without duplicating the announced label. The flip itself
+ * is a single rotation on the shared .flipbtn-flip wrapper (see
+ * FlipButton.css) - the two faces are pinned at a fixed relative rotation
+ * and never animate individually, so the whole button turns as one solid
+ * card instead of visibly splitting into two independently-rotating
+ * halves. Renders a next/link <Link> when `to`/`href` is given, otherwise a
+ * plain <button>.
  */
 export default function FlipButton({
   frontText,
