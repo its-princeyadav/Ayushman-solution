@@ -9,6 +9,8 @@ import BookingTimeSlots from "./BookingTimeSlots";
 import LeadInfoForm from "./LeadInfoForm";
 import BookingConfirmation from "./BookingConfirmation";
 import { useBodyScrollLock } from "../../../hooks/useBodyScrollLock";
+import { submitConsultationBooking } from "../../../lib/api";
+import { useToast } from "../Toast/ToastProvider";
 import "./BookingModal.css";
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -54,7 +56,9 @@ export default function BookingModal({ isOpen, onClose }) {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [leadForm, setLeadForm] = useState(EMPTY_LEAD_FORM);
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const modalRef = useRef(null);
+  const showToast = useToast();
 
   useEffect(() => setMounted(true), []);
 
@@ -65,6 +69,7 @@ export default function BookingModal({ isOpen, onClose }) {
       setSelectedSlot(null);
       setLeadForm(EMPTY_LEAD_FORM);
       setIsConfirmed(false);
+      setIsSubmitting(false);
     }
   }, [isOpen]);
 
@@ -80,6 +85,31 @@ export default function BookingModal({ isOpen, onClose }) {
   }
 
   const isLeadFormComplete = REQUIRED_LEAD_FIELDS.every((field) => leadForm[field].trim() !== "");
+
+  async function handleBookConsultation() {
+    if (isSubmitting || !selectedDate || !selectedSlot) return;
+
+    setIsSubmitting(true);
+    try {
+      await submitConsultationBooking({
+        fullName: leadForm.fullName.trim(),
+        email: leadForm.email.trim(),
+        phone: leadForm.phone.trim(),
+        company: leadForm.company.trim(),
+        state: leadForm.state.trim(),
+        solution: leadForm.solution,
+        turnover: leadForm.turnover,
+        message: leadForm.message.trim(),
+        selectedDate: selectedSlot.toISOString(),
+        selectedTime: selectedSlot.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }),
+      });
+      setIsConfirmed(true);
+    } catch (error) {
+      showToast(error.message || "Something went wrong. Please try again.", "error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   useBodyScrollLock(isOpen);
 
@@ -274,10 +304,10 @@ export default function BookingModal({ isOpen, onClose }) {
                       <button
                         type="button"
                         className="bookingModal__continueBtn"
-                        disabled={!isLeadFormComplete}
-                        onClick={() => setIsConfirmed(true)}
+                        disabled={!isLeadFormComplete || isSubmitting}
+                        onClick={handleBookConsultation}
                       >
-                        Book Consultation
+                        {isSubmitting ? "Booking..." : "Book Consultation"}
                       </button>
                     </div>
                   ) : (
