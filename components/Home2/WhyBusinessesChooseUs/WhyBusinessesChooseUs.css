@@ -158,16 +158,23 @@
   padding-top: 8px;
 }
 
+/* Muted by default (--color-secondary-dark, not near-black) - the active
+   item below gets the strong dark color instead, so the list actually
+   reads as one selected item among three secondary ones rather than four
+   near-identical, equally bold headings (which is what made this read as
+   flat regardless of which item happens to be active). Hover previews the
+   same shift so there's feedback before a click commits it. */
 .home2WhyChoose-itemTitle {
   font-family: ui-sans-serif, sans-serif;
   font-size: clamp(1.15rem, 2vw, 1.6rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.015em;
-  color: var(--color-neutral);
+  color: var(--color-secondary-dark);
   transition: color 300ms ease;
 }
 
+.home2WhyChoose-item:hover .home2WhyChoose-itemTitle,
 .home2WhyChoose-item--active .home2WhyChoose-itemTitle {
   color: var(--color-neutral-darkest);
 }
@@ -177,7 +184,15 @@
   font-size: 0.95rem;
   font-weight: 500;
   line-height: 1.6;
-  color: var(--color-secondary-dark);
+  transition: color 300ms ease;
+  /* Lighter than the title's muted state - the inactive items' supporting
+     detail should recede further than their own heading does. */
+  color: var(--color-secondary);
+}
+
+.home2WhyChoose-item:hover .home2WhyChoose-itemDesc,
+.home2WhyChoose-item--active .home2WhyChoose-itemDesc {
+  color: var(--color-secondary-darker);
 }
 
 /* ---------- Right side: image ---------- */
@@ -186,18 +201,23 @@
   position: relative;
 }
 
+/* No border-radius/overflow/shadow/background - all four feature images
+   are partially-transparent cutouts, not opaque full-bleed photos, and a
+   bounding box/backdrop around a transparent shape reads as a visible
+   rectangle mistake rather than a frame (same reasoning as
+   app/page.module.css's .aboutImageWrap for the Digital Transformation
+   wheel). It should just float. */
 .home2WhyChoose-imageWrap {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3.4;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 24px 55px -28px rgba(0, 0, 0, 0.4);
   animation: home2WhyChoose-imageIn 450ms ease both;
 }
 
+/* contain, not cover: cover would crop these (mostly square-ish) cutouts
+   to fill this landscape frame instead of showing them in full. */
 .home2WhyChoose-image {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 @keyframes home2WhyChoose-fadeUp {
