@@ -24,21 +24,25 @@
 /* cover, not contain: full-bleed background, cover-and-crop-to-fill.
    Stacked absolutely on top of each other (Next's `fill` handles the
    position/inset) and crossfaded via opacity - only the active slide is
-   opaque, the rest sit at opacity:0 underneath. Each keeps running its own
-   slow "Ken Burns" breathing zoom even while hidden, rather than pausing/
-   restarting it on activation - simpler, and the zoom is slow/subtle
-   enough that being mid-cycle when a slide fades back in is unnoticeable. */
+   opaque, the rest sit at opacity:0 underneath. */
 .heroImage {
   z-index: 0;
   object-fit: cover;
   object-position: center center;
   opacity: 0;
   transition: opacity 1200ms ease;
-  animation: heroKenBurns 20s ease-in-out infinite alternate;
 }
 
+/* Ken Burns zoom lives on the active state, not the base .heroImage - a
+   CSS animation restarts from its 0% frame every time the class granting
+   it is (re)added to an element, so tying it to .heroImageActive makes it
+   play fresh on every activation (autoplay, arrows, dots, or swipe) rather
+   than running as one continuous loop decoupled from which slide is
+   actually on screen. `forwards` holds the zoomed-in end frame instead of
+   zooming back out, since the slide's already fading out again by then. */
 .heroImageActive {
   opacity: 1;
+  animation: heroKenBurns 7000ms ease-out forwards;
 }
 
 @keyframes heroKenBurns {
