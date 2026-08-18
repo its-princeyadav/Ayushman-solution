@@ -1,0 +1,270 @@
+/* Full-bleed, edge-to-edge hero - fills the viewport right below the
+   navbar. dvh (not vh) so mobile browsers' collapsing address bar doesn't
+   leave a tall empty gap the first time the page loads. */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  cursor: grab;
+  /* pan-y, not none/pan-x: lets the browser keep handling vertical page
+     scroll natively (a touch-action: none here would block it entirely),
+     while horizontal gestures are left for the JS swipe handler instead
+     of being consumed as an (impossible, since the hero doesn't scroll
+     horizontally) native pan. */
+  touch-action: pan-y;
+}
+
+.heroDragging {
+  cursor: grabbing;
+}
+
+/* cover, not contain: full-bleed background, cover-and-crop-to-fill.
+   Stacked absolutely on top of each other (Next's `fill` handles the
+   position/inset) and crossfaded via opacity - only the active slide is
+   opaque, the rest sit at opacity:0 underneath. Each keeps running its own
+   slow "Ken Burns" breathing zoom even while hidden, rather than pausing/
+   restarting it on activation - simpler, and the zoom is slow/subtle
+   enough that being mid-cycle when a slide fades back in is unnoticeable. */
+.heroImage {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0;
+  transition: opacity 1200ms ease;
+  animation: heroKenBurns 20s ease-in-out infinite alternate;
+}
+
+.heroImageActive {
+  opacity: 1;
+}
+
+@keyframes heroKenBurns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+/* No existing overlay token in home2-theme.css to reuse - a flat 45% black
+   scrim is a one-off value specific to this hero, not a reusable design
+   token, so it's kept local rather than promoted to a CSS variable. */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.heroTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  /* Percentage-based, not a fixed px cap: the hero is aspect-ratio locked
+     to the viewport, so a fixed max-width would collide with the
+     background art at some widths - capping as a share of the container
+     keeps the same clearance at every width. */
+  max-width: min(720px, 48%);
+  font-family: var(--font-nav);
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--surface);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+  /* On-mount, not scroll-triggered (animation-timeline: view()) - this is
+     above the fold and already visible at load, unlike sections further
+     down the page. */
+  animation: as-fade-up 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes as-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.heroTitleSecondary {
+  font-size: 0.55em;
+}
+
+.heroAccent {
+  width: 64px;
+  height: 4px;
+  margin-top: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-logo-yellow);
+  animation: heroAccentGrow 500ms cubic-bezier(0.16, 1, 0.3, 1) 500ms both;
+}
+
+@keyframes heroAccentGrow {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 64px;
+    opacity: 1;
+  }
+}
+
+/* ---------- Arrows ---------- */
+
+/* Bottom-aligned (with the dots), not vertically centered on the
+   viewport - a vertically-centered arrow collided with the heading text
+   whenever it wrapped to two lines at narrower viewport widths, since
+   both landed in the same middle-of-screen zone. Anchoring to the bottom
+   instead keeps the arrows clear of the heading regardless of how many
+   lines it wraps to or how wide the viewport is. */
+.heroArrow {
+  position: absolute;
+  bottom: 32px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  color: var(--surface);
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.heroArrow:hover,
+.heroArrow:focus-visible {
+  background: rgba(255, 255, 255, 0.32);
+  box-shadow: var(--shadow-hover);
+  outline: none;
+}
+
+.heroArrowPrev {
+  left: 24px;
+}
+
+.heroArrowPrev:hover,
+.heroArrowPrev:focus-visible {
+  transform: translateX(-3px);
+}
+
+.heroArrowNext {
+  right: 24px;
+}
+
+.heroArrowNext:hover,
+.heroArrowNext:focus-visible {
+  transform: translateX(3px);
+}
+
+/* ---------- Dots ---------- */
+
+.heroDots {
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(-50%);
+}
+
+.heroDot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: width var(--transition), background-color var(--transition);
+}
+
+.heroDot:hover,
+.heroDot:focus-visible {
+  background: rgba(255, 255, 255, 0.75);
+  outline: none;
+}
+
+.heroDotActive,
+.heroDotActive:hover {
+  width: 28px;
+  background: var(--color-primary-button);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero *,
+  .hero *::before,
+  .hero *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroContent {
+    padding: 24px;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
+
+  .heroArrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.15rem;
+  }
+
+  .heroArrowPrev {
+    left: 12px;
+  }
+
+  .heroArrowNext {
+    right: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Still full screen, but with a height floor: 100dvh on a short/landscape
+     phone would otherwise squeeze the heading down uncomfortably far. */
+  .hero {
+    min-height: 480px;
+  }
+
+  .heroContent {
+    padding: 20px 16px;
+  }
+
+  .heroArrow {
+    bottom: 18px;
+  }
+
+  .heroDots {
+    bottom: 18px;
+  }
+}

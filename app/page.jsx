@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LuLayers, LuUsers, LuCloud, LuZap, LuArrowRight, LuAward, LuChartColumn, LuBuilding2, LuMonitor } from "react-icons/lu";
 import SectionLabel from "../components/Common/SectionLabel";
+import Hero from "../components/Hero/Hero";
 import WhyBusinessesChooseUs from "../components/Home2/WhyBusinessesChooseUs/WhyBusinessesChooseUs";
 import "./home-theme.css";
 import styles from "./page.module.css";
@@ -66,26 +67,7 @@ const WHY_US_CARDS = [
 export default function Home() {
   return (
     <>
-      <div className={styles.heroWrap}>
-        <section className={styles.hero}>
-          <Image
-            src="/assets/image2/sap-hero.png"
-            alt=""
-            fill
-            priority
-            sizes="90vw"
-            className={styles.heroImage}
-          />
-          <div className={styles.heroOverlay} />
-          <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>
-              <span>Transforming Businesses</span>
-              <span className={styles.heroTitleSecondary}>with Intelligent SAP Solutions</span>
-            </h1>
-            <div className={styles.heroAccent} />
-          </div>
-        </section>
-      </div>
+      <Hero />
 
       <section className={styles.expertise}>
         <div className={styles.expertiseInner}>
