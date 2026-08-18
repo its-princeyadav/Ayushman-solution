@@ -16,7 +16,7 @@ const DEFAULT_TITLE = {
 };
 
 const SLIDES = [
-  { id: "sap", image: "/assets/image2/sap-hero.png" },
+  { id: "sap", image: "/assets/image2/hero-sap-network.png" },
   {
     id: "cyberpunk-city",
     image: "/assets/image2/hero-cyberpunk-city.jpg",
