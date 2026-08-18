@@ -141,6 +141,7 @@ export const sapSolutions = {
       { label: "Learn More", href: "#", variant: "primary" },
       { label: "Let's Talk", href: "#", variant: "outline" },
     ],
+    equalButtons: true,
   },
 
   empowering: {
@@ -184,12 +185,14 @@ export const sapSolutions = {
   },
 
   enhancedAdoption: {
+    eyebrow: "Our Promise",
     title: "Enhanced User Adoption: Our Promise",
+    backgroundImage: "/assets/image2/sap4hana.png",
     description:
       "Partnering with a SAP solutions company does not just mean having an implementation team. It means a team that goes the extra mile to help your business adopt the SAP solution completely. Ayushman Solution prioritizes user experience in our SAP solutions. This boosts user acceptance and drives adoption across your organization. At Ayushman Solution, we excel in guiding companies through seamless SAP user adoption strategies. Our technical expertise ensures that your organization harnesses the full potential of SAP solutions. We specialize in creating intuitive interfaces, providing comprehensive training, and implementing best practices, all designed to maximize user acceptance and amplify the benefits of your SAP investment. With our tailored approach, your team will not only embrace SAP cloud solutions with confidence but also unlock its capabilities to achieve optimal business outcomes.",
     buttons: [
       { label: "Let's Talk", href: "#", variant: "primary" },
-      { label: "Explore SAP Services", href: "#", variant: "outline" },
+      { label: "Explore SAP Services", href: "#", variant: "dark" },
     ],
   },
 

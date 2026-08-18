@@ -1,0 +1,159 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: clamp(440px, 42vw, 620px);
+}
+
+/*
+ * Parallax: same fixed-attachment technique as ServiceTabsSection - a
+ * fixed-attachment background stays pinned to the viewport while the
+ * section (and its content) scroll past it, so the image reads as a static
+ * backdrop the glass panel moves over. No JS, just a CSS decoupling of
+ * scroll rate. The image URL is set per-page via the --promise-bg-image
+ * custom property (see ParallaxPromiseSection.jsx), so this stays
+ * page-agnostic and reusable.
+ */
+.image {
+  position: absolute;
+  inset: 0;
+  background-image: var(--promise-bg-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--sap-overlay-rgb), 0.5) 0%,
+    rgba(var(--sap-overlay-rgb), 0.28) 45%,
+    rgba(var(--sap-overlay-rgb), 0.5) 100%
+  );
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-block: clamp(40px, 6vw, 64px);
+}
+
+.panel {
+  position: relative;
+  width: 100%;
+  max-width: 1160px;
+  padding: clamp(28px, 4vw, 48px) clamp(32px, 6vw, 72px);
+  border-radius: var(--sap-radius-lg);
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: var(--sap-shadow-premium);
+  text-align: center;
+}
+
+.eyebrow {
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.title {
+  margin: 0;
+  color: var(--sap-navy);
+  font-family: "Poppins", var(--sap-font-heading);
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  font-weight: 700;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height);
+  white-space: pre-line;
+}
+
+/* Short accent dash with a small dot at each end - same construction as
+   StatCard's .bottomDivider, scaled up for a section heading instead of a
+   card footer. */
+.divider {
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 2px;
+  margin: 16px auto;
+  border-radius: 1px;
+  background: var(--color-primary);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  transform: translateY(-50%);
+}
+
+.divider::before {
+  left: -13px;
+}
+
+.divider::after {
+  right: -13px;
+}
+
+.description {
+  margin: 0 auto;
+  max-width: 1000px;
+  color: var(--sap-text);
+  font-family: var(--font-nav);
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.9;
+}
+
+.description + .description {
+  margin-top: 12px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+@media (max-width: 700px) {
+  .section {
+    min-height: 0;
+  }
+
+  .container {
+    padding-block: 32px;
+  }
+
+  .panel {
+    padding: 28px 20px;
+  }
+
+  /* background-attachment: fixed is janky/unsupported on many touch
+     browsers - fall back to a plain scrolling background instead, same
+     breakpoint/approach as ServiceTabsSection. */
+  .image {
+    background-attachment: scroll;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    background-attachment: scroll;
+  }
+}

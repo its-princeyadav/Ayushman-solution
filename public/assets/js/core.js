@@ -38,8 +38,20 @@ const runOnWindowLoad = (fn) =>
       preloaderEl.style.opacity = "0";
       document.body.classList.remove("wcf-preloader-active");
 
+      // Hide in place instead of preloaderEl.remove(): this node is still
+      // owned by React (components/Common/Preloader.jsx renders it
+      // unconditionally), so physically detaching it here left its
+      // parentNode null from React's perspective - any later commit that
+      // touched this part of the tree (e.g. Fast Refresh in dev) could then
+      // crash with "Cannot read properties of null (reading
+      // 'removeChild')" trying to remove a child from a parent that no
+      // longer existed. display:none is visually identical once opacity is
+      // already 0, and also pauses the spinner's CSS animation instead of
+      // leaving it running forever off-screen.
       window.setTimeout(() => {
-        preloaderEl.remove();
+        if (!preloaderEl.isConnected) return;
+        preloaderEl.style.display = "none";
+        preloaderEl.setAttribute("aria-hidden", "true");
       }, 220);
     };
 
