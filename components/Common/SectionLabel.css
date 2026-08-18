@@ -62,12 +62,19 @@
   gap: 5px;
 }
 
-.as-section-label-bar:first-child {
+.as-section-label--center .as-section-label-bar:first-child {
   align-items: flex-end;
 }
 
-.as-section-label-bar:last-child {
+.as-section-label--center .as-section-label-bar:last-child {
   align-items: flex-start;
+}
+
+/* Left mode has exactly one (leading) bar - its short top dash should hug
+   its right edge, flush against the text, same as the centered variant's
+   left-hand bar. */
+.as-section-label--left .as-section-label-bar {
+  align-items: flex-end;
 }
 
 .as-section-label-bar::before {

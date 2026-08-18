@@ -3,6 +3,12 @@
   padding-block: var(--sap-section-gap);
   background: var(--sap-white);
   overflow: hidden;
+  /* Wider container just for this hero split section - Container's own
+     max-width reads this same var(--sap-max-width), so redefining it here
+     widens the whole centered container symmetrically (equal left/right
+     gutters preserved via Container's own margin-inline: auto) without
+     touching the sitewide 1200px token every other SAP section still uses. */
+  --sap-max-width: 1400px;
 }
 
 .container {
@@ -24,35 +30,17 @@
   z-index: 0;
 }
 
-/* Yellow accent block, sat behind the image card and pushed toward the
-   viewport's right edge - a section-level layer (not nested inside
-   .imageSide) so it can reach past the max-width container without being
-   clipped by it; .section's own overflow:hidden stops it from ever causing
-   horizontal scroll. z-index 0 keeps it under .container (z-index 1), so it
-   only shows in the gutter the container doesn't cover - never over content. */
-.accentBlock {
-  position: absolute;
-  z-index: 0;
-  right: 0;
-  bottom: 10%;
-  width: min(22vw, 320px);
-  height: 42%;
-  background: var(--color-primary);
-  border-radius: var(--sap-radius-lg) 0 0 var(--sap-radius-lg);
-  pointer-events: none;
-}
-
 .grid {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  align-items: center;
-  gap: clamp(40px, 6vw, 96px);
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  align-items: start;
+  gap: clamp(32px, 5vw, 72px);
 }
 
 .imageLeft {
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
 }
 
 .imageLeft .content {
@@ -68,47 +56,17 @@
   max-width: 560px;
 }
 
-.eyebrow {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-}
-
-.eyebrowLine {
-  width: 32px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--color-primary);
-}
-
-.eyebrowText {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-neutral);
-}
-
-.title {
-  position: relative;
-  margin: 0 0 20px;
-  font-family: var(--sap-font-heading);
-  font-weight: 800;
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  text-transform: var(--sap-heading-transform);
-  line-height: 0.98;
-  color: var(--color-neutral);
-}
-
-.highlight {
-  color: var(--color-primary);
+/* Eyebrow + heading now render via the shared components/Common/
+   HeroUnderHeading block - this just gives it section-local spacing before
+   the slider dots below it. */
+.heroHeading {
+  margin-bottom: 24px;
 }
 
 .accentDots {
   position: relative;
   display: flex;
+  align-items: center;
   gap: 6px;
   margin: 0 0 28px;
 }
@@ -120,13 +78,58 @@
   background: var(--sap-border);
 }
 
-.accentDots span:nth-child(-n + 3) {
+.accentDots .accentDotsBar {
+  width: 26px;
+  height: 5px;
+  border-radius: 3px;
   background: var(--color-primary);
 }
 
 .body {
   position: relative;
-  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Info card wrapping each description paragraph - flat icon square + prose,
+   thin hairline border, no shadow/gradient/hover motion, matching the
+   reference's plain, quiet treatment. Local to this component (not the
+   shared RichContent) since RichContent is reused by many other SAP
+   sections that don't want this per-paragraph icon treatment. */
+.infoCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 22px;
+  border-radius: 16px;
+  background: var(--sap-white);
+  border: 1px solid var(--sap-border);
+}
+
+.infoCardIcon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--sap-bg-tint);
+  color: var(--color-neutral);
+}
+
+.infoCardIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.infoCardText {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--sap-text);
 }
 
 .button {
@@ -138,143 +141,570 @@
   z-index: 1;
 }
 
-/* Desktop-monitor mockup wrapping the image "screen" - dark bezel, top
-   camera dot, minimal stand/base. Scales/lifts slightly on hover (same
-   trigger as the feature panel below, since both live under .imageSide). */
-.monitor {
+/* Browser-window mockup wrapping the dashboard preview - macOS-style traffic
+   lights + rounded address bar, no hardware chrome (no laptop/monitor shell).
+   Scales/lifts slightly on hover. Also where the mockup's local accent
+   palette (indigo/emerald/purple/rose/amber) is defined - .browserChrome
+   and .dashboard are siblings, so this common ancestor is the lowest point
+   both can read the variables from. */
+.browserWindow {
   position: relative;
   z-index: 1;
-  padding: 14px 14px 22px;
   border-radius: 22px;
-  background: linear-gradient(180deg, #3a3b3e 0%, #1c1d20 100%);
-  box-shadow: var(--sap-shadow-premium);
-  transition: transform var(--sap-transition-slow) cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow var(--sap-transition-slow) ease, filter var(--sap-transition-slow) ease;
-}
-
-.imageSide:hover .monitor {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: var(--sap-shadow-hover);
-  filter: brightness(1.03);
-}
-
-.monitorCamera {
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #050505;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.06);
-}
-
-.monitorStand {
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  bottom: -16px;
-  transform: translateX(-50%);
-  width: 84px;
-  height: 18px;
-  background: linear-gradient(180deg, #3a3b3e, #1c1d20);
-  border-radius: 0 0 8px 8px;
-}
-
-.monitorBase {
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  bottom: -22px;
-  transform: translateX(-50%);
-  width: 150px;
-  height: 8px;
-  background: #1c1d20;
-  border-radius: 6px;
-}
-
-.imageCard {
-  position: relative;
-  z-index: 1;
-  aspect-ratio: 1 / 1;
-  border-radius: var(--sap-radius-md);
+  background: var(--sap-white);
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  box-shadow: 0 1px 1px rgba(15, 23, 42, 0.04), var(--sap-shadow-premium);
   overflow: hidden;
+  transition: transform var(--sap-transition-slow) cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow var(--sap-transition-slow) ease;
+  --dash-indigo-bg: #eef2ff;
+  --dash-indigo: #4f46e5;
+  --dash-emerald-bg: #ecfdf5;
+  --dash-emerald: #059669;
+  --dash-purple-bg: #f5f3ff;
+  --dash-purple: #7c3aed;
+  --dash-rose-bg: #fff1f2;
+  --dash-rose: #e11d48;
+  --dash-amber-bg: #fffbeb;
+  --dash-amber: #d97706;
 }
 
-.image {
-  object-fit: cover;
+.imageSide:hover .browserWindow {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 1px 1px rgba(15, 23, 42, 0.04), var(--sap-shadow-hover);
 }
 
-/* Clip window for the sliding feature panel. height is intentionally
-   "auto" - it always sizes to the card's own (untransformed) layout height,
-   so overflow-y:hidden clips exactly the slice of the card that a given
-   translateY pushes past its bottom edge. That's what makes the reveal work
-   without a hardcoded pixel height (which would break the moment content or
-   font-size changes) and without ever animating height/layout (only the
-   child's transform moves - no reflow, no layout shift). overflow-x stays
-   visible so the card's own box-shadow isn't clipped on the sides. */
+.browserChrome {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--dash-indigo-bg);
+  border-bottom: 1px solid color-mix(in srgb, var(--dash-indigo) 15%, var(--sap-border));
+}
+
+.trafficLights {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+.trafficLights span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.trafficLights span:nth-child(1) {
+  background: #ff5f57;
+}
+
+.trafficLights span:nth-child(2) {
+  background: #febc2e;
+}
+
+.trafficLights span:nth-child(3) {
+  background: #28c840;
+}
+
+.addressBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 6px 14px;
+  background: var(--sap-white);
+  border: 1px solid var(--sap-border);
+  border-radius: var(--sap-radius-pill);
+  font-size: 0.78rem;
+  color: var(--sap-text-light);
+}
+
+.addressBar svg {
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+  color: var(--sap-text-light);
+}
+
+.addressBar span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
+  min-height: 430px;
+}
+
+/* Flat white/gray panel (no gradients) with yellow reserved for the brand
+   mark and active nav item - a light, clean sidebar instead of a dark
+   panel. */
+.dashSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 22px 14px;
+  background: var(--color-secondary-lightest);
+  border-right: 1px solid var(--sap-border);
+}
+
+.dashBrand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-inline: 6px;
+  font-family: var(--sap-font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-neutral);
+}
+
+.dashBrandMark {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--color-primary);
+  color: var(--color-neutral);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.dashNav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dashNavItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--sap-radius-sm);
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--color-secondary-dark);
+  transition: background-color var(--sap-transition), color var(--sap-transition);
+}
+
+.dashNavItem:not(.dashNavItemActive):hover {
+  background: color-mix(in srgb, var(--color-primary) 32%, white);
+  color: var(--color-neutral);
+}
+
+.dashNavItem svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+}
+
+.dashNavItemActive {
+  background: var(--color-primary);
+  color: var(--color-neutral);
+  font-weight: 700;
+  box-shadow: 0 4px 10px -4px color-mix(in srgb, var(--color-primary) 60%, transparent);
+}
+
+.dashMain {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px 24px;
+  background: var(--sap-white);
+  min-width: 0;
+}
+
+.dashHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--sap-border);
+}
+
+.dashGreeting {
+  margin: 0 0 4px;
+  font-family: var(--sap-font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: none;
+  color: var(--color-neutral);
+}
+
+.dashSubtitle {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--sap-text-light);
+}
+
+.dashBell {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sap-bg-tint-soft);
+  color: var(--sap-text-light);
+}
+
+.dashBell svg {
+  width: 15px;
+  height: 15px;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.kpiCard {
+  min-width: 0;
+  padding: 14px;
+  border-radius: var(--sap-radius-sm);
+  background: var(--sap-white);
+  border: 1px solid var(--sap-border);
+  box-shadow: var(--sap-shadow-card);
+  transition: transform var(--sap-transition), box-shadow var(--sap-transition),
+    border-color var(--sap-transition);
+}
+
+.kpiCard:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--dash-indigo) 35%, var(--sap-border));
+  box-shadow: var(--sap-shadow-hover);
+}
+
+.kpiCard:nth-child(2):hover {
+  border-color: color-mix(in srgb, var(--dash-emerald) 35%, var(--sap-border));
+}
+
+.kpiCard:nth-child(3):hover {
+  border-color: color-mix(in srgb, var(--dash-purple) 35%, var(--sap-border));
+}
+
+.kpiCard:nth-child(4):hover {
+  border-color: color-mix(in srgb, var(--dash-rose) 35%, var(--sap-border));
+}
+
+.kpiTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.kpiLabel {
+  margin: 0;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--sap-text-light);
+}
+
+.kpiIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--dash-indigo-bg);
+  color: var(--dash-indigo);
+}
+
+.kpiCard:nth-child(2) .kpiIcon {
+  background: var(--dash-emerald-bg);
+  color: var(--dash-emerald);
+}
+
+.kpiCard:nth-child(3) .kpiIcon {
+  background: var(--dash-purple-bg);
+  color: var(--dash-purple);
+}
+
+.kpiCard:nth-child(4) .kpiIcon {
+  background: var(--dash-rose-bg);
+  color: var(--dash-rose);
+}
+
+.kpiIcon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.kpiValue {
+  margin: 0 0 6px;
+  font-family: var(--sap-font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: none;
+  color: var(--color-neutral);
+}
+
+.kpiChange {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: #17803d;
+}
+
+.kpiChange svg {
+  width: 11px;
+  height: 11px;
+}
+
+.dashLower {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 14px;
+  flex: 1;
+}
+
+.chartCard,
+.insightsCard {
+  padding: 16px;
+  border-radius: var(--sap-radius-sm);
+  background: var(--sap-white);
+  border: 1px solid var(--sap-border);
+  box-shadow: var(--sap-shadow-card);
+  transition: box-shadow var(--sap-transition), border-color var(--sap-transition);
+}
+
+.chartCard:hover,
+.insightsCard:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 30%, var(--sap-border));
+  box-shadow: var(--sap-shadow-hover);
+}
+
+.chartTitle,
+.insightsTitle {
+  margin: 0 0 12px;
+  font-family: var(--sap-font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: none;
+  color: var(--color-neutral);
+}
+
+.chartSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 110px;
+}
+
+.insightsCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.insightRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.insightRow + .insightRow {
+  margin-top: 12px;
+}
+
+.insightRow p {
+  margin: 0;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: var(--sap-text-light);
+}
+
+.insightIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--dash-emerald-bg);
+  color: var(--dash-emerald);
+}
+
+.insightRow:nth-of-type(2) .insightIcon {
+  background: var(--dash-amber-bg);
+  color: var(--dash-amber);
+}
+
+.insightRow:nth-of-type(3) .insightIcon {
+  background: var(--dash-indigo-bg);
+  color: var(--dash-indigo);
+}
+
+.insightIcon svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Reduced-motion-safe baseline for the dashboard mockup's entrance
+   animations: fully visible/drawn by default, so a user with no-motion
+   preference just sees the finished state below instead of getting stuck
+   mid-animation. The actual keyframes only apply inside the
+   prefers-reduced-motion: no-preference block further down. */
+.kpiCard,
+.insightRow {
+  opacity: 1;
+  transform: none;
+}
+
+.chartFill {
+  opacity: 1;
+}
+
+.chartLine {
+  stroke-dasharray: none;
+  filter: drop-shadow(0 3px 5px color-mix(in srgb, var(--color-primary) 45%, transparent));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes dashCardIn {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes dashRowIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes dashChartDraw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes dashChartFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .kpiCard {
+    opacity: 0;
+    animation: dashCardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .kpiCard:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+
+  .kpiCard:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+
+  .kpiCard:nth-child(3) {
+    animation-delay: 0.25s;
+  }
+
+  .kpiCard:nth-child(4) {
+    animation-delay: 0.35s;
+  }
+
+  .insightRow {
+    opacity: 0;
+    animation: dashRowIn 0.5s ease-out both;
+  }
+
+  .insightRow:nth-of-type(1) {
+    animation-delay: 0.15s;
+  }
+
+  .insightRow:nth-of-type(2) {
+    animation-delay: 0.28s;
+  }
+
+  .insightRow:nth-of-type(3) {
+    animation-delay: 0.41s;
+  }
+
+  .chartLine {
+    stroke-dasharray: 520;
+    stroke-dashoffset: 520;
+    animation: dashChartDraw 1.3s cubic-bezier(0.4, 0, 0.2, 1) 0.25s forwards;
+  }
+
+  .chartFill {
+    opacity: 0;
+    animation: dashChartFadeIn 0.9s ease-out 0.9s forwards;
+  }
+}
+
+/* Feature showcase sitting under the dashboard mockup - individually
+   carded (not one shared glass panel), sized to closely match the
+   dashboard's own width. margin/padding here (not on .featureCard itself)
+   is what frames the soft wash background behind the grid. */
 .featureCardClip {
   position: relative;
   z-index: 2;
-  margin: 24px 24px 0;
-  overflow-x: visible;
-  overflow-y: hidden;
+  margin: 28px 0 0;
+  padding: 14px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-primary) 5%, transparent) 0%, transparent 60%);
 }
 
-/* Glass feature panel. Sits translated down inside .featureCardClip by
-   default - only its top sliver (rounded corner) peeks out, the rest is
-   clipped away by the ancestor, i.e. genuinely hidden rather than just
-   dimmed. Hovering .imageSide (the whole monitor + panel area, not just the
-   panel itself) slides it up to translateY(0), where it exactly fills the
-   clip window and reads as "emerging from behind the laptop". */
 .featureCard {
   position: relative;
-  display: flex;
-  gap: 24px;
-  padding: 32px 28px;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: var(--sap-radius-lg);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  transform: translateY(85%);
-  transition: transform 550ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.imageSide:hover .featureCard {
-  transform: translateY(0);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
 }
 
 .feature {
   position: relative;
   display: flex;
-  flex: 1 1 0;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  text-align: center;
+  gap: 18px;
   min-width: 0;
-  padding-inline: 24px;
+  padding: 30px 22px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, var(--sap-white) 0%, #fafafa 100%);
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 10px 24px -18px rgba(15, 23, 42, 0.16);
+  /* Hard containment so title/description can never visually spill past
+     the card's rounded corners, whatever the text length. */
+  overflow: hidden;
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease,
+    background 300ms ease;
 }
 
-.feature:first-child {
-  padding-left: 0;
-}
-
-.feature:last-child {
-  padding-right: 0;
-}
-
-/* Divider as an inset pseudo-element (not a full-height border) so it
-   stops short of the card's top/bottom edges instead of touching them. */
-.feature + .feature::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 8px;
-  bottom: 8px;
-  width: 1px;
-  background: rgba(0, 0, 0, 0.08);
+.feature:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--color-primary) 35%, #f0f0f0);
+  background: linear-gradient(180deg, var(--sap-white) 0%, color-mix(in srgb, var(--color-primary) 4%, #fafafa) 100%);
+  box-shadow: 0 20px 40px -18px rgba(15, 23, 42, 0.24);
 }
 
 .featureIcon {
@@ -284,32 +714,81 @@
   justify-content: center;
   width: 48px;
   height: 48px;
-  border-radius: var(--sap-radius-sm);
-  background: var(--sap-bg-tint);
-  color: var(--color-primary-dark);
-  font-size: 1.4rem;
-  transition: background-color var(--sap-transition);
+  border-radius: 14px;
+  background: var(--color-primary);
+  color: #111111;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 -3px 5px rgba(0, 0, 0, 0.1),
+    0 0 0 5px color-mix(in srgb, var(--color-primary) 12%, transparent);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.featureIcon svg {
+  width: 22px;
+  height: 22px;
 }
 
 .feature:hover .featureIcon {
-  background: var(--color-primary-lightest);
+  animation: none;
+  transform: scale(1.08);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 -3px 5px rgba(0, 0, 0, 0.1),
+    0 0 0 7px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+/* Gentle idle "jingle" - a slow, tiny float+rotate, staggered per card so
+   it reads as a soft wave rather than everything moving in lockstep.
+   Guarded so a no-motion preference just sees the static icon above. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes featureIconJingle {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-3px) rotate(2deg);
+    }
+  }
+
+  .featureIcon {
+    animation: featureIconJingle 4.5s ease-in-out infinite;
+  }
+
+  .feature:nth-child(2) .featureIcon {
+    animation-delay: 0.3s;
+  }
+
+  .feature:nth-child(3) .featureIcon {
+    animation-delay: 0.6s;
+  }
+
+  .feature:nth-child(4) .featureIcon {
+    animation-delay: 0.9s;
+  }
 }
 
 .featureTitle {
-  margin: 0 0 8px;
+  margin: 0;
+  width: 100%;
   font-family: var(--sap-font-heading);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   text-transform: var(--sap-heading-transform);
-  line-height: var(--sap-heading-line-height-compact);
+  line-height: 1.3;
   color: var(--color-neutral);
+  /* Safety net matching the "max two lines" requirement - keeps the title
+     from ever pushing the card taller than its siblings, whatever the
+     source text length. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .featureDescription {
   margin: 0;
-  font-size: 0.85rem;
-  line-height: 1.5;
+  width: 100%;
+  font-size: 0.82rem;
+  line-height: 1.55;
   color: var(--sap-text-light);
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -341,60 +820,80 @@
     right: 24px;
   }
 
-  /* Once content and image stack, the accent block has no fixed image
-     position to sit behind and risks drifting over stacked content instead
-     - simplest safe behavior is to drop it at the same breakpoint the
-     layout itself stacks. */
-  .accentBlock {
-    display: none;
-  }
-
   .featureCardClip {
     margin-top: 32px;
   }
 
   .featureCard {
-    flex-direction: column;
-    gap: 20px;
-    padding: 24px;
-    /* No hover on touch - panel stays fully visible, no hidden/reveal state. */
-    transform: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .feature {
-    padding-inline: 0;
+  /* Dashboard mockup no longer needs to defer to a fixed 1:1 monitor shape
+     once the layout stacks - simplify to an icon-only sidebar and a single
+     analytics column so it stays legible down to phone widths. */
+  .dashboard {
+    grid-template-columns: 60px minmax(0, 1fr);
+    min-height: 0;
   }
 
-  .feature + .feature {
-    padding-top: 20px;
+  .dashSidebar {
+    align-items: center;
+    padding-inline: 8px;
   }
 
-  .feature + .feature::before {
-    left: 8px;
-    right: 8px;
-    top: 0;
-    bottom: auto;
-    width: auto;
-    height: 1px;
+  .dashBrandLabel,
+  .dashNavLabel {
+    display: none;
   }
+
+  .dashBrand {
+    justify-content: center;
+  }
+
+  .dashNavItem {
+    justify-content: center;
+    padding-inline: 8px;
+  }
+
+  .kpiGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashLower {
+    grid-template-columns: 1fr;
+  }
+
 }
 
 @media (max-width: 480px) {
-  .featureCardClip {
-    margin-inline: 0;
+  .featureCard {
+    grid-template-columns: 1fr;
+  }
+
+  .feature {
+    padding: 20px 18px;
   }
 }
 
 /* Touch devices (tablets included, regardless of viewport width) have no
-   real :hover - without this, the panel would stay stuck in its clipped,
-   mostly-hidden resting state with no way to reveal it. */
+   real :hover - the idle icon jingle keeps running (that's not a hover
+   effect), but hover-only lift/scale states never trigger, which is fine
+   since the cards are always fully visible either way. */
 @media (hover: none) {
-  .featureCard {
+  .imageSide:hover .browserWindow {
     transform: none;
   }
 
-  .imageSide:hover .monitor {
+  .kpiCard:hover {
     transform: none;
-    filter: none;
+  }
+
+  .feature:hover {
+    transform: none;
+  }
+
+  .feature:hover .featureIcon {
+    animation: featureIconJingle 4.5s ease-in-out infinite;
+    transform: none;
   }
 }

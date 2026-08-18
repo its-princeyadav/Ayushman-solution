@@ -1,0 +1,466 @@
+/* .section is a plain full-bleed wrapper (vertical rhythm only) - Container
+   (inside it) provides the page-level max-width/gutter, and .card is the
+   actual rounded "floating dashboard card". Splitting card from Container
+   this way (rather than putting the card's own border-radius/overflow
+   directly on Container's element) keeps Container's own padding-inline
+   outside the card, so the card's two-tone panels can fill it edge to
+   edge with zero inset instead of leaving an odd gap before the color
+   fills start. */
+.section {
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+/* Floating rounded "dashboard card" split into two permanent halves - a
+   light cream feature-grid side (.visual) and a dark navy content side
+   (.content). imagePosition only mirrors which side each half sits on;
+   their colors never swap. overflow:hidden is what clips both halves to
+   one shared, uniformly rounded outer corner set, including when they
+   stack full-width on mobile. */
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 32px 64px -28px rgba(15, 23, 42, 0.28);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0;
+}
+
+.imageRight .content {
+  order: 1;
+}
+
+.imageRight .visual {
+  order: 2;
+}
+
+.content {
+  order: 2;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(26px, 3.5vw, 40px);
+  background: radial-gradient(120% 140% at 100% 0%, rgba(254, 190, 14, 0.1) 0%, transparent 45%),
+    linear-gradient(160deg, #111827 0%, #0f172a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Background video layer - absolutely positioned so it never affects
+   .content's own box size (no CLS risk), clipped to .card's rounded
+   corners via the ancestor's overflow:hidden rather than its own. Sits at
+   the same z-index tier as .bgOverlay; DOM order (video first, overlay
+   second) is what puts the overlay visually on top of it. Native
+   autoplay/loop/mute via HTML attributes only - no JS/React state, so this
+   stays a Server Component. */
+.bgVideo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.bgOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(135deg, rgba(10, 16, 28, 0.78), rgba(18, 25, 40, 0.72), rgba(8, 12, 20, 0.82));
+  pointer-events: none;
+}
+
+/* Soft golden ambient glow, low-opacity - stands in for a literal "wave"
+   asset without needing a new image file. */
+.content::after {
+  content: "";
+  position: absolute;
+  right: -70px;
+  bottom: -90px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-primary) 60%, transparent) 0%, transparent 70%);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.visual {
+  order: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: clamp(20px, 3vw, 30px);
+  background: #ffffff;
+}
+
+.heading {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 14px;
+}
+
+/* HeroUnderHeading's own title scale is deliberately restrained (tuned for
+   the S/4HANA hero, which shares this exact component) - scoped up here
+   via :global so only this instance renders larger, without touching the
+   shared HeroUnderHeading.css that hero still depends on. */
+.heading :global(.as-huh-title) {
+  font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.15rem);
+}
+
+.description {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 18px;
+  max-width: 46em;
+  font-family: var(--font-nav);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.bulletRow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+/* Premium horizontal pill - dark semi-transparent capsule + solid yellow
+   icon badge + white text, sized to content (not full-width). */
+.bulletChip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 6px 16px 6px 6px;
+  border-radius: var(--sap-radius-pill, 999px);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), background 280ms ease,
+    border-color 280ms ease, box-shadow 280ms ease;
+}
+
+.bulletChip:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: color-mix(in srgb, var(--color-primary) 45%, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 0 24px -6px color-mix(in srgb, var(--color-primary) 60%, transparent);
+}
+
+.bulletIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-neutral);
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bulletChip:hover .bulletIcon {
+  transform: scale(1.1);
+}
+
+.bulletIcon svg {
+  width: 15px;
+  height: 15px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes editionChipIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .bulletChip {
+    animation: editionChipIn 0.5s ease-out both;
+  }
+
+  .bulletChip:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  .bulletChip:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+}
+
+.button {
+  position: relative;
+  z-index: 1;
+}
+
+.button:hover {
+  box-shadow: 0 0 32px -4px color-mix(in srgb, var(--color-primary) 65%, transparent);
+}
+
+/* Local colorful accent palette for the feature-card icons only, cycled by
+   card position - same convention already used for the dashboard's KPI/
+   insight icons, kept scoped here rather than sitewide. */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  --feat-indigo-bg: #eef2ff;
+  --feat-indigo: #4f46e5;
+  --feat-emerald-bg: #ecfdf5;
+  --feat-emerald: #059669;
+  --feat-purple-bg: #f5f3ff;
+  --feat-purple: #7c3aed;
+  --feat-rose-bg: #fff1f2;
+  --feat-rose: #e11d48;
+  --feat-amber-bg: #fffbeb;
+  --feat-amber: #d97706;
+  --feat-teal-bg: #ecfeff;
+  --feat-teal: #0891b2;
+}
+
+/* Pure white, opaque card - clean and bright rather than a translucent
+   glass surface (no backdrop-filter needed once the background is fully
+   opaque). */
+.featureCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 14px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid var(--sap-border);
+  box-shadow: var(--sap-shadow-card);
+  transition: transform 350ms ease, box-shadow 350ms ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-6px);
+  /* Natural grey/black elevation, not a colored glow. */
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1), 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.featureCardIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: var(--feat-indigo-bg);
+  color: var(--feat-indigo);
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.featureCard:nth-child(2) .featureCardIcon {
+  background: var(--feat-emerald-bg);
+  color: var(--feat-emerald);
+}
+
+.featureCard:nth-child(3) .featureCardIcon {
+  background: var(--feat-purple-bg);
+  color: var(--feat-purple);
+}
+
+.featureCard:nth-child(4) .featureCardIcon {
+  background: var(--feat-rose-bg);
+  color: var(--feat-rose);
+}
+
+.featureCard:nth-child(5) .featureCardIcon {
+  background: var(--feat-amber-bg);
+  color: var(--feat-amber);
+}
+
+.featureCard:nth-child(6) .featureCardIcon {
+  background: var(--feat-teal-bg);
+  color: var(--feat-teal);
+}
+
+.featureCard:hover .featureCardIcon {
+  animation: none;
+  transform: scale(1.08);
+}
+
+/* Bell-style "jingle" - a quick wiggle burst in the first third of each
+   cycle, then a rest before it repeats, staggered per card so they jingle
+   in turn rather than all at once. Guarded so a no-motion preference just
+   sees the static colorful icon above. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes featureCardIconJingle {
+    0%,
+    62%,
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
+    5% {
+      transform: rotate(-14deg) scale(1.05);
+    }
+    10% {
+      transform: rotate(12deg) scale(1.05);
+    }
+    15% {
+      transform: rotate(-10deg) scale(1.03);
+    }
+    20% {
+      transform: rotate(8deg) scale(1.03);
+    }
+    25% {
+      transform: rotate(-6deg) scale(1.01);
+    }
+    30% {
+      transform: rotate(4deg) scale(1.01);
+    }
+    35% {
+      transform: rotate(-2deg);
+    }
+  }
+
+  .featureCardIcon {
+    animation: featureCardIconJingle 4s ease-in-out infinite;
+  }
+
+  .featureCard:nth-child(2) .featureCardIcon {
+    animation-delay: 0.2s;
+  }
+
+  .featureCard:nth-child(3) .featureCardIcon {
+    animation-delay: 0.4s;
+  }
+
+  .featureCard:nth-child(4) .featureCardIcon {
+    animation-delay: 0.6s;
+  }
+
+  .featureCard:nth-child(5) .featureCardIcon {
+    animation-delay: 0.8s;
+  }
+
+  .featureCard:nth-child(6) .featureCardIcon {
+    animation-delay: 1s;
+  }
+}
+
+/* Touch devices have no real :hover - if it sticks after a tap, make sure
+   the icon resumes its idle jingle instead of staying frozen mid-scale. */
+@media (hover: none) {
+  .featureCard:hover .featureCardIcon {
+    animation: featureCardIconJingle 4s ease-in-out infinite;
+    transform: none;
+  }
+}
+
+.featureCardIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.featureCardTitle {
+  margin: 0;
+  font-family: "Poppins", var(--font-nav);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: none;
+  line-height: 1.35;
+  color: var(--color-neutral);
+}
+
+.featureCardRule {
+  width: 20px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-primary);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes editionCardIn {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .featureCard {
+    opacity: 0;
+    animation: editionCardIn 0.5s ease-out both;
+  }
+
+  .featureCard:nth-child(2) {
+    animation-delay: 0.06s;
+  }
+
+  .featureCard:nth-child(3) {
+    animation-delay: 0.12s;
+  }
+
+  .featureCard:nth-child(4) {
+    animation-delay: 0.18s;
+  }
+
+  .featureCard:nth-child(5) {
+    animation-delay: 0.24s;
+  }
+
+  .featureCard:nth-child(6) {
+    animation-delay: 0.3s;
+  }
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .imageRight .content,
+  .imageRight .visual,
+  .content,
+  .visual {
+    order: unset;
+  }
+
+  .visual {
+    order: 1;
+  }
+
+  .content {
+    order: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .featureGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

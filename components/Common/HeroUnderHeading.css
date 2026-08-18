@@ -1,0 +1,68 @@
+/* Shared hero-heading block: eyebrow + jumbo heading + optional subtitle.
+   Plain global CSS with a hand-namespaced prefix (as-huh-*), matching this
+   folder's existing convention (see SectionLabel.css) rather than CSS
+   Modules, which is a components/Sap/-only pattern. Fluid via clamp() only
+   - no media queries needed since font-size alone scales the whole block. */
+
+.as-huh {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.as-huh--center {
+  align-items: center;
+  text-align: center;
+}
+
+/* Eyebrow renders via the shared SectionLabel (same double-dash mark as the
+   homepage) - .as-huh's own flex `gap` already spaces it from the title, so
+   just cancel SectionLabel's own standalone margin-bottom here. */
+.as-section-label.as-huh-eyebrow {
+  margin-bottom: 0;
+}
+
+/* Restrained enterprise scale (~21px -> 26px), flowing inline so it wraps
+   naturally with whatever width the caller gives it instead of being forced
+   onto fixed line breaks. Slightly lighter weight + tighter tracking than a
+   jumbo display headline reads as more premium/refined at this smaller
+   size. */
+.as-huh-title {
+  margin: 0;
+  font-family: var(--font-nav);
+  font-weight: 700;
+  font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.625rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--color-neutral);
+}
+
+.as-huh-highlight {
+  color: var(--color-primary);
+}
+
+.as-huh-description {
+  margin: 0;
+  max-width: 46em;
+  font-family: var(--font-nav);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-secondary-dark);
+}
+
+.as-huh--center .as-huh-description {
+  margin-inline: auto;
+}
+
+/* Dark theme: for use over an image or dark section background. */
+.as-huh--dark .as-huh-title {
+  color: #ffffff;
+}
+
+.as-huh--dark .as-huh-eyebrow .as-section-label-text {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.as-huh--dark .as-huh-description {
+  color: rgba(255, 255, 255, 0.78);
+}

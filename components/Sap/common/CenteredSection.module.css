@@ -10,16 +10,72 @@
   margin-top: 24px;
 }
 
+/* Opt-in ambient background - only present when `decorative` is passed, so
+   every other CenteredSection usage is unaffected. Kept behind everything
+   (negative z-index) and clipped to the section so nothing overflows. */
+.decorative {
+  position: relative;
+  overflow: hidden;
+}
+
+.ornamentDots {
+  position: absolute;
+  z-index: 0;
+  left: -40px;
+  bottom: -60px;
+  width: 260px;
+  height: 260px;
+  background-image: radial-gradient(color-mix(in srgb, var(--color-primary) 55%, transparent) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+  -webkit-mask-image: radial-gradient(circle at 30% 70%, black 0%, transparent 70%);
+  mask-image: radial-gradient(circle at 30% 70%, black 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ornamentRingLarge,
+.ornamentRingSmall {
+  position: absolute;
+  z-index: 0;
+  right: -120px;
+  top: 8%;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  pointer-events: none;
+}
+
+.ornamentRingLarge {
+  width: 420px;
+  height: 420px;
+}
+
+.ornamentRingSmall {
+  right: -20px;
+  top: 55%;
+  width: 180px;
+  height: 180px;
+  border-color: color-mix(in srgb, var(--color-primary) 14%, transparent);
+}
+
 .copy {
+  position: relative;
+  z-index: 1;
   max-width: 780px;
   margin: 0 auto;
   text-align: center;
 }
 
+.eyebrow {
+  margin-bottom: 16px;
+}
+
+.highlight {
+  color: var(--color-primary);
+}
+
 .title {
   margin: 0 0 20px;
   color: var(--color-neutral);
-  font-family: var(--sap-font-heading);
+  font-family: "Poppins", var(--sap-font-heading);
   font-size: clamp(1.6rem, 3vw, 2.3rem);
   font-weight: 700;
   text-transform: var(--sap-heading-transform);
@@ -27,17 +83,33 @@
   white-space: pre-line;
 }
 
+.titleDivider {
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin: -8px auto 20px;
+  border-radius: 2px;
+  background: var(--color-primary);
+}
+
 .description {
   margin: 0;
   color: var(--sap-text);
-  font-size: 1.02rem;
-  line-height: 1.75;
+  /* Poppins is only self-hosted at weight 700/800 (see SectionLabel.css) -
+     a lighter weight like this needs var(--font-nav)/Kanit instead, which
+     is registered across the full 300-700 range, so it actually renders
+     light rather than the browser snapping to the nearest bold Poppins
+     face. */
+  font-family: var(--font-nav);
+  font-size: 1.075rem;
+  font-weight: 400;
+  line-height: 1.9;
 }
 
 .subtitle {
   margin: 32px 0 0;
   color: var(--color-neutral);
-  font-family: var(--sap-font-heading);
+  font-family: "Poppins", var(--sap-font-heading);
   font-size: 1.15rem;
   font-weight: 700;
   text-transform: var(--sap-heading-transform);
