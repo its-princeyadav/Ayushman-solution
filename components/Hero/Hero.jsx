@@ -24,7 +24,7 @@ const SLIDES = [
   },
   {
     id: "superhero",
-    image: "/assets/image2/hero-superhero.jpg",
+    image: "/assets/image2/hero-superhero-punch.png",
     title: { main: "Outpace the Data Race", secondary: "with Top Business Intelligence Tools" },
   },
   {
