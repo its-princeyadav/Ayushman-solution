@@ -16,7 +16,7 @@ const DEFAULT_TITLE = {
 };
 
 const SLIDES = [
-  { id: "sap", image: "/assets/image2/sap-hero.png" },
+  { id: "sap", image: "/assets/image2/hero-sap-network.png" },
   {
     id: "cyberpunk-city",
     image: "/assets/image2/hero-cyberpunk-city.jpg",
@@ -29,7 +29,7 @@ const SLIDES = [
   },
   {
     id: "abstract-dark",
-    image: "/assets/image2/hero-abstract-dark.jpg",
+    image: "/assets/image2/hero-abstract-blue.jpg",
     title: { main: "Soar Above", secondary: "with Resilient, Cloud-Ready Solutions" },
   },
 ];
