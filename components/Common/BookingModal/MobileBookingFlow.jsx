@@ -38,6 +38,7 @@ export default function MobileBookingFlow({
   onSelectDate,
   onSelectSlot,
   isLeadFormComplete,
+  isSubmitting,
   onSubmit,
   features,
 }) {
@@ -151,10 +152,10 @@ export default function MobileBookingFlow({
             <button
               type="button"
               className="bookingModalMobile__cta"
-              disabled={!selectedSlot || !isLeadFormComplete}
+              disabled={!selectedSlot || !isLeadFormComplete || isSubmitting}
               onClick={onSubmit}
             >
-              Book Consultation
+              {isSubmitting ? "Booking..." : "Book Consultation"}
             </button>
           </footer>
         </>
