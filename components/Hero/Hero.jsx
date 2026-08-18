@@ -29,7 +29,7 @@ const SLIDES = [
   },
   {
     id: "abstract-dark",
-    image: "/assets/image2/hero-abstract-dark.jpg",
+    image: "/assets/image2/hero-abstract-blue.jpg",
     title: { main: "Soar Above", secondary: "with Resilient, Cloud-Ready Solutions" },
   },
 ];
