@@ -12,6 +12,7 @@ import PremiumSplitSection from "../Sap/common/PremiumSplitSection";
 import PremiumEditionSection from "../Sap/common/PremiumEditionSection";
 import ParallaxPromiseSection from "../Sap/common/ParallaxPromiseSection";
 import CurvedCarousel from "../Common/CurvedCarousel/CurvedCarousel";
+import curvedCarouselStyles from "../Common/CurvedCarousel/CurvedCarousel.module.css";
 import SectionHeading from "../Sap/common/SectionHeading";
 import SectionLabel from "../Common/SectionLabel";
 import Container from "../Sap/common/Container";
@@ -212,6 +213,11 @@ export default function SapSolutions() {
             activeScale pushes the active card's size past all of them
             without touching how the flanking cards taper relative to each
             other. */}
+        {/* onLight: this section's background is plain white, not the
+            dark/photo backdrop CurvedCarousel's pagination dots assume by
+            default (near-white, ~40% opacity) - without this the dots
+            render but are invisible against the page. The nav arrows
+            don't need it; they already carry their own solid circle. */}
         <CurvedCarousel
           items={benefitCarouselItems}
           visibleCards={5}
@@ -220,6 +226,7 @@ export default function SapSolutions() {
           autoPlay
           autoPlayDelay={5500}
           activeScale={1.3}
+          className={curvedCarouselStyles.onLight}
         />
         {/* Each card's own "Learn More" is still a per-benefit link, but
             those are all `href: "#"` placeholders for now (see the data

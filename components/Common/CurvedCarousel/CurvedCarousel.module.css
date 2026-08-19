@@ -293,6 +293,32 @@
   animation-fill-mode: forwards;
 }
 
+/* Opt-in modifier for a caller whose carousel sits over a plain light
+   section instead of this component's default assumed dark/photo
+   backdrop (the SAP Solutions benefits carousel, for one) - the
+   near-white dots above are effectively invisible on a white
+   background. Only the dots need this: .navButton already carries its
+   own solid circle behind the icon, so it contrasts fine on either
+   backdrop without a variant. Combine via the existing `className`
+   prop, e.g. `className={curvedCarouselStyles.onLight}`, rather than
+   forking or theme-prop-ing the whole component. */
+.onLight .dot {
+  background: rgba(17, 24, 39, 0.22);
+}
+
+.onLight .dot:hover,
+.onLight .dot:focus-visible {
+  background: rgba(17, 24, 39, 0.4);
+}
+
+.onLight .dotActive {
+  background: rgba(17, 24, 39, 0.16);
+}
+
+.onLight .dotProgress {
+  background: var(--color-primary-button, #111827);
+}
+
 @keyframes dotProgressFill {
   from {
     transform: scaleX(0);
