@@ -1,17 +1,67 @@
 .section {
   position: relative;
   padding-block: var(--sap-section-gap);
-  /* Light gray, not the pale-yellow --sap-bg-tint-soft - reads cleaner
-     against the dark testimonial cards and matches the site's other
-     neutral-gray surfaces (see Tabs.module.css's inactive-tab background). */
-  background: var(--color-secondary-lightest);
+  /* Light gray base (matches the site's other neutral-gray surfaces) with a
+     faint brand-tinted glow in the top-left corner for a touch of premium
+     depth, instead of a completely flat fill. */
+  background: radial-gradient(
+      65% 90% at 8% 0%,
+      color-mix(in srgb, var(--color-primary) 8%, transparent) 0%,
+      transparent 55%
+    ),
+    var(--color-secondary-lightest);
   overflow: hidden;
 }
 
-.divider {
-  height: 1px;
-  background: var(--sap-border);
-  margin: 32px 0 40px;
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 7px 16px 7px 12px;
+  border-radius: var(--sap-radius-pill);
+  background: color-mix(in srgb, var(--color-primary) 14%, var(--sap-white));
+  border: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
+  color: var(--color-primary-darker);
+  font-family: var(--font-nav);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.eyebrow svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.tabsRow {
+  display: flex;
+  justify-content: center;
+  margin-top: -4px;
+  margin-bottom: 8px;
+}
+
+.panel {
+  margin-top: 36px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes testimonialPanelIn {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .panel {
+    animation: testimonialPanelIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
 }
 
 .avatar {
@@ -32,9 +82,107 @@
   object-fit: cover;
 }
 
+/* Premium replacement for the corner decorative glyphs (previously flat
+   clip-art webp images) - a circular icon badge matching the same
+   circle + border treatment as the real headshot avatar (.avatar above),
+   sized/positioned identically via the shared .avatar + position classes. */
+.iconBadge {
+  border-radius: 50%;
+  border: 3px solid var(--sap-white);
+  /* Glossy sheen (white highlight fading into the tint) instead of a flat
+     tint fill, plus a soft colored halo ring sitting outside the white
+     border and an accent-tinted (not neutral-gray) elevation shadow - each
+     badge reads as its own tinted, faceted object rather than a flat icon
+     on a plain white disc. Colors come from the --icon-accent/-bg custom
+     properties each position class below sets - same convention already
+     used for PremiumEditionSection's feature grid. */
+  background: radial-gradient(120% 120% at 30% 24%, var(--sap-white) 0%, var(--icon-accent-bg, var(--sap-white)) 65%);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--icon-accent, transparent) 14%, transparent),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 14px 28px -14px color-mix(in srgb, var(--icon-accent, #0f172a) 55%, transparent);
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-accent, var(--color-neutral-light));
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 280ms ease,
+    border-color 280ms ease, background-color 280ms ease;
+}
+
+.iconBadge svg {
+  width: 25px;
+  height: 25px;
+  filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.08));
+}
+
+.iconBadge:hover {
+  /* Fully clears the jingle animation's own transform (rather than just
+     pausing it, which would keep freezing transform at whatever mid-cycle
+     offset it paused on) so this transform transitions cleanly instead. */
+  animation: none;
+  transform: translateY(-4px) scale(1.1) rotate(-6deg);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--icon-accent, transparent) 20%, transparent),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    0 20px 36px -14px color-mix(in srgb, var(--icon-accent, #0f172a) 65%, transparent);
+  border-color: color-mix(in srgb, var(--icon-accent, var(--color-primary)) 55%, var(--sap-white));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Same "bell jingle" wiggle already used for PremiumEditionSection's
+     feature-card icons (a quick rotate+scale burst that decays, then rests
+     before repeating) - reused here so the two premium icon treatments
+     share one motion language instead of each inventing its own. */
+  @keyframes iconBadgeJingle {
+    0%,
+    62%,
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
+    5% {
+      transform: rotate(-16deg) scale(1.08);
+    }
+    10% {
+      transform: rotate(14deg) scale(1.08);
+    }
+    15% {
+      transform: rotate(-11deg) scale(1.05);
+    }
+    20% {
+      transform: rotate(9deg) scale(1.05);
+    }
+    25% {
+      transform: rotate(-7deg) scale(1.02);
+    }
+    30% {
+      transform: rotate(5deg) scale(1.02);
+    }
+    35% {
+      transform: rotate(-2deg);
+    }
+  }
+
+  .iconBadge {
+    animation: iconBadgeJingle 4.4s ease-in-out infinite;
+  }
+
+  /* Staggered so the four badges jingle in turn rather than in unison. */
+  .topRight.iconBadge {
+    animation-delay: 0.3s;
+  }
+
+  .bottomLeft.iconBadge {
+    animation-delay: 0.6s;
+  }
+
+  .bottomRight.iconBadge {
+    animation-delay: 0.9s;
+  }
+}
+
 @media (min-width: 1024px) {
   .avatar {
     display: block;
+  }
+
+  .iconBadge {
+    display: flex;
   }
 
   .topCenter {
@@ -45,20 +193,34 @@
   .topLeft {
     top: 24%;
     left: 2%;
+    --icon-accent: #4f46e5;
+    --icon-accent-bg: #eef2ff;
   }
 
   .topRight {
     top: 22%;
     right: 3%;
+    --icon-accent: #059669;
+    --icon-accent-bg: #ecfdf5;
   }
 
   .bottomLeft {
     bottom: 8%;
     left: 1%;
+    --icon-accent: #7c3aed;
+    --icon-accent-bg: #f5f3ff;
   }
 
   .bottomRight {
     bottom: 6%;
     right: 2%;
+    --icon-accent: #e11d48;
+    --icon-accent-bg: #fff1f2;
+  }
+}
+
+@media (max-width: 700px) {
+  .tabsRow {
+    justify-content: flex-start;
   }
 }
