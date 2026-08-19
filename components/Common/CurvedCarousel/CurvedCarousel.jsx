@@ -397,9 +397,15 @@ export default function CurvedCarousel({
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(null);
+  // State, not a ref (unlike the drag tracking below) - the dot progress
+  // fill's animationPlayState needs to re-render when this flips so the
+  // visual countdown actually pauses in sync with the real autoplay timer
+  // skipping a tick (see the pagination dots further down). Hover only
+  // fires twice per interaction (enter/leave), so this doesn't add
+  // meaningful re-render cost the way tracking pointermove as state would.
+  const [isHovering, setIsHovering] = useState(false);
   const dragStartXRef = useRef(0);
   const dragDistanceRef = useRef(0);
-  const hoveringRef = useRef(false);
   const suppressClickRef = useRef(false);
   const resizeTimerRef = useRef(null);
 
@@ -448,12 +454,12 @@ export default function CurvedCarousel({
       return undefined;
     }
     const id = setInterval(() => {
-      if (isDragging || hoveringRef.current) return;
+      if (isDragging || isHovering) return;
       next();
     }, autoPlayDelay);
     return () => clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoPlay, autoPlayDelay, isDragging, length, loop]);
+  }, [autoPlay, autoPlayDelay, isDragging, isHovering, length, loop]);
 
   const slots = useMemo(
     () =>
@@ -542,12 +548,8 @@ export default function CurvedCarousel({
       aria-label={ariaLabel}
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      onMouseEnter={() => {
-        hoveringRef.current = true;
-      }}
-      onMouseLeave={() => {
-        hoveringRef.current = false;
-      }}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
       style={{
         "--curved-card-width": `${cardWidth}px`,
         "--curved-card-height": `${cardHeight}px`,
@@ -605,16 +607,42 @@ export default function CurvedCarousel({
 
       {showPagination && length > 1 && (
         <div className={styles.pagination}>
-          {displayItems.map((item, index) => (
-            <button
-              type="button"
-              key={item.id ?? index}
-              className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ""}`}
-              onClick={() => goTo(index)}
-              aria-label={`Go to slide ${index + 1}`}
-              aria-current={index === activeIndex ? "true" : undefined}
-            />
-          ))}
+          {displayItems.map((item, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <button
+                type="button"
+                key={item.id ?? index}
+                className={`${styles.dot} ${isActive ? styles.dotActive : ""}`}
+                onClick={() => goTo(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                aria-current={isActive ? "true" : undefined}
+              >
+                {/* Timed fill, not a static dot - only exists on the
+                    active dot while autoplay is actually on, doubling as a
+                    countdown to the next auto-advance. No remount-key
+                    trick needed to replay it per slide: this span only
+                    ever exists inside whichever button is currently
+                    active, so switching which dot that is naturally
+                    unmounts the old span and mounts a fresh one (always
+                    starting its animation over from 0%). animationPlayState
+                    mirrors the exact isDragging/isHovering check the real
+                    autoplay timer uses to skip a tick, so the visual
+                    countdown can't drift out of sync with when the slide
+                    actually advances. */}
+                {isActive && autoPlay && (
+                  <span
+                    className={styles.dotProgress}
+                    style={{
+                      animationDuration: `${autoPlayDelay}ms`,
+                      animationPlayState: isDragging || isHovering ? "paused" : "running",
+                    }}
+                    aria-hidden="true"
+                  />
+                )}
+              </button>
+            );
+          })}
         </div>
       )}
 

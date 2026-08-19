@@ -265,7 +265,41 @@
 
 .dotActive {
   width: 22px;
+  /* Muted track, not the original solid #fff - .dotProgress (rendered
+     only on this dot, only while autoplay is on) sweeps that same #fff
+     across it over the autoplay delay, so what used to be an instant
+     solid fill now reads as a countdown. Autoplay off (or reduced-motion)
+     means no .dotProgress span ever renders, so this falls back to a
+     plain half-opacity dot instead of full white - visually quieter than
+     before, but the active dot is still clearly distinguished from the
+     others by width alone. */
+  background: rgba(255, 255, 255, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.dotProgress {
+  position: absolute;
+  inset: 0;
   background: #fff;
+  transform-origin: left center;
+  /* Base (pre-animation) state is fully filled, not empty - if this ever
+     renders without the animation actually running (e.g. a slow first
+     paint before styles apply), it fails toward looking like the
+     original always-solid dot rather than an empty one. */
+  transform: scaleX(1);
+  animation-name: dotProgressFill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes dotProgressFill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 /* Baseline responsiveness for this static phase: cap card size against the
@@ -324,5 +358,16 @@
   .dot,
   .cardButton {
     transition-duration: 0.01ms !important;
+  }
+
+  /* The real autoplay timer already skips itself entirely under this
+     setting (see CurvedCarousel.jsx), but .dotProgress's animation isn't
+     covered by the transition-duration overrides above (it's a CSS
+     animation, not a transition) - without this it would keep visually
+     counting down to an auto-advance that's never actually going to
+     happen, which reads as broken rather than just static. Falls back to
+     its own fully-filled base state (see .dotProgress above). */
+  .dotProgress {
+    animation: none !important;
   }
 }
