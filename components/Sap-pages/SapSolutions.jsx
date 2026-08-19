@@ -76,10 +76,17 @@ export default function SapSolutions() {
   // its own dev-preview benchmark page - is `buttonLink`. Without this
   // rename each card's "Learn More" silently never renders, since
   // `{buttonText && buttonLink && <Link .../>}` never finds a buttonLink.
-  const benefitCarouselItems = sapSolutions.benefits.features.map(({ href, ...feature }) => ({
+  // badge/accentColor: matches the Dribbble reference's numbered cards
+  // (#01, #02, ...) - one shared accent (this page's own --sap-blue token,
+  // not a different color per card) so the badges/icons read as on-brand
+  // polish rather than an arbitrary rainbow across an otherwise
+  // navy/blue SAP page.
+  const benefitCarouselItems = sapSolutions.benefits.features.map(({ href, ...feature }, index) => ({
     ...feature,
     buttonLink: href,
     icon: BENEFIT_ICONS[feature.icon],
+    badge: String(index + 1).padStart(2, "0"),
+    accentColor: "var(--sap-blue)",
   }));
 
   return (
@@ -183,7 +190,16 @@ export default function SapSolutions() {
             autoPlay/autoPlayDelay bring this in line with the homepage
             hero carousel - the carousel already fully supports
             pause-on-hover/focus and skips autoplay under
-            prefers-reduced-motion on its own. */}
+            prefers-reduced-motion on its own. activeScale=1.3 (inactiveScale
+            left at its default 1) makes the active card win out as the
+            clear focal point - the engine's own CENTER_SCALE/EDGE_SCALE
+            deliberately taper the *inactive* cards larger toward the
+            outer edge (see CurvedCarousel.jsx's own docblock on that
+            inverted-hierarchy choice), so leaving inactiveScale alone
+            preserves that progression exactly as designed; boosting only
+            activeScale pushes the active card's size past all of them
+            without touching how the flanking cards taper relative to each
+            other. */}
         <CurvedCarousel
           items={benefitCarouselItems}
           visibleCards={5}
@@ -191,6 +207,7 @@ export default function SapSolutions() {
           cardHeight={460}
           autoPlay
           autoPlayDelay={5500}
+          activeScale={1.3}
         />
       </section>
 
