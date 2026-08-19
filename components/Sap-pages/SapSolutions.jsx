@@ -61,8 +61,15 @@ export default function SapSolutions() {
     private: privateEdition,
   } = sapSolutions.cloudEditions;
   const { background: dtBackground, intro: dtIntro, stats: dtStats } = sapSolutions.digitalTransformation;
-  const benefitCarouselItems = sapSolutions.benefits.features.map((feature) => ({
+  // href -> buttonLink: this data file's own convention for every other
+  // link field is `href` (see cta/buttons/functionalityGrid/industries
+  // above), but CurvedCarouselCard's real prop contract - confirmed against
+  // its own dev-preview benchmark page - is `buttonLink`. Without this
+  // rename each card's "Learn More" silently never renders, since
+  // `{buttonText && buttonLink && <Link .../>}` never finds a buttonLink.
+  const benefitCarouselItems = sapSolutions.benefits.features.map(({ href, ...feature }) => ({
     ...feature,
+    buttonLink: href,
     icon: BENEFIT_ICONS[feature.icon],
   }));
 
@@ -156,12 +163,28 @@ export default function SapSolutions() {
         <Container>
           <SectionHeading title={sapSolutions.benefits.title} align="center" />
         </Container>
-        {/* visibleCards=7 (matching the preview route's own configuration,
-            the visual benchmark) even though there are only 3 real
-            benefits - CurvedCarousel pads short item lists with clones
-            automatically (see ensureMinimumSlides) so the arc still forms
-            properly instead of collapsing into 3 cramped cards. */}
-        <CurvedCarousel items={benefitCarouselItems} visibleCards={7} cardWidth={340} cardHeight={440} />
+        {/* visibleCards=3, not the preview route's 7: there are only 3 real
+            benefits here, and ensureMinimumSlides pads short lists by
+            cloning - at 7 slots that meant 4 of the 7 cards visible at once
+            were clones of the other 3, so the same benefit was often on
+            screen twice simultaneously. 3 visible cards exactly matches
+            the real item count, so nothing ever needs padding and no
+            duplicate ever appears in the arc at once. Card size bumped up
+            from the preview's 340x440 to fill the wider gutters that
+            leaving fewer cards visible would otherwise open up (the arc's
+            spacing scales off cardWidth, so this also widens the curve
+            itself rather than just the cards). autoPlay/autoPlayDelay
+            bring this in line with the homepage hero carousel - the
+            carousel already fully supports pause-on-hover/focus and skips
+            autoplay under prefers-reduced-motion on its own. */}
+        <CurvedCarousel
+          items={benefitCarouselItems}
+          visibleCards={3}
+          cardWidth={380}
+          cardHeight={480}
+          autoPlay
+          autoPlayDelay={5500}
+        />
       </section>
 
       {BOTTOM_HALF.map(([Section, props]) => (
