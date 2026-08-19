@@ -350,11 +350,15 @@ function getSlotStyle({
  *     laptop/tablet/mobile instead of overflowing or feeling exaggerated;
  *     resolves to the desktop tier during SSR/first paint so hydration
  *     matches, then settles to the real breakpoint client-side.
- *   - autoplay is skipped entirely under prefers-reduced-motion; slide
- *     transitions collapse to near-zero duration under the same setting
- *     (CSS `!important`, see CurvedCarousel.module.css - it can still beat
- *     the JS-computed inline transition because the browser cascades
- *     `transition-duration` as its own longhand).
+ *   - slide transitions (and the dot progress fill) collapse to near-zero
+ *     duration under prefers-reduced-motion (CSS `!important`, see
+ *     CurvedCarousel.module.css - it can still beat the JS-computed inline
+ *     transition because the browser cascades `transition-duration` as its
+ *     own longhand). Autoplay itself is NOT gated on that media query -
+ *     slides still advance for reduced-motion users, just without the
+ *     animated transition doing it (an earlier version skipped autoplay
+ *     entirely here, which just read as broken on any OS/browser reporting
+ *     the preference, intentionally or not).
  *   - a visually-hidden aria-live region announces the active slide by
  *     title, on top of the existing role/aria-roledescription/aria-hidden
  *     wiring from Phase 3.
@@ -445,14 +449,19 @@ export default function CurvedCarousel({
   // Functional setState updates mean this effect never needs `activeIndex`
   // in its deps, so autoplay doesn't tear down/rebuild its interval on
   // every advance - only when the configuration itself changes (or a drag
-  // starts/ends, which intentionally restarts the delay). Skips entirely
-  // under prefers-reduced-motion - an auto-advancing 3D slide is exactly
-  // the kind of motion that setting asks sites not to force on users.
+  // starts/ends, which intentionally restarts the delay). NOT gated on
+  // prefers-reduced-motion (a previous version of this effect returned
+  // undefined here when that media query matched) - that silently disabled
+  // autoplay entirely for anyone whose OS/browser reports the preference,
+  // which turned out to be more common than intended and reads as "broken",
+  // not "respecting a setting". Same fix already applied to the homepage
+  // hero carousel for the same reason. The actual *animated* motion is
+  // still disabled for reduced-motion users, just at the CSS level (see
+  // CurvedCarousel.module.css's own reduced-motion block, which collapses
+  // .slot/.dotProgress's transition/animation durations) - slides still
+  // advance, they just don't animate doing it.
   useEffect(() => {
     if (!autoPlay || length <= 1) return undefined;
-    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      return undefined;
-    }
     const id = setInterval(() => {
       if (isDragging || isHovering) return;
       next();
