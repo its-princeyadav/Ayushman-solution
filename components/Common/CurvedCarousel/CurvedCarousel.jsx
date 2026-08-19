@@ -401,13 +401,6 @@ export default function CurvedCarousel({
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(null);
-  // State, not a ref (unlike the drag tracking below) - the dot progress
-  // fill's animationPlayState needs to re-render when this flips so the
-  // visual countdown actually pauses in sync with the real autoplay timer
-  // skipping a tick (see the pagination dots further down). Hover only
-  // fires twice per interaction (enter/leave), so this doesn't add
-  // meaningful re-render cost the way tracking pointermove as state would.
-  const [isHovering, setIsHovering] = useState(false);
   const dragStartXRef = useRef(0);
   const dragDistanceRef = useRef(0);
   const suppressClickRef = useRef(false);
@@ -449,26 +442,28 @@ export default function CurvedCarousel({
   // Functional setState updates mean this effect never needs `activeIndex`
   // in its deps, so autoplay doesn't tear down/rebuild its interval on
   // every advance - only when the configuration itself changes (or a drag
-  // starts/ends, which intentionally restarts the delay). NOT gated on
-  // prefers-reduced-motion (a previous version of this effect returned
-  // undefined here when that media query matched) - that silently disabled
-  // autoplay entirely for anyone whose OS/browser reports the preference,
-  // which turned out to be more common than intended and reads as "broken",
-  // not "respecting a setting". Same fix already applied to the homepage
-  // hero carousel for the same reason. The actual *animated* motion is
-  // still disabled for reduced-motion users, just at the CSS level (see
-  // CurvedCarousel.module.css's own reduced-motion block, which collapses
-  // .slot/.dotProgress's transition/animation durations) - slides still
-  // advance, they just don't animate doing it.
+  // starts/ends, which intentionally restarts the delay). Not paused on
+  // hover (a previous version was) - deliberately keeps moving regardless
+  // of cursor position, matching the homepage hero carousel. Still paused
+  // mid-drag, since that's a direct interaction, not just passive cursor
+  // position. NOT gated on prefers-reduced-motion (a previous version of
+  // this effect returned undefined here when that media query matched) -
+  // that silently disabled autoplay entirely for anyone whose OS/browser
+  // reports the preference, which turned out to be more common than
+  // intended and reads as "broken", not "respecting a setting". The actual
+  // *animated* motion is still disabled for reduced-motion users, just at
+  // the CSS level (see CurvedCarousel.module.css's own reduced-motion
+  // block, which collapses .slot/.dotProgress's transition/animation
+  // durations) - slides still advance, they just don't animate doing it.
   useEffect(() => {
     if (!autoPlay || length <= 1) return undefined;
     const id = setInterval(() => {
-      if (isDragging || isHovering) return;
+      if (isDragging) return;
       next();
     }, autoPlayDelay);
     return () => clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoPlay, autoPlayDelay, isDragging, isHovering, length, loop]);
+  }, [autoPlay, autoPlayDelay, isDragging, length, loop]);
 
   const slots = useMemo(
     () =>
@@ -557,8 +552,6 @@ export default function CurvedCarousel({
       aria-label={ariaLabel}
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
       style={{
         "--curved-card-width": `${cardWidth}px`,
         "--curved-card-height": `${cardHeight}px`,
@@ -635,16 +628,16 @@ export default function CurvedCarousel({
                     active, so switching which dot that is naturally
                     unmounts the old span and mounts a fresh one (always
                     starting its animation over from 0%). animationPlayState
-                    mirrors the exact isDragging/isHovering check the real
-                    autoplay timer uses to skip a tick, so the visual
-                    countdown can't drift out of sync with when the slide
-                    actually advances. */}
+                    mirrors the exact isDragging check the real autoplay
+                    timer uses to skip a tick, so the visual countdown
+                    can't drift out of sync with when the slide actually
+                    advances. */}
                 {isActive && autoPlay && (
                   <span
                     className={styles.dotProgress}
                     style={{
                       animationDuration: `${autoPlayDelay}ms`,
-                      animationPlayState: isDragging || isHovering ? "paused" : "running",
+                      animationPlayState: isDragging ? "paused" : "running",
                     }}
                     aria-hidden="true"
                   />
