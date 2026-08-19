@@ -276,7 +276,7 @@ export const sapSolutions = {
       },
       {
         id: "strengthened-validation",
-        image: "/assets/image2/modern-bi-dashboard-bg-1.webp",
+        image: "/assets/image2/benefit-validation-review.jpg",
         icon: "shieldCheck",
         title: "Strengthened Validation Processes",
         description:
