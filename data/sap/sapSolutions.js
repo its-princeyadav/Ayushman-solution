@@ -245,21 +245,40 @@ export const sapSolutions = {
   benefits: {
     title:
       "Many Vendors. Ayushman Solution's SAP Software Solutions Give Your Business The Upper Hand",
+    // Same 3 features as before, now carrying image/icon/CTA fields too -
+    // this array feeds CurvedCarousel's `items` prop directly (see
+    // SapSolutions.jsx), each entry already matching its
+    // {id, image, title, description, icon, buttonText, buttonLink} shape.
     features: [
       {
+        id: "reduced-transaction-time",
+        image: "/assets/image2/banner-bi-dashboard.webp",
+        icon: "bolt",
         title: "Significantly Reduced Transaction Processing Time",
         description:
           "Our SAP solutions optimize processes, ensuring quicker execution and streamlined workflows.",
+        buttonText: "Learn More",
+        href: "#",
       },
       {
+        id: "minimized-manual-errors",
+        image: "/assets/image2/sap4hana.png",
+        icon: "checkCircle",
         title: "Minimized Manual Errors in SAP Data Processing",
         description:
           "Our SAP software solutions integrate intelligent automation to drastically reduce the risk of manual data entry errors, ensuring impeccable data accuracy.",
+        buttonText: "Learn More",
+        href: "#",
       },
       {
+        id: "strengthened-validation",
+        image: "/assets/image2/modern-bi-dashboard-bg-1.webp",
+        icon: "shieldCheck",
         title: "Strengthened Validation Processes",
         description:
           "Our SAP solutions feature robust validation mechanisms that enforce data consistency and compliance with business rules, enhancing the dependability of your processes.",
+        buttonText: "Learn More",
+        href: "#",
       },
     ],
   },

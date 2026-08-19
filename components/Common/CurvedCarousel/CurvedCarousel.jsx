@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { ensureMinimumSlides } from "../ensureMinimumSlides";
 import CurvedCarouselCard from "./CurvedCarouselCard";
 import styles from "./CurvedCarousel.module.css";
 
@@ -318,6 +319,12 @@ function getSlotStyle({
  * `icon` must be an already-rendered element (`icon: <FaRocket />`), not a
  * bare component reference - see CurvedCarouselCard's docblock for why.
  *
+ * If `items` has fewer entries than `visibleCards` wants to show, they're
+ * padded with clones (see ensureMinimumSlides, in Common/) so the arc still
+ * has enough cards to read as a curve instead of collapsing/stretching -
+ * purely presentational, and applied automatically, so a caller with only
+ * 3-4 real items doesn't need to do anything extra.
+ *
  * Built in phases (see the task this was requested under) - this file's
  * public prop contract was written for the *final* component from Phase 1
  * so callers never had to change how they invoke it as later phases landed:
@@ -370,11 +377,22 @@ export default function CurvedCarousel({
   activeScale = 1,
   inactiveScale = 1,
   activeOpacity = 1,
-  inactiveOpacity = 0.55,
+  inactiveOpacity = 1,
   className = "",
   ariaLabel = "Carousel",
 }) {
-  const length = items.length;
+  // Presentation-only padding: a curved arc needs enough cards to actually
+  // read as a curve (see ensureMinimumSlides) - if a caller has fewer real
+  // items than `visibleCards` wants to show, clones fill the rest so the
+  // layout doesn't collapse/stretch. Padding targets the caller's own
+  // `visibleCards` prop (not a hardcoded count), so this stays generic for
+  // any page/config rather than baking in any particular number. Once
+  // computed, `displayItems` is what the rest of this component treats as
+  // "the" items - navigation, active index, and pagination all operate on
+  // it consistently, so there's no separate "real vs padded" bookkeeping
+  // to keep in sync.
+  const displayItems = useMemo(() => ensureMinimumSlides(items, visibleCards), [items, visibleCards]);
+  const length = displayItems.length;
   const [activeIndex, setActiveIndex] = useState(() => Math.floor((length - 1) / 2));
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
@@ -439,7 +457,7 @@ export default function CurvedCarousel({
 
   const slots = useMemo(
     () =>
-      items.map((item, index) => {
+      displayItems.map((item, index) => {
         const offset = getWrappedOffset(index, activeIndex, length, loop);
         const distance = Math.abs(offset);
         return {
@@ -451,10 +469,10 @@ export default function CurvedCarousel({
           key: item.id ?? index,
         };
       }),
-    [items, activeIndex, halfWindow, length, loop]
+    [displayItems, activeIndex, halfWindow, length, loop]
   );
 
-  if (!items || items.length === 0) return null;
+  if (!displayItems || displayItems.length === 0) return null;
 
   function handlePointerDown(e) {
     if (length <= 1) return;
@@ -514,7 +532,7 @@ export default function CurvedCarousel({
 
   const atStart = !loop && activeIndex === 0;
   const atEnd = !loop && activeIndex === length - 1;
-  const activeTitle = items[activeIndex]?.title;
+  const activeTitle = displayItems[activeIndex]?.title;
 
   return (
     <div
@@ -587,7 +605,7 @@ export default function CurvedCarousel({
 
       {showPagination && length > 1 && (
         <div className={styles.pagination}>
-          {items.map((item, index) => (
+          {displayItems.map((item, index) => (
             <button
               type="button"
               key={item.id ?? index}

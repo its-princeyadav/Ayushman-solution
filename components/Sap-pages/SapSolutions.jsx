@@ -1,9 +1,10 @@
-import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
+import { HiOutlineChatBubbleLeftRight, HiOutlineBolt, HiOutlineCheckCircle, HiOutlineShieldCheck } from "react-icons/hi2";
 import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import PremiumSplitSection from "../Sap/common/PremiumSplitSection";
 import PremiumEditionSection from "../Sap/common/PremiumEditionSection";
 import ParallaxPromiseSection from "../Sap/common/ParallaxPromiseSection";
+import CurvedCarousel from "../Common/CurvedCarousel/CurvedCarousel";
 import SectionHeading from "../Sap/common/SectionHeading";
 import SectionLabel from "../Common/SectionLabel";
 import Container from "../Sap/common/Container";
@@ -12,7 +13,6 @@ import PillButton from "../Common/PillButton";
 import StatsGrid from "../Sap/common/StatsGrid";
 import FunctionalityGrid from "../Sap/sections/FunctionalityGrid";
 import IndustryOrbit from "../Sap/Industries/IndustryOrbit";
-import BenefitsSection from "../Sap/sections/BenefitsSection";
 import TestimonialsSection from "../Sap/sections/TestimonialsSection";
 import CTASection from "../Sap/CTA/CTASection";
 import NewsSection from "../Sap/sections/NewsSection";
@@ -21,13 +21,17 @@ import StoriesSection from "../Sap/sections/StoriesSection";
 import FAQSection from "../Sap/sections/FAQSection";
 import { sapSolutions } from "../../data/sap/sapSolutions";
 
-// The back half of every SAP page (Benefits through FAQ) is identical across
-// Solutions/Services/Support/Practices/Business One — only the data differs —
-// so it stays a plain reusable list. The front half is page-specific content
-// (S/4HANA intro, awards timeline, editions, stats, industries, ...), so it's
-// composed explicitly below in the same top-to-bottom order as the reference.
+// The back half of every SAP page (Testimonials through FAQ) is identical
+// across Solutions/Services/Support/Practices/Business One — only the data
+// differs — so it stays a plain reusable list. Benefits is no longer part
+// of it here: this page renders its own CurvedCarousel version instead of
+// the shared BenefitsSection/Slider combo (see below) - the other 4 pages
+// still use BenefitsSection unchanged, since they import their own
+// separate data files, not this one. The front half is page-specific
+// content (S/4HANA intro, awards timeline, editions, stats, industries,
+// ...), so it's composed explicitly below in the same top-to-bottom order
+// as the reference.
 const BOTTOM_HALF = [
-  [BenefitsSection, sapSolutions.benefits],
   [TestimonialsSection, sapSolutions.testimonials],
   [CTASection, sapSolutions.cta],
   [NewsSection, sapSolutions.news],
@@ -35,6 +39,18 @@ const BOTTOM_HALF = [
   [StoriesSection, sapSolutions.stories],
   [FAQSection, sapSolutions.faq],
 ];
+
+// Maps the plain string key each data/sap/sapSolutions.js benefit carries
+// (data files stay plain/serializable, per this project's convention) to an
+// actual rendered icon element - CurvedCarousel is a Client Component, so
+// `icon` has to already be an element (not a bare component reference) by
+// the time it crosses the Server->Client boundary (see
+// CurvedCarouselCard's own docblock for why).
+const BENEFIT_ICONS = {
+  bolt: <HiOutlineBolt />,
+  checkCircle: <HiOutlineCheckCircle />,
+  shieldCheck: <HiOutlineShieldCheck />,
+};
 
 export default function SapSolutions() {
   const {
@@ -45,6 +61,10 @@ export default function SapSolutions() {
     private: privateEdition,
   } = sapSolutions.cloudEditions;
   const { background: dtBackground, intro: dtIntro, stats: dtStats } = sapSolutions.digitalTransformation;
+  const benefitCarouselItems = sapSolutions.benefits.features.map((feature) => ({
+    ...feature,
+    icon: BENEFIT_ICONS[feature.icon],
+  }));
 
   return (
     <>
@@ -125,6 +145,24 @@ export default function SapSolutions() {
 
       <FunctionalityGrid {...sapSolutions.functionalityGrid} />
       <IndustryOrbit {...sapSolutions.industries} />
+
+      {/* Same position/heading BenefitsSection used to render at (right
+          before the shared Testimonials-through-FAQ block) - only the
+          card layout changed, from the old white FeatureCard Slider to
+          the reusable CurvedCarousel, per request. Reuses CurvedCarousel
+          exactly as built (same math/props/engine); only the data + this
+          page's own icon-key mapping are new. */}
+      <section data-sap-reveal>
+        <Container>
+          <SectionHeading title={sapSolutions.benefits.title} align="center" />
+        </Container>
+        {/* visibleCards=7 (matching the preview route's own configuration,
+            the visual benchmark) even though there are only 3 real
+            benefits - CurvedCarousel pads short item lists with clones
+            automatically (see ensureMinimumSlides) so the arc still forms
+            properly instead of collapsing into 3 cramped cards. */}
+        <CurvedCarousel items={benefitCarouselItems} visibleCards={7} cardWidth={340} cardHeight={440} />
+      </section>
 
       {BOTTOM_HALF.map(([Section, props]) => (
         <Section key={Section.name} {...props} />
