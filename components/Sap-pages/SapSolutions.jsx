@@ -177,7 +177,19 @@ export default function SapSolutions() {
           page's own icon-key mapping are new. */}
       <section data-sap-reveal>
         <Container>
-          <SectionHeading title={sapSolutions.benefits.title} align="center" />
+          {/* eyebrow/description: every other section on this page
+              (Who Needs It, Empowering Businesses, Digital Transformation)
+              leads with an eyebrow + heading + short description - this
+              one previously jumped straight to a bare heading, the odd one
+              out in the page's own established rhythm. */}
+          {sapSolutions.benefits.eyebrow && (
+            <SectionLabel title={sapSolutions.benefits.eyebrow} align="center" />
+          )}
+          <SectionHeading
+            title={sapSolutions.benefits.title}
+            description={sapSolutions.benefits.description}
+            align="center"
+          />
         </Container>
         {/* visibleCards=5, not the preview route's 7: there are 5 real
             benefits here (2 new ones added alongside the original 3), and
@@ -209,6 +221,20 @@ export default function SapSolutions() {
           autoPlayDelay={5500}
           activeScale={1.3}
         />
+        {/* Each card's own "Learn More" is still a per-benefit link, but
+            those are all `href: "#"` placeholders for now (see the data
+            file) - a single section-level CTA gives visitors a real next
+            step in the meantime, same PillButton pattern already used for
+            the "Empowering Businesses" section above. */}
+        {sapSolutions.benefits.cta && (
+          <div style={{ display: "flex", justifyContent: "center", marginTop: 8 }}>
+            <PillButton
+              label={sapSolutions.benefits.cta.label}
+              href={sapSolutions.benefits.cta.href}
+              icon={HiOutlineChatBubbleLeftRight}
+            />
+          </div>
+        )}
       </section>
 
       {BOTTOM_HALF.map(([Section, props]) => (

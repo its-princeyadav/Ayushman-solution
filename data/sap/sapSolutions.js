@@ -243,8 +243,12 @@ export const sapSolutions = {
   },
 
   benefits: {
+    eyebrow: "The Upper Hand",
     title:
       "Many Vendors. Ayushman Solution's SAP Software Solutions Give Your Business The Upper Hand",
+    description:
+      "From faster transaction processing to AI-augmented automation and secure cloud infrastructure, here's what sets our SAP solutions apart.",
+    cta: { label: "Talk to an SAP Expert", href: "#" },
     // Same 3 features as before, now carrying image/icon/CTA fields too -
     // this array feeds CurvedCarousel's `items` prop directly (see
     // SapSolutions.jsx), each entry already matching its
