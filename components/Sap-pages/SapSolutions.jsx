@@ -1,4 +1,11 @@
-import { HiOutlineChatBubbleLeftRight, HiOutlineBolt, HiOutlineCheckCircle, HiOutlineShieldCheck } from "react-icons/hi2";
+import {
+  HiOutlineChatBubbleLeftRight,
+  HiOutlineBolt,
+  HiOutlineCheckCircle,
+  HiOutlineShieldCheck,
+  HiOutlineCpuChip,
+  HiOutlineCloud,
+} from "react-icons/hi2";
 import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import PremiumSplitSection from "../Sap/common/PremiumSplitSection";
@@ -50,6 +57,8 @@ const BENEFIT_ICONS = {
   bolt: <HiOutlineBolt />,
   checkCircle: <HiOutlineCheckCircle />,
   shieldCheck: <HiOutlineShieldCheck />,
+  cpuChip: <HiOutlineCpuChip />,
+  cloud: <HiOutlineCloud />,
 };
 
 export default function SapSolutions() {
@@ -163,25 +172,23 @@ export default function SapSolutions() {
         <Container>
           <SectionHeading title={sapSolutions.benefits.title} align="center" />
         </Container>
-        {/* visibleCards=3, not the preview route's 7: there are only 3 real
-            benefits here, and ensureMinimumSlides pads short lists by
-            cloning - at 7 slots that meant 4 of the 7 cards visible at once
-            were clones of the other 3, so the same benefit was often on
-            screen twice simultaneously. 3 visible cards exactly matches
-            the real item count, so nothing ever needs padding and no
-            duplicate ever appears in the arc at once. Card size bumped up
-            from the preview's 340x440 to fill the wider gutters that
-            leaving fewer cards visible would otherwise open up (the arc's
-            spacing scales off cardWidth, so this also widens the curve
-            itself rather than just the cards). autoPlay/autoPlayDelay
-            bring this in line with the homepage hero carousel - the
-            carousel already fully supports pause-on-hover/focus and skips
-            autoplay under prefers-reduced-motion on its own. */}
+        {/* visibleCards=5, not the preview route's 7: there are 5 real
+            benefits here (2 new ones added alongside the original 3), and
+            ensureMinimumSlides pads short lists by cloning - 5 exactly
+            matches the real item count, so nothing ever needs padding and
+            no duplicate ever appears in the arc at once. Card size bumped
+            up from the preview's 340x440 so the wider 5-card arc fills the
+            section properly (the arc's spacing scales off cardWidth, so
+            this also widens the curve itself rather than just the cards).
+            autoPlay/autoPlayDelay bring this in line with the homepage
+            hero carousel - the carousel already fully supports
+            pause-on-hover/focus and skips autoplay under
+            prefers-reduced-motion on its own. */}
         <CurvedCarousel
           items={benefitCarouselItems}
-          visibleCards={3}
-          cardWidth={380}
-          cardHeight={480}
+          visibleCards={5}
+          cardWidth={360}
+          cardHeight={460}
           autoPlay
           autoPlayDelay={5500}
         />

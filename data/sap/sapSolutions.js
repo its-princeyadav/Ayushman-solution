@@ -280,6 +280,26 @@ export const sapSolutions = {
         buttonText: "Learn More",
         href: "#",
       },
+      {
+        id: "ai-augmented-automation",
+        image: "/assets/image2/benefit-ai-collaboration.jpg",
+        icon: "cpuChip",
+        title: "Smarter Operations Through AI-Augmented Automation",
+        description:
+          "SAP's built-in intelligence works alongside your team, surfacing insights and automating routine tasks so people can focus on higher-value decisions.",
+        buttonText: "Learn More",
+        href: "#",
+      },
+      {
+        id: "cloud-ready-infrastructure",
+        image: "/assets/image2/benefit-cloud-infrastructure.png",
+        icon: "cloud",
+        title: "Secure, Scalable Cloud-Ready Infrastructure",
+        description:
+          "Deploy and scale on secure cloud environments built for reliability, so your SAP systems stay available and protected as your business grows.",
+        buttonText: "Learn More",
+        href: "#",
+      },
     ],
   },
 
