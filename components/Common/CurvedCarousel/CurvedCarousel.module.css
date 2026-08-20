@@ -438,4 +438,19 @@
   .dotProgress {
     animation: none !important;
   }
+
+  /* SAP Solutions' benefits carousel explicitly wants its rotation
+     transition to always play, prioritizing visual motion over strict
+     reduced-motion compliance for this one carousel - scoped to
+     .onLight rather than removing the .slot override above outright,
+     so every other consumer (the dev-preview page included) keeps the
+     standard, accessible behavior by default. Needs its own !important
+     to win back over the .slot rule above (same specificity, later in
+     the cascade) - can't just rely on source order since both are
+     !important. 600ms hardcoded here matches SapSolutions.jsx's own
+     explicit animationDuration={600} on its CurvedCarousel call; keep
+     the two in sync if that prop ever changes. */
+  .onLight .slot {
+    transition-duration: 600ms !important;
+  }
 }

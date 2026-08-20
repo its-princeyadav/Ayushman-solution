@@ -230,6 +230,11 @@ export default function SapSolutions() {
             the worst taper case (the outermost visible cards), not just
             the active card's own (milder) one. Still a real curve/depth
             effect at 0.4, just not the full, most-aggressive taper. */}
+        {/* animationDuration={600} - already the component's own default,
+            made explicit here because CurvedCarousel.module.css's
+            .onLight reduced-motion override hardcodes this same 600ms to
+            match (see that file) - keep both in sync if this ever
+            changes. */}
         <CurvedCarousel
           items={benefitCarouselItems}
           visibleCards={5}
@@ -239,6 +244,7 @@ export default function SapSolutions() {
           autoPlayDelay={5500}
           activeScale={1.3}
           curveIntensity={0.4}
+          animationDuration={600}
           className={curvedCarouselStyles.onLight}
         />
         {/* Each card's own "Learn More" is still a per-benefit link, but
