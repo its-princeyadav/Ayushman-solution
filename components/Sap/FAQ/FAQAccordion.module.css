@@ -2,15 +2,16 @@
    "stacked cards on a soft background" reference style. Exclusive to
    FAQSection, so restyling here is safe. */
 .item {
-  background: var(--sap-white);
+  background: var(--sap-card-bg, var(--sap-white));
   border-radius: 18px;
   border: 1px solid var(--sap-border);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -20px rgba(15, 23, 42, 0.18);
+  box-shadow: var(--sap-card-shadow, 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -20px rgba(15, 23, 42, 0.18));
+  backdrop-filter: var(--sap-card-blur, none);
   transition: box-shadow 260ms ease, border-color 260ms ease, transform 260ms ease;
 }
 
 .item:hover {
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 16px 34px -20px rgba(15, 23, 42, 0.22);
+  box-shadow: var(--sap-card-shadow, 0 1px 2px rgba(15, 23, 42, 0.05), 0 16px 34px -20px rgba(15, 23, 42, 0.22));
   transform: translateY(-2px);
 }
 

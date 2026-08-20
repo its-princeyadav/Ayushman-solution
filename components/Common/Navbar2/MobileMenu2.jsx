@@ -99,15 +99,23 @@ export default function MobileMenu2({ isOpen, onClose, onBookSlot }) {
             isOpen={openSection === "whatWeDo"}
             onToggle={() => toggleSection("whatWeDo")}
           >
-            {WHAT_WE_DO_CATEGORIES.map((category) => (
-              <CategoryAccordion
-                key={category.id}
-                category={category}
-                isOpen={openCategoryId === category.id}
-                onToggle={() => toggleCategory(category.id)}
-                onNavigate={onClose}
-              />
-            ))}
+            {WHAT_WE_DO_CATEGORIES.map((category) =>
+              category.columns.length > 0 ? (
+                <CategoryAccordion
+                  key={category.id}
+                  category={category}
+                  isOpen={openCategoryId === category.id}
+                  onToggle={() => toggleCategory(category.id)}
+                  onNavigate={onClose}
+                />
+              ) : (
+                <div key={category.id} className="as-mobilemenu-category-block">
+                  <Link href={category.href} className="as-mobilemenu-category-trigger" onClick={onClose}>
+                    {category.title}
+                  </Link>
+                </div>
+              )
+            )}
           </AccordionSection>
 
           <AccordionSection

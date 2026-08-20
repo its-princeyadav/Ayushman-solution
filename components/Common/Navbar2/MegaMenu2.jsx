@@ -90,24 +90,28 @@ export function CategorizedMegaMenu({ categories, onNavigate }) {
                 <Icon aria-hidden="true" />
               </span>
               <span className="as-megamenu-sidebar-title">{category.title}</span>
-              <FaArrowRight aria-hidden="true" className="as-megamenu-sidebar-arrow" />
+              {category.columns.length > 0 && (
+                <FaArrowRight aria-hidden="true" className="as-megamenu-sidebar-arrow" />
+              )}
             </Link>
           );
         })}
       </div>
 
-      <div className="as-megamenu-content" key={active.id}>
-        <div className="as-megamenu-grid">
-          {active.columns.map((column, index) => (
-            <Column column={column} onNavigate={onNavigate} showItemArrow key={index} />
-          ))}
-        </div>
+      {active.columns.length > 0 && (
+        <div className="as-megamenu-content" key={active.id}>
+          <div className="as-megamenu-grid">
+            {active.columns.map((column, index) => (
+              <Column column={column} onNavigate={onNavigate} showItemArrow key={index} />
+            ))}
+          </div>
 
-        <Link href={active.href} className="as-megamenu-view-all" onClick={onNavigate}>
-          Explore {active.title}
-          <FaArrowRight aria-hidden="true" />
-        </Link>
-      </div>
+          <Link href={active.href} className="as-megamenu-view-all" onClick={onNavigate}>
+            Explore {active.title}
+            <FaArrowRight aria-hidden="true" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
