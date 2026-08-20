@@ -201,13 +201,19 @@ export default function SapSolutions() {
             benefits here (2 new ones added alongside the original 3), and
             ensureMinimumSlides pads short lists by cloning - 5 exactly
             matches the real item count, so nothing ever needs padding and
-            no duplicate ever appears in the arc at once. cardWidth bumped
-            up from the preview's 340 so the wider 5-card arc fills the
-            section properly (the arc's spacing scales off cardWidth, so
-            this also widens the curve itself rather than just the
-            cards); cardHeight (280, well short of the preview's 440)
-            keeps these landscape rather than portrait - a tall card
-            read as too vertically heavy for this section.
+            no duplicate ever appears in the arc at once. cardWidth=340
+            (the preview's own default) - a wider 380 was tried, but the
+            arc's spacing scales off cardWidth, and at 380 the full
+            5-card arc's total width (~1940px, computed from the actual
+            arc-spacing formula) exceeded a typical 1920px viewport,
+            which read as an asymmetric "missing card" on whichever side
+            the browser's scrollbar happened to eat into - the geometry
+            itself is symmetric, so this was a plain overflow, not a
+            positioning bug. 340 keeps the whole arc comfortably within
+            frame with margin on both sides. cardHeight (280, well short
+            of the preview's 440) keeps these landscape rather than
+            portrait - a tall card read as too vertically heavy for this
+            section.
             autoPlay/autoPlayDelay bring this in line with the homepage
             hero carousel - the carousel already fully supports
             pause-on-hover/focus and skips autoplay under
@@ -248,7 +254,7 @@ export default function SapSolutions() {
         <CurvedCarousel
           items={benefitCarouselItems}
           visibleCards={5}
-          cardWidth={380}
+          cardWidth={340}
           cardHeight={280}
           autoPlay
           autoPlayDelay={5500}
