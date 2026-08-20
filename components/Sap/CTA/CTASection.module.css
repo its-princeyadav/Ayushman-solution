@@ -46,6 +46,11 @@
 
 .content {
   max-width: 420px;
+  background: var(--sap-cta-panel-bg, transparent);
+  border: 1px solid var(--sap-cta-panel-border, transparent);
+  border-radius: var(--sap-radius-lg);
+  padding: var(--sap-cta-panel-padding, 0);
+  backdrop-filter: var(--sap-cta-panel-blur, none);
 }
 
 .title {

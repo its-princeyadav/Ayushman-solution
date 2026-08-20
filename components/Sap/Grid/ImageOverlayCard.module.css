@@ -3,9 +3,16 @@
   aspect-ratio: var(--sap-overlay-card-ratio, 3 / 2);
   overflow: hidden;
   border-radius: var(--sap-radius-md);
+  border: 1px solid var(--sap-card-border, transparent);
   box-shadow: var(--sap-shadow-card);
   text-decoration: none;
-  transition: box-shadow var(--sap-transition);
+  transition: box-shadow var(--sap-transition), border-color var(--sap-transition), transform var(--sap-transition);
+}
+
+.card:hover {
+  border-color: var(--sap-card-border-hover, var(--sap-card-border, transparent));
+  transform: var(--sap-card-hover-lift, none);
+  box-shadow: var(--sap-shadow-hover);
 }
 
 /* Slightly shorter tile for grids of many small tiles (e.g. a 9-card
@@ -20,10 +27,6 @@
 
 .compact .description {
   font-size: 0.85rem;
-}
-
-.card:hover {
-  box-shadow: var(--sap-shadow-hover);
 }
 
 .image {

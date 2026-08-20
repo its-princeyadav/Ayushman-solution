@@ -1,0 +1,39 @@
+/* Glassmorphism skin for the /cloud page, scoped to `.cloudPage` (see
+   components/Cloud-pages/Cloud.jsx wrapper). Every Sap/* component this page
+   reuses already reads its surfaces through --sap-* custom properties (see
+   components/Sap/sap-tokens.css) with plain fallback values - this file only
+   *overrides* those custom properties inside the cloud subtree, so every
+   other page that reuses the same components (SAP, Analytics, ...) renders
+   exactly as before. No component markup or class was duplicated to get this
+   look; only new, additive, fallback-safe tokens (--sap-card-bg,
+   --sap-card-blur, --sap-cta-panel-bg, ...) were introduced in the shared
+   component stylesheets themselves.
+
+   Brand tokens (--color-primary, --color-neutral, ...) are intentionally
+   left untouched, so headings, body text and CTA buttons keep the exact same
+   navy/yellow brand identity as every other page. */
+
+.cloudPage {
+  /* Frosted glass surface for content cards (Industries, News, Blogs, FAQ,
+     Stories) sitting over the page's light gradient backdrop. */
+  --sap-card-bg: rgba(255, 255, 255, 0.66);
+  --sap-card-body-bg: rgba(255, 255, 255, 0.52);
+  --sap-card-border: rgba(15, 23, 42, 0.1);
+  --sap-card-border-hover: rgba(37, 99, 235, 0.4);
+  --sap-card-blur: blur(20px);
+  --sap-card-shadow: 0 20px 45px -22px rgba(15, 23, 42, 0.28);
+  --sap-card-hover-shadow: 0 30px 60px -20px rgba(37, 99, 235, 0.32);
+  --sap-card-hover-lift: translateY(-6px);
+  --sap-card-padding: 18px;
+
+  /* Dark glass panel for content sitting over full-bleed photography (CTA
+     banner, Service Portfolio panel). */
+  --sap-cta-panel-bg: rgba(6, 14, 28, 0.4);
+  --sap-cta-panel-border: rgba(255, 255, 255, 0.16);
+  --sap-cta-panel-blur: blur(24px);
+  --sap-cta-panel-padding: clamp(28px, 4vw, 48px);
+
+  --sap-border: rgba(15, 23, 42, 0.08);
+  --sap-shadow-card: 0 16px 36px -18px rgba(15, 23, 42, 0.16);
+  --sap-shadow-hover: 0 26px 55px -18px rgba(37, 99, 235, 0.3);
+}

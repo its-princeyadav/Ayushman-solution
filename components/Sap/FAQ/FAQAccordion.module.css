@@ -1,7 +1,9 @@
 .item {
   border: 1px solid var(--sap-border);
   border-radius: var(--sap-radius-sm);
-  background: var(--sap-white);
+  background: var(--sap-card-bg, var(--sap-white));
+  box-shadow: var(--sap-card-shadow, none);
+  backdrop-filter: var(--sap-card-blur, none);
   transition: border-color var(--sap-transition);
 }
 

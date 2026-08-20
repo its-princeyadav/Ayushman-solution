@@ -137,26 +137,7 @@ export const WHAT_WE_DO_CATEGORIES = [
     icon: LuCloud,
     title: "Cloud",
     href: "/cloud",
-    columns: [
-      {
-        heading: "Cloud Services",
-        items: [
-          { title: "Cloud Consulting", href: "#" },
-          { title: "Cloud Migration", href: "#" },
-          { title: "Managed Cloud Services", href: "#" },
-          { title: "DevOps & Automation", href: "#" },
-        ],
-      },
-      {
-        heading: "Cloud Platforms",
-        items: [
-          { title: "Amazon Web Services", href: "#" },
-          { title: "Microsoft Azure", href: "#" },
-          { title: "Google Cloud Platform", href: "#" },
-          { title: "Hybrid & Private Cloud", href: "#" },
-        ],
-      },
-    ],
+    columns: [],
   },
   {
     id: "technology",
