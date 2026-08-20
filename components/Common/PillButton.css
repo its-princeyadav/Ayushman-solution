@@ -15,20 +15,29 @@
   --pillbtn-icon-inset: 6px;
   --pillbtn-icon-bg: #ececec;
   --pillbtn-icon-color: #000000;
+  /* Size knobs, not previously overridable - only the icon/color tokens
+     were. Defaults exactly match this component's original hardcoded
+     values, so every existing caller renders identically; a caller
+     wanting a smaller/larger pill sets these via the `style` prop like
+     any other --pillbtn-* token. */
+  --pillbtn-min-width: 192px;
+  --pillbtn-padding-block: 16px;
+  --pillbtn-padding-inline: 32px;
+  --pillbtn-font-size: 0.95rem;
 
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  min-width: 192px;
-  padding: 16px 32px;
+  min-width: var(--pillbtn-min-width);
+  padding: var(--pillbtn-padding-block) var(--pillbtn-padding-inline);
   border: none;
   border-radius: var(--pillbtn-radius);
   background: var(--pillbtn-bg);
   color: var(--pillbtn-color);
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: var(--pillbtn-font-size);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;

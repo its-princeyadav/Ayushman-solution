@@ -176,7 +176,12 @@ export default function SapSolutions() {
           the reusable CurvedCarousel, per request. Reuses CurvedCarousel
           exactly as built (same math/props/engine); only the data + this
           page's own icon-key mapping are new. */}
-      <section data-sap-reveal>
+      {/* paddingBlock: unlike its siblings on this page (CenteredSection,
+          PremiumSplitSection, etc.), this section has no shared .section
+          class of its own supplying the page's usual vertical rhythm -
+          without this the CTA sat flush against wherever
+          TestimonialsSection's own top padding began. */}
+      <section data-sap-reveal style={{ paddingBlock: "var(--sap-section-gap)" }}>
         <Container>
           {/* eyebrow/description: every other section on this page
               (Who Needs It, Empowering Businesses, Digital Transformation)
@@ -200,9 +205,9 @@ export default function SapSolutions() {
             up from the preview's 340 so the wider 5-card arc fills the
             section properly (the arc's spacing scales off cardWidth, so
             this also widens the curve itself rather than just the
-            cards); cardHeight (380) went the other way, shorter than the
-            preview's 440 - the taller version read as too vertically
-            heavy for this section.
+            cards); cardHeight (280, well short of the preview's 440)
+            keeps these landscape rather than portrait - a tall card
+            read as too vertically heavy for this section.
             autoPlay/autoPlayDelay bring this in line with the homepage
             hero carousel - the carousel already fully supports
             pause-on-hover/focus and skips autoplay under
@@ -226,7 +231,7 @@ export default function SapSolutions() {
             *active* card's own left/right edges lose ~40% of their
             height to the taper (confirmed numerically, not a guess),
             clipping the badge and title/description near those edges.
-            0.4 caps the worst-case corner inset around 34px at this
+            0.4 caps the worst-case corner inset around 25px at this
             cardHeight, which .cardBadge/.cardContent's repositioning
             (see CurvedCarousel.module.css - recalculated whenever
             cardHeight changes here, both need to stay in sync) clears
@@ -243,8 +248,8 @@ export default function SapSolutions() {
         <CurvedCarousel
           items={benefitCarouselItems}
           visibleCards={5}
-          cardWidth={360}
-          cardHeight={380}
+          cardWidth={380}
+          cardHeight={280}
           autoPlay
           autoPlayDelay={5500}
           activeScale={1.3}
@@ -255,14 +260,25 @@ export default function SapSolutions() {
         {/* Each card's own "Learn More" is still a per-benefit link, but
             those are all `href: "#"` placeholders for now (see the data
             file) - a single section-level CTA gives visitors a real next
-            step in the meantime, same PillButton pattern already used for
-            the "Empowering Businesses" section above. */}
+            step in the meantime. Same PillButton as the "Empowering
+            Businesses" section above, but visibly smaller here via the
+            --pillbtn-* size overrides (see PillButton.css) - full size
+            reads as bloated directly under a fairly compact carousel;
+            the other usage sits in a much more spacious section where
+            the default size is proportionate. */}
         {sapSolutions.benefits.cta && (
-          <div style={{ display: "flex", justifyContent: "center", marginTop: 8 }}>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
             <PillButton
               label={sapSolutions.benefits.cta.label}
               href={sapSolutions.benefits.cta.href}
               icon={HiOutlineChatBubbleLeftRight}
+              style={{
+                "--pillbtn-min-width": "0px",
+                "--pillbtn-padding-block": "11px",
+                "--pillbtn-padding-inline": "22px",
+                "--pillbtn-font-size": "0.8rem",
+                "--pillbtn-icon-size": "26px",
+              }}
             />
           </div>
         )}

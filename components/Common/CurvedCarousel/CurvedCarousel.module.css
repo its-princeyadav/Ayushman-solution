@@ -335,8 +335,8 @@
    tapers every card's silhouette in from its own corners, and content
    pinned to the literal edge risks landing in the clipped-away region
    and vanishing entirely - confirmed numerically for this page's own
-   cardHeight (380) and curveIntensity (0.4, see SapSolutions.jsx's own
-   comment on that prop): the worst-case corner inset is ~34px, so
+   cardHeight (280) and curveIntensity (0.4, see SapSolutions.jsx's own
+   comment on that prop): the worst-case corner inset is ~23px, so
    .cardBadge needs more than the shared default's 12px of clearance.
    Scoped here rather than changing the shared defaults, since the safe
    margin depends on curveIntensity/cardHeight - the dev-preview page
@@ -345,7 +345,7 @@
    if cardHeight/curveIntensity ever change on the SapSolutions.jsx
    call. */
 .onLight .cardBadge {
-  top: 40px;
+  top: 28px;
   left: 22px;
 }
 
@@ -355,12 +355,12 @@
   /* Also pulled up from the shared default's bottom:0 - unlike the
      left/right taper (sloped, so the horizontal inset above already
      helps), the *active* card's top/bottom taper is symmetric,
-     producing a flat (not sloped) cut at ~31px in from the true top and
+     producing a flat (not sloped) cut at ~20px in from the true top and
      bottom regardless of x-position. bottom:0 content (this stack's own
      18px padding plus the button/description's last few lines) was
      landing inside that clipped band no matter how far it was inset
      horizontally. */
-  bottom: 38px;
+  bottom: 26px;
 }
 
 @keyframes dotProgressFill {
