@@ -418,6 +418,15 @@ export default function CurvedCarousel({
   // { key, value } describing the second (invisible, no-transition) half
   // of a wrap in progress, or null - see the useEffect below.
   const [pendingRestage, setPendingRestage] = useState(null);
+  // Key of the item whose third (animated reveal) phase is due, or null -
+  // see the second useEffect below. Simulated this whole 3-phase sequence
+  // numerically before writing it: a 2-phase version (exit, then invisible
+  // relocate, stopping there) left the relocated card sitting hidden until
+  // the *next* real next()/prev() call, which is 5+ seconds later under
+  // autoplay - only 4 of 5 real cards were ever visible at rest, not a
+  // brief animation artifact but a permanent gap. This third phase is what
+  // was missing.
+  const [pendingReveal, setPendingReveal] = useState(null);
   const activeIndexRef = useRef(activeIndex);
   const dragStartXRef = useRef(0);
   const dragDistanceRef = useRef(0);
@@ -428,16 +437,15 @@ export default function CurvedCarousel({
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
 
-  // Second half of the wrap sequence next()/prev() start: one frame after
-  // the exiting card's "keep going the same direction" position has
-  // actually painted (and it's now fully hidden, having crossed
+  // Second phase of the wrap sequence next()/prev() start: one frame
+  // after the exiting card's "keep going the same direction" position
+  // has actually painted (and it's now fully hidden, having crossed
   // +/-halfWindow), silently relocate it to the equivalent hidden spot on
   // the *opposite* edge, with its transition suppressed so the jump is
-  // never rendered. From there, the next real step finds it already
-  // waiting just off-stage and eases it in like any other card, instead
-  // of sweeping it across the whole visible arc. Effect (not a plain
-  // rAF call in next()/prev()) so a second wrap starting before this one
-  // finishes its cleanup cancels the stale rAF automatically.
+  // never rendered. Hands off to pendingReveal for the third phase below
+  // rather than stopping here. Effect (not a plain rAF call in
+  // next()/prev()) so a second wrap starting before this one finishes its
+  // cleanup cancels the stale rAF automatically.
   useEffect(() => {
     if (!pendingRestage) return undefined;
     const id = requestAnimationFrame(() => {
@@ -446,10 +454,39 @@ export default function CurvedCarousel({
           ? { [pendingRestage.key]: { value: pendingRestage.value, suppressTransition: true } }
           : prev
       );
+      setPendingReveal(pendingRestage.key);
       setPendingRestage(null);
     });
     return () => cancelAnimationFrame(id);
   }, [pendingRestage]);
+
+  // Third and final phase: one more frame after the invisible relocate
+  // above has painted, drop the override entirely so this card falls back
+  // to getWrappedOffset's own formula - which, since activeIndex hasn't
+  // changed since the wrap started, evaluates to exactly the
+  // +/-halfWindow slot this card vacated in the first place. Dropping the
+  // override (rather than setting a matching explicit value) also
+  // restores the normal transition, so the browser animates smoothly from
+  // the hidden opposite-edge position into view - completing the
+  // "conveyor belt" illusion within about two frames of the wrap
+  // starting, not silently leaving the card hidden until whatever
+  // real next()/prev() call happens to come next (which, under
+  // autoplay, could be 5+ seconds later - simulated this exact scenario
+  // and confirmed only 4 of 5 cards were ever visible at rest without
+  // this phase).
+  useEffect(() => {
+    if (pendingReveal == null) return undefined;
+    const id = requestAnimationFrame(() => {
+      setEdgeOverrides((prev) => {
+        if (!(pendingReveal in prev)) return prev;
+        const next = { ...prev };
+        delete next[pendingReveal];
+        return next;
+      });
+      setPendingReveal(null);
+    });
+    return () => cancelAnimationFrame(id);
+  }, [pendingReveal]);
 
   useEffect(() => {
     function measure() {
@@ -475,6 +512,7 @@ export default function CurvedCarousel({
   function goTo(index) {
     setEdgeOverrides({});
     setPendingRestage(null);
+    setPendingReveal(null);
     setActiveIndex(() => (loop ? ((index % length) + length) % length : Math.max(0, Math.min(length - 1, index))));
   }
 
@@ -507,11 +545,13 @@ export default function CurvedCarousel({
     if (exitingIndex === -1) {
       setEdgeOverrides({});
       setPendingRestage(null);
+      setPendingReveal(null);
       return;
     }
     const key = displayItems[exitingIndex].id ?? exitingIndex;
     setEdgeOverrides({ [key]: { value: -halfWindow - 1, suppressTransition: false } });
     setPendingRestage({ key, value: halfWindow + 1 });
+    setPendingReveal(null);
   }
 
   function prev() {
@@ -523,11 +563,13 @@ export default function CurvedCarousel({
     if (exitingIndex === -1) {
       setEdgeOverrides({});
       setPendingRestage(null);
+      setPendingReveal(null);
       return;
     }
     const key = displayItems[exitingIndex].id ?? exitingIndex;
     setEdgeOverrides({ [key]: { value: halfWindow + 1, suppressTransition: false } });
     setPendingRestage({ key, value: -halfWindow - 1 });
+    setPendingReveal(null);
   }
 
   // Functional setState updates mean this effect never needs `activeIndex`
