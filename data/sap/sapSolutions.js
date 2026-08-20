@@ -243,8 +243,12 @@ export const sapSolutions = {
   },
 
   benefits: {
+    eyebrow: "The Upper Hand",
     title:
       "Many Vendors. Ayushman Solution's SAP Software Solutions Give Your Business The Upper Hand",
+    description:
+      "From faster transaction processing to AI-augmented automation and secure cloud infrastructure, here's what sets our SAP solutions apart.",
+    cta: { label: "Talk to an SAP Expert", href: "#" },
     // Same 3 features as before, now carrying image/icon/CTA fields too -
     // this array feeds CurvedCarousel's `items` prop directly (see
     // SapSolutions.jsx), each entry already matching its
@@ -272,11 +276,31 @@ export const sapSolutions = {
       },
       {
         id: "strengthened-validation",
-        image: "/assets/image2/modern-bi-dashboard-bg-1.webp",
+        image: "/assets/image2/benefit-validation-review.jpg",
         icon: "shieldCheck",
         title: "Strengthened Validation Processes",
         description:
           "Our SAP solutions feature robust validation mechanisms that enforce data consistency and compliance with business rules, enhancing the dependability of your processes.",
+        buttonText: "Learn More",
+        href: "#",
+      },
+      {
+        id: "ai-augmented-automation",
+        image: "/assets/image2/benefit-ai-collaboration.jpg",
+        icon: "cpuChip",
+        title: "Smarter Operations Through AI-Augmented Automation",
+        description:
+          "SAP's built-in intelligence works alongside your team, surfacing insights and automating routine tasks so people can focus on higher-value decisions.",
+        buttonText: "Learn More",
+        href: "#",
+      },
+      {
+        id: "cloud-ready-infrastructure",
+        image: "/assets/image2/benefit-cloud-infrastructure.png",
+        icon: "cloud",
+        title: "Secure, Scalable Cloud-Ready Infrastructure",
+        description:
+          "Deploy and scale on secure cloud environments built for reliability, so your SAP systems stay available and protected as your business grows.",
         buttonText: "Learn More",
         href: "#",
       },

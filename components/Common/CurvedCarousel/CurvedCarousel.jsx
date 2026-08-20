@@ -350,11 +350,15 @@ function getSlotStyle({
  *     laptop/tablet/mobile instead of overflowing or feeling exaggerated;
  *     resolves to the desktop tier during SSR/first paint so hydration
  *     matches, then settles to the real breakpoint client-side.
- *   - autoplay is skipped entirely under prefers-reduced-motion; slide
- *     transitions collapse to near-zero duration under the same setting
- *     (CSS `!important`, see CurvedCarousel.module.css - it can still beat
- *     the JS-computed inline transition because the browser cascades
- *     `transition-duration` as its own longhand).
+ *   - slide transitions (and the dot progress fill) collapse to near-zero
+ *     duration under prefers-reduced-motion (CSS `!important`, see
+ *     CurvedCarousel.module.css - it can still beat the JS-computed inline
+ *     transition because the browser cascades `transition-duration` as its
+ *     own longhand). Autoplay itself is NOT gated on that media query -
+ *     slides still advance for reduced-motion users, just without the
+ *     animated transition doing it (an earlier version skipped autoplay
+ *     entirely here, which just read as broken on any OS/browser reporting
+ *     the preference, intentionally or not).
  *   - a visually-hidden aria-live region announces the active slide by
  *     title, on top of the existing role/aria-roledescription/aria-hidden
  *     wiring from Phase 3.
@@ -399,7 +403,6 @@ export default function CurvedCarousel({
   const [viewportWidth, setViewportWidth] = useState(null);
   const dragStartXRef = useRef(0);
   const dragDistanceRef = useRef(0);
-  const hoveringRef = useRef(false);
   const suppressClickRef = useRef(false);
   const resizeTimerRef = useRef(null);
 
@@ -439,16 +442,23 @@ export default function CurvedCarousel({
   // Functional setState updates mean this effect never needs `activeIndex`
   // in its deps, so autoplay doesn't tear down/rebuild its interval on
   // every advance - only when the configuration itself changes (or a drag
-  // starts/ends, which intentionally restarts the delay). Skips entirely
-  // under prefers-reduced-motion - an auto-advancing 3D slide is exactly
-  // the kind of motion that setting asks sites not to force on users.
+  // starts/ends, which intentionally restarts the delay). Not paused on
+  // hover (a previous version was) - deliberately keeps moving regardless
+  // of cursor position, matching the homepage hero carousel. Still paused
+  // mid-drag, since that's a direct interaction, not just passive cursor
+  // position. NOT gated on prefers-reduced-motion (a previous version of
+  // this effect returned undefined here when that media query matched) -
+  // that silently disabled autoplay entirely for anyone whose OS/browser
+  // reports the preference, which turned out to be more common than
+  // intended and reads as "broken", not "respecting a setting". The actual
+  // *animated* motion is still disabled for reduced-motion users, just at
+  // the CSS level (see CurvedCarousel.module.css's own reduced-motion
+  // block, which collapses .slot/.dotProgress's transition/animation
+  // durations) - slides still advance, they just don't animate doing it.
   useEffect(() => {
     if (!autoPlay || length <= 1) return undefined;
-    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      return undefined;
-    }
     const id = setInterval(() => {
-      if (isDragging || hoveringRef.current) return;
+      if (isDragging) return;
       next();
     }, autoPlayDelay);
     return () => clearInterval(id);
@@ -542,12 +552,6 @@ export default function CurvedCarousel({
       aria-label={ariaLabel}
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      onMouseEnter={() => {
-        hoveringRef.current = true;
-      }}
-      onMouseLeave={() => {
-        hoveringRef.current = false;
-      }}
       style={{
         "--curved-card-width": `${cardWidth}px`,
         "--curved-card-height": `${cardHeight}px`,
@@ -605,16 +609,42 @@ export default function CurvedCarousel({
 
       {showPagination && length > 1 && (
         <div className={styles.pagination}>
-          {displayItems.map((item, index) => (
-            <button
-              type="button"
-              key={item.id ?? index}
-              className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ""}`}
-              onClick={() => goTo(index)}
-              aria-label={`Go to slide ${index + 1}`}
-              aria-current={index === activeIndex ? "true" : undefined}
-            />
-          ))}
+          {displayItems.map((item, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <button
+                type="button"
+                key={item.id ?? index}
+                className={`${styles.dot} ${isActive ? styles.dotActive : ""}`}
+                onClick={() => goTo(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                aria-current={isActive ? "true" : undefined}
+              >
+                {/* Timed fill, not a static dot - only exists on the
+                    active dot while autoplay is actually on, doubling as a
+                    countdown to the next auto-advance. No remount-key
+                    trick needed to replay it per slide: this span only
+                    ever exists inside whichever button is currently
+                    active, so switching which dot that is naturally
+                    unmounts the old span and mounts a fresh one (always
+                    starting its animation over from 0%). animationPlayState
+                    mirrors the exact isDragging check the real autoplay
+                    timer uses to skip a tick, so the visual countdown
+                    can't drift out of sync with when the slide actually
+                    advances. */}
+                {isActive && autoPlay && (
+                  <span
+                    className={styles.dotProgress}
+                    style={{
+                      animationDuration: `${autoPlayDelay}ms`,
+                      animationPlayState: isDragging ? "paused" : "running",
+                    }}
+                    aria-hidden="true"
+                  />
+                )}
+              </button>
+            );
+          })}
         </div>
       )}
 

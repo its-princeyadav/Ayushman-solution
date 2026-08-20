@@ -1,10 +1,18 @@
-import { HiOutlineChatBubbleLeftRight, HiOutlineBolt, HiOutlineCheckCircle, HiOutlineShieldCheck } from "react-icons/hi2";
+import {
+  HiOutlineChatBubbleLeftRight,
+  HiOutlineBolt,
+  HiOutlineCheckCircle,
+  HiOutlineShieldCheck,
+  HiOutlineCpuChip,
+  HiOutlineCloud,
+} from "react-icons/hi2";
 import "../Sap/sap-tokens.css";
 import HeroBanner from "../Sap/Hero/HeroBanner";
 import PremiumSplitSection from "../Sap/common/PremiumSplitSection";
 import PremiumEditionSection from "../Sap/common/PremiumEditionSection";
 import ParallaxPromiseSection from "../Sap/common/ParallaxPromiseSection";
 import CurvedCarousel from "../Common/CurvedCarousel/CurvedCarousel";
+import curvedCarouselStyles from "../Common/CurvedCarousel/CurvedCarousel.module.css";
 import SectionHeading from "../Sap/common/SectionHeading";
 import SectionLabel from "../Common/SectionLabel";
 import Container from "../Sap/common/Container";
@@ -50,6 +58,8 @@ const BENEFIT_ICONS = {
   bolt: <HiOutlineBolt />,
   checkCircle: <HiOutlineCheckCircle />,
   shieldCheck: <HiOutlineShieldCheck />,
+  cpuChip: <HiOutlineCpuChip />,
+  cloud: <HiOutlineCloud />,
 };
 
 export default function SapSolutions() {
@@ -61,9 +71,23 @@ export default function SapSolutions() {
     private: privateEdition,
   } = sapSolutions.cloudEditions;
   const { background: dtBackground, intro: dtIntro, stats: dtStats } = sapSolutions.digitalTransformation;
-  const benefitCarouselItems = sapSolutions.benefits.features.map((feature) => ({
+  // href -> buttonLink: this data file's own convention for every other
+  // link field is `href` (see cta/buttons/functionalityGrid/industries
+  // above), but CurvedCarouselCard's real prop contract - confirmed against
+  // its own dev-preview benchmark page - is `buttonLink`. Without this
+  // rename each card's "Learn More" silently never renders, since
+  // `{buttonText && buttonLink && <Link .../>}` never finds a buttonLink.
+  // badge/accentColor: matches the Dribbble reference's numbered cards
+  // (#01, #02, ...) - one shared accent (this page's own --sap-blue token,
+  // not a different color per card) so the badges/icons read as on-brand
+  // polish rather than an arbitrary rainbow across an otherwise
+  // navy/blue SAP page.
+  const benefitCarouselItems = sapSolutions.benefits.features.map(({ href, ...feature }, index) => ({
     ...feature,
+    buttonLink: href,
     icon: BENEFIT_ICONS[feature.icon],
+    badge: String(index + 1).padStart(2, "0"),
+    accentColor: "var(--sap-blue)",
   }));
 
   return (
@@ -154,14 +178,70 @@ export default function SapSolutions() {
           page's own icon-key mapping are new. */}
       <section data-sap-reveal>
         <Container>
-          <SectionHeading title={sapSolutions.benefits.title} align="center" />
+          {/* eyebrow/description: every other section on this page
+              (Who Needs It, Empowering Businesses, Digital Transformation)
+              leads with an eyebrow + heading + short description - this
+              one previously jumped straight to a bare heading, the odd one
+              out in the page's own established rhythm. */}
+          {sapSolutions.benefits.eyebrow && (
+            <SectionLabel title={sapSolutions.benefits.eyebrow} align="center" />
+          )}
+          <SectionHeading
+            title={sapSolutions.benefits.title}
+            description={sapSolutions.benefits.description}
+            align="center"
+          />
         </Container>
-        {/* visibleCards=7 (matching the preview route's own configuration,
-            the visual benchmark) even though there are only 3 real
-            benefits - CurvedCarousel pads short item lists with clones
-            automatically (see ensureMinimumSlides) so the arc still forms
-            properly instead of collapsing into 3 cramped cards. */}
-        <CurvedCarousel items={benefitCarouselItems} visibleCards={7} cardWidth={340} cardHeight={440} />
+        {/* visibleCards=5, not the preview route's 7: there are 5 real
+            benefits here (2 new ones added alongside the original 3), and
+            ensureMinimumSlides pads short lists by cloning - 5 exactly
+            matches the real item count, so nothing ever needs padding and
+            no duplicate ever appears in the arc at once. Card size bumped
+            up from the preview's 340x440 so the wider 5-card arc fills the
+            section properly (the arc's spacing scales off cardWidth, so
+            this also widens the curve itself rather than just the cards).
+            autoPlay/autoPlayDelay bring this in line with the homepage
+            hero carousel - the carousel already fully supports
+            pause-on-hover/focus and skips autoplay under
+            prefers-reduced-motion on its own. activeScale=1.3 (inactiveScale
+            left at its default 1) makes the active card win out as the
+            clear focal point - the engine's own CENTER_SCALE/EDGE_SCALE
+            deliberately taper the *inactive* cards larger toward the
+            outer edge (see CurvedCarousel.jsx's own docblock on that
+            inverted-hierarchy choice), so leaving inactiveScale alone
+            preserves that progression exactly as designed; boosting only
+            activeScale pushes the active card's size past all of them
+            without touching how the flanking cards taper relative to each
+            other. */}
+        {/* onLight: this section's background is plain white, not the
+            dark/photo backdrop CurvedCarousel's pagination dots assume by
+            default (near-white, ~40% opacity) - without this the dots
+            render but are invisible against the page. The nav arrows
+            don't need it; they already carry their own solid circle. */}
+        <CurvedCarousel
+          items={benefitCarouselItems}
+          visibleCards={5}
+          cardWidth={360}
+          cardHeight={460}
+          autoPlay
+          autoPlayDelay={5500}
+          activeScale={1.3}
+          className={curvedCarouselStyles.onLight}
+        />
+        {/* Each card's own "Learn More" is still a per-benefit link, but
+            those are all `href: "#"` placeholders for now (see the data
+            file) - a single section-level CTA gives visitors a real next
+            step in the meantime, same PillButton pattern already used for
+            the "Empowering Businesses" section above. */}
+        {sapSolutions.benefits.cta && (
+          <div style={{ display: "flex", justifyContent: "center", marginTop: 8 }}>
+            <PillButton
+              label={sapSolutions.benefits.cta.label}
+              href={sapSolutions.benefits.cta.href}
+              icon={HiOutlineChatBubbleLeftRight}
+            />
+          </div>
+        )}
       </section>
 
       {BOTTOM_HALF.map(([Section, props]) => (

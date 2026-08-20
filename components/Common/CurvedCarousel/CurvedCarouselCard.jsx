@@ -56,7 +56,7 @@ function CurvedCarouselCard({
             src={image}
             alt={title || ""}
             fill
-            sizes="(max-width: 700px) 60vw, 320px"
+            sizes="(max-width: 700px) 60vw, 400px"
             className={styles.cardImage}
           />
         </div>
