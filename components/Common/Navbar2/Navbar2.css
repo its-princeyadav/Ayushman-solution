@@ -258,7 +258,10 @@
 }
 
 .as-nav2-book-btn {
-  border: none;
+  /* 1px solid transparent (not "none"): matches .as-nav2-contact-btn's
+     1px border width so both buttons - which share the same padding and
+     sit side-by-side in .as-nav2-actions - render at identical heights. */
+  border: 1px solid transparent;
   background: var(--color-primary-button);
   color: var(--text-primary);
 }
@@ -297,7 +300,11 @@
   align-items: center;
   gap: 8px;
   padding: 9px 20px;
-  border: none;
+  /* 1px solid transparent (not "none"): same reasoning as
+     .as-nav2-book-btn above - matches .as-nav2-contact-btn's 1px border
+     width so buttons sharing this padding stay the same height wherever
+     they end up adjacent. */
+  border: 1px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--primary);
   color: var(--text-primary);

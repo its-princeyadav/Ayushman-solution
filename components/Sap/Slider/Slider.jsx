@@ -36,6 +36,7 @@ export default function Slider({
   gap = 24,
   showArrows = true,
   showDots = true,
+  dotVariant = "default",
   loop = true,
   autoplay = false,
   autoplayDelay = 4000,
@@ -304,7 +305,11 @@ export default function Slider({
                 <button
                   type="button"
                   key={item.id ?? item.title ?? item.question ?? dotIndex}
-                  className={`${styles.dot} ${dotIndex === activeReal ? styles.dotActive : ""}`}
+                  className={`${styles.dot} ${dotVariant === "pill" ? styles.dotPill : ""} ${
+                    dotIndex === activeReal
+                      ? `${styles.dotActive} ${dotVariant === "pill" ? styles.dotPillActive : ""}`
+                      : ""
+                  }`}
                   onClick={() => handleDotClick(dotIndex)}
                   aria-label={`Go to slide ${dotIndex + 1}`}
                   aria-current={dotIndex === activeReal}

@@ -26,8 +26,11 @@ export default function TestimonialCard({
   if (variant === "text") {
     return (
       <div className={styles.textCard}>
-        <FaQuoteLeft className={styles.quoteIcon} aria-hidden="true" />
+        <span className={styles.quoteBadge} aria-hidden="true">
+          <FaQuoteLeft />
+        </span>
         <p className={styles.quote}>{quote}</p>
+        <span className={styles.personRule} aria-hidden="true" />
         <div className={styles.person}>
           {personImage && (
             <Image
@@ -58,6 +61,7 @@ export default function TestimonialCard({
 
   return (
     <Wrapper className={styles.videoCard} style={{ background }} {...wrapperProps}>
+      <span className={styles.glow} aria-hidden="true" />
       {thumbnail && (
         <Image src={thumbnail} alt={name} fill sizes="(max-width: 700px) 100vw, 50vw" className={styles.thumbnail} />
       )}
@@ -86,6 +90,7 @@ export default function TestimonialCard({
       )}
 
       <span className={styles.playButton} aria-hidden="true">
+        <span className={styles.playButtonRing} />
         <FaPlay />
       </span>
       <div className={styles.caption}>

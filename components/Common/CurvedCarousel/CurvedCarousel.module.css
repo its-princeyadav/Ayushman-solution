@@ -1,0 +1,399 @@
+/* Phase 2 - curved (3D coverflow-style) positioning via real perspective +
+   rotateY/translateZ transforms (no CSS hacks like skew or fake shadows),
+   computed in CurvedCarousel.jsx and applied per-slot below.
+   Phase 3 - sliding engine: drag cursor affordance on .stage, plus
+   .navigation (Prev/Next) and .pagination (dots), both driven by the same
+   activeIndex state that positions the arc, so clicking/dragging genuinely
+   moves the whole curve rather than just swapping content. */
+
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-block: 32px;
+}
+
+.carousel:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 4px;
+}
+
+/* Positioning context for .navigation, sized to exactly match .stage (not
+   the carousel as a whole, which also includes .pagination below it) so the
+   arrows center themselves on the arc, not on the arc+dots combined. */
+.viewport {
+  position: relative;
+}
+
+/* The 3D viewport: perspective lives here (not on individual cards) so
+   every slot shares one consistent vanishing point, which is what makes
+   the row read as one continuous curved surface instead of independently
+   tilted cards. */
+.stage {
+  position: relative;
+  width: 100%;
+  height: var(--curved-card-height, 380px);
+  /* Cards further from center recede slightly (see getSlotStyle's
+     translateZ, a true cylinder radius*(cos(angle)-1)) and the largest
+     (outer) cards are also the most scaled-up - this padding gives that
+     combination room to breathe without shifting the .slot centering math,
+     since percentage top/left on an absolutely positioned child resolve
+     against the padding box, not just the raw height. */
+  padding-block: 40px;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.stage:active {
+  cursor: grabbing;
+}
+
+/* Each slot is centered on the stage and then pushed out along the arc via
+   its inline transform (translateX/translateZ/rotateY/scale) - centering
+   here first means the JS math only ever needs relative offsets, not
+   absolute pixel positions. */
+.slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--curved-card-width, 260px);
+  height: var(--curved-card-height, 380px);
+  transform-style: preserve-3d;
+  /* GPU hints: this transform changes on every drag pointermove and every
+     slide change, so promoting it to its own compositor layer up front
+     (rather than the browser deciding mid-gesture) keeps the animation off
+     the main thread. backface-visibility is defensive - rotateY never
+     exceeds ~48deg here so the back face never actually shows, but it costs
+     nothing and guards against any future curveIntensity/prop tuning that
+     pushes it past 90deg. */
+  will-change: transform, opacity, clip-path;
+  backface-visibility: hidden;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* No border-radius here - .slot's clip-path is unconditionally active
+     (see getSlotStyle/buildRoundedTrapezoidClipPath) and always wins over
+     any rounding this element tries to do at the same corners, so a plain
+     CSS radius here would be fully dead weight. The corners are rounded
+     directly in that polygon instead. Shadow moved to .slot's inline
+     filter: drop-shadow for the same reason - a plain box-shadow here is
+     anchored to this element's rectangular box, so once the ancestor clips
+     it into a trapezoid the shadow would render as a mismatched rectangle
+     poking out past the tapered edge. */
+  background: var(--color-secondary-lighter, #f1f1f1);
+  /* Independent of .slot's own (JS-driven, inline) transform - this is a
+     plain CSS hover response on the card itself, layered on top of the
+     arc's positioning rather than fighting it. Only reachable on
+     non-active, non-hidden slots (see .slot's cursor/pointer-events in
+     getSlotStyle). */
+  transition: transform 250ms ease;
+}
+
+/* .cardActive itself carries no rule now - shadow strength is continuous
+   (see .slot's inline filter: drop-shadow, driven by `eased`) rather than
+   a binary active/inactive jump, so there's nothing left to hardcode here.
+   The class stays on the element (see CurvedCarouselCard) as a hook for
+   any future active-only styling. */
+
+.slot:hover .card {
+  transform: translateY(-6px);
+}
+
+.cardImageWrap {
+  position: absolute;
+  inset: 0;
+}
+
+.cardImage {
+  object-fit: cover;
+}
+
+/* "Overlay: Dark gradient" - deliberately a plain black-based gradient
+   (not tinted by --curved-card-accent) so bottom-content contrast stays
+   reliable no matter what accent color a caller passes in. */
+.cardScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.82) 100%);
+}
+
+.cardBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--curved-card-accent, #111827);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cardContent {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 16px 18px 18px;
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 2px;
+  border-radius: 50%;
+  background: var(--curved-card-accent, #fff);
+  color: #111;
+  font-size: 1rem;
+}
+
+.cardTitle {
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.cardDescription {
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.cardButton {
+  margin-top: 4px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 200ms ease;
+}
+
+.cardButton:hover {
+  border-bottom-color: #fff;
+}
+
+/* Overlaid on .viewport (not .carousel) so it sizes/centers itself against
+   the arc alone. pointer-events:none on the row lets drags on empty space
+   still reach .stage underneath; the buttons opt back in individually. */
+.navigation {
+  position: absolute;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 8px;
+  pointer-events: none;
+}
+
+.navButton {
+  pointer-events: auto;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 200ms ease, opacity 200ms ease;
+}
+
+.navButton:hover:not(:disabled) {
+  background: #fff;
+}
+
+.navButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+/* White-based (not dark) to match .navButton and the cards' own white-on-
+   dark-gradient content - this component's built-in look already assumes a
+   photo/dark-ish context (every card carries a dark scrim), so pagination
+   stays visually consistent with that instead of trying to guess the
+   surrounding page background. */
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: width 200ms ease, background-color 200ms ease;
+}
+
+.dotActive {
+  width: 22px;
+  /* Muted track, not the original solid #fff - .dotProgress (rendered
+     only on this dot, only while autoplay is on) sweeps that same #fff
+     across it over the autoplay delay, so what used to be an instant
+     solid fill now reads as a countdown. Autoplay off (or reduced-motion)
+     means no .dotProgress span ever renders, so this falls back to a
+     plain half-opacity dot instead of full white - visually quieter than
+     before, but the active dot is still clearly distinguished from the
+     others by width alone. */
+  background: rgba(255, 255, 255, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.dotProgress {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform-origin: left center;
+  /* Base (pre-animation) state is fully filled, not empty - if this ever
+     renders without the animation actually running (e.g. a slow first
+     paint before styles apply), it fails toward looking like the
+     original always-solid dot rather than an empty one. */
+  transform: scaleX(1);
+  animation-name: dotProgressFill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* Opt-in modifier for a caller whose carousel sits over a plain light
+   section instead of this component's default assumed dark/photo
+   backdrop (the SAP Solutions benefits carousel, for one) - the
+   near-white dots above are effectively invisible on a white
+   background. Only the dots need this: .navButton already carries its
+   own solid circle behind the icon, so it contrasts fine on either
+   backdrop without a variant. Combine via the existing `className`
+   prop, e.g. `className={curvedCarouselStyles.onLight}`, rather than
+   forking or theme-prop-ing the whole component. */
+.onLight .dot {
+  background: rgba(17, 24, 39, 0.22);
+}
+
+.onLight .dot:hover,
+.onLight .dot:focus-visible {
+  background: rgba(17, 24, 39, 0.4);
+}
+
+.onLight .dotActive {
+  background: rgba(17, 24, 39, 0.16);
+}
+
+.onLight .dotProgress {
+  background: var(--color-primary-button, #111827);
+}
+
+@keyframes dotProgressFill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Baseline responsiveness for this static phase: cap card size against the
+   viewport so the arc can't force horizontal overflow on narrow screens.
+   Per-breakpoint visibleCards/curve reduction is a Phase 5 concern (needs
+   JS awareness of viewport, not just CSS clamping). */
+@media (max-width: 900px) {
+  .stage,
+  .slot {
+    height: min(var(--curved-card-height, 380px), 56vw);
+  }
+
+  .slot {
+    width: min(var(--curved-card-width, 260px), 70vw);
+  }
+}
+
+@media (max-width: 560px) {
+  .stage,
+  .slot {
+    height: min(var(--curved-card-height, 380px), 78vw);
+  }
+
+  .slot {
+    width: min(var(--curved-card-width, 260px), 62vw);
+  }
+}
+
+/* Standard visually-hidden-but-announced pattern for the aria-live slide
+   announcement - present for screen readers, takes no visual space. */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* transition-duration is its own longhand, so this !important still wins
+   over the transition SHORTHAND CurvedCarousel.jsx sets inline per-slot
+   (the cascade resolves shorthand/longhand conflicts per sub-property, and
+   !important in a stylesheet beats a plain inline value) - collapses every
+   slide/hover animation to effectively instant without needing the JS to
+   know anything about this media query itself. */
+@media (prefers-reduced-motion: reduce) {
+  .slot {
+    transition-duration: 0.01ms !important;
+  }
+
+  .card,
+  .navButton,
+  .dot,
+  .cardButton {
+    transition-duration: 0.01ms !important;
+  }
+
+  /* The real autoplay timer already skips itself entirely under this
+     setting (see CurvedCarousel.jsx), but .dotProgress's animation isn't
+     covered by the transition-duration overrides above (it's a CSS
+     animation, not a transition) - without this it would keep visually
+     counting down to an auto-advance that's never actually going to
+     happen, which reads as broken rather than just static. Falls back to
+     its own fully-filled base state (see .dotProgress above). */
+  .dotProgress {
+    animation: none !important;
+  }
+}

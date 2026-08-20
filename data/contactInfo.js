@@ -2,7 +2,7 @@
 // directly by lib/models/Contact.js for the schema's `service` enum - single
 // source of truth, keep changes here in sync with that schema's expectations.
 
-export const CONTACT_EMAIL = "hello@example.com";
+export const CONTACT_EMAIL = "Info@ayushmansolution.com";
 
 export const BUSINESS_HOURS = "Mon - Fri, 9:00 AM - 6:00 PM IST";
 

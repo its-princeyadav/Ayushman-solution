@@ -84,7 +84,10 @@
      background art at some widths - capping as a share of the container
      keeps the same clearance at every width. */
   max-width: min(720px, 48%);
-  font-family: var(--font-nav);
+  /* Self-hosted at weight 800 (see SectionLabel.css's @font-face) - this
+     title already uses that exact weight, so Poppins renders as a real
+     face here rather than the browser snapping to a mismatched weight. */
+  font-family: "Poppins", var(--font-nav);
   font-weight: 800;
   font-size: clamp(2rem, 5vw, 3.5rem);
   line-height: 1.15;

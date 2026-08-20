@@ -1,15 +1,46 @@
 .section {
   padding-block: var(--sap-section-gap);
+  background: var(--color-secondary-lightest);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px 24px;
+.heading {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  text-align: center;
 }
 
-@media (max-width: 800px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
+.title {
+  margin: 0;
+  color: var(--color-neutral);
+  /* Same "Poppins for bold headings, var(--font-nav) fallback" convention
+     already used by CenteredSection/PremiumEditionSection - Poppins is only
+     self-hosted at weight 700/800 (see SectionLabel.css), which matches
+     this heading's own weight below. */
+  font-family: "Poppins", var(--sap-font-heading);
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  font-weight: 700;
+  text-transform: var(--sap-heading-transform);
+  line-height: var(--sap-heading-line-height-compact);
+}
+
+.description {
+  margin: 14px 0 0;
+  color: var(--sap-text);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.closing {
+  margin: 32px 0 0;
+  text-align: center;
+  color: var(--sap-text-light);
+  font-size: 0.95rem;
 }

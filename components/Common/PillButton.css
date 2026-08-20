@@ -1,0 +1,139 @@
+/* Reusable premium pill CTA. Self-contained via var(--token, fallback), so
+   it renders correctly on any page regardless of which design tokens are
+   loaded - same convention as FlipButton.css. A caller can re-theme one
+   instance by setting the --pillbtn-* custom properties inline via the
+   `style` prop. */
+
+.pillbtn {
+  --pillbtn-speed: 300ms;
+  --pillbtn-icon-speed: 650ms;
+  --pillbtn-icon-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --pillbtn-radius: 999px;
+  --pillbtn-bg: var(--color-primary, #febe0e);
+  --pillbtn-color: var(--color-neutral, #1c1d20);
+  --pillbtn-icon-size: 36px;
+  --pillbtn-icon-inset: 6px;
+  --pillbtn-icon-bg: #ececec;
+  --pillbtn-icon-color: #000000;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-width: 192px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: var(--pillbtn-radius);
+  background: var(--pillbtn-bg);
+  color: var(--pillbtn-color);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -14px color-mix(in srgb, var(--pillbtn-bg) 70%, transparent);
+  transition: transform var(--pillbtn-speed) ease, box-shadow var(--pillbtn-speed) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pillbtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -14px color-mix(in srgb, var(--pillbtn-bg) 80%, transparent);
+}
+
+.pillbtn:active {
+  transform: translateY(0);
+}
+
+.pillbtn:focus-visible {
+  outline: 2px solid var(--pillbtn-color);
+  outline-offset: 3px;
+}
+
+.pillbtn:disabled,
+.pillbtn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pillbtn-label {
+  position: relative;
+  z-index: 1;
+}
+
+/* Spans the button's full inner width so a transform on it can be
+   expressed as a percentage of that same width (see the hover rule
+   below) - the icon inside is what's actually visible, this track is
+   just its travel lane. */
+.pillbtn-iconTrack {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding-inline: var(--pillbtn-icon-inset);
+  pointer-events: none;
+  transform: translateX(0);
+  /* Same duration/easing applies to both directions - a CSS transition
+     doesn't distinguish "entering" from "leaving" hover, it just
+     interpolates toward whatever the current computed value is - so the
+     return trip is exactly as slow and smooth as the trip out. */
+  transition: transform var(--pillbtn-icon-speed) var(--pillbtn-icon-ease);
+}
+
+/* calc(100% - icon-inset*2 - icon-size): 100% resolves against the track's
+   own width (a transform percentage always references the transformed
+   element's own box, not its parent), so subtracting the icon's box and a
+   matching inset lands its right edge exactly `--pillbtn-icon-inset` from
+   the track's right edge - mirroring its resting position on the left -
+   for any button width, with no JS measurement needed. */
+.pillbtn:hover .pillbtn-iconTrack {
+  transform: translateX(
+    calc(100% - (var(--pillbtn-icon-inset) * 2) - var(--pillbtn-icon-size))
+  );
+}
+
+/* Circular badge (not the bare glyph) sitting behind whatever icon is
+   passed via props - color: black here means every icon inherits black
+   automatically through currentColor, with no per-icon styling needed. */
+.pillbtn-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--pillbtn-icon-size);
+  height: var(--pillbtn-icon-size);
+  border-radius: 50%;
+  background: var(--pillbtn-icon-bg);
+  color: var(--pillbtn-icon-color);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.14);
+  font-size: calc(var(--pillbtn-icon-size) * 0.5);
+}
+
+.pillbtn-spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--pillbtn-color) 30%, transparent);
+  border-top-color: var(--pillbtn-color);
+  animation: pillbtnSpin 700ms linear infinite;
+}
+
+@keyframes pillbtnSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pillbtn,
+  .pillbtn-iconTrack {
+    transition: none;
+  }
+}

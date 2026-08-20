@@ -141,6 +141,7 @@ export const sapSolutions = {
       { label: "Learn More", href: "#", variant: "primary" },
       { label: "Let's Talk", href: "#", variant: "outline" },
     ],
+    equalButtons: true,
   },
 
   empowering: {
@@ -184,12 +185,14 @@ export const sapSolutions = {
   },
 
   enhancedAdoption: {
+    eyebrow: "Our Promise",
     title: "Enhanced User Adoption: Our Promise",
+    backgroundImage: "/assets/image2/sap4hana.png",
     description:
       "Partnering with a SAP solutions company does not just mean having an implementation team. It means a team that goes the extra mile to help your business adopt the SAP solution completely. Ayushman Solution prioritizes user experience in our SAP solutions. This boosts user acceptance and drives adoption across your organization. At Ayushman Solution, we excel in guiding companies through seamless SAP user adoption strategies. Our technical expertise ensures that your organization harnesses the full potential of SAP solutions. We specialize in creating intuitive interfaces, providing comprehensive training, and implementing best practices, all designed to maximize user acceptance and amplify the benefits of your SAP investment. With our tailored approach, your team will not only embrace SAP cloud solutions with confidence but also unlock its capabilities to achieve optimal business outcomes.",
     buttons: [
       { label: "Let's Talk", href: "#", variant: "primary" },
-      { label: "Explore SAP Services", href: "#", variant: "outline" },
+      { label: "Explore SAP Services", href: "#", variant: "dark" },
     ],
   },
 
@@ -240,23 +243,66 @@ export const sapSolutions = {
   },
 
   benefits: {
+    eyebrow: "The Upper Hand",
     title:
       "Many Vendors. Ayushman Solution's SAP Software Solutions Give Your Business The Upper Hand",
+    description:
+      "From faster transaction processing to AI-augmented automation and secure cloud infrastructure, here's what sets our SAP solutions apart.",
+    cta: { label: "Talk to an SAP Expert", href: "#" },
+    // Same 3 features as before, now carrying image/icon/CTA fields too -
+    // this array feeds CurvedCarousel's `items` prop directly (see
+    // SapSolutions.jsx), each entry already matching its
+    // {id, image, title, description, icon, buttonText, buttonLink} shape.
     features: [
       {
+        id: "reduced-transaction-time",
+        image: "/assets/image2/banner-bi-dashboard.webp",
+        icon: "bolt",
         title: "Significantly Reduced Transaction Processing Time",
         description:
           "Our SAP solutions optimize processes, ensuring quicker execution and streamlined workflows.",
+        buttonText: "Learn More",
+        href: "#",
       },
       {
+        id: "minimized-manual-errors",
+        image: "/assets/image2/sap4hana.png",
+        icon: "checkCircle",
         title: "Minimized Manual Errors in SAP Data Processing",
         description:
           "Our SAP software solutions integrate intelligent automation to drastically reduce the risk of manual data entry errors, ensuring impeccable data accuracy.",
+        buttonText: "Learn More",
+        href: "#",
       },
       {
+        id: "strengthened-validation",
+        image: "/assets/image2/benefit-validation-review.jpg",
+        icon: "shieldCheck",
         title: "Strengthened Validation Processes",
         description:
           "Our SAP solutions feature robust validation mechanisms that enforce data consistency and compliance with business rules, enhancing the dependability of your processes.",
+        buttonText: "Learn More",
+        href: "#",
+      },
+      {
+        id: "ai-augmented-automation",
+        image: "/assets/image2/benefit-ai-collaboration.jpg",
+        icon: "cpuChip",
+        title: "Smarter Operations Through AI-Augmented Automation",
+        description:
+          "SAP's built-in intelligence works alongside your team, surfacing insights and automating routine tasks so people can focus on higher-value decisions.",
+        buttonText: "Learn More",
+        href: "#",
+      },
+      {
+        id: "cloud-ready-infrastructure",
+        image: "/assets/image2/benefit-cloud-infrastructure.png",
+        icon: "cloud",
+        title: "Secure, Scalable Cloud-Ready Infrastructure",
+        description:
+          "Deploy and scale on secure cloud environments built for reliability, so your SAP systems stay available and protected as your business grows.",
+        buttonText: "Learn More",
+        href: "#",
       },
     ],
   },

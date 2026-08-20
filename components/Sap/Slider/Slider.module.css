@@ -114,3 +114,22 @@
   background: var(--sap-navy);
   transform: scale(1.3);
 }
+
+/* Opt-in "pill" pagination (enabled via the `dotVariant="pill"` prop) - the
+   active dot elongates into a capsule instead of just scaling up, a more
+   modern-enterprise treatment reserved for TestimonialsSection so the
+   default dots used by every other slider (feature/news/blog/story cards)
+   stay unchanged. */
+.dotPill {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--sap-radius-pill);
+  transition: width 320ms cubic-bezier(0.16, 1, 0.3, 1), background-color var(--sap-transition),
+    transform var(--sap-transition);
+}
+
+.dotPillActive {
+  width: 28px;
+  background: var(--color-primary);
+  transform: none;
+}

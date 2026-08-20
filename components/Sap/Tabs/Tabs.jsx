@@ -14,6 +14,11 @@ export default function Tabs({ tabs, activeId, onChange, stretch = false, pill =
           className={`${styles.tab} ${pill ? styles.pillTab : ""} ${tab.id === activeId ? styles.active : ""}`}
           onClick={() => onChange(tab.id)}
         >
+          {tab.icon && (
+            <span className={styles.tabIcon} aria-hidden="true">
+              {tab.icon}
+            </span>
+          )}
           {tab.label}
         </button>
       ))}

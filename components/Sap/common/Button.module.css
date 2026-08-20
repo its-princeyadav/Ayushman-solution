@@ -22,7 +22,12 @@
 }
 
 .primary {
-  padding: 17px 34px;
+  /* Vertical padding (14px) and a transparent 1px border match .outline/
+     .outlineLight/.dark exactly, so any group mixing primary with one of
+     them renders at the exact same height - horizontal padding (34px)
+     stays its own value since width is meant to stay content-driven. */
+  padding: 14px 34px;
+  border: 1px solid transparent;
   background: var(--color-primary);
   color: var(--color-neutral);
 }
@@ -53,17 +58,22 @@
 }
 
 .outline {
+  /* border matches .primary's exactly (1px solid transparent) so, next
+     to it, background color is the only visible difference - same
+     padding, same invisible border-width, same text color (--sap-navy
+     and --color-neutral resolve to the same token). */
   padding: 14px 26px;
-  background: transparent;
+  background: var(--color-secondary-lighter);
   color: var(--sap-navy);
-  border: 1px solid var(--sap-border);
+  border: 1px solid transparent;
 }
 
+/* .btn's own shared transition rule already covers background-color, so
+   this darkens smoothly with no extra transition declaration needed. */
 .outline:hover,
 .outline:focus-visible {
-  border-color: var(--sap-navy);
-  background: var(--sap-navy);
-  color: var(--sap-white);
+  background: var(--color-secondary-light);
+  color: var(--sap-navy);
 }
 
 .outlineLight {

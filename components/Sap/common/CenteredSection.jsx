@@ -28,7 +28,10 @@ function renderTitle(title, highlight) {
  * word inside it, a short accent rule under it, faint ambient background
  * ornaments) for callers that want the more elevated treatment - omitting
  * them renders identically to before, so every other usage of this shared
- * component is unaffected.
+ * component is unaffected. `equalButtons` is the same kind of opt-in: when
+ * true, the buttons row gives both/all buttons a shared min-width (sized
+ * to whichever label is longest) instead of the default content-driven
+ * width, for callers that specifically want a matched-width button pair.
  */
 export default function CenteredSection({
   title,
@@ -43,6 +46,7 @@ export default function CenteredSection({
   highlight,
   titleDivider = false,
   decorative = false,
+  equalButtons = false,
 }) {
   return (
     <section
@@ -63,9 +67,14 @@ export default function CenteredSection({
       <Container>
         <div className={styles.copy}>
           {eyebrow && <SectionLabel title={eyebrow} align="center" className={styles.eyebrow} />}
-          <h2 className={styles.title}>{renderTitle(title, highlight)}</h2>
+          {title && <h2 className={styles.title}>{renderTitle(title, highlight)}</h2>}
           {titleDivider && <span className={styles.titleDivider} aria-hidden="true" />}
-          {description && <p className={styles.description}>{description}</p>}
+          {description &&
+            (Array.isArray(description) ? description : [description]).map((paragraph) => (
+              <p className={styles.description} key={paragraph}>
+                {paragraph}
+              </p>
+            ))}
         </div>
 
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
@@ -73,7 +82,7 @@ export default function CenteredSection({
         {children}
 
         {buttons && buttons.length > 0 && (
-          <div className={styles.buttons}>
+          <div className={`${styles.buttons} ${equalButtons ? styles.buttonsEqual : ""}`}>
             {buttons.map((btn) => (
               <Button key={btn.label} href={btn.href} variant={btn.variant || "primary"} className={styles.button}>
                 {btn.label}

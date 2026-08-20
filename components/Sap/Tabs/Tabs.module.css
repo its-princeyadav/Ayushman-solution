@@ -86,21 +86,41 @@
 .pill {
   display: inline-flex;
   gap: 4px;
-  padding: 5px;
+  padding: 6px;
   border-radius: var(--sap-radius-pill);
-  background: var(--color-secondary-lightest);
-  border: 1px solid var(--color-primary-light);
-  box-shadow: var(--sap-shadow-card);
+  background: var(--sap-white);
+  border: 1px solid var(--sap-border);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 14px 30px -18px rgba(15, 23, 42, 0.22);
   /* Override .tabs's overflow:hidden - it would clip the active pill's own
      shadow/lift below. */
   overflow: visible;
 }
 
 .pillTab {
-  padding: 10px 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 128px;
+  gap: 9px;
+  padding: 11px 22px;
   border: none;
   border-radius: var(--sap-radius-pill);
-  transition: background-color 270ms ease, color 270ms ease, box-shadow 270ms ease, transform 270ms ease;
+  /* Idle state is always flat white, never the base .tab's light-gray fill -
+     the segmented control should read as blank/unselected until the user
+     actually picks a tab, with color reserved entirely for .active. */
+  background: var(--sap-white);
+  color: var(--color-neutral-light);
+  transition: background-color 220ms cubic-bezier(0.4, 0, 0.2, 1), color 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 220ms cubic-bezier(0.4, 0, 0.2, 1), transform 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tabIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05em;
+  transition: color 220ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* The pill variant's own elevated-active-segment look replaces the
@@ -109,14 +129,26 @@
   content: none;
 }
 
+/* Understated hover for the idle button only - a whisper of brand tint,
+   never the solid gray/yellow of .active, so hover can never be mistaken
+   for the selected state. */
+.pillTab:hover:not(.active) {
+  background: color-mix(in srgb, var(--color-primary) 7%, var(--sap-white));
+  color: var(--color-neutral);
+}
+
 .pillTab.active {
-  box-shadow: var(--sap-shadow-card);
+  background: var(--color-primary);
+  color: var(--color-neutral);
+  font-weight: 600;
+  box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--color-primary) 70%, transparent);
   transform: translateY(-1px);
 }
 
 @media (max-width: 500px) {
   .pillTab {
-    padding: 9px 18px;
+    min-width: 104px;
+    padding: 9px 16px;
   }
 }
 

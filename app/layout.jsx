@@ -127,7 +127,29 @@ export default async function RootLayout({ children }) {
       >
         <AuthProvider>
         <ToastProvider>
-        <Script id="wcf--addons-js-extra" strategy="beforeInteractive">
+        {/* strategy="afterInteractive" (not beforeInteractive): this root
+            layout calls headers() up top to detect /admin, which per that
+            comment forces every route to render dynamically per-request -
+            so on every client-side navigation, Next re-delivers and
+            reconciles this whole layout, including this element, on the
+            client. beforeInteractive scripts render a real <script> tag
+            (so Next can extract it into the initial HTML <head>, and so
+            hydration's first pass adopts that existing DOM node without
+            complaint) - but any *later* client-side reconciliation of that
+            same element trips React's "Encountered a script tag while
+            rendering React component" warning, since a client-driven
+            <script> insertion never actually executes like the original
+            server-rendered one did. afterInteractive instead inserts the
+            script imperatively via an effect and renders null, so it has
+            no such element for React to ever complain about - safe here
+            regardless of how many times this layout re-renders. The two
+            vendor scripts that actually read WCF_ADDONS_JS
+            (aae-one-page-scroll-js, aae--search-js, both below) are
+            themselves afterInteractive, so this still executes before them
+            (Next preserves document order within a strategy, same reason
+            every src script in this file sets async={false}) - nothing
+            here needed beforeInteractive's pre-hydration guarantee. */}
+        <Script id="wcf--addons-js-extra" strategy="afterInteractive">
           {`var WCF_ADDONS_JS = {ajaxUrl:"/wp-admin/admin-ajax.php",_wpnonce:"372ea7fafd",post_id:"6",i18n:{okay:"Okay",cancel:"Cancel",submit:"Submit",success:"Success",warning:"Warning"},smoothScroller:null,mode:"",elementor_breakpoint:{laptop:1366,tablet:1024,mobile:767,desktop:1400},elementor_devices:{mobile:{label:"Mobile Portrait",value:767,direction:"max"},mobile_extra:{label:"Mobile Landscape",value:880,direction:"max"},tablet:{label:"Tablet Portrait",value:1024,direction:"max"},tablet_extra:{label:"Tablet Landscape",value:1200,direction:"max"},laptop:{label:"Laptop",value:1366,direction:"max"},widescreen:{label:"Widescreen",value:2400,direction:"min"}},enable_cursor:"",cursor_breakpoint:"mobile",editor_mode:"",aae_loop_source:"",aae_loop_post:"0",page_smoother:{disableInEditor:true},isLoggedIn:""};`}
         </Script>
         <Preloader />

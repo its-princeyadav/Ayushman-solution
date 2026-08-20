@@ -1,32 +1,47 @@
+/* Individual rounded, shadowed white card per question - matches the clean
+   "stacked cards on a soft background" reference style. Exclusive to
+   FAQSection, so restyling here is safe. */
 .item {
-  border: 1px solid var(--sap-border);
-  border-radius: var(--sap-radius-sm);
   background: var(--sap-card-bg, var(--sap-white));
-  box-shadow: var(--sap-card-shadow, none);
+  border-radius: 18px;
+  border: 1px solid var(--sap-border);
+  box-shadow: var(--sap-card-shadow, 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -20px rgba(15, 23, 42, 0.18));
   backdrop-filter: var(--sap-card-blur, none);
-  transition: border-color var(--sap-transition);
+  transition: box-shadow 260ms ease, border-color 260ms ease, transform 260ms ease;
+}
+
+.item:hover {
+  box-shadow: var(--sap-card-shadow, 0 1px 2px rgba(15, 23, 42, 0.05), 0 16px 34px -20px rgba(15, 23, 42, 0.22));
+  transform: translateY(-2px);
 }
 
 .item.open {
-  border-color: var(--sap-blue);
+  border-color: color-mix(in srgb, var(--color-primary) 40%, var(--sap-border));
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 18px 36px -20px rgba(15, 23, 42, 0.24);
 }
 
 .trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 20px;
   width: 100%;
-  padding: 20px 24px;
+  padding: 22px 26px;
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
-  font-family: var(--sap-font-heading);
-  font-size: 0.98rem;
+  /* var(--font-nav) (system-ui stack, same as the navbar), not Poppins -
+     self-hosted Poppins only has weight 700/800 (see SectionLabel.css), so
+     a 600 request against it would just silently resolve back to the
+     loaded 700 face. The system-ui stack has real weight granularity, so
+     600 actually renders lighter, plus tighter tracking for a cleaner,
+     more modern read. */
+  font-family: var(--font-nav);
+  font-size: 1.04rem;
   font-weight: 600;
-  text-transform: var(--sap-heading-transform);
-  line-height: var(--sap-heading-line-height-compact);
+  letter-spacing: -0.01em;
+  line-height: 1.45;
   color: var(--color-neutral);
   transition: color var(--sap-transition);
 }
@@ -37,8 +52,10 @@
 
 .chevron {
   flex-shrink: 0;
-  color: var(--sap-navy);
-  transition: transform var(--sap-transition);
+  width: 20px;
+  height: 20px;
+  color: var(--color-neutral-light);
+  transition: transform 260ms ease, color 260ms ease;
 }
 
 .open .chevron {
@@ -53,8 +70,19 @@
 
 .answer {
   margin: 0;
-  padding: 0 24px 22px;
+  padding: 0 26px 24px;
   color: var(--sap-text);
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   line-height: 1.7;
+}
+
+@media (max-width: 500px) {
+  .trigger {
+    padding: 18px 20px;
+    font-size: 0.96rem;
+  }
+
+  .answer {
+    padding: 0 20px 20px;
+  }
 }

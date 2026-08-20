@@ -106,6 +106,13 @@
   line-height: 1.9;
 }
 
+/* Only applies when `description` is an array (multiple stacked paragraphs)
+   - a single-paragraph caller only ever renders one .description, so this
+   never fires for the existing usages. */
+.description + .description {
+  margin-top: 16px;
+}
+
 .subtitle {
   margin: 32px 0 0;
   color: var(--color-neutral);
@@ -124,6 +131,15 @@
   gap: 16px;
   flex-wrap: wrap;
   margin-top: 36px;
+}
+
+/* Opt-in (see the `equalButtons` prop) - a shared min-width comfortably
+   larger than either of these short CTA labels' natural content width, so
+   both end up the same size instead of each hugging its own text. Plain
+   min-width (not flex:1/flex-grow) so they match each other without
+   stretching to fill the whole row. */
+.buttonsEqual > * {
+  min-width: 180px;
 }
 
 
