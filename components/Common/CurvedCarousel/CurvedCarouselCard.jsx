@@ -73,8 +73,15 @@ function CurvedCarouselCard({
           </span>
         )}
         {title && <p className={styles.cardTitle}>{title}</p>}
-        {description && <p className={styles.cardDescription}>{description}</p>}
-        {buttonText && buttonLink && (
+        {/* Description/CTA only on the active card - an inactive card is
+            rotated ~10-20deg in 3D and dimmed (see CurvedCarousel.jsx's
+            dimFilter), which perspective-compresses multi-line body text
+            near its far edge badly enough to read as cut off. A short
+            title survives that; a two-line description doesn't. Users
+            reach the description by bringing the card to center (click,
+            arrow, dot, or autoplay), not by squinting at it off-axis. */}
+        {active && description && <p className={styles.cardDescription}>{description}</p>}
+        {active && buttonText && buttonLink && (
           <Link href={buttonLink} className={styles.cardButton}>
             {buttonText}
           </Link>

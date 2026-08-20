@@ -319,6 +319,17 @@
   background: var(--color-primary-button, #111827);
 }
 
+/* box-sizing here specifically (not a project-wide reset) - .card fills
+   its parent .slot's exact 100%/100% box, and .slot's clip-path is sized
+   off that same box, so a content-box border would push .card 6px wider/
+   taller than what the clip-path was computed for, clipping the border's
+   own outer edge off on two sides. border-box keeps the border inside the
+   box the clip-path actually matches. */
+.onLight .card {
+  box-sizing: border-box;
+  border: 3px solid var(--color-primary-button, #fec400);
+}
+
 @keyframes dotProgressFill {
   from {
     transform: scaleX(0);
