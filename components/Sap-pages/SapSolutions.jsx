@@ -217,7 +217,19 @@ export default function SapSolutions() {
             dark/photo backdrop CurvedCarousel's pagination dots assume by
             default (near-white, ~40% opacity) - without this the dots
             render but are invisible against the page. The nav arrows
-            don't need it; they already carry their own solid circle. */}
+            don't need it; they already carry their own solid circle.
+            curveIntensity=0.4 (default 1): the trapezoid clip-path's
+            corner taper scales with this - at full intensity even the
+            *active* card's own left/right edges lose ~40% of their
+            height to the taper (confirmed numerically, not a guess),
+            clipping the badge and title/description near those edges.
+            0.4 caps the worst-case corner inset around 41px, which
+            .cardBadge's repositioned top:48px (see
+            CurvedCarousel.module.css) clears with margin - badge shows
+            on every card, not just the active one, so it has to survive
+            the worst taper case (the outermost visible cards), not just
+            the active card's own (milder) one. Still a real curve/depth
+            effect at 0.4, just not the full, most-aggressive taper. */}
         <CurvedCarousel
           items={benefitCarouselItems}
           visibleCards={5}
@@ -226,6 +238,7 @@ export default function SapSolutions() {
           autoPlay
           autoPlayDelay={5500}
           activeScale={1.3}
+          curveIntensity={0.4}
           className={curvedCarouselStyles.onLight}
         />
         {/* Each card's own "Learn More" is still a per-benefit link, but
