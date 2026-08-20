@@ -196,10 +196,13 @@ export default function SapSolutions() {
             benefits here (2 new ones added alongside the original 3), and
             ensureMinimumSlides pads short lists by cloning - 5 exactly
             matches the real item count, so nothing ever needs padding and
-            no duplicate ever appears in the arc at once. Card size bumped
-            up from the preview's 340x440 so the wider 5-card arc fills the
+            no duplicate ever appears in the arc at once. cardWidth bumped
+            up from the preview's 340 so the wider 5-card arc fills the
             section properly (the arc's spacing scales off cardWidth, so
-            this also widens the curve itself rather than just the cards).
+            this also widens the curve itself rather than just the
+            cards); cardHeight (380) went the other way, shorter than the
+            preview's 440 - the taller version read as too vertically
+            heavy for this section.
             autoPlay/autoPlayDelay bring this in line with the homepage
             hero carousel - the carousel already fully supports
             pause-on-hover/focus and skips autoplay under
@@ -223,13 +226,15 @@ export default function SapSolutions() {
             *active* card's own left/right edges lose ~40% of their
             height to the taper (confirmed numerically, not a guess),
             clipping the badge and title/description near those edges.
-            0.4 caps the worst-case corner inset around 41px, which
-            .cardBadge's repositioned top:48px (see
-            CurvedCarousel.module.css) clears with margin - badge shows
-            on every card, not just the active one, so it has to survive
-            the worst taper case (the outermost visible cards), not just
-            the active card's own (milder) one. Still a real curve/depth
-            effect at 0.4, just not the full, most-aggressive taper. */}
+            0.4 caps the worst-case corner inset around 34px at this
+            cardHeight, which .cardBadge/.cardContent's repositioning
+            (see CurvedCarousel.module.css - recalculated whenever
+            cardHeight changes here, both need to stay in sync) clears
+            with margin - badge shows on every card, not just the active
+            one, so it has to survive the worst taper case (the
+            outermost visible cards), not just the active card's own
+            (milder) one. Still a real curve/depth effect at 0.4, just
+            not the full, most-aggressive taper. */}
         {/* animationDuration={600} - already the component's own default,
             made explicit here because CurvedCarousel.module.css's
             .onLight reduced-motion override hardcodes this same 600ms to
@@ -239,7 +244,7 @@ export default function SapSolutions() {
           items={benefitCarouselItems}
           visibleCards={5}
           cardWidth={360}
-          cardHeight={460}
+          cardHeight={380}
           autoPlay
           autoPlayDelay={5500}
           activeScale={1.3}

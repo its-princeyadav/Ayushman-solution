@@ -229,6 +229,7 @@ function getSlotStyle({
   inactiveOpacity,
   dragOffset,
   isDragging,
+  isWrapping,
   animationDuration,
 }) {
   const isActive = offset === 0;
@@ -297,7 +298,10 @@ function getSlotStyle({
     zIndex: hidden ? 1 : 10 + distance,
     pointerEvents: hidden ? "none" : undefined,
     cursor: hidden ? undefined : isActive ? undefined : "pointer",
-    transition: isDragging
+    // isWrapping: see next()/prev()'s own comment - suppresses the
+    // transition for exactly the one step that crosses the loop seam, so
+    // that step snaps instead of sweeping the card across the whole arc.
+    transition: isDragging || isWrapping
       ? "none"
       : `transform ${animationDuration}ms cubic-bezier(0.65, 0, 0.35, 1), opacity ${Math.min(
           animationDuration,
@@ -401,10 +405,35 @@ export default function CurvedCarousel({
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(null);
+  // True for exactly one render right when next()/prev() crosses the loop
+  // seam (last item -> first, or first -> last) - see next()/prev() below
+  // for why this exists. Kept in sync with the real activeIndex via a ref
+  // (not read directly in next()/prev()) because those two functions use
+  // setActiveIndex's functional-updater form specifically so the autoplay
+  // effect never needs activeIndex in its own deps (see that effect's own
+  // comment) - the autoplay interval's closure over next()/prev() can be
+  // stale by the time it fires, but a ref is always current regardless.
+  const [isWrapping, setIsWrapping] = useState(false);
+  const activeIndexRef = useRef(activeIndex);
   const dragStartXRef = useRef(0);
   const dragDistanceRef = useRef(0);
   const suppressClickRef = useRef(false);
   const resizeTimerRef = useRef(null);
+
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  // Clears isWrapping on the frame *after* the wrapped (transition-less)
+  // position has actually painted, so the snap itself stays invisible but
+  // the very next step animates normally again - clearing it in the same
+  // tick that sets it would never let the transition:none style paint at
+  // all.
+  useEffect(() => {
+    if (!isWrapping) return undefined;
+    const id = requestAnimationFrame(() => setIsWrapping(false));
+    return () => cancelAnimationFrame(id);
+  }, [isWrapping]);
 
   useEffect(() => {
     function measure() {
@@ -431,11 +460,23 @@ export default function CurvedCarousel({
     setActiveIndex(() => (loop ? ((index % length) + length) % length : Math.max(0, Math.min(length - 1, index))));
   }
 
+  // getWrappedOffset always resolves to the *shortest* path between two
+  // indices, which is what makes ordinary steps feel continuous - but
+  // exactly at the loop seam, that shortest-path choice flips direction
+  // for every card at once (the card that was near one edge suddenly
+  // needs to be near the opposite edge to stay on the short path), so a
+  // plain animated transform transition sweeps it visibly all the way
+  // across the arc instead of continuing the rotation. Flagging
+  // isWrapping for that one step (consumed in getSlotStyle's transition)
+  // makes it snap instantly instead - invisible to the eye, and every
+  // other step keeps animating normally.
   function next() {
+    if (loop && activeIndexRef.current === length - 1) setIsWrapping(true);
     setActiveIndex((current) => (loop ? (current + 1) % length : Math.min(length - 1, current + 1)));
   }
 
   function prev() {
+    if (loop && activeIndexRef.current === 0) setIsWrapping(true);
     setActiveIndex((current) => (loop ? (current - 1 + length) % length : Math.max(0, current - 1)));
   }
 
@@ -585,6 +626,7 @@ export default function CurvedCarousel({
                 inactiveOpacity,
                 dragOffset,
                 isDragging,
+                isWrapping,
                 animationDuration,
               })}
               aria-hidden={offset !== 0 ? true : undefined}
