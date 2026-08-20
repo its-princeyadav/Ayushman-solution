@@ -229,7 +229,7 @@ function getSlotStyle({
   inactiveOpacity,
   dragOffset,
   isDragging,
-  isWrapping,
+  suppressTransition,
   animationDuration,
 }) {
   const isActive = offset === 0;
@@ -298,10 +298,10 @@ function getSlotStyle({
     zIndex: hidden ? 1 : 10 + distance,
     pointerEvents: hidden ? "none" : undefined,
     cursor: hidden ? undefined : isActive ? undefined : "pointer",
-    // isWrapping: see next()/prev()'s own comment - suppresses the
-    // transition for exactly the one step that crosses the loop seam, so
-    // that step snaps instead of sweeping the card across the whole arc.
-    transition: isDragging || isWrapping
+    // suppressTransition: see next()/prev()'s edgeOverrides mechanism -
+    // true for exactly one card, for exactly one render, right when it's
+    // invisibly relocated to the opposite edge mid-wrap.
+    transition: isDragging || suppressTransition
       ? "none"
       : `transform ${animationDuration}ms cubic-bezier(0.65, 0, 0.35, 1), opacity ${Math.min(
           animationDuration,
@@ -405,15 +405,19 @@ export default function CurvedCarousel({
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(null);
-  // True for exactly one render right when next()/prev() crosses the loop
-  // seam (last item -> first, or first -> last) - see next()/prev() below
-  // for why this exists. Kept in sync with the real activeIndex via a ref
+  // Per-item offset overrides that make the loop seam read as a
+  // continuous belt instead of a teleport - see next()/prev() below for
+  // the full mechanics. Keyed by the same item key `slots` already uses
+  // (item.id ?? index). Kept in sync with the real activeIndex via a ref
   // (not read directly in next()/prev()) because those two functions use
   // setActiveIndex's functional-updater form specifically so the autoplay
   // effect never needs activeIndex in its own deps (see that effect's own
   // comment) - the autoplay interval's closure over next()/prev() can be
   // stale by the time it fires, but a ref is always current regardless.
-  const [isWrapping, setIsWrapping] = useState(false);
+  const [edgeOverrides, setEdgeOverrides] = useState({});
+  // { key, value } describing the second (invisible, no-transition) half
+  // of a wrap in progress, or null - see the useEffect below.
+  const [pendingRestage, setPendingRestage] = useState(null);
   const activeIndexRef = useRef(activeIndex);
   const dragStartXRef = useRef(0);
   const dragDistanceRef = useRef(0);
@@ -424,16 +428,28 @@ export default function CurvedCarousel({
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
 
-  // Clears isWrapping on the frame *after* the wrapped (transition-less)
-  // position has actually painted, so the snap itself stays invisible but
-  // the very next step animates normally again - clearing it in the same
-  // tick that sets it would never let the transition:none style paint at
-  // all.
+  // Second half of the wrap sequence next()/prev() start: one frame after
+  // the exiting card's "keep going the same direction" position has
+  // actually painted (and it's now fully hidden, having crossed
+  // +/-halfWindow), silently relocate it to the equivalent hidden spot on
+  // the *opposite* edge, with its transition suppressed so the jump is
+  // never rendered. From there, the next real step finds it already
+  // waiting just off-stage and eases it in like any other card, instead
+  // of sweeping it across the whole visible arc. Effect (not a plain
+  // rAF call in next()/prev()) so a second wrap starting before this one
+  // finishes its cleanup cancels the stale rAF automatically.
   useEffect(() => {
-    if (!isWrapping) return undefined;
-    const id = requestAnimationFrame(() => setIsWrapping(false));
+    if (!pendingRestage) return undefined;
+    const id = requestAnimationFrame(() => {
+      setEdgeOverrides((prev) =>
+        prev[pendingRestage.key]
+          ? { [pendingRestage.key]: { value: pendingRestage.value, suppressTransition: true } }
+          : prev
+      );
+      setPendingRestage(null);
+    });
     return () => cancelAnimationFrame(id);
-  }, [isWrapping]);
+  }, [pendingRestage]);
 
   useEffect(() => {
     function measure() {
@@ -457,27 +473,61 @@ export default function CurvedCarousel({
   const halfWindow = Math.max(1, Math.floor(effectiveVisibleCards / 2));
 
   function goTo(index) {
+    setEdgeOverrides({});
+    setPendingRestage(null);
     setActiveIndex(() => (loop ? ((index % length) + length) % length : Math.max(0, Math.min(length - 1, index))));
   }
 
   // getWrappedOffset always resolves to the *shortest* path between two
-  // indices, which is what makes ordinary steps feel continuous - but
-  // exactly at the loop seam, that shortest-path choice flips direction
-  // for every card at once (the card that was near one edge suddenly
-  // needs to be near the opposite edge to stay on the short path), so a
-  // plain animated transform transition sweeps it visibly all the way
-  // across the arc instead of continuing the rotation. Flagging
-  // isWrapping for that one step (consumed in getSlotStyle's transition)
-  // makes it snap instantly instead - invisible to the eye, and every
-  // other step keeps animating normally.
+  // indices, which is what makes ordinary steps feel continuous overall -
+  // but whichever single card currently sits at the trailing edge
+  // (-halfWindow for next(), +halfWindow for prev()) is the one exception:
+  // on the very next step, the shortest path to its new position is
+  // *through* the opposite edge, so that one card's offset jumps straight
+  // from one side to the other while every other card just shifts by one.
+  // Animated with a plain transform transition, that jump sweeps visibly
+  // across the whole arc instead of continuing the rotation - looks like
+  // a teleport, not a wrap.
+  //
+  // Fix: let that one card keep going in its current direction instead of
+  // jumping - display it one slot *past* the edge (still animated, so it
+  // visibly continues off-screen and disappears) rather than the
+  // shortest-path formula's answer. Once it's fully hidden, silently
+  // relocate it (no transition) to the equivalent hidden slot on the
+  // opposite edge (see the pendingRestage effect above), so the following
+  // real step finds it already waiting just off-stage and eases it in
+  // like any other card - the same illusion as a conveyor belt, where a
+  // card leaving one end reappears at the other instead of jumping there.
   function next() {
-    if (loop && activeIndexRef.current === length - 1) setIsWrapping(true);
-    setActiveIndex((current) => (loop ? (current + 1) % length : Math.min(length - 1, current + 1)));
+    const current = activeIndexRef.current;
+    const exitingIndex = loop
+      ? displayItems.findIndex((_, index) => getWrappedOffset(index, current, length, loop) === -halfWindow)
+      : -1;
+    setActiveIndex((c) => (loop ? (c + 1) % length : Math.min(length - 1, c + 1)));
+    if (exitingIndex === -1) {
+      setEdgeOverrides({});
+      setPendingRestage(null);
+      return;
+    }
+    const key = displayItems[exitingIndex].id ?? exitingIndex;
+    setEdgeOverrides({ [key]: { value: -halfWindow - 1, suppressTransition: false } });
+    setPendingRestage({ key, value: halfWindow + 1 });
   }
 
   function prev() {
-    if (loop && activeIndexRef.current === 0) setIsWrapping(true);
-    setActiveIndex((current) => (loop ? (current - 1 + length) % length : Math.max(0, current - 1)));
+    const current = activeIndexRef.current;
+    const exitingIndex = loop
+      ? displayItems.findIndex((_, index) => getWrappedOffset(index, current, length, loop) === halfWindow)
+      : -1;
+    setActiveIndex((c) => (loop ? (c - 1 + length) % length : Math.max(0, c - 1)));
+    if (exitingIndex === -1) {
+      setEdgeOverrides({});
+      setPendingRestage(null);
+      return;
+    }
+    const key = displayItems[exitingIndex].id ?? exitingIndex;
+    setEdgeOverrides({ [key]: { value: halfWindow + 1, suppressTransition: false } });
+    setPendingRestage({ key, value: -halfWindow - 1 });
   }
 
   // Functional setState updates mean this effect never needs `activeIndex`
@@ -509,7 +559,14 @@ export default function CurvedCarousel({
   const slots = useMemo(
     () =>
       displayItems.map((item, index) => {
-        const offset = getWrappedOffset(index, activeIndex, length, loop);
+        const key = item.id ?? index;
+        // edgeOverrides temporarily replaces the shortest-path formula's
+        // answer for the one card mid-wrap (see next()/prev()) - either
+        // "keep going past the edge" (animated) or "already relocated to
+        // the opposite edge, invisibly" (suppressTransition), both still
+        // fully hidden either way.
+        const override = edgeOverrides[key];
+        const offset = override ? override.value : getWrappedOffset(index, activeIndex, length, loop);
         const distance = Math.abs(offset);
         return {
           item,
@@ -517,10 +574,11 @@ export default function CurvedCarousel({
           offset,
           hidden: distance > halfWindow,
           loadImage: distance <= halfWindow + IMAGE_PRELOAD_BUFFER,
-          key: item.id ?? index,
+          suppressTransition: override?.suppressTransition ?? false,
+          key,
         };
       }),
-    [displayItems, activeIndex, halfWindow, length, loop]
+    [displayItems, activeIndex, halfWindow, length, loop, edgeOverrides]
   );
 
   if (!displayItems || displayItems.length === 0) return null;
@@ -608,7 +666,7 @@ export default function CurvedCarousel({
           onPointerLeave={handlePointerLeave}
           onClickCapture={handleClickCapture}
         >
-          {slots.map(({ item, index, offset, hidden, loadImage, key }) => (
+          {slots.map(({ item, index, offset, hidden, loadImage, suppressTransition, key }) => (
             <div
               className={styles.slot}
               key={key}
@@ -626,7 +684,7 @@ export default function CurvedCarousel({
                 inactiveOpacity,
                 dragOffset,
                 isDragging,
-                isWrapping,
+                suppressTransition,
                 animationDuration,
               })}
               aria-hidden={offset !== 0 ? true : undefined}
