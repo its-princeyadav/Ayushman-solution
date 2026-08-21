@@ -23,4 +23,17 @@
   --radius-lg: 20px;
 
   --transition: 250ms ease;
+
+  /* h2-* : client-provided reference palette for the navbar/hero redesign
+     (see plan). Additive, not replacing --primary/--surface/etc above -
+     other home2 surfaces (WhyBusinessesChooseUs, the About section, ...)
+     still read those, and stay untouched by this redesign's rollout. */
+  --h2-navy: #071a33;
+  --h2-gold: #f5b51b;
+  --h2-gold-2: #ffc94d;
+  --h2-blue: #0b5bd3;
+  --h2-ink: #0a1830;
+  --h2-muted: #61708a;
+  --h2-glass: rgba(255, 255, 255, 0.64);
+  --h2-line: rgba(10, 24, 48, 0.1);
 }

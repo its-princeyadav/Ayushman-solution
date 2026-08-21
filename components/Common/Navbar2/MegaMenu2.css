@@ -49,13 +49,13 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-md);
-  background: var(--color-primary);
+  background: var(--h2-gold);
   color: var(--text-primary);
   font-size: 1.1rem;
 }
 
 .as-megamenu-intro-title {
-  font-family: var(--font-nav);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-weight: 600;
   font-size: 1.05rem;
   color: var(--text-primary);
@@ -92,7 +92,7 @@
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  font-family: var(--font-nav);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -105,7 +105,7 @@
   width: 12px;
   height: 2px;
   border-radius: 2px;
-  background: var(--color-primary);
+  background: var(--h2-gold);
   flex: none;
 }
 
@@ -134,7 +134,7 @@
 }
 
 .as-megamenu-item-title {
-  font-family: var(--font-nav);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-size: 0.92rem;
   font-weight: 500;
   color: var(--text-primary);
@@ -173,7 +173,7 @@
 .as-megamenu-sublinks a {
   display: inline-flex;
   align-items: center;
-  font-family: var(--font-nav);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-size: 0.76rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -286,7 +286,7 @@
    :hover selector's higher specificity (a class + a pseudo-class) was
    winning and leaving the row gray. */
 .as-megamenu-sidebar-item.as-megamenu-sidebar-item-active {
-  background: var(--color-primary-button);
+  background: var(--h2-gold);
   transform: none;
 }
 
@@ -311,7 +311,7 @@
 }
 
 .as-megamenu-sidebar-item-active .as-megamenu-sidebar-icon {
-  background: var(--color-primary-button);
+  background: var(--h2-gold);
   color: var(--text-primary);
   box-shadow: none;
 }
@@ -319,7 +319,7 @@
 .as-megamenu-sidebar-title {
   flex: 1 1 auto;
   min-width: 0;
-  font-family: var(--font-nav);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-weight: 600;
   font-size: 0.95rem;
   color: var(--text-primary);
@@ -365,7 +365,7 @@
   margin-top: 20px;
   padding-top: 18px;
   border-top: 1px solid var(--border);
-  font-family: var(--font-nav);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--text-primary);

@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import Script from "next/script";
+import { DM_Sans, Manrope } from "next/font/google";
 import Preloader from "../components/Common/Preloader";
 import Popups from "../components/Common/Popups";
 import { ToastProvider } from "../components/Common/Toast/ToastProvider";
@@ -10,6 +11,32 @@ import "./globals.css";
 
 const description =
   "Ayushman Solutions delivers SAP solutions and IT consulting services that streamline operations, enhance productivity, and drive business growth through ERP, cloud, and managed support.";
+
+// This project's first use of next/font - every other typeface here is
+// self-hosted @font-face (see the Teko preload and fonts5.css/fonts6.css
+// links below) or a system stack, so there's never been a Google Fonts
+// dependency before. next/font/google downloads and self-hosts these at
+// build time (no runtime request to fonts.googleapis.com, no layout
+// shift), which is why it's used here instead of a <link> tag - this
+// project has already been bitten once by a vendor <link>-loaded
+// stylesheet cascade-colliding with intended styles (see MegaMenu2.css's
+// own history), and a second global stylesheet is an avoidable repeat of
+// that risk. Only Navbar2.css/Hero.module.css actually reference
+// var(--font-dmsans)/var(--font-manrope) - every other component is
+// unaffected by these being defined.
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dmsans",
+  display: "swap",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-manrope",
+  display: "swap",
+});
 
 export const metadata = {
   title: "Ayushman Solutions",
@@ -122,7 +149,7 @@ export default async function RootLayout({ children }) {
         <link rel="stylesheet" id="elementor-gf-kanit-css" href="/assets/css/fonts6.css" media="all" />
       </head>
       <body
-        className="arolax-base wcf-preloader-active"
+        className={`arolax-base wcf-preloader-active ${dmSans.variable} ${manrope.variable}`}
         suppressHydrationWarning
       >
         <AuthProvider>
