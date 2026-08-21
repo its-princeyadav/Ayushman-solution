@@ -36,4 +36,12 @@
   --h2-muted: #61708a;
   --h2-glass: rgba(255, 255, 255, 0.64);
   --h2-line: rgba(10, 24, 48, 0.1);
+
+  /* h2-footer-* : the reference's dark footer band (its own <footer> is
+     the one section of that mockup that breaks from the light aurora
+     background) - kept as its own sub-set since nothing else in the h2
+     palette is a dark-surface color. */
+  --h2-footer-bg: #06162a;
+  --h2-footer-text: #d7e3f2;
+  --h2-footer-muted: #9eb2ca;
 }

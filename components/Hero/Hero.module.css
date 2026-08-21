@@ -139,8 +139,14 @@
   border-color: var(--h2-navy);
 }
 
+/* color re-asserted on :hover, not just the base rule above - the global
+   vendor rule `a, a:hover { color: inherit }` (public/assets/css/
+   master.min.css) has specificity (0,1,1), which beats a plain
+   .btnPrimary { color: #fff } (0,1,0) during :hover and silently swaps the
+   text to inherit. Same fix on .btnSecondary below. */
 .btnPrimary:hover {
   box-shadow: 0 14px 30px -14px rgba(7, 26, 51, 0.5);
+  color: #fff;
 }
 
 .btnSecondary {
@@ -150,6 +156,7 @@
 
 .btnSecondary:hover {
   background: #fff;
+  color: var(--h2-ink);
 }
 
 /* ---------- Right column: dashboard mockup ---------- */

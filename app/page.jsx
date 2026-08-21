@@ -1,9 +1,21 @@
-import Image from "next/image";
 import Link from "next/link";
-import { LuLayers, LuUsers, LuCloud, LuZap, LuArrowRight, LuAward, LuChartColumn, LuBuilding2, LuMonitor } from "react-icons/lu";
+import {
+  LuLayers,
+  LuUsers,
+  LuCloud,
+  LuZap,
+  LuArrowRight,
+  LuChartColumn,
+  LuMonitor,
+  LuRefreshCw,
+  LuShieldCheck,
+  LuArrowUpRight,
+  LuCompass,
+} from "react-icons/lu";
 import SectionLabel from "../components/Common/SectionLabel";
 import Hero from "../components/Hero/Hero";
 import WhyBusinessesChooseUs from "../components/Home2/WhyBusinessesChooseUs/WhyBusinessesChooseUs";
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_HREF } from "../data/contactInfo";
 import "./home-theme.css";
 import styles from "./page.module.css";
 
@@ -32,18 +44,83 @@ const SERVICE_CARDS = [
   },
 ];
 
-// First paragraph renders separately as a styled "lead" statement (see
-// .aboutLead below) with its key service terms called out in bold - these
-// two are the plain supporting paragraphs that follow it.
-const ABOUT_PARAGRAPHS = [
-  "We partner with organizations to simplify complex business processes, improve operational efficiency, and enable data-driven decision-making through intelligent enterprise solutions.",
-  "Our experienced SAP consultants, solution architects, and technology experts work closely with clients to deliver scalable, secure, and future-ready digital solutions.",
+// "About Us" section content - copy taken verbatim from the client's
+// reference mockup (its id="services" section).
+const ABOUT_SERVICE_CARDS = [
+  {
+    icon: LuCompass,
+    title: "Digital Strategy",
+    description: "Business process consulting and technology roadmaps aligned to measurable outcomes.",
+    checklist: ["Process assessment", "Transformation roadmap", "Solution architecture"],
+  },
+  {
+    icon: LuCloud,
+    title: "Cloud & IT",
+    description: "Secure, scalable infrastructure and managed technology services for modern enterprises.",
+    checklist: ["Cloud hosting", "IT infrastructure", "Managed support"],
+  },
+  {
+    icon: LuChartColumn,
+    title: "Data & Analytics",
+    description: "Turn operational data into dashboards, forecasts and decisions your teams can act on.",
+    checklist: ["Power BI dashboards", "SAP reporting", "Business intelligence"],
+  },
+  {
+    icon: LuZap,
+    title: "Automation",
+    description: "Connect applications and automate repetitive workflows for speed, control and scale.",
+    checklist: ["API integration", "Workflow automation", "Custom add-ons"],
+  },
 ];
 
-const ABOUT_FLOAT_STATS = [
-  { icon: LuChartColumn, number: "200+", label: "Satisfied Clients", position: "clients" },
-  { icon: LuUsers, number: "15+", label: "Years of Experience", position: "experience" },
-  { icon: LuBuilding2, number: "15+", label: "Industries Served", position: "industries" },
+// SAP Business One band - copy taken verbatim from the client's own
+// reference mockup (its id="sap" section).
+const SAP_B1_FEATURES = [
+  {
+    number: "01",
+    title: "Implementation",
+    description: "Fit-to-business SAP B1 deployment, configuration, data migration and user enablement.",
+  },
+  {
+    number: "02",
+    title: "Customization & Add-ons",
+    description: "Tailored workflows, reports, approvals and integrations for your processes.",
+  },
+  {
+    number: "03",
+    title: "Integration",
+    description: "Connect SAP with e-commerce, CRM, banking, logistics and custom applications.",
+  },
+  {
+    number: "04",
+    title: "AMC & Support",
+    description: "Responsive support, upgrades, monitoring and continuous improvement after go-live.",
+  },
+];
+
+// Cloud ERP section - copy taken verbatim from the client's reference
+// mockup (its id="cloud" section).
+const CLOUD_CARDS = [
+  {
+    icon: LuCloud,
+    title: "Cloud ERP",
+    description: "Access your business system securely from anywhere and scale as you grow.",
+  },
+  {
+    icon: LuRefreshCw,
+    title: "Backup & DR",
+    description: "Business continuity planning, automated backups and recovery readiness.",
+  },
+  {
+    icon: LuShieldCheck,
+    title: "Security",
+    description: "Identity, network and endpoint controls designed for enterprise operations.",
+  },
+  {
+    icon: LuArrowUpRight,
+    title: "Managed Cloud",
+    description: "Monitoring, maintenance and technical support from a dedicated team.",
+  },
 ];
 
 const WHY_US_CARDS = [
@@ -96,7 +173,7 @@ export default function Home() {
           </div>
 
           <div className={styles.expertiseCta}>
-            <Link href="#" className={`as-nav2-login-btn ${styles.ctaPrimary}`}>
+            <Link href="#" className={styles.ctaPrimary}>
               Get Started Today
               <LuArrowRight aria-hidden="true" className={styles.ctaPrimaryArrow} />
             </Link>
@@ -122,85 +199,99 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.about}>
-        <div className={styles.aboutHeader}>
-          <SectionLabel title="About Us" />
-          <h2 className={styles.aboutTitle}>
-            Driving Business Excellence Through SAP & Digital Innovation
-          </h2>
+      <section className={styles.sapBand}>
+        <div className={styles.sapBandInner}>
+          <div className={styles.sapBandCard}>
+            <div className={styles.sapBandGrid}>
+              <div>
+                <span className={styles.sapBandEyebrow}>SAP Business One</span>
+                <h2 className={styles.sapBandTitle}>Run your business on one intelligent ERP.</h2>
+                <p className={styles.sapBandDesc}>
+                  Manage finance, sales, purchasing, inventory, production, CRM and reporting from one
+                  integrated SAP Business One platform.
+                </p>
+              </div>
+              <Link href="#" className={styles.sapBandCta}>
+                Get SAP B1 Consultation
+                <LuArrowRight aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+
+          <div className={styles.sapFeatureGrid}>
+            {SAP_B1_FEATURES.map((feature) => (
+              <div className={styles.sapFeature} key={feature.number}>
+                <span className={styles.sapFeatureIcon}>{feature.number}</span>
+                <div>
+                  <h3 className={styles.sapFeatureTitle}>{feature.title}</h3>
+                  <p className={styles.sapFeatureDesc}>{feature.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.cloudSection}>
+        <div className={styles.cloudHead}>
+          <div>
+            <span className={styles.cloudEyebrow}>Cloud ERP</span>
+            <h2 className={styles.cloudTitle}>Enterprise capability. Without infrastructure complexity.</h2>
+          </div>
+          <p className={styles.cloudDesc}>
+            Deploy SAP Business One on secure cloud infrastructure with flexible access, managed operations,
+            backup and business continuity.
+          </p>
         </div>
 
-        <div className={styles.aboutInner}>
-          <div className={styles.aboutText}>
-            <div className={styles.aboutStatCard}>
-              <span className={styles.aboutStatIcon}>
-                <LuAward aria-hidden="true" />
-              </span>
-              <div>
-                <span className={styles.aboutStatNumber}>500+</span>
-                <span className={styles.aboutStatLabel}>Successful Projects Delivered</span>
+        <div className={styles.cloudCards}>
+          {CLOUD_CARDS.map((card) => {
+            const Icon = card.icon;
+            return (
+              <div className={styles.expertiseCard} key={card.title}>
+                <span className={styles.expertiseCardIcon}>
+                  <Icon aria-hidden="true" />
+                </span>
+                <h3 className={styles.expertiseCardTitle}>{card.title}</h3>
+                <p className={styles.expertiseCardDesc}>{card.description}</p>
               </div>
-            </div>
+            );
+          })}
+        </div>
+      </section>
 
-            <p className={styles.aboutLead}>
-              At Ayushman Solution, we are a leading IT Services and IT Consulting company
-              specializing in <strong className={styles.aboutLeadHighlight}>SAP ERP</strong>,{" "}
-              <strong className={styles.aboutLeadHighlight}>Digital Transformation</strong>,{" "}
-              <strong className={styles.aboutLeadHighlight}>Cloud Technologies</strong>, Enterprise
-              Applications, and Business Automation.
-            </p>
-
-            {ABOUT_PARAGRAPHS.map((paragraph) => (
-              <p className={styles.aboutParagraph} key={paragraph.slice(0, 24)}>
-                {paragraph}
-              </p>
-            ))}
-
-            <Link href="#" className={`as-nav2-login-btn ${styles.aboutCta}`}>
-              Explore More
-              <LuArrowRight aria-hidden="true" className={styles.aboutCtaArrow} />
-            </Link>
+      <section className={styles.about}>
+        <div className={styles.cloudHead}>
+          <div>
+            <span className={styles.cloudEyebrow}>What We Do</span>
+            <h2 className={styles.cloudTitle}>One technology partner. Every business need.</h2>
           </div>
+          <p className={styles.cloudDesc}>
+            From ERP implementation to cloud, infrastructure, analytics and ongoing support, our services
+            are designed to work together as one connected digital ecosystem.
+          </p>
+        </div>
 
-          <div className={styles.aboutMedia}>
-            <div className={styles.aboutImageWrap}>
-              {/* unoptimized: Next's image optimizer re-encodes this to
-                  AVIF/WebP for browsers that accept it (per next.config.js),
-                  and that specific re-encode drops every text label around
-                  the ring while leaving the circle/icons/numbers intact -
-                  confirmed by decoding the actual AVIF variant it serves.
-                  Root cause sits in the optimizer's AVIF encoding of this
-                  image's semi-transparent regions, not in this app's code -
-                  bypassing optimization serves the original file byte-for-
-                  byte, which has always rendered correctly. */}
-              <Image
-                src="/assets/image2/digital-transformation-wheel.png"
-                alt="Digital Transformation wheel: Digitization, Modern Infrastructure, Business Application Transformation, Business Process Simplification, Break Application Silos, and Business Insight"
-                width={1030}
-                height={775}
-                unoptimized
-                className={styles.aboutImage}
-              />
-            </div>
-
-            {ABOUT_FLOAT_STATS.map((stat) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  className={`${styles.floatCard} ${styles[`floatCard--${stat.position}`]}`}
-                  key={stat.position}
-                >
-                  <span className={styles.floatCardIcon}>
-                    <Icon aria-hidden="true" />
-                  </span>
-                  <div>
-                    <span className={styles.floatCardNumber}>{stat.number}</span>
-                    <span className={styles.floatCardLabel}>{stat.label}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        <div className={styles.cloudCards}>
+          {ABOUT_SERVICE_CARDS.map((card) => {
+            const Icon = card.icon;
+            return (
+              <div className={styles.expertiseCard} key={card.title}>
+                <span className={styles.expertiseCardIcon}>
+                  <Icon aria-hidden="true" />
+                </span>
+                <h3 className={styles.expertiseCardTitle}>{card.title}</h3>
+                <p className={styles.expertiseCardDesc}>{card.description}</p>
+                <ul className={styles.aboutCardList}>
+                  {card.checklist.map((item) => (
+                    <li className={styles.aboutCardListItem} key={item}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -238,6 +329,28 @@ export default function Home() {
       </section>
 
       <WhyBusinessesChooseUs />
+
+      <section className={styles.contactCta}>
+        <div className={styles.contactCtaOuter}>
+          <div className={styles.contactCtaCard}>
+            <span className={styles.contactCtaEyebrow}>Let&apos;s start a conversation</span>
+            <h2 className={styles.contactCtaTitle}>Ready to make your business more connected?</h2>
+            <p className={styles.contactCtaDesc}>
+              Tell us about your SAP, cloud, IT or analytics requirement and our team will help you identify
+              the right next step.
+            </p>
+            <div className={styles.contactCtaActions}>
+              <a href={`mailto:${CONTACT_EMAIL}`} className={styles.contactCtaPrimary}>
+                Email Us
+                <LuArrowRight aria-hidden="true" />
+              </a>
+              <a href={CONTACT_PHONE_HREF} className={styles.contactCtaSecondary}>
+                Call {CONTACT_PHONE}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

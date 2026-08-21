@@ -1,7 +1,14 @@
 
+/* Restyled to match the client-provided reference (see the navbar/hero
+   redesign work) - transparent, not the flat --color-white this used to
+   have, so it stays on the same fixed aurora backdrop as the sections
+   above it (Hero's .aurora/.grid-bg are `position: fixed`, so they show
+   through any section left without its own opaque background - see
+   app/page.module.css's .expertise/.about for the same change). Structure/
+   content/interaction (click-to-swap timeline) are all unchanged. */
 .home2WhyChoose-section {
   padding-block: 110px;
-  background: var(--color-white);
+  background: transparent;
 }
 
 .home2WhyChoose-inner {
@@ -40,23 +47,23 @@
   content: "";
   width: 60%;
   height: 2px;
-  background: var(--color-logo-yellow);
+  background: var(--h2-gold);
 }
 
 .home2WhyChoose-labelBar::after {
   content: "";
   width: 100%;
   height: 3px;
-  background: var(--color-logo-yellow);
+  background: var(--h2-gold);
 }
 
 .home2WhyChoose-labelText {
-  font-family: var(--font-nav);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-size: clamp(1rem, 1.6vw, 1.2rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-secondary-dark);
+  color: var(--h2-blue);
   white-space: nowrap;
 }
 
@@ -86,7 +93,7 @@
   bottom: 60px;
   left: 35px;
   width: 2px;
-  background: var(--color-logo-yellow);
+  background: var(--h2-gold);
   z-index: 0;
 }
 
@@ -129,7 +136,8 @@
    title color, active state (below) is the same kind of nudge, just
    stronger. */
 .home2WhyChoose-item:hover .home2WhyChoose-itemIcon {
-  background: var(--color-secondary-lighter);
+  background: rgba(11, 91, 211, 0.08);
+  border-color: rgba(11, 91, 211, 0.25);
 }
 
 .home2WhyChoose-itemIcon {
@@ -140,15 +148,20 @@
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: var(--color-secondary-lightest);
-  color: var(--color-neutral-darkest);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--h2-line);
+  color: var(--h2-navy);
   font-size: 1.7rem;
-  transition: background-color 300ms ease, transform 300ms ease;
+  transition: background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
 }
 
+/* Same dark-on-gold treatment as the section icons above (Hero's dashboard
+   pill, .expertiseCardIcon, .aboutStatIcon) for the active step. */
 .home2WhyChoose-item--active .home2WhyChoose-itemIcon {
-  background: var(--color-logo-yellow);
-  color: var(--color-neutral-darkest);
+  background: linear-gradient(135deg, var(--h2-gold-2) 0%, var(--h2-gold) 100%);
+  border-color: transparent;
+  box-shadow: 0 10px 20px -8px rgba(245, 181, 27, 0.5);
+  color: var(--h2-navy);
 }
 
 .home2WhyChoose-itemContent {
@@ -165,34 +178,34 @@
    flat regardless of which item happens to be active). Hover previews the
    same shift so there's feedback before a click commits it. */
 .home2WhyChoose-itemTitle {
-  font-family: ui-sans-serif, sans-serif;
+  font-family: var(--font-manrope), var(--font-nav);
   font-size: clamp(1.15rem, 2vw, 1.6rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.015em;
-  color: var(--color-secondary-dark);
+  color: var(--h2-muted);
   transition: color 300ms ease;
 }
 
 .home2WhyChoose-item:hover .home2WhyChoose-itemTitle,
 .home2WhyChoose-item--active .home2WhyChoose-itemTitle {
-  color: var(--color-neutral-darkest);
+  color: var(--h2-ink);
 }
 
 .home2WhyChoose-itemDesc {
-  font-family: var(--font-nav);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-size: 0.95rem;
   font-weight: 500;
   line-height: 1.6;
   transition: color 300ms ease;
   /* Lighter than the title's muted state - the inactive items' supporting
      detail should recede further than their own heading does. */
-  color: var(--color-secondary);
+  color: rgba(97, 112, 138, 0.72);
 }
 
 .home2WhyChoose-item:hover .home2WhyChoose-itemDesc,
 .home2WhyChoose-item--active .home2WhyChoose-itemDesc {
-  color: var(--color-secondary-darker);
+  color: var(--h2-muted);
 }
 
 /* ---------- Right side: image ---------- */

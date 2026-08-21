@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { LuTarget, LuAward, LuBuilding2, LuShieldCheck } from "react-icons/lu";
 import "./WhyBusinessesChooseUs.css";
@@ -48,6 +48,21 @@ const FEATURES = [
 export default function WhyBusinessesChooseUs() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeFeature = FEATURES[activeIndex];
+
+  // Auto-advance every 6s, restarting the timer on every change (including
+  // a manual click) so a click always buys a full 6s before the next
+  // auto-advance instead of the next tick landing early. Not gated behind
+  // prefers-reduced-motion (unlike this project's CSS animations) - that
+  // preference is about suppressing motion/parallax effects, not about
+  // whether timed content changes happen at all, and gating it here would
+  // just silently turn this requested feature off for anyone with that OS
+  // setting on, with no way to tell why.
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % FEATURES.length);
+    }, 6000);
+    return () => clearInterval(id);
+  }, [activeIndex]);
 
   return (
     <section className="home2WhyChoose-section">

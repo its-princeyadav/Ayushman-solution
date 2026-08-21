@@ -36,9 +36,13 @@
   transition: background-color var(--transition), transform var(--transition);
 }
 
+/* Soft gold tint, not var(--color-primary-light) (#fff100, an electric
+   full-saturation yellow) - that leftover from the pre-redesign system read
+   as a jarring flat flood-fill next to the rest of this menu's restyled,
+   subtler hover states. */
 .as-megamenu-intro:hover,
 .as-megamenu-intro:focus-visible {
-  background: var(--color-primary-light);
+  background: rgba(245, 181, 27, 0.14);
   transform: translateY(-2px);
 }
 
@@ -187,9 +191,9 @@
 }
 
 .as-megamenu-sublinks a:hover {
-  background: var(--color-primary-light);
-  color: var(--text-primary);
-  border-color: var(--color-primary-dark);
+  background: rgba(245, 181, 27, 0.14);
+  color: var(--h2-ink);
+  border-color: var(--h2-gold);
   transform: translateY(-1px);
 }
 

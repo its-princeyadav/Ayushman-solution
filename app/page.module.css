@@ -1,12 +1,17 @@
 /* ---------- "Our SAP Expertise" section ---------- */
 
-/* Full-bleed background (edge to edge, unlike the max-width-constrained
-   content below it) - flat and plain by request: no gradients, glow, or
-   pattern overlays, just the same light-gray tone used elsewhere on the
-   page. Depth comes only from the cards' own shadows. */
+/* Restyled to match the client-provided reference (see the navbar/hero/
+   footer redesign work) - transparent, not the flat #f5f7fa this used to
+   have: Hero's aurora/grid-bg layers are `position: fixed` (see
+   components/Hero/Hero.module.css), so they already sit behind the whole
+   page, not just the hero itself. Letting this section stay transparent is
+   what lets that same aurora show through here, exactly like the
+   reference's own sections (which set no background of their own either -
+   the aurora lives once on body). Depth now comes from the glass cards'
+   own blur/border/shadow instead of a section-level tint. */
 .expertise {
   padding-block: 110px;
-  background: #f5f7fa;
+  background: transparent;
 }
 
 .expertiseInner {
@@ -35,6 +40,20 @@
   animation-range: entry 0% entry 55%;
 }
 
+/* SectionLabel is shared site-wide, so its default gray/yellow styling is
+   left alone everywhere else - these two overrides (scoped to just this
+   row, same pattern as .whyUsLabelRow further down) re-point it at the h2
+   palette's blue/gold to match the reference's own .eyebrow treatment. */
+.expertiseLabelRow :global(.as-section-label-text) {
+  font-family: var(--font-dmsans), var(--font-nav);
+  color: var(--h2-blue);
+}
+
+.expertiseLabelRow :global(.as-section-label-bar)::before,
+.expertiseLabelRow :global(.as-section-label-bar)::after {
+  background: var(--h2-gold);
+}
+
 .expertiseIntro {
   grid-area: intro;
   animation: as-fade-up 700ms ease both;
@@ -45,28 +64,35 @@
 .expertiseTitle {
   margin: 0 0 24px;
   max-width: 580px;
-  font-family: ui-sans-serif, sans-serif;
+  /* Manrope, like every real heading in the reference (its h1/h2/h3 rule) -
+     matches Hero's .title next to it. */
+  font-family: var(--font-manrope), var(--font-nav);
   font-weight: 800;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   line-height: 1.12;
   letter-spacing: -0.015em;
-  color: var(--text-primary);
+  color: var(--h2-ink);
 }
 
+/* Same navy->blue->gold gradient-text treatment as Hero's .titleGrad, not
+   a flat yellow - keeps the two headings visually part of one system. */
 .expertiseTitleAccent {
-  color: var(--color-logo-yellow);
+  background: linear-gradient(100deg, var(--h2-navy), #1c4e8f 48%, var(--h2-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .expertiseDesc {
   margin: 0 0 28px;
   max-width: 560px;
-  font-family: var(--font-nav);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-size: 1rem;
   font-weight: 500;
   /* 1.7, not 1.8 - a touch tighter so the paragraph reads as one connected
      block instead of loosely spaced lines. */
   line-height: 1.7;
-  color: var(--color-secondary-darker);
+  color: var(--h2-muted);
 }
 
 /* The four service terms this paragraph names (SAP Implementation, IT
@@ -75,7 +101,7 @@
    flat gray block. */
 .expertiseDescHighlight {
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--h2-ink);
 }
 
 .expertiseTags {
@@ -89,21 +115,22 @@
 
 .expertiseTag {
   padding: 9px 18px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--h2-line);
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--h2-glass);
   backdrop-filter: blur(6px);
-  font-family: var(--font-nav);
+  -webkit-backdrop-filter: blur(6px);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--h2-ink);
   transition: border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
 }
 
 .expertiseTag:hover {
-  border-color: var(--color-logo-yellow);
-  background: color-mix(in srgb, var(--color-logo-yellow) 12%, white);
-  box-shadow: 0 8px 18px -10px rgba(254, 190, 14, 0.5);
+  border-color: var(--h2-gold);
+  background: color-mix(in srgb, var(--h2-gold) 12%, white);
+  box-shadow: 0 8px 18px -10px rgba(245, 181, 27, 0.5);
   transform: translateY(-2px);
 }
 
@@ -119,28 +146,40 @@
   animation-range: entry 0% entry 55%;
 }
 
-/* Primary CTA reuses components/Common/Navbar2/Navbar2.css's own
-   .as-nav2-login-btn class directly (applied alongside this one in the
-   JSX) instead of re-declaring matching background/radius/shadow/
-   typography/transition values here - "same design system" via one
-   shared rule instead of two copies that can drift apart. This class only
-   adds what that shared one doesn't: Link needs text-decoration reset,
-   and full-width-on-mobile (below) is specific to this CTA row. */
+/* Was riding components/Common/Navbar2/Navbar2.css's .as-nav2-login-btn
+   (still applied alongside this one in the JSX, harmless) for its base
+   shape - now fully styled here instead, matching Hero's .btnPrimary
+   (navy fill, white text) so the two primary CTAs on this page read as
+   the same button. */
 .ctaPrimary {
-  /* .as-nav2-login-btn doesn't set box-sizing (defaults to content-box) -
-     harmless there since it's never given an explicit width, but this CTA
-     gets width:100% on mobile below, where content-box would add its own
-     padding on top of that 100% and push the button past its container. */
   box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 21px;
+  border-radius: 14px;
   text-decoration: none;
-  /* Same yellow as the navbar's Book Slot/Login buttons - --color-primary-
-     button (a slightly muted --color-primary, see app/globals.css) rather
-     than --color-primary itself or the shared --primary token
-     (.as-nav2-login-btn's default): a flat --color-primary reads more
-     "electric" as a large solid fill than the same hex does as text/a
-     small accent (simultaneous contrast), and --primary can lose the
-     cascade entirely to master.min.css's unrelated orange --primary. */
-  background: var(--color-primary-button);
+  background: var(--h2-navy);
+  color: #fff;
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+/* color re-asserted here, not just on the base .ctaPrimary - the global
+   vendor rule `a, a:hover { color: inherit }` (public/assets/css/
+   master.min.css) has specificity (0,1,1), which beats a plain
+   .ctaPrimary { color: #fff } (0,1,0) during :hover, silently swapping the
+   text to inherit (this card's ambient text color) and making it
+   unreadable against the navy fill. Same fix applied to every other
+   anchor-based button below. */
+.ctaPrimary:hover,
+.ctaPrimary:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -14px rgba(7, 26, 51, 0.5);
+  color: #fff;
+  outline: none;
 }
 
 .ctaPrimaryArrow {
@@ -152,36 +191,32 @@
   transform: translateX(4px);
 }
 
+/* Glass secondary, matching Hero's .btnSecondary. */
 .ctaSecondary {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 13px 30px;
-  /* var(--color-primary) directly, not the shared --primary token - see
-     .ctaPrimary's comment above for why (master.min.css also defines
-     --primary, as orange, and can win the cascade). */
-  border: 1.5px solid var(--color-primary);
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  color: var(--color-primary);
-  font-family: var(--font-nav);
+  padding: 14px 21px;
+  border: 1px solid var(--h2-line);
+  border-radius: 14px;
+  background: var(--h2-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--h2-ink);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-size: 0.95rem;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
-  transition: background-color 300ms ease, color 300ms ease, box-shadow 300ms ease;
+  transition: background-color 300ms ease, transform 300ms ease;
 }
 
 .ctaSecondary:hover,
 .ctaSecondary:focus-visible {
-  background: var(--color-primary-button);
-  /* --text-primary, not --color-neutral-darkest: same text-on-yellow
-     convention used everywhere else (navbar buttons, footer CTA) - avoids
-     a near-black text color, which is a client preference (no black
-     anywhere, text or background). */
-  color: var(--text-primary);
-  box-shadow: var(--shadow);
+  background: #fff;
+  transform: translateY(-3px);
+  color: var(--h2-ink);
   outline: none;
 }
 
@@ -193,6 +228,9 @@
   align-content: start;
 }
 
+/* Glass card, matching Hero's .heroCard / the reference's .card.glass -
+   the section itself is transparent now (see .expertise above), so the
+   blur actually has the aurora behind it to pick up. */
 .expertiseCard {
   padding: 30px 26px;
   /* Deliberately not var(--radius-lg) (20px): that token is shared with
@@ -200,13 +238,11 @@
      raising it to the 22-24px this spec asks for would silently round the
      mega menu's corners too. Kept as an explicit local value instead. */
   border-radius: 22px;
-  background: var(--surface);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  /* Stronger than the shared var(--shadow) (which is quite subtle, tuned
-     for smaller elements) - these cards sit on a light-gray section
-     background close in value to their own white fill, so a soft shadow
-     alone left them reading flat/pale instead of visibly elevated. */
-  box-shadow: 0 16px 36px -22px rgba(15, 23, 42, 0.22);
+  background: var(--h2-glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12);
   transition: transform 350ms ease, box-shadow 350ms ease, border-color 350ms ease;
   animation: as-fade-up 700ms ease both;
   animation-timeline: view();
@@ -229,8 +265,8 @@
 
 .expertiseCard:hover {
   transform: translateY(-8px);
-  border-color: var(--color-logo-yellow);
-  box-shadow: 0 28px 56px -20px rgba(15, 23, 42, 0.22);
+  border-color: var(--h2-gold);
+  box-shadow: 0 28px 56px -20px rgba(7, 26, 51, 0.3);
 }
 
 /* Solid gradient badge with a dark glyph, not a pale tint with a
@@ -247,37 +283,34 @@
   height: 58px;
   margin-bottom: 20px;
   border-radius: 16px;
-  /* Gradient between two vibrant golds (button + base primary), not
-     fading down into the muddy olive of --color-primary-darker - kept the
-     depth of a gradient (vs. a flat fill) without it reading dull next to
-     the genuinely bright yellow buttons below. */
-  background: linear-gradient(135deg, var(--color-primary-button) 0%, var(--color-primary) 100%);
-  box-shadow: 0 10px 20px -8px rgba(254, 190, 14, 0.5);
-  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--h2-gold-2) 0%, var(--h2-gold) 100%);
+  box-shadow: 0 10px 20px -8px rgba(245, 181, 27, 0.5);
+  color: var(--h2-navy);
   font-size: 1.5rem;
   transition: box-shadow 350ms ease, transform 350ms ease;
 }
 
 .expertiseCard:hover .expertiseCardIcon {
-  box-shadow: 0 14px 26px -8px rgba(254, 190, 14, 0.65);
+  box-shadow: 0 14px 26px -8px rgba(245, 181, 27, 0.65);
   transform: rotate(-6deg) scale(1.05);
 }
 
+/* Manrope, like the reference's own <h3> card titles (its h1/h2/h3 rule). */
 .expertiseCardTitle {
   margin: 0 0 10px;
-  font-family: var(--font-nav);
+  font-family: var(--font-manrope), var(--font-nav);
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--h2-ink);
 }
 
 .expertiseCardDesc {
   margin: 0;
-  font-family: var(--font-nav);
+  font-family: var(--font-dmsans), var(--font-nav);
   font-size: 0.88rem;
   font-weight: 500;
   line-height: 1.55;
-  color: var(--text-secondary);
+  color: var(--h2-muted);
 }
 
 @media (max-width: 1024px) {
@@ -394,395 +427,378 @@
 
 @media (prefers-reduced-motion: reduce) {
   .expertise *,
+  .sapBand *,
+  .cloudSection *,
   .about *,
   .whyUs *,
   .whyUs *::before,
-  .whyUs *::after {
+  .whyUs *::after,
+  .contactCta * {
     animation: none !important;
     transition: none !important;
   }
 }
 
-/* ---------- "About Us" section ---------- */
+/* ---------- "SAP Business One" band ---------- */
+/* New section, added from the client reference (its own id="sap" band +
+   feature-grid) - not a restyle of anything pre-existing. Sits directly
+   under .expertise (no top padding of its own; .expertise's own 110px
+   bottom padding is the gap above it), so it reads as the very next block
+   on the same transparent/aurora backdrop as the sections around it. */
 
-.about {
-  padding-block: 110px;
-  background: var(--surface);
-  overflow: clip;
+.sapBand {
+  padding-block: 0 110px;
 }
 
-.aboutHeader {
-  max-width: 780px;
-  margin: 0 auto 60px;
-  padding-inline: 32px;
-  text-align: center;
-  animation: as-fade-up 700ms ease both;
-  /* Scroll-triggered instead of on-mount: this section is below the fold,
-     so an on-mount animation had already finished by the time anyone
-     scrolled down to see it. animation-timeline: view() ties it to scroll
-     position instead - plays once as the element enters the viewport.
-     Unsupported browsers just ignore these two lines and keep today's
-     on-mount behavior (graceful fallback, not broken). */
-  animation-timeline: view();
-  animation-range: entry 0% entry 55%;
-}
-
-.aboutTitle {
-  margin: 0;
-  font-family: ui-sans-serif, sans-serif;
-  font-weight: 800;
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  line-height: 1.16;
-  letter-spacing: -0.015em;
-  color: var(--text-primary);
-}
-
-.aboutInner {
-  display: grid;
-  /* Was 48fr 52fr - the wheel diagram reads small/underweight at that
-     size (it's centered artwork with its own internal whitespace, unlike
-     the previous photo which filled its whole frame edge-to-edge), so the
-     media column gets more room to let it sit larger. */
-  grid-template-columns: 42fr 58fr;
-  align-items: center;
-  column-gap: 90px;
+.sapBandInner {
   max-width: 1320px;
   margin: 0 auto;
   padding-inline: 32px;
 }
 
-.aboutText {
+.sapBandCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 34px;
+  padding: 45px;
+  background: linear-gradient(115deg, var(--h2-navy), #0c3973 55%, #164f99);
+  color: #fff;
   animation: as-fade-up 700ms ease both;
   animation-timeline: view();
   animation-range: entry 0% entry 55%;
 }
 
-/* Same white-card treatment as .floatCard on the image (background/
-   shadow/hover) instead of a flat gray box - reads as one consistent
-   "stat card" family across both columns rather than two unrelated
-   styles either side of the gap. */
-.aboutStatCard {
+/* Soft gold glow in the top-right corner, matching the reference's own
+   .band:after. */
+.sapBandCard::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  right: -100px;
+  top: -130px;
+  background: radial-gradient(circle, var(--h2-gold-2), transparent 66%);
+  opacity: 0.55;
+}
+
+.sapBandGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.sapBandEyebrow {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--h2-gold-2);
+}
+
+.sapBandTitle {
+  margin: 0;
+  font-family: var(--font-manrope), var(--font-nav);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: #fff;
+}
+
+.sapBandDesc {
+  margin: 12px 0 0;
+  max-width: 680px;
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #c9d9ef;
+}
+
+.sapBandCta {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 26px;
-  padding: 16px 24px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  box-shadow: var(--shadow-hover);
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border-radius: 14px;
+  background: #fff;
+  color: var(--h2-navy);
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
   transition: transform 300ms ease, box-shadow 300ms ease;
 }
 
-.aboutStatCard:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-menu);
+.sapBandCta:hover,
+.sapBandCta:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.45);
+  color: var(--h2-navy);
+  outline: none;
 }
 
-.aboutStatIcon {
+.sapFeatureGrid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Glass card, matching .expertiseCard/.aboutStatCard/.floatCard. */
+.sapFeature {
   display: flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--color-logo-yellow) 16%, white);
-  color: var(--color-logo-yellow);
-  font-size: 1.3rem;
-}
-
-.aboutStatCard > div {
-  display: flex;
-  flex-direction: column;
-}
-
-.aboutStatNumber {
-  font-family: var(--font-nav);
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--text-primary);
-}
-
-.aboutStatLabel {
-  font-family: var(--font-nav);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-/* Opening statement, styled apart from the two plain paragraphs below it -
-   larger/bolder/darker, so the section leads with one confident line
-   instead of three uniform paragraphs of the same weight (which is what
-   read as plain/ordinary). */
-.aboutLead {
-  margin: 0 0 18px;
-  max-width: 560px;
-  font-family: var(--font-nav);
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.65;
-  color: var(--text-primary);
-}
-
-.aboutLeadHighlight {
-  color: var(--color-primary-darker);
-}
-
-.aboutParagraph {
-  margin: 0 0 18px;
-  max-width: 560px;
-  font-family: var(--font-nav);
-  font-size: 1rem;
-  font-weight: 500;
-  /* 1.7, not 1.8 - a touch tighter so the paragraphs read as connected
-     blocks instead of loosely spaced lines. */
-  line-height: 1.7;
-  color: var(--color-secondary-darker);
-}
-
-.aboutCta {
-  box-sizing: border-box;
-  margin-top: 10px;
-  text-decoration: none;
-  /* Same as .ctaPrimary above (large-fill softened token, not raw
-     --color-primary or the --primary alias - see that comment for why). */
-  background: var(--color-primary-button);
-}
-
-.aboutCtaArrow {
-  transition: transform 300ms ease;
-}
-
-.aboutCta:hover .aboutCtaArrow,
-.aboutCta:focus-visible .aboutCtaArrow {
-  transform: translateX(4px);
-}
-
-.aboutMedia {
-  position: relative;
-  animation: as-fade-up 700ms ease 150ms both;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 28px;
+  border-radius: 25px;
+  background: var(--h2-glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12);
+  animation: as-fade-up 700ms ease both;
   animation-timeline: view();
   animation-range: entry 0% entry 55%;
 }
 
-/* Deliberately simple: a flex box that centers a naturally-sized image,
-   not Next's `fill` + object-fit + absolute-positioned inset wrapper (the
-   previous approach here) - swapped after that combination reproducibly
-   showed the wheel's ring intact but its outer text labels missing on the
-   live page, while the exact same file/URL opened directly always showed
-   the complete image with every label. Root cause not conclusively
-   isolated (forcing object-fit: contain !important didn't fix it either,
-   which rules out a simple cascade collision) - rather than keep
-   debugging that specific combination blind, this sidesteps it with a
-   plainer, harder-to-get-wrong pattern: padding for the margin the
-   floating stat cards need to clear the wheel's labels, and an
-   intrinsically-sized <Image width height> that just scales down to fit,
-   no object-fit/fill/absolute-positioning involved at all. */
-.aboutImageWrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  padding: 20px;
-  box-sizing: border-box;
+.sapFeature:nth-child(2) {
+  animation-delay: 90ms;
 }
 
-.aboutImage {
-  width: 100%;
-  height: auto;
-  max-height: 100%;
+.sapFeature:nth-child(3) {
+  animation-delay: 180ms;
 }
 
-.floatCard {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  /* Flex/grid items default to min-width:auto, which floors their size at
-     their content's min-content width - in the ≤1024px grid layout that
-     let three cards' intrinsic width exceed their column, eating into
-     (or erasing) the grid gap between them. min-width:0 lets the card
-     actually shrink to its column so the gap is never squeezed out. */
-  min-width: 0;
-  padding: 14px 20px;
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  box-shadow: var(--shadow-hover);
-  animation: as-float 4.5s ease-in-out infinite, as-fade-up 700ms ease both;
-  /* Two timelines, matched by position to the two animations above: the
-     continuous float keeps running on the normal clock (auto), only the
-     one-time entrance is tied to scroll position. */
-  animation-timeline: auto, view();
-  animation-range: normal, entry 0% entry 55%;
-  transition: transform 300ms ease, box-shadow 300ms ease;
+.sapFeature:nth-child(4) {
+  animation-delay: 270ms;
 }
 
-.floatCard:hover {
-  box-shadow: var(--shadow-menu);
-  transform: translateY(-6px) scale(1.02);
+.sapFeatureIcon {
+  flex: 0 0 48px;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, var(--h2-gold-2) 0%, var(--h2-gold) 100%);
+  color: var(--h2-navy);
+  font-family: var(--font-manrope), var(--font-nav);
+  font-size: 0.95rem;
+  font-weight: 800;
 }
 
-.floatCardIcon {
-  display: flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--color-logo-yellow) 16%, white);
-  color: var(--color-logo-yellow);
+.sapFeatureTitle {
+  margin: 0 0 6px;
+  font-family: var(--font-manrope), var(--font-nav);
   font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--h2-ink);
 }
 
-.floatCard > div {
+.sapFeatureDesc {
+  margin: 0;
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--h2-muted);
+}
+
+@media (max-width: 1024px) {
+  .sapBand {
+    padding-block: 0 80px;
+  }
+
+  .sapBandGrid {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .sapBandCta {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .sapBand {
+    padding-block: 0 56px;
+  }
+
+  .sapBandInner {
+    padding-inline: 20px;
+  }
+
+  .sapBandCard {
+    padding: 32px 24px;
+  }
+
+  .sapFeatureGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- "Cloud ERP" section ---------- */
+/* New section, added from the client reference (its own id="cloud"
+   section) - not a restyle of anything pre-existing. Card grid reuses
+   .expertiseCard/-Icon/-Title/-Desc directly (see the JSX) rather than
+   redeclaring the same glass-card styling under new class names - same
+   visual language, one definition. */
+
+.cloudSection {
+  padding-block: 0 110px;
+}
+
+.cloudHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  max-width: 1320px;
+  margin: 0 auto 34px;
+  padding-inline: 32px;
+  animation: as-fade-up 700ms ease both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
+}
+
+.cloudEyebrow {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--h2-blue);
+}
+
+.cloudTitle {
+  margin: 0;
+  max-width: 640px;
+  font-family: var(--font-manrope), var(--font-nav);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--h2-ink);
+}
+
+.cloudDesc {
+  margin: 0;
+  max-width: 460px;
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--h2-muted);
+}
+
+.cloudCards {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-inline: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .cloudSection {
+    padding-block: 0 80px;
+  }
+
+  .cloudHead {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-inline: 24px;
+  }
+
+  .cloudDesc {
+    max-width: none;
+  }
+
+  .cloudCards {
+    padding-inline: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cloudSection {
+    padding-block: 0 56px;
+  }
+
+  .cloudHead {
+    padding-inline: 20px;
+  }
+
+  .cloudCards {
+    padding-inline: 20px;
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- "About Us" section ---------- */
+
+/* Transparent, like .expertise above it (see that section's own comment) -
+   keeps this section on the same fixed aurora backdrop from Hero instead
+   of breaking back to a flat white plate between two now-glass sections. */
+.about {
+  padding-block: 110px;
+  background: transparent;
+}
+
+/* Reuses .cloudHead/.cloudEyebrow/.cloudTitle/.cloudDesc (Cloud ERP
+   section, above) for the header, and .cloudCards + .expertiseCard/-Icon/
+   -Title/-Desc (Our SAP Expertise section) for the card grid itself - same
+   split-header + glass-card layout, so this section doesn't redeclare it
+   under new class names (see also .aboutCardList below, the one piece
+   that's actually new: each card's checklist, which those reused card
+   classes don't have). */
+
+.aboutCardList {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  gap: 7px;
 }
 
-.floatCardNumber {
-  font-family: var(--font-nav);
-  font-size: 1.15rem;
-  font-weight: 800;
-  line-height: 1.2;
-  color: var(--text-primary);
+.aboutCardListItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 0.85rem;
+  color: var(--h2-muted);
 }
 
-.floatCardLabel {
-  font-family: var(--font-nav);
-  font-size: 0.78rem;
-  font-weight: 600;
-  white-space: nowrap;
-  color: var(--text-secondary);
-}
-
-.floatCard--experience {
-  top: 6%;
-  right: -6%;
-  animation-delay: 0ms, 200ms;
-}
-
-.floatCard--clients {
-  bottom: 14%;
-  left: -8%;
-  animation-delay: 900ms, 350ms;
-}
-
-.floatCard--industries {
-  bottom: -6%;
-  right: 8%;
-  animation-delay: 1500ms, 500ms;
-}
-
-@media (max-width: 1180px) {
-  .floatCard--experience {
-    right: 4px;
-  }
-
-  .floatCard--clients {
-    left: 4px;
-  }
-
-  .floatCard--industries {
-    right: 4px;
-  }
+.aboutCardListItem::before {
+  content: "✓";
+  flex: none;
+  font-weight: 900;
+  color: var(--h2-gold);
 }
 
 @media (max-width: 1024px) {
   .about {
     padding-block: 80px;
   }
-
-  .aboutHeader {
-    margin-bottom: 44px;
-    padding-inline: 24px;
-  }
-
-  .aboutInner {
-    grid-template-columns: 1fr;
-    row-gap: 64px;
-    padding-inline: 24px;
-  }
-
-  .aboutParagraph {
-    max-width: none;
-  }
-
-  /* Once the columns stack, the image no longer has a wide sibling column
-     bounding its width, so the absolute-positioned float cards' -6%/-8%
-     offsets (sized for the desktop split) collide with each other around
-     the now-centered, narrower image. Drop to a static grid beneath the
-     image instead - same breakpoint the column stack itself uses, since
-     that's what actually changes the available width. Image spans the
-     full row; the three cards share the remaining columns evenly. */
-  .aboutMedia {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    width: 100%;
-  }
-
-  .aboutImageWrap {
-    grid-column: 1 / -1;
-  }
-
-  /* No explicit width here - grid's default stretch already fills the
-     column, correctly subtracting the card's own padding/border. An
-     explicit width:100% would instead set the content box to 100% of the
-     column and let padding add on top, pushing the card past its column
-     into the gap (content-box is this project's box-sizing default). */
-  .floatCard {
-    position: static;
-    animation: as-fade-up 700ms ease both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 55%;
-  }
-
-  .floatCardLabel {
-    white-space: normal;
-  }
-}
-
-/* Below this, three equal-width cards get too narrow to hold their
-   content - switch to one per row. */
-@media (max-width: 555px) {
-  .aboutMedia {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 640px) {
   .about {
     padding-block: 56px;
-  }
-
-  .aboutHeader {
-    margin-bottom: 36px;
-    padding-inline: 20px;
-  }
-
-  .aboutInner {
-    row-gap: 48px;
-    padding-inline: 20px;
-  }
-
-  .aboutStatCard {
-    width: 100%;
-  }
-
-  .aboutCta {
-    justify-content: center;
-    width: 100%;
-  }
-}
-
-@media (max-width: 420px) {
-  .floatCard {
-    flex-wrap: wrap;
   }
 }
 
@@ -1121,5 +1137,141 @@
 
   .whyUsDesc {
     margin-bottom: 40px;
+  }
+}
+
+/* ---------- Contact CTA section ---------- */
+/* New section, added from the client reference (its own id="contact"
+   section) - sits after WhyBusinessesChooseUs and right before the global
+   Footer (see app/page.jsx), as a closing call-to-action before the page
+   ends. */
+
+.contactCta {
+  padding-block: 0 110px;
+}
+
+.contactCtaOuter {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-inline: 32px;
+}
+
+.contactCtaCard {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 40px;
+  border-radius: 34px;
+  text-align: center;
+  background: var(--h2-glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12);
+  animation: as-fade-up 700ms ease both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
+}
+
+.contactCtaEyebrow {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--h2-blue);
+}
+
+.contactCtaTitle {
+  margin: 0 auto;
+  max-width: 620px;
+  font-family: var(--font-manrope), var(--font-nav);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--h2-ink);
+}
+
+.contactCtaDesc {
+  margin: 15px auto 0;
+  max-width: 560px;
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--h2-muted);
+}
+
+.contactCtaActions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.contactCtaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 14px;
+  background: var(--h2-navy);
+  color: #fff;
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.contactCtaPrimary:hover,
+.contactCtaPrimary:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -14px rgba(7, 26, 51, 0.5);
+  color: #fff;
+  outline: none;
+}
+
+.contactCtaSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 24px;
+  border-radius: 14px;
+  border: 1px solid var(--h2-line);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--h2-ink);
+  font-family: var(--font-dmsans), var(--font-nav);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 300ms ease, transform 300ms ease;
+}
+
+.contactCtaSecondary:hover,
+.contactCtaSecondary:focus-visible {
+  background: #fff;
+  transform: translateY(-3px);
+  color: var(--h2-ink);
+  outline: none;
+}
+
+@media (max-width: 640px) {
+  .contactCta {
+    padding-block: 0 56px;
+  }
+
+  .contactCtaOuter {
+    padding-inline: 20px;
+  }
+
+  .contactCtaCard {
+    padding: 48px 24px;
+  }
+
+  .contactCtaActions {
+    flex-direction: column;
+    align-items: stretch;
   }
 }

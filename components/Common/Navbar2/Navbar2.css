@@ -168,7 +168,14 @@
   left: 0;
   right: 0;
   margin-top: 10px;
-  background: var(--h2-glass);
+  /* Near-opaque, not var(--h2-glass) (rgba(255,255,255,.64)) - that value
+     works fine for the navbar pill and Hero's cards, which sit over the
+     soft aurora background, but this panel is dense with real body text
+     over whatever page content happens to be scrolled underneath it, and
+     .64 alpha + blur wasn't enough to keep that from bleeding through and
+     becoming illegible. Still frosted (blur stays), just far less
+     see-through. */
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-radius: 22px;
@@ -229,7 +236,9 @@
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: var(--radius-md);
-  background: var(--h2-glass);
+  /* Near-opaque, not var(--h2-glass) - see .as-nav2-mega-menu-wrap's
+     comment above for why (readable text over blur alone). */
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12);
@@ -301,9 +310,15 @@
   color: var(--h2-ink);
 }
 
+/* color re-asserted on :hover - unlike Book Slot/Login (plain <button>s,
+   see Navbar2.jsx), Contact Us is a <Link> (an <a>), so it's subject to
+   the global vendor rule `a, a:hover { color: inherit }`
+   (public/assets/css/master.min.css), whose (0,1,1) specificity beats a
+   plain .as-nav2-contact-btn { color: ... } (0,1,0) during :hover. */
 .as-nav2-contact-btn:hover {
   border-color: var(--h2-gold);
   background: #fff;
+  color: var(--h2-ink);
 }
 
 /* ---------- Right-side actions (Login + mobile hamburger) ---------- */
@@ -402,7 +417,9 @@ button.as-nav2-login-btn {
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: var(--radius-md);
-  background: var(--h2-glass);
+  /* Near-opaque, not var(--h2-glass) - see .as-nav2-mega-menu-wrap's
+     comment above for why (readable text over blur alone). */
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12);

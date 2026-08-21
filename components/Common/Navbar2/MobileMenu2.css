@@ -178,6 +178,7 @@
 .as-mobilemenu-leaf-link:hover,
 .as-mobilemenu-plain-link:hover {
   background: var(--surface-light);
+  color: var(--text-primary);
 }
 
 .as-mobilemenu-leaf-group {
@@ -265,6 +266,12 @@
   color: var(--text-primary);
 }
 
+/* color re-asserted on :hover - unlike Book Slot (a plain <button>, see
+   MobileMenu2.jsx), Contact Us is a <Link> (an <a>), so it's subject to
+   the global vendor rule `a, a:hover { color: inherit }`
+   (public/assets/css/master.min.css), whose (0,1,1) specificity beats a
+   plain .as-mobilemenu-contact-btn { color: ... } (0,1,0) during :hover. */
 .as-mobilemenu-contact-btn:hover {
   background: var(--surface-light);
+  color: var(--text-primary);
 }
