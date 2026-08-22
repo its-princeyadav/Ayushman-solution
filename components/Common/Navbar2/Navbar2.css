@@ -172,12 +172,17 @@
      works fine for the navbar pill and Hero's cards, which sit over the
      soft aurora background, but this panel is dense with real body text
      over whatever page content happens to be scrolled underneath it, and
-     .64 alpha + blur wasn't enough to keep that from bleeding through and
-     becoming illegible. Still frosted (blur stays), just far less
-     see-through. */
+     .64 alpha wasn't enough to keep that from bleeding through and
+     becoming illegible.
+     No backdrop-filter here (unlike .as-nav2-inner above) - a
+     backdrop-filter on a descendant of a `position: sticky` element has a
+     known Chromium/WebKit bug where the sampled backdrop can freeze on a
+     stale paint from an earlier scroll position instead of updating live,
+     which is exactly what "ghosted, wrong-section text" behind this panel
+     turned out to be. At 97% opacity the blur wasn't doing much real work
+     anyway - dropping it removes the bug instead of trying to work around
+     it. */
   background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   border-radius: 22px;
   border: 1px solid rgba(255, 255, 255, 0.75);
   box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12);
@@ -236,11 +241,10 @@
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: var(--radius-md);
-  /* Near-opaque, not var(--h2-glass) - see .as-nav2-mega-menu-wrap's
-     comment above for why (readable text over blur alone). */
+  /* Near-opaque, no backdrop-filter - see .as-nav2-mega-menu-wrap's
+     comment above for why (readable text, and avoids the sticky-ancestor
+     backdrop-filter staleness bug). */
   background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12);
   opacity: 0;
   visibility: hidden;
@@ -417,11 +421,10 @@ button.as-nav2-login-btn {
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: var(--radius-md);
-  /* Near-opaque, not var(--h2-glass) - see .as-nav2-mega-menu-wrap's
-     comment above for why (readable text over blur alone). */
+  /* Near-opaque, no backdrop-filter - see .as-nav2-mega-menu-wrap's
+     comment above for why (readable text, and avoids the sticky-ancestor
+     backdrop-filter staleness bug). */
   background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12);
   opacity: 0;
   visibility: hidden;

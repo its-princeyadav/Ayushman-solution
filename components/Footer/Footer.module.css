@@ -50,7 +50,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  max-width: 1320px;
+  /* 1180px, not 1320px - matches Hero's .inner and the navbar pill's own
+     width (min(1180px,92%)) exactly, so footer content never extends past
+     the navbar's edges while it's floating overhead during scroll. */
+  max-width: 1180px;
   margin: 0 auto;
   padding: 72px 32px;
   animation: footerFadeUp 700ms ease both;
@@ -153,7 +156,8 @@
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: 48px;
-  max-width: 1320px;
+  /* 1180px, matching the navbar - see .ctaInner's own comment above. */
+  max-width: 1180px;
   margin: 0 auto;
   padding: 64px 32px;
   animation: footerFadeUp 700ms ease 100ms both;
@@ -319,7 +323,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  max-width: 1320px;
+  /* 1180px, matching the navbar - see .ctaInner's own comment above. */
+  max-width: 1180px;
   margin: 0 auto;
   padding: 24px 32px;
   font-size: 0.85rem;

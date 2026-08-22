@@ -23,7 +23,12 @@
     "cta   cards";
   column-gap: 88px;
   row-gap: 36px;
-  max-width: 1320px;
+  /* 1180px, not the old 1320px - matches Hero's .inner and the navbar
+     pill's own width (min(1180px,92%)) exactly, so this section's content
+     never extends past the navbar's edges while it's floating overhead
+     during scroll (previously wider content here was visibly peeking out
+     past both sides of the narrower nav pill). */
+  max-width: 1180px;
   margin: 0 auto;
   padding-inline: 32px;
 }
@@ -441,17 +446,28 @@
 
 /* ---------- "SAP Business One" band ---------- */
 /* New section, added from the client reference (its own id="sap" band +
-   feature-grid) - not a restyle of anything pre-existing. Sits directly
-   under .expertise (no top padding of its own; .expertise's own 110px
-   bottom padding is the gap above it), so it reads as the very next block
-   on the same transparent/aurora backdrop as the sections around it. */
+   feature-grid) - not a restyle of anything pre-existing. Reads as the
+   next block on the same transparent/aurora backdrop as the sections
+   around it. */
 
+/* Symmetric padding, not "0 top" (an earlier attempt to avoid stacking
+   this section's top gap on top of .expertise's own bottom padding) - the
+   reference itself actually does stack these (its own `section{padding:
+   90px 0}` applies uniformly, so adjacent sections' gaps do add up), and
+   removing this section's own top padding left its heading sitting flush
+   against its own box edge with no clearance from the floating sticky
+   navbar - at some scroll positions the navbar pill was overlapping the
+   "SAP Business One" heading directly instead of passing over blank
+   padding. Matches the reference's actual behavior and fixes the
+   overlap. */
 .sapBand {
-  padding-block: 0 110px;
+  padding-block: 110px;
 }
 
 .sapBandInner {
-  max-width: 1320px;
+  /* 1180px, matching Hero's .inner/the navbar - see .expertiseInner's own
+     comment above. */
+  max-width: 1180px;
   margin: 0 auto;
   padding-inline: 32px;
 }
@@ -615,7 +631,7 @@
 
 @media (max-width: 1024px) {
   .sapBand {
-    padding-block: 0 80px;
+    padding-block: 80px;
   }
 
   .sapBandGrid {
@@ -630,7 +646,7 @@
 
 @media (max-width: 640px) {
   .sapBand {
-    padding-block: 0 56px;
+    padding-block: 56px;
   }
 
   .sapBandInner {
@@ -653,8 +669,11 @@
    redeclaring the same glass-card styling under new class names - same
    visual language, one definition. */
 
+/* Symmetric padding - see .sapBand's own comment above for why this isn't
+   "0 top" (that shortcut left this section's heading with no clearance
+   from the floating sticky navbar at some scroll positions). */
 .cloudSection {
-  padding-block: 0 110px;
+  padding-block: 110px;
 }
 
 .cloudHead {
@@ -662,7 +681,9 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 30px;
-  max-width: 1320px;
+  /* 1180px, matching Hero's .inner/the navbar - see .expertiseInner's own
+     comment above. */
+  max-width: 1180px;
   margin: 0 auto 34px;
   padding-inline: 32px;
   animation: as-fade-up 700ms ease both;
@@ -702,7 +723,9 @@
 }
 
 .cloudCards {
-  max-width: 1320px;
+  /* 1180px, matching Hero's .inner/the navbar - see .expertiseInner's own
+     comment above. */
+  max-width: 1180px;
   margin: 0 auto;
   padding-inline: 32px;
   display: grid;
@@ -712,7 +735,7 @@
 
 @media (max-width: 1024px) {
   .cloudSection {
-    padding-block: 0 80px;
+    padding-block: 80px;
   }
 
   .cloudHead {
@@ -734,7 +757,7 @@
 
 @media (max-width: 640px) {
   .cloudSection {
-    padding-block: 0 56px;
+    padding-block: 56px;
   }
 
   .cloudHead {
@@ -1146,12 +1169,16 @@
    Footer (see app/page.jsx), as a closing call-to-action before the page
    ends. */
 
+/* Symmetric padding - see .sapBand's own comment (app/page.module.css,
+   "SAP Business One" band) for why this isn't "0 top". */
 .contactCta {
-  padding-block: 0 110px;
+  padding-block: 110px;
 }
 
 .contactCtaOuter {
-  max-width: 1320px;
+  /* 1180px, matching Hero's .inner/the navbar - see .expertiseInner's own
+     comment above. */
+  max-width: 1180px;
   margin: 0 auto;
   padding-inline: 32px;
 }
@@ -1259,7 +1286,7 @@
 
 @media (max-width: 640px) {
   .contactCta {
-    padding-block: 0 56px;
+    padding-block: 56px;
   }
 
   .contactCtaOuter {

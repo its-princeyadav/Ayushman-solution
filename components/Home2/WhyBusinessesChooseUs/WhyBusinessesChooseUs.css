@@ -12,7 +12,11 @@
 }
 
 .home2WhyChoose-inner {
-  max-width: 1280px;
+  /* 1180px, not the old 1280px - matches Hero's .inner and the navbar
+     pill's own width (min(1180px,92%)) exactly, so this section's content
+     never extends past the navbar's edges while it's floating overhead
+     during scroll. */
+  max-width: 1180px;
   margin: 0 auto;
   padding-inline: 32px;
 }
