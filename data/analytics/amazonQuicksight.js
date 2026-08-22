@@ -108,7 +108,6 @@ export const amazonQuicksight = {
       "Our data experts know that enterprises which effectively derive critical insights from data and use them to make business decisions are far more likely to acquire customers and remain profitable than those that don't. Adopting business intelligence can feel like a daunting task, given the complexity and cost of implementing a BI platform on your own. Ayushman Solutions, as an AWS consulting and implementation partner, helps enterprises use Amazon QuickSight to quickly process and analyze data and unveil actionable insights. Our AWS visualization architects collaborate with your team to fetch better insights from intuitive, interactive dashboards.",
       "As an AWS partner in India, we have a proven track record of guiding enterprises with cloud-based consulting services. We help you implement the AWS Business Intelligence platform into your ecosystem, streamline processes and empower your workforce to unlock the true power of data. As a trustworthy Amazon QuickSight delivery partner, we help you use a robust self-service analytics platform — whatever your business use case, our AWS data engineering experts help you leverage every capability QuickSight offers.",
     ],
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 60%)",
     buttons: [
       { label: "Analytic Services", href: "#contact", variant: "primary" },
       { label: "Let's Talk", href: "#contact", variant: "outline" },

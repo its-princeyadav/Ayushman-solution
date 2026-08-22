@@ -18,10 +18,10 @@
   background: var(--sap-white);
 }
 
+/* Intentionally no background - lets the shared global aurora background
+   (SapAuroraBackground) show through instead of a flat yellow tint. */
 .tintLight {
-  background: var(--sap-bg-tint-soft);
 }
 
 .tintGradient {
-  background: linear-gradient(180deg, var(--sap-white) 0%, var(--sap-bg-tint-soft) 100%);
 }

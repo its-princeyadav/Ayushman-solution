@@ -1,0 +1,28 @@
+/* Same fixed aurora + grid background as the homepage Hero
+   (components/Hero/Hero.module.css .aurora/.gridBg) - values copied
+   verbatim so the two stay visually identical. Mounted once by
+   app/sap/layout.jsx (see that file's own note) instead of duplicated
+   per SAP page. */
+
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: radial-gradient(circle at 15% 10%, rgba(245, 181, 27, 0.2), transparent 28%),
+    radial-gradient(circle at 88% 18%, rgba(11, 91, 211, 0.16), transparent 30%),
+    radial-gradient(circle at 70% 75%, rgba(120, 170, 255, 0.16), transparent 32%),
+    linear-gradient(135deg, #f8fbff, #eef5ff 45%, #f9fbff);
+}
+
+.gridBg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.45;
+  background-image: linear-gradient(rgba(11, 91, 211, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 91, 211, 0.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, #000, transparent 85%);
+}

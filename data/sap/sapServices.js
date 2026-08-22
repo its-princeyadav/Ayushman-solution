@@ -157,7 +157,6 @@ export const sapServices = {
     title: "Eco-conscious Progress with Ayushman Solution - Leading SAP Service Provider",
     description:
       "What is your Go-Green Quotient? How deep-seated is sustainability in your Enterprise Value Chain? One of the crucial aspects of becoming a responsible entrepreneur is meeting environmental regulations and reporting requirements. Sustainability is a prime consideration in all human activity for Ayushman Solution - a leading SAP Service Provider. We stand by our motto of focused innovation, where technological progression and energy generation are in harmony with the environment. SAP + Ayushman Solution - Together we aim to take People and Planet together. Ayushman Solution aims to create a sustainable, transparent, and accountable ERP Solutioning environment that brings the greatest impact in terms of operational prowess. We aspire to chase 'Zero Journey' that aims for zero emissions and zero waste. As a progressive and aspiring SAP service provider, we are committed to collaborating and co-innovating with our diverse ecosystem of partners to help businesses achieve operational and financial excellence and drive sustainability at scale. Ready to be unlocked with Ayushman Solution Chasing Zero Journey with SAP Solutions?",
-    background: "linear-gradient(120deg, var(--sap-bg-tint-soft) 0%, var(--sap-white) 60%)",
     buttons: [
       { label: "SAP Business One", href: "#", variant: "primary" },
       { label: "Talk to Service Provider", href: "#", variant: "outline" },

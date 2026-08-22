@@ -132,7 +132,6 @@ export const tableauImplementation = {
     title: "Our Edge: Tableau Implementation Consulting and User Adoption",
     description:
       "Ayushman Solutions is a distinguished Tableau implementation company that operates as a seasoned Tableau service implementation partner, specializing in comprehensive consulting solutions across business intelligence, data visualization and analytics. Our Tableau implementation consulting encompasses requirements analysis, data source integration, architecture design, dashboard development, performance optimization and seamless integration with existing IT infrastructures, underpinned by a holistic understanding of data governance, security protocols and compliance standards. We are equally committed to user adoption — through methodical training programs, intuitive workshops and responsive user support, we ensure end-users derive maximal value from Tableau's capabilities and organizations experience heightened efficiency, agility and competitive advantage.",
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 60%)",
     buttons: [
       { label: "Request Quote", href: "#contact", variant: "primary" },
       { label: "Let's Talk", href: "#contact", variant: "outline" },

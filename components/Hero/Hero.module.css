@@ -218,12 +218,12 @@
   font-weight: 700;
 }
 
-/* CSS-only "chart" - a gradient panel with a faint horizontal gridline
-   pattern, plus one skewed, bottom-bordered div (.chartLine) standing in
-   for a rising trend line. No image/canvas/SVG, exactly matching how the
-   reference itself builds this. */
+/* Animated bar-chart panel - a gradient backdrop, faint horizontal
+   gridlines, and 12 independently-pulsing bars (one highlighted in brand
+   yellow with a value tooltip). Replaces the old single skewed "trend
+   line" mock. */
 .chart {
-  height: 170px;
+  height: 185px;
   border-radius: 18px;
   background: linear-gradient(180deg, #f2f7ff, #fff);
   position: relative;
@@ -231,23 +231,167 @@
   margin-bottom: 14px;
 }
 
-.chart::before {
-  content: "";
+.gridLines {
   position: absolute;
-  inset: 20px;
-  background: linear-gradient(180deg, transparent 0 48%, rgba(11, 91, 211, 0.07) 49% 50%, transparent 51%);
-  background-size: 100% 42px;
+  inset: 14px 14px 28px;
+  background-image: repeating-linear-gradient(
+    to top,
+    rgba(11, 91, 211, 0.08) 0,
+    rgba(11, 91, 211, 0.08) 1px,
+    transparent 1px,
+    transparent 25%
+  );
+  pointer-events: none;
 }
 
-.chartLine {
+.bars {
   position: absolute;
-  left: 8%;
-  right: 7%;
-  top: 34%;
-  height: 90px;
-  border-bottom: 3px solid var(--h2-blue);
-  border-radius: 0 0 70% 0;
-  transform: skewY(-9deg);
+  inset: 36px 12px 8px;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.barCol {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.bar {
+  width: 62%;
+  max-width: 22px;
+  height: var(--bar-h);
+  border-radius: 6px 6px 3px 3px;
+  background: linear-gradient(180deg, #5b9bff 0%, var(--h2-blue) 100%);
+  box-shadow: 0 8px 16px -10px rgba(11, 91, 211, 0.55);
+  transform-origin: bottom;
+  animation-name: barWave1;
+  animation-duration: 3.8s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  /* Negative delay = starts already partway through its cycle, so all 12
+     bars aren't in lockstep on load. */
+  animation-delay: calc(var(--bar-i, 0) * -0.35s);
+}
+
+.barActive {
+  background: linear-gradient(180deg, var(--h2-gold-2) 0%, var(--h2-gold) 100%);
+  box-shadow: 0 10px 20px -10px rgba(245, 181, 27, 0.6);
+}
+
+/* Only 4 keyframe shapes/durations, cycled across 12 bars via nth-child -
+   combined with the per-bar negative delay above, this reads as fully
+   independent motion without needing 12 bespoke keyframe rules. */
+.barCol:nth-child(4n + 2) .bar {
+  animation-name: barWave2;
+  animation-duration: 4.4s;
+}
+
+.barCol:nth-child(4n + 3) .bar {
+  animation-name: barWave3;
+  animation-duration: 4.1s;
+}
+
+.barCol:nth-child(4n + 4) .bar {
+  animation-name: barWave4;
+  animation-duration: 4.7s;
+}
+
+.barMonth {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--h2-muted);
+  letter-spacing: 0.02em;
+}
+
+.barTooltip {
+  position: absolute;
+  bottom: calc(var(--bar-h) + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 5px 9px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 20px -8px rgba(7, 26, 51, 0.28);
+  white-space: nowrap;
+  animation: tooltipFloat 3.8s ease-in-out infinite;
+}
+
+.barTooltip b {
+  font-size: 11px;
+  color: var(--h2-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.barTooltip span {
+  font-size: 8px;
+  color: var(--h2-muted);
+  font-weight: 600;
+}
+
+@keyframes barWave1 {
+  0%,
+  100% {
+    transform: scaleY(0.85);
+  }
+  50% {
+    transform: scaleY(1.08);
+  }
+}
+
+@keyframes barWave2 {
+  0%,
+  100% {
+    transform: scaleY(1.05);
+  }
+  50% {
+    transform: scaleY(0.82);
+  }
+}
+
+@keyframes barWave3 {
+  0%,
+  100% {
+    transform: scaleY(0.9);
+  }
+  50% {
+    transform: scaleY(1.1);
+  }
+}
+
+@keyframes barWave4 {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.88);
+  }
+}
+
+@keyframes tooltipFloat {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.92;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-3px);
+    opacity: 1;
+  }
 }
 
 .stats {
@@ -289,6 +433,11 @@
 @media (prefers-reduced-motion: reduce) {
   .copy,
   .heroCard {
+    animation: none;
+  }
+
+  .bar,
+  .barTooltip {
     animation: none;
   }
 }

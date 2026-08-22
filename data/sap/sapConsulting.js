@@ -52,7 +52,6 @@ export const sapConsulting = {
     description:
       "Only if you plan, can you build a real SAP-intelligent enterprise; otherwise, it will just be another system on the edge — requiring additional expertise and cost. Ayushman Solution's SAP consulting services ensure you carve a digital core and truly embed SAP in the heart of your business and the mindset of your people. We invest in tools and industry solutions to accelerate the business value of SAP, and all this starts with consulting. It's like the Google Map to reach the final destination. So, whether you are a small-medium business or a Fortune 500, our long-standing relationship with SAP that extends more than 30 years helps us to offer consulting that assures high-value, sustainable success.",
     subtitle: "Our Core SAP Consultancy Services",
-    background: "linear-gradient(180deg, var(--color-primary-lightest) 0%, var(--sap-white) 100%)",
   },
 
   coreServices: [

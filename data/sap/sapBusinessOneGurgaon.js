@@ -41,7 +41,6 @@ export const sapBusinessOneGurgaon = {
     description: [
       "Once called the Cyber City of India, Gurugram today is an innovation nerve centre with Fortune 500 companies, fast-scaling start-ups, and a deep manufacturing footprint. As the city pivots from a start-up industrialization hub to a dynamic, leading commercial capital, the demand for efficient, high-quality, and scalable business processes is higher than ever. Ayushman Solutions, as a leading SAP implementation company in Gurgaon, takes businesses on a digital transformation with SAP Business One, adopted globally as the trusted ERP solution — helping manage your finance, sales, inventory, and operations seamlessly. We believe in growing sustainably together.",
     ],
-    background: "#fdf6e9",
   },
 
   // Reuses FeatureCard/BenefitsSection exactly as the SAP Implementation

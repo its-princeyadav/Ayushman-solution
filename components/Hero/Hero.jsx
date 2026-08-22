@@ -2,6 +2,26 @@ import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
 import styles from "./Hero.module.css";
 
+// Static mock data for the "Business Command Center" bar chart - purely
+// decorative (no real analytics wired up), so this stays plain data on a
+// Server Component rather than client state. Heights are hand-picked to
+// read as a plausible monthly trend; May is the one highlighted/brand-
+// yellow bar with a value tooltip, matching the reference design.
+const CHART_DATA = [
+  { month: "Jan", height: 55 },
+  { month: "Feb", height: 68 },
+  { month: "Mar", height: 35 },
+  { month: "Apr", height: 50 },
+  { month: "May", height: 87, highlight: true, value: "₹78.4K" },
+  { month: "Jun", height: 58 },
+  { month: "Jul", height: 30 },
+  { month: "Aug", height: 52 },
+  { month: "Sep", height: 72 },
+  { month: "Oct", height: 46 },
+  { month: "Nov", height: 92 },
+  { month: "Dec", height: 62 },
+];
+
 /**
  * Homepage hero - rebuilt to match a client-provided reference design (a
  * full static HTML/CSS mockup, not just a screenshot). No longer the
@@ -64,13 +84,32 @@ export default function Hero() {
               <span className={styles.dashPill}>LIVE INSIGHTS</span>
             </div>
 
-            {/* CSS-only "chart" - a gradient box with a faint horizontal
-                gridline pattern (.chart::before) plus one skewed,
-                bottom-bordered div standing in for a rising trend line. No
-                image/canvas/SVG, matching exactly how the reference itself
-                builds this. */}
+            {/* CSS-only animated bar chart - each bar's live-data "pulse" is
+                a pure CSS transform: scaleY() animation (GPU-friendly, no
+                layout thrashing), desynced per bar via the --bar-i custom
+                property feeding a negative animation-delay, so the 12 bars
+                drift in and out of phase instead of breathing in unison.
+                No JS/canvas/SVG - still a plain Server Component. */}
             <div className={styles.chart}>
-              <div className={styles.chartLine} aria-hidden="true" />
+              <div className={styles.gridLines} aria-hidden="true" />
+              <div className={styles.bars} aria-hidden="true">
+                {CHART_DATA.map((item, index) => (
+                  <div
+                    className={styles.barCol}
+                    key={item.month}
+                    style={{ "--bar-h": `${item.height}%`, "--bar-i": index }}
+                  >
+                    {item.highlight && (
+                      <span className={styles.barTooltip}>
+                        <b>{item.value}</b>
+                        <span>{item.month}</span>
+                      </span>
+                    )}
+                    <div className={`${styles.bar} ${item.highlight ? styles.barActive : ""}`} />
+                    <span className={styles.barMonth}>{item.month}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className={styles.stats}>

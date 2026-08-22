@@ -125,7 +125,6 @@ export const powerBi = {
   growthCta: {
     title: "Ready to Put Your Data to Work with Power BI?",
     description: "From first dashboard to enterprise-wide rollout, our Power BI consultants help you get there faster.",
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 60%)",
     buttons: [
       { label: "Let's Talk", href: "#contact", variant: "primary" },
       { label: "See How It Works", href: "#contact", variant: "outline" },

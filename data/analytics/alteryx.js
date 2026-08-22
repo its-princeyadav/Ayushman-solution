@@ -136,7 +136,6 @@ export const alteryx = {
     title: "Drive Impactful Outcomes With Business Intelligence and Alteryx Data Analytics Expertise",
     description:
       "Alteryx software has the capacity to handle a large volume and variety of data. Ayushman Solutions is a leading Alteryx implementation and consulting partner with a track record of delivering the most advanced self-service analytics solutions. Our experienced, skilled data scientists quickly develop well-suited solutions to help you uncover the power of your business data. As Alteryx partners, we help you customize the data analytics platform and leverage self-service analytics to its fullest!",
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 100%)",
     items: [
       { icon: "certificate", value: "CMMI", label: "Level 5 Company" },
       { icon: "handshake", value: "Authorized", label: "Alteryx Partner" },

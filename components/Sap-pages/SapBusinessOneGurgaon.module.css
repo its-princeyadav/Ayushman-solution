@@ -20,8 +20,9 @@
   background: #eaf6ff;
 }
 
+/* Intentionally no background - lets the shared global aurora background
+   (SapAuroraBackground) show through instead of a flat yellow tint. */
 .tintCream {
-  background: #fdf6e9;
 }
 
 .centeredCopy {

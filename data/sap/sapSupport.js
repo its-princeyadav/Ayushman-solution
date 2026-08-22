@@ -36,7 +36,6 @@ export const sapSupport = {
       { label: "Explore ERP", href: "#", variant: "primary" },
       { label: "Let's Talk", href: "#", variant: "outline" },
     ],
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 45%)",
   },
 
   timeline: {

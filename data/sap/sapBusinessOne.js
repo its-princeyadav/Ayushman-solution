@@ -17,7 +17,6 @@ export const sapBusinessOne = {
     title: "What is SAP Business One?",
     description:
       "SAP Business One is an integrated Enterprise Resource Planning solution offering efficient processes and numerous advantages connected to operations and activity optimization. Built specifically for small to midsize businesses and fast-growing companies, SAP Business One helps SMEs connect and automate core business functions—finance, sales, inventory, production, and everything else you need to run your business efficiently and effortlessly.\n\nThis solution, now run by over 70,000 companies worldwide and available in over 170 countries, helps businesses run better every day.",
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-bg-tint-soft) 60%, var(--sap-white) 100%)",
   },
 
   // Full-bleed HeroBanner-style sections (image background + overlay +
@@ -173,7 +172,6 @@ export const sapBusinessOne = {
 
   deployment: {
     title: "SAP Business One Deployment",
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 60%)",
     checklist: [
       "On-Premise to have full control over hardware, data, and customizations",
       "Cloud for anytime, anywhere access and lower infrastructure costs",

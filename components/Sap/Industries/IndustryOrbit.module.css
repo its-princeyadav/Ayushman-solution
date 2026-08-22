@@ -1,6 +1,5 @@
 .section {
   padding-block: var(--sap-section-gap);
-  background: linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 30%);
 }
 
 .stage {

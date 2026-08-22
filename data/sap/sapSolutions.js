@@ -94,7 +94,6 @@ export const sapSolutions = {
     // homepage's SectionLabel) - freely editable/renameable.
     eyebrow: "Cloud Editions",
     heading: "Cloud SAP Software Solutions\nTailored For Your Business",
-    background: "var(--color-secondary-lightest)",
     public: {
       imagePosition: "left",
       title: "SAP S/4HANA Cloud",
@@ -164,7 +163,6 @@ export const sapSolutions = {
   // TODO: no butterfly/metamorphosis photography exists in the project yet —
   // swap for the real Digital Transformation image.
   digitalTransformation: {
-    background: "linear-gradient(120deg, var(--sap-bg-tint-soft) 0%, var(--sap-white) 60%)",
     intro: {
       imagePosition: "right",
       imageStyle: "bleed",

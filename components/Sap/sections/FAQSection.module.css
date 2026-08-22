@@ -1,6 +1,5 @@
 .section {
   padding-block: var(--sap-section-gap);
-  background: var(--color-secondary-lightest);
 }
 
 .heading {

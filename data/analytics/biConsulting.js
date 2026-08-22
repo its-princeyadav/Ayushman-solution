@@ -58,7 +58,6 @@ export const biConsulting = {
       { label: "Explore Analytic Services", href: "#contact", variant: "primary" },
       { label: "Get Analytic Solution", href: "#contact", variant: "outline" },
     ],
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 60%)",
   },
 
   roi: {
@@ -74,7 +73,6 @@ export const biConsulting = {
     title: "Our Business Intelligence Consulting Approach",
     description:
       "Ayushman Solutions introduces a meticulously crafted step-up approach to educate and synchronize stakeholders throughout each phase of business intelligence consulting. This holistic end-to-end process empowers your team to accomplish their business intelligence objectives by:",
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 60%)",
     bullets: [
       "Guaranteeing alignment among stakeholders regarding your existing state of BI maturity and your envisioned state.",
       "Creating an enterprise- or department-level BI Roadmap to guarantee business-centric planning, requirements, design, and oversight.",

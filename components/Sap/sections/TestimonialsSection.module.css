@@ -1,15 +1,14 @@
 .section {
   position: relative;
   padding-block: var(--sap-section-gap);
-  /* Light gray base (matches the site's other neutral-gray surfaces) with a
-     faint brand-tinted glow in the top-left corner for a touch of premium
-     depth, instead of a completely flat fill. */
+  /* No flat fill - the shared global aurora background (SapAuroraBackground,
+     mounted by app/sap/layout.jsx) shows through. Just a faint brand-tinted
+     glow in the top-left corner for a touch of premium depth. */
   background: radial-gradient(
-      65% 90% at 8% 0%,
-      color-mix(in srgb, var(--color-primary) 8%, transparent) 0%,
-      transparent 55%
-    ),
-    var(--color-secondary-lightest);
+    65% 90% at 8% 0%,
+    color-mix(in srgb, var(--color-primary) 8%, transparent) 0%,
+    transparent 55%
+  );
   overflow: hidden;
 }
 

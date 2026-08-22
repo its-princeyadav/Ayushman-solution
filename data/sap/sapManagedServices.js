@@ -50,7 +50,6 @@ export const sapManagedServices = {
     title: "If SAP is your auto gear, Ayushman Solution is your gear garage!",
     description:
       "Navigating the complexities of SAP operations is comparable to driving a sophisticated vehicle. In this analogy, Ayushman Solution serves as the trusted partner for your SAP journey. Our SAP managed services are tailored to align seamlessly with your business, ensuring your SAP system operates efficiently and effectively. Just as an automotive service centre meticulously cares for every component, our dedicated professionals expertly manage the intricacies of SAP ERP managed services, providing a reliable resource for maintenance, updates, and strategic enhancements. With Ayushman Solution as your SAP managed services provider, your SAP experience transcends mere functionality; it is a well-supported journey that keeps your business running smoothly.",
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 60%)",
   },
 
   // TODO: no dedicated photography exists for these nine tiles yet — reusing

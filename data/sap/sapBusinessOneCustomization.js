@@ -20,7 +20,6 @@ export const sapBusinessOneCustomization = {
     verticalAlign: "start",
     image: "/assets/image2/SAP-Services-3.png",
     imageAlt: "Climber ascending a rock face",
-    background: "linear-gradient(120deg, var(--color-primary-lightest) 0%, var(--sap-white) 60%)",
     title: "Get SAP Customization for YOUR enterprise: Avail 12+ Tailored Add-Ons",
     description: [
       "Why should your business adapt to the SAP software? Ideally, the system is designed to meet the unique needs of YOUR business. As your strategic SAP partner, Ayushman Solution crafts custom ERP solutions that don't just function but fit your needs precisely. We offer SAP ERP customization solutions in the form of tailored add-ons. These tailored products are ready for acquisition, designed to align with the precise demands of your business operations.",

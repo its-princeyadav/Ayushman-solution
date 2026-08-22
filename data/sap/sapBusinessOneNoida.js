@@ -41,7 +41,6 @@ export const sapBusinessOneNoida = {
     description: [
       "Noida's commercial ecosystem is flourishing, characterized by a vibrant startup culture, solid infrastructure, and increasing investment. As your company scales, so do the layers of operational challenges. That's where Ayushman Solutions steps in. As a trusted SAP Business One partner in Noida, we provide customized ERP solutions to suit Noida's energetic business environment. Need real-time insight? Operational efficiency? Less manual overhead? We'll get you there.",
     ],
-    background: "#fdf6e9",
   },
 
   // Reuses FeatureCard/BenefitsSection exactly as the SAP Implementation
