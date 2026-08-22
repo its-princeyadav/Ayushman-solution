@@ -388,6 +388,7 @@ export const sapSolutions = {
         title:
           "Ayushman Solution Presents Cutting-edge SAP S/4HANA Cloud Solutions Portfolio at SAP NOW India 2024",
         source: "BUSINESS INSIDER",
+        image: "/assets/image2/business-insider-logo.jpg",
         background: "var(--color-neutral-darkest)",
         href: "#",
       },
@@ -396,6 +397,7 @@ export const sapSolutions = {
         title:
           "Ayushman Solution Embarks on SAP NOW 2024's Mission: Showcases Indian Businesses the SAP S/4HANA Cloud Pathway to Global...",
         source: "Deccan Herald",
+        image: "/assets/image2/deccan-herald-logo.jpg",
         background: "var(--color-neutral-darker)",
         href: "#",
       },
@@ -404,6 +406,7 @@ export const sapSolutions = {
         title:
           "Ayushman Solution Presents Broad SAP S/4HANA Cloud Solutions Portfolio at SAP NOW India 2024",
         source: "newsX",
+        image: "/assets/image2/newsx-logo.jpg",
         background: "var(--color-neutral-dark)",
         href: "#",
       },

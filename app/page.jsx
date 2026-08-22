@@ -152,8 +152,9 @@ export default function Home() {
 
           <div className={styles.expertiseIntro}>
             <h2 className={styles.expertiseTitle}>
-              Transform Your Business with Intelligent{" "}
-              <span className={styles.expertiseTitleAccent}>SAP Solutions</span>
+              Transform Your Business with
+              <br />
+              Intelligent <span className={styles.expertiseTitleAccent}>SAP Solutions</span>
             </h2>
             <p className={styles.expertiseDesc}>
               We help organizations accelerate digital transformation through{" "}

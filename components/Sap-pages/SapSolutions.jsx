@@ -40,12 +40,12 @@ import { sapSolutions } from "../../data/sap/sapSolutions";
 // ...), so it's composed explicitly below in the same top-to-bottom order
 // as the reference.
 const BOTTOM_HALF = [
-  [TestimonialsSection, sapSolutions.testimonials],
-  [CTASection, sapSolutions.cta],
-  [NewsSection, sapSolutions.news],
-  [BlogSection, sapSolutions.blogs],
-  [StoriesSection, sapSolutions.stories],
-  [FAQSection, sapSolutions.faq],
+  ["testimonials", TestimonialsSection, sapSolutions.testimonials],
+  ["cta", CTASection, sapSolutions.cta],
+  ["news", NewsSection, sapSolutions.news],
+  ["blog", BlogSection, sapSolutions.blogs],
+  ["stories", StoriesSection, sapSolutions.stories],
+  ["faq", FAQSection, sapSolutions.faq],
 ];
 
 // Maps the plain string key each data/sap/sapSolutions.js benefit carries
@@ -290,8 +290,8 @@ export default function SapSolutions() {
         )}
       </section>
 
-      {BOTTOM_HALF.map(([Section, props]) => (
-        <Section key={Section.name} {...props} />
+      {BOTTOM_HALF.map(([sectionKey, Section, props]) => (
+        <Section key={sectionKey} {...props} />
       ))}
     </>
   );

@@ -12,6 +12,8 @@ export default function BlogSection({ title, action, items }) {
           items={items}
           cardType="blog"
           slidesPerView={{ base: 1, sm: 2, lg: 3 }}
+          gap={28}
+          dotVariant="pill"
           ariaLabel="Blog posts"
         />
       </Container>

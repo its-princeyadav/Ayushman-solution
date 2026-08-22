@@ -73,8 +73,12 @@
      matches Hero's .title next to it. */
   font-family: var(--font-manrope), var(--font-nav);
   font-weight: 800;
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  line-height: 1.12;
+  /* Trimmed from 3vw/2.5rem - at the ~472px intro column this section
+     actually renders at on desktop, the old size wrapped this seven-word
+     heading across 4 lines. Paired with the explicit <br/> in page.jsx,
+     this fits it on exactly the two intended lines instead. */
+  font-size: clamp(1.75rem, 2.3vw, 2rem);
+  line-height: 1.15;
   letter-spacing: -0.015em;
   color: var(--h2-ink);
 }
@@ -142,10 +146,12 @@
 .expertiseCta {
   grid-area: cta;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   align-self: start;
-  gap: 16px;
+  /* Equal-width flex items (see .ctaPrimary/.ctaSecondary's flex:1 1 0)
+     always sum to exactly this row's width, so the two buttons stay on
+     one line and the same size regardless of their label length. */
+  gap: 12px;
   animation: as-fade-up 700ms ease 100ms both;
   animation-timeline: view();
   animation-range: entry 0% entry 55%;
@@ -160,15 +166,24 @@
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  /* Equal-width, single-line pairing with .ctaSecondary - see
+     .expertiseCta's own note. font-size/padding trimmed from
+     0.95rem/14px 21px so "Book a Free SAP Consultation" still fits one
+     line at the shared width this produces. */
+  flex: 1 1 0;
+  min-width: 0;
+  height: 46px;
   gap: 8px;
-  padding: 14px 21px;
+  padding: 14px 16px;
   border-radius: 14px;
   text-decoration: none;
   background: var(--h2-navy);
   color: #fff;
   font-family: var(--font-dmsans), var(--font-nav);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 700;
+  white-space: nowrap;
   transition: transform 300ms ease, box-shadow 300ms ease;
 }
 
@@ -201,8 +216,14 @@
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  /* Equal-width, single-line pairing with .ctaPrimary - see
+     .expertiseCta's own note. */
+  flex: 1 1 0;
+  min-width: 0;
+  height: 46px;
   gap: 10px;
-  padding: 14px 21px;
+  padding: 14px 16px;
   border: 1px solid var(--h2-line);
   border-radius: 14px;
   background: var(--h2-glass);
@@ -210,7 +231,7 @@
   -webkit-backdrop-filter: blur(12px);
   color: var(--h2-ink);
   font-family: var(--font-dmsans), var(--font-nav);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;

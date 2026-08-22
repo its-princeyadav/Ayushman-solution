@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HiOutlineArrowRight } from "react-icons/hi2";
 import styles from "./BlogCard.module.css";
 
 export default function BlogCard({ date, title, description, image, href, source, background, badge }) {
@@ -11,19 +12,24 @@ export default function BlogCard({ date, title, description, image, href, source
         ) : (
           <span className={styles.sourceMark}>{source}</span>
         )}
-        {badge && image && (
-          <Image src={badge} alt="" width={110} height={26} className={styles.badge} />
-        )}
+
+        {/* Gradient scrim + date/title overlay, so the image itself carries
+            the card's identity instead of sitting above a separate text
+            block. */}
+        <div className={styles.scrim} aria-hidden="true" />
+        {badge && image && <Image src={badge} alt="" width={110} height={26} className={styles.badge} />}
+
+        <div className={styles.overlay}>
+          <span className={styles.date}>{date}</span>
+          <h3 className={styles.title}>{title}</h3>
+        </div>
       </Link>
 
       <div className={styles.body}>
-        <span className={styles.date}>{date}</span>
-        <h3 className={styles.title}>
-          <Link href={href}>{title}</Link>
-        </h3>
         <p className={styles.description}>{description}</p>
         <Link href={href} className={styles.readMore}>
           Read More
+          <HiOutlineArrowRight aria-hidden="true" className={styles.readMoreIcon} />
         </Link>
       </div>
     </article>
