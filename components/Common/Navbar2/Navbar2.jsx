@@ -177,7 +177,7 @@ export default function Navbar2() {
               <FaRegCalendarAlt aria-hidden="true" />
               <span className="as-nav2-btn-label">Book Slot</span>
             </button>
-            <Link href="#" className="as-nav2-contact-btn">
+            <Link href="/contact-us" className="as-nav2-contact-btn">
               <FaPhone aria-hidden="true" />
               <span className="as-nav2-btn-label">Contact Us</span>
             </Link>

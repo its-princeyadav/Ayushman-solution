@@ -165,7 +165,7 @@ export default function MobileMenu2({ isOpen, onClose, onBookSlot }) {
             <FaRegCalendarAlt aria-hidden="true" />
             Book Slot
           </button>
-          <Link href="#" className="as-mobilemenu-contact-btn" onClick={onClose}>
+          <Link href="/contact-us" className="as-mobilemenu-contact-btn" onClick={onClose}>
             <FaPhone aria-hidden="true" />
             Contact Us
           </Link>
