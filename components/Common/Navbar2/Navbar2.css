@@ -2,24 +2,30 @@
 /* Single sticky strip - search / Book Slot / Contact Us live in
    .as-nav2-actions alongside Login and the hamburger (previously a
    separate non-sticky top bar, merged into one row by request).
-   Restyled to match the client's reference (glass floating pill) - see
-   the redesign plan. .as-nav2-navbar stays position:sticky (not the
-   reference's literal position:fixed): its own padding-top:16px is part
-   of the sticky box, so that gap persists above the pill even once
-   stuck/scrolled, giving the same "always floating, never flush" look
-   the reference's fixed positioning achieves, without needing a manual
-   spacer element anywhere else in the page (nothing currently
-   compensates for this navbar's height - see app/layout.jsx). The
-   visible pill itself is .as-nav2-inner below, not this element - this
-   one stays transparent and is purely a sticky positioning shell now. */
+   Was a centered, inset floating pill (matching the client reference) -
+   now a flush, edge-to-edge bar by request instead: no padding-top gap
+   above it and .as-nav2-inner spans the full width with square corners,
+   so the whole strip (and the mega menu under it, already full-bleed -
+   see .as-nav2-mega-menu-wrap below) reads as one continuous bar rather
+   than a floating card. */
 
 .as-nav2-navbar {
   position: sticky;
   top: 0;
   z-index: 100;
-  padding-top: 16px;
   background: transparent;
   animation: as-nav2-enter 400ms ease-out;
+  /* Promotes this sticky element to its own GPU compositing layer.
+     .as-nav2-inner below leans harder on backdrop-filter now (the liquid-
+     glass look) - a backdrop-filter on a descendant of position:sticky has
+     a known Chromium/WebKit bug where the sampled backdrop can freeze on a
+     stale paint instead of updating live once the element has stuck (see
+     .as-nav2-mega-menu-wrap's own note on this same bug, where the fix was
+     to drop backdrop-filter entirely - not an option here, since the blur
+     *is* the requested effect). will-change forces a real repaint on
+     scroll instead, which is the standard mitigation for this exact bug
+     class. */
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -49,20 +55,30 @@
    straight into the links column with no gap. minmax(0, 1fr) lets both
    side columns actually shrink to fit the available space instead of
    forcing an overflow. */
+/* Liquid-glass pill: lower, literal alpha (not var(--h2-glass), the
+   shared .64 token every other glass surface on the site uses - kept
+   local so this doesn't also make Hero's card/the section cards more
+   transparent) + a saturate() boost so whatever's showing through reads
+   with more color depth instead of just washed-out gray, plus an inset
+   top highlight to fake a refracted light edge along the glass. */
 .as-nav2-inner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 24px;
-  width: min(1180px, 92%);
-  margin: 0 auto;
-  padding: 14px 22px;
-  border-radius: 22px;
-  background: var(--h2-glass);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12);
+  /* Full width, not the old min(1180px,92%) centered pill - and a
+     border-bottom instead of a border on every edge, since a full-bleed
+     bar's left/right edges sit flush against the viewport itself (an
+     all-around border would draw a visible line right at the screen
+     edge). box-shadow is lighter too - a subtle edge shadow reads right
+     for a flush bar; the old value was tuned for a floating inset card. */
+  width: 100%;
+  padding: 16px 40px;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 10px 40px rgba(7, 26, 51, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
 /* ---------- Brand ---------- */
@@ -152,40 +168,49 @@
 
 /* ---------- Mega menu positioning + animation ---------- */
 
-/* Full-bleed flush band (edge to edge, flush against the navbar's own
-   bottom border, no radius) instead of a centered floating card - the
-   background/border/shadow live here on the full-width wrapper;
+/* Full-bleed flush band (edge to edge, flush against .as-nav2-inner's own
+   bottom edge now that it's a full-width bar too, not a centered pill) -
+   the background/border/shadow live here on the full-width wrapper;
    MegaMenu2.css's .as-megamenu-panel is just a centered max-width:1320px
-   content container inside it, same layering as .as-nav2-navbar (full
-   width) + .as-nav2-inner (centered) above. Positioned absolute against
-   .as-nav2-navbar (the nearest positioned ancestor, via its own
-   position:sticky) rather than the individual nav link, which is what
-   makes left:0/right:0 span the full navbar width and not just the
-   triggering link's own column. */
+   content container inside it. Positioned absolute against .as-nav2-navbar
+   (the nearest positioned ancestor, via its own position:sticky) rather
+   than the individual nav link, which is what makes left:0/right:0 span
+   the full navbar width and not just the triggering link's own column. */
 .as-nav2-mega-menu-wrap {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  margin-top: 10px;
-  /* Near-opaque, not var(--h2-glass) (rgba(255,255,255,.64)) - that value
-     works fine for the navbar pill and Hero's cards, which sit over the
-     soft aurora background, but this panel is dense with real body text
-     over whatever page content happens to be scrolled underneath it, and
-     .64 alpha wasn't enough to keep that from bleeding through and
-     becoming illegible.
-     No backdrop-filter here (unlike .as-nav2-inner above) - a
-     backdrop-filter on a descendant of a `position: sticky` element has a
-     known Chromium/WebKit bug where the sampled backdrop can freeze on a
-     stale paint from an earlier scroll position instead of updating live,
-     which is exactly what "ghosted, wrong-section text" behind this panel
-     turned out to be. At 97% opacity the blur wasn't doing much real work
-     anyway - dropping it removes the bug instead of trying to work around
-     it. */
-  background: rgba(255, 255, 255, 0.97);
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12);
+  /* Same liquid-glass recipe as .as-nav2-inner above (blur + saturate +
+     inset top highlight), but at 92% opacity, not that pill's 28% - tried
+     55% first and confirmed live that it wasn't nearly enough: this panel
+     sits directly over Hero's large bold heading at the top of the page,
+     and even with blur(24px) that heading stayed clearly legible through
+     the menu's own column text, making both unreadable together. This
+     panel is always dense with real body text over whatever's scrolled
+     underneath it, so unlike the navbar pill (a handful of short labels
+     with nothing else competing for the same space) it can't afford to be
+     more than lightly tinted - the blur/saturate still give it a touch of
+     glass character at the edges, but opacity is doing most of the work
+     here on purpose.
+     backdrop-filter is back too (previously dropped entirely) - it was
+     removed the first time because of a known Chromium/WebKit bug where a
+     backdrop-filter on a descendant of a `position: sticky` element can
+     freeze on a stale paint instead of updating live on scroll. The fix
+     applied since then is will-change: transform on .as-nav2-navbar (the
+     shared sticky ancestor, see its own comment) forcing a real repaint -
+     that should cover this panel too, since it's a sibling-level
+     descendant of the same sticky element .as-nav2-inner is. */
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  /* Square, not the old rounded 22px + all-around border - now that
+     .as-nav2-inner above is a flush full-width bar (not an inset pill),
+     a rounded floating-card look here would visually disconnect the
+     dropdown from the bar it's opening out of. border-top only, as the
+     seam where they meet. */
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 60px rgba(7, 26, 51, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.55);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
